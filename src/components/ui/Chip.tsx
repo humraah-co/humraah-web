@@ -1,4 +1,5 @@
-import { CircleAlert, Clock, ExternalLink, Landmark, ShieldCheck } from "lucide-react";
+import Link from "next/link";
+import { Check, CircleAlert, Clock, ExternalLink, Landmark, ShieldCheck, X } from "lucide-react";
 
 /**
  * Chips and badges from the Figma design system (Chip/*, Badge/*).
@@ -97,5 +98,51 @@ export function DeadlineChip({ children, urgent = false }: { children: React.Rea
       <Clock className="size-4" strokeWidth={1.75} aria-hidden="true" />
       {children}
     </span>
+  );
+}
+
+/**
+ * Chip/Option and Chip/Option selected: a filter choice. A link, so the choice
+ * lives in the page address and works without JavaScript.
+ */
+export function OptionChip({
+  href,
+  selected = false,
+  children,
+}: {
+  href: string;
+  selected?: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <Link
+      href={href}
+      scroll={false}
+      aria-current={selected ? "true" : undefined}
+      className={`inline-flex items-center gap-1.5 rounded-pill py-[9px] text-label-m whitespace-nowrap text-charcoal transition-colors ${
+        selected
+          ? "border-[1.5px] border-deep-rose bg-tint-coral pr-4 pl-3"
+          : "border border-border-strong bg-card px-4 hover:bg-blush"
+      }`}
+    >
+      {selected && <Check className="size-3.5" strokeWidth={2} aria-hidden="true" />}
+      {children}
+      {selected && <span className="sr-only">(selected)</span>}
+    </Link>
+  );
+}
+
+/** Chip/Filter active: an applied filter; following the link removes it. */
+export function ActiveFilterChip({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <Link
+      href={href}
+      scroll={false}
+      className="inline-flex items-center gap-1.5 rounded-pill border-[1.5px] border-coral bg-tint-coral py-[7px] pr-2.5 pl-3.5 text-label-s whitespace-nowrap text-charcoal hover:bg-blush"
+    >
+      {children}
+      <X className="size-3.5" strokeWidth={2} aria-hidden="true" />
+      <span className="sr-only">Remove this filter</span>
+    </Link>
   );
 }
