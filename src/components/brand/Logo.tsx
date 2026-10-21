@@ -38,8 +38,20 @@ export function LogoStacked() {
   return (
     <span className="flex flex-col items-center gap-[16.8px]" role="img" aria-label="Humraah, ہمراہ">
       <LogoMark className="h-[119.988px] w-[129.6px]" />
-      <img src="/brand/logo-wordmark.svg" alt="" width={240} height={26.64} className="block h-[26.64px] w-[240px]" />
-      <img src="/brand/logo-urdu.svg" alt="" width={69.12} height={37.584} className="block h-[37.584px] w-[69.12px]" />
+      <img
+        src="/brand/logo-wordmark.svg"
+        alt=""
+        width={240}
+        height={26.64}
+        className="block h-[26.64px] w-[240px]"
+      />
+      <img
+        src="/brand/logo-urdu.svg"
+        alt=""
+        width={69.12}
+        height={37.584}
+        className="block h-[37.584px] w-[69.12px]"
+      />
     </span>
   );
 }

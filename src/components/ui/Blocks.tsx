@@ -32,7 +32,13 @@ export function SectionHeader({
 }
 
 /** Callout/Remember: sage panel with a handwritten heading. */
-export function RememberCallout({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+export function RememberCallout({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
   return (
     <aside className={`rounded-[18px] bg-tint-sage p-4 ${className}`}>
       <p className="flex items-center gap-2 text-script">
@@ -79,7 +85,10 @@ export function NextSteps({
   className?: string;
 }) {
   return (
-    <section aria-labelledby="next-steps" className={`flex flex-col gap-3.5 rounded-3xl bg-blush p-5 ${className}`}>
+    <section
+      aria-labelledby="next-steps"
+      className={`flex flex-col gap-3.5 rounded-3xl bg-blush p-5 ${className}`}
+    >
       <h2 id="next-steps" className="flex items-center gap-2.5 text-h3">
         <span className="flex size-9 items-center justify-center rounded-pill bg-card">
           <Sprout className="size-5" strokeWidth={1.75} aria-hidden="true" />
@@ -170,7 +179,9 @@ export function Step({
   return (
     <li className="flex gap-3.5">
       <div className="flex w-9 shrink-0 flex-col items-center gap-1.5">
-        <span className="flex size-9 items-center justify-center rounded-pill bg-coral text-label-m">{number}</span>
+        <span className="flex size-9 items-center justify-center rounded-pill bg-coral text-label-m">
+          {number}
+        </span>
         {!last && (
           <span className="flex flex-1 flex-col items-center">
             <DottedPath direction="vertical" />

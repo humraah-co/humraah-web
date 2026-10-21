@@ -108,12 +108,19 @@ export default async function FieldPage({ params }: Props) {
           </RememberCallout>
           <NextSteps
             className="order-4 mt-7 lg:order-1 lg:mt-0"
-            items={["Pick two universities to compare", "Check admission requirements", "Look for a scholarship"]}
+            items={[
+              "Pick two universities to compare",
+              "Check admission requirements",
+              "Look for a scholarship",
+            ]}
             action={{ href: universitiesHref, label: "Find universities" }}
           />
         </div>
 
-        <section aria-labelledby="universities-heading" className="order-2 mt-7 flex flex-col gap-3 lg:col-span-2 lg:mt-0 lg:gap-4">
+        <section
+          aria-labelledby="universities-heading"
+          className="order-2 mt-7 flex flex-col gap-3 lg:col-span-2 lg:mt-0 lg:gap-4"
+        >
           <SectionHeader
             title={<span id="universities-heading">Universities offering this</span>}
             href={universitiesHref}
@@ -131,7 +138,10 @@ export default async function FieldPage({ params }: Props) {
           ) : offering.length === 0 ? (
             <p className="rounded-2xl bg-blush p-5 text-body-m">
               We haven&apos;t listed universities for this field yet. Universities to be confirmed.{" "}
-              <Link href="/universities" className="text-deep-rose underline underline-offset-2 hover:text-charcoal">
+              <Link
+                href="/universities"
+                className="text-deep-rose underline underline-offset-2 hover:text-charcoal"
+              >
                 Browse all universities
               </Link>
             </p>
@@ -146,7 +156,10 @@ export default async function FieldPage({ params }: Props) {
           )}
         </section>
 
-        <section aria-labelledby="scholarships-heading" className="order-3 mt-7 flex flex-col gap-3 lg:col-span-2 lg:mt-12 lg:gap-4">
+        <section
+          aria-labelledby="scholarships-heading"
+          className="order-3 mt-7 flex flex-col gap-3 lg:col-span-2 lg:mt-12 lg:gap-4"
+        >
           <SectionHeader
             title={<span id="scholarships-heading">Scholarships to look at</span>}
             href="/scholarships"
@@ -164,7 +177,10 @@ export default async function FieldPage({ params }: Props) {
           ) : relevant.length === 0 ? (
             <p className="rounded-2xl bg-blush p-5 text-body-m">
               No scholarships are listed for this field yet. Scholarships to be confirmed.{" "}
-              <Link href="/scholarships" className="text-deep-rose underline underline-offset-2 hover:text-charcoal">
+              <Link
+                href="/scholarships"
+                className="text-deep-rose underline underline-offset-2 hover:text-charcoal"
+              >
                 Browse all scholarships
               </Link>
             </p>

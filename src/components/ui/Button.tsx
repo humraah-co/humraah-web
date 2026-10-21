@@ -9,7 +9,8 @@ const base =
 export const buttonStyles = {
   primary: `${base} bg-coral hover:bg-[#e2807f]`,
   secondary: `${base} border-[1.5px] border-charcoal hover:bg-card`,
-  small: "inline-flex items-center justify-center rounded-pill bg-coral px-4 py-2.5 text-label-m whitespace-nowrap text-charcoal transition-colors hover:bg-[#e2807f]",
+  small:
+    "inline-flex items-center justify-center rounded-pill bg-coral px-4 py-2.5 text-label-m whitespace-nowrap text-charcoal transition-colors hover:bg-[#e2807f]",
   text: "inline-flex items-center py-2.5 text-label-m text-deep-rose underline underline-offset-2 hover:text-charcoal",
 };
 

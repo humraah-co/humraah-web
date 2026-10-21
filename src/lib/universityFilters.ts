@@ -68,7 +68,9 @@ export function toggled<T>(list: T[], value: T) {
 
 /** How many filters are on (the search words don't count). */
 export function activeFilterCount(f: UniversityFilters) {
-  return f.cities.length + f.types.length + (f.field ? 1 : 0) + Number(f.women) + Number(f.hostel) + Number(f.aid);
+  return (
+    f.cities.length + f.types.length + (f.field ? 1 : 0) + Number(f.women) + Number(f.hostel) + Number(f.aid)
+  );
 }
 
 export function applyFilters(cards: UniversityCard[], f: UniversityFilters, fields: FieldSummary[]) {
@@ -111,5 +113,7 @@ export function applyFilters(cards: UniversityCard[], f: UniversityFilters, fiel
 export function cityOptions(cards: UniversityCard[]) {
   const counts = new Map<string, number>();
   for (const u of cards) counts.set(u.city, (counts.get(u.city) ?? 0) + 1);
-  return [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "en")).map(([city]) => city);
+  return [...counts.entries()]
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "en"))
+    .map(([city]) => city);
 }

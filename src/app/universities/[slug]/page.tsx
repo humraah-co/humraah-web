@@ -44,10 +44,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 /** Typical steps from Figma, shown until a researcher writes this university's own. */
 const typicalSteps = [
   { title: "Check you’re eligible", text: "Read the subject and grade requirements for your programme." },
-  { title: "Register on the admissions portal", text: "Create an account on the university’s official portal only." },
-  { title: "Fill in the form and upload documents", text: "Keep scans of your CNIC or B-Form, results and photos ready." },
+  {
+    title: "Register on the admissions portal",
+    text: "Create an account on the university’s official portal only.",
+  },
+  {
+    title: "Fill in the form and upload documents",
+    text: "Keep scans of your CNIC or B-Form, results and photos ready.",
+  },
   { title: "Pay the application fee", text: "Use only the payment methods listed on the official website." },
-  { title: "Take the admission test, if there is one", text: "Check the test date and what it covers early." },
+  {
+    title: "Take the admission test, if there is one",
+    text: "Check the test date and what it covers early.",
+  },
 ];
 
 /** One step per line, with any "1." or "-" marker removed. */
@@ -67,7 +76,8 @@ export default async function UniversityPage({ params }: Props) {
     return (
       <Container className="py-12">
         <p className="rounded-2xl bg-tint-lavender p-5 text-body-m" role="status">
-          The database isn&apos;t connected yet. Add the Supabase environment variables to see this university.
+          The database isn&apos;t connected yet. Add the Supabase environment variables to see this
+          university.
         </p>
       </Container>
     );
@@ -78,13 +88,20 @@ export default async function UniversityPage({ params }: Props) {
   const fee = formatFeeRange(u.fee_min_pkr, u.fee_max_pkr);
   const location = u.campuses_note ?? u.city;
   const ownSteps = stepsFrom(u.how_to_apply);
-  const tests = [...new Set([u.admission_test, ...u.programmes.map((p) => p.entryTest)].filter((t): t is string => !!t))];
+  const tests = [
+    ...new Set([u.admission_test, ...u.programmes.map((p) => p.entryTest)].filter((t): t is string => !!t)),
+  ];
   const requirements = u.programmes.filter((p) => p.entryRequirements);
 
   // Programmes grouped by field, in the order the fields are listed.
   const fieldList = fields ?? [];
   const groups = [
-    ...fieldList.map((f) => ({ key: f.id, name: f.name, slug: f.slug as string | null, items: u.programmes.filter((p) => p.fieldId === f.id) })),
+    ...fieldList.map((f) => ({
+      key: f.id,
+      name: f.name,
+      slug: f.slug as string | null,
+      items: u.programmes.filter((p) => p.fieldId === f.id),
+    })),
     {
       key: "other",
       name: "Other programmes",
@@ -210,7 +227,12 @@ export default async function UniversityPage({ params }: Props) {
                 </p>
                 <ol>
                   {typicalSteps.map((step, i) => (
-                    <Step key={step.title} number={i + 1} title={step.title} last={i === typicalSteps.length - 1}>
+                    <Step
+                      key={step.title}
+                      number={i + 1}
+                      title={step.title}
+                      last={i === typicalSteps.length - 1}
+                    >
                       {step.text}
                     </Step>
                   ))}
@@ -320,7 +342,11 @@ export default async function UniversityPage({ params }: Props) {
 
         <aside className="flex flex-col gap-4">
           <NextSteps
-            items={["Note the application dates", "Check the admission requirements", "Look for a scholarship"]}
+            items={[
+              "Note the application dates",
+              "Check the admission requirements",
+              "Look for a scholarship",
+            ]}
             action={{ href: "/scholarships", label: "Find scholarships" }}
           />
           <ImportantCallout title="Before you apply" className="hidden lg:block">

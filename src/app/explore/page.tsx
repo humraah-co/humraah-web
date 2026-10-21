@@ -16,7 +16,13 @@ export const metadata: Metadata = {
 
 /** Case-insensitive match on the field name, summary, interests and example programmes. */
 function matches(field: FieldSummary, query: string) {
-  const haystack = [field.name, field.summary, field.you_might_enjoy, ...field.interests, ...field.example_programmes]
+  const haystack = [
+    field.name,
+    field.summary,
+    field.you_might_enjoy,
+    ...field.interests,
+    ...field.example_programmes,
+  ]
     .filter(Boolean)
     .join(" ")
     .toLowerCase();
@@ -27,7 +33,11 @@ function matches(field: FieldSummary, query: string) {
     .every((word) => haystack.includes(word));
 }
 
-export default async function ExplorePage({ searchParams }: { searchParams: Promise<{ q?: string | string[] }> }) {
+export default async function ExplorePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string | string[] }>;
+}) {
   const { q } = await searchParams;
   const query = (Array.isArray(q) ? q[0] : q)?.trim() ?? "";
 
@@ -81,16 +91,22 @@ export default async function ExplorePage({ searchParams }: { searchParams: Prom
       <Container className="pt-3 pb-2 lg:pt-2 lg:pb-6">
         {fields === null ? (
           <p className="rounded-2xl bg-tint-lavender p-5 text-body-m" role="status">
-            The database isn&apos;t connected yet. Add the Supabase environment variables to see fields of study.
+            The database isn&apos;t connected yet. Add the Supabase environment variables to see fields of
+            study.
           </p>
         ) : fields.length === 0 ? (
-          <p className="rounded-2xl bg-blush p-5 text-body-m">No fields of study are published yet. Check back soon.</p>
+          <p className="rounded-2xl bg-blush p-5 text-body-m">
+            No fields of study are published yet. Check back soon.
+          </p>
         ) : shown && shown.length === 0 ? (
           <div className="rounded-2xl bg-blush p-5" role="status">
             <p className="text-label-l">No fields match “{query}”.</p>
             <p className="mt-1 text-body-s text-muted">
               Try a shorter word, like a subject you enjoy.{" "}
-              <Link href="/explore" className="text-deep-rose underline underline-offset-2 hover:text-charcoal">
+              <Link
+                href="/explore"
+                className="text-deep-rose underline underline-offset-2 hover:text-charcoal"
+              >
                 Show all fields
               </Link>
             </p>
@@ -100,20 +116,25 @@ export default async function ExplorePage({ searchParams }: { searchParams: Prom
             {query && (
               <p className="mb-3 text-body-s text-muted" role="status">
                 {shown!.length} {shown!.length === 1 ? "field matches" : "fields match"} “{query}”.{" "}
-                <Link href="/explore" className="text-deep-rose underline underline-offset-2 hover:text-charcoal">
+                <Link
+                  href="/explore"
+                  className="text-deep-rose underline underline-offset-2 hover:text-charcoal"
+                >
                   Show all
                 </Link>
               </p>
             )}
-            <TwoColumns items={shown!.map((field) => ({ key: field.id, node: <FieldCard field={field} /> }))} />
+            <TwoColumns
+              items={shown!.map((field) => ({ key: field.id, node: <FieldCard field={field} /> }))}
+            />
           </>
         )}
       </Container>
 
       <Container className="pt-2 pb-7 lg:pb-16">
         <RememberCallout>
-          These are just starting points. There are many more programmes and combinations, and universities may
-          name them differently.
+          These are just starting points. There are many more programmes and combinations, and universities
+          may name them differently.
         </RememberCallout>
       </Container>
     </>

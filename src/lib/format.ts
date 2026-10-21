@@ -1,6 +1,10 @@
 /** Display helpers shared by cards and detail pages. */
 
-const shortDate = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", timeZone: "Asia/Karachi" });
+const shortDate = new Intl.DateTimeFormat("en-GB", {
+  day: "numeric",
+  month: "short",
+  timeZone: "Asia/Karachi",
+});
 const longDate = new Intl.DateTimeFormat("en-GB", {
   day: "numeric",
   month: "short",

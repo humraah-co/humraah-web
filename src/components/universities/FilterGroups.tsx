@@ -33,7 +33,11 @@ export function FilterGroups({
   const cityChip = (city: string) => (
     <OptionChip
       key={city}
-      href={hrefWith(filters, { cities: isSelected(city) ? filters.cities.filter((c) => c.toLowerCase() !== city.toLowerCase()) : [...filters.cities, city] })}
+      href={hrefWith(filters, {
+        cities: isSelected(city)
+          ? filters.cities.filter((c) => c.toLowerCase() !== city.toLowerCase())
+          : [...filters.cities, city],
+      })}
       selected={isSelected(city)}
     >
       {city}
@@ -78,7 +82,11 @@ export function FilterGroups({
           <FieldSelect
             value={filters.field ?? ""}
             allHref={hrefWith(filters, { field: null })}
-            options={fields.map((f) => ({ slug: f.slug, name: f.name, href: hrefWith(filters, { field: f.slug }) }))}
+            options={fields.map((f) => ({
+              slug: f.slug,
+              name: f.name,
+              href: hrefWith(filters, { field: f.slug }),
+            }))}
           />
         </Group>
       )}

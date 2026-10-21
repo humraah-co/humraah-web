@@ -30,7 +30,8 @@ export function ChipList({ children, className = "" }: { children: React.ReactNo
   return <div className={`flex flex-wrap gap-1.5 ${className}`}>{children}</div>;
 }
 
-const badge = "inline-flex items-center gap-1.5 rounded-pill py-1 pr-2.5 pl-2 text-label-s whitespace-nowrap text-charcoal";
+const badge =
+  "inline-flex items-center gap-1.5 rounded-pill py-1 pr-2.5 pl-2 text-label-s whitespace-nowrap text-charcoal";
 
 /** Badge/Verified: a researcher has checked this against the official source. */
 export function VerifiedBadge() {

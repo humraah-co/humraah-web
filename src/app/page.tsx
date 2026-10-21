@@ -6,7 +6,11 @@ import { Container } from "@/components/layout/PageShell";
 import { ButtonLink } from "@/components/ui/Button";
 import { Chip, ChipList } from "@/components/ui/Chip";
 import { DottedPath, SectionHeader } from "@/components/ui/Blocks";
-import { listFields, listScholarshipCards, type ScholarshipCard as ScholarshipCardData } from "@/lib/data/public";
+import {
+  listFields,
+  listScholarshipCards,
+  type ScholarshipCard as ScholarshipCardData,
+} from "@/lib/data/public";
 import { countWord, daysUntil } from "@/lib/format";
 
 export const revalidate = 300;
@@ -24,8 +28,7 @@ export default async function HomePage() {
   const [fields, scholarships] = await Promise.all([listFields(), listScholarshipCards()]);
   const connected = fields !== null && scholarships !== null;
   const fieldCount = fields?.length ?? 0;
-  const fieldsPhrase =
-    fieldCount > 0 ? `${countWord(fieldCount)} fields of study` : "the fields of study";
+  const fieldsPhrase = fieldCount > 0 ? `${countWord(fieldCount)} fields of study` : "the fields of study";
   const closing = scholarships ? closingSoon(scholarships) : [];
 
   const steps: {
@@ -84,8 +87,8 @@ export default async function HomePage() {
             </div>
             <h1 className="text-display">Your path to university starts here.</h1>
             <p className="text-body-l text-muted">
-              Find out what you could study, which universities offer it, what it costs and where to start, one
-              step at a time.
+              Find out what you could study, which universities offer it, what it costs and where to start,
+              one step at a time.
             </p>
             <div className="flex flex-col gap-2.5 lg:flex-row lg:gap-3 lg:pt-2">
               <ButtonLink href="/quiz" className="w-full lg:w-auto">
@@ -146,7 +149,9 @@ export default async function HomePage() {
                     </>
                   )}
                 </div>
-                <div className={`flex min-w-0 flex-1 flex-col gap-1 pt-0.5 lg:flex-none lg:pt-0 ${last ? "" : "pb-[22px] lg:pb-0"}`}>
+                <div
+                  className={`flex min-w-0 flex-1 flex-col gap-1 pt-0.5 lg:flex-none lg:pt-0 ${last ? "" : "pb-[22px] lg:pb-0"}`}
+                >
                   <p className="text-label-s text-muted">Step {i + 1}</p>
                   <h3 className="text-h3">{step.title}</h3>
                   <p className="text-body-s text-muted lg:text-body-m">{step.text}</p>
@@ -205,16 +210,23 @@ export default async function HomePage() {
           <div className="flex items-center gap-4 lg:contents">
             <div className="flex h-[124px] w-[92px] shrink-0 flex-col items-center justify-center gap-2 rounded-[10px] border border-border-soft bg-cream p-2 lg:h-[224px] lg:w-[168px] lg:gap-3 lg:rounded-[14px] lg:p-4">
               <LogoMark className="h-[37.774px] w-[40.8px] lg:h-[77.77px] lg:w-[84px]" />
-              <p className="w-[76px] text-center text-label-xs lg:w-[136px] lg:text-label-s">Higher Education Guide</p>
+              <p className="w-[76px] text-center text-label-xs lg:w-[136px] lg:text-label-s">
+                Higher Education Guide
+              </p>
             </div>
             <div className="flex min-w-0 flex-1 flex-col gap-1.5 lg:gap-3.5">
-              <h2 id="guide-heading" className="text-h3 lg:text-[40px] lg:leading-[46px] lg:font-semibold lg:tracking-[-0.2px]">
+              <h2
+                id="guide-heading"
+                className="text-h3 lg:text-[40px] lg:leading-[46px] lg:font-semibold lg:tracking-[-0.2px]"
+              >
                 Our free Higher Education Guide
               </h2>
               <p className="text-body-s lg:text-body-l">
                 Discover yourself, explore your options
                 <span className="lg:hidden"> and find the right university.</span>
-                <span className="hidden lg:inline">, find the right university and build your path, in English and Urdu.</span>
+                <span className="hidden lg:inline">
+                  , find the right university and build your path, in English and Urdu.
+                </span>
               </p>
               <ChipList className="hidden lg:flex lg:gap-2">
                 {[
@@ -273,11 +285,19 @@ export default async function HomePage() {
 function GuideDownloads() {
   return (
     <>
-      <ButtonLink href="/guide" variant="secondary" className="flex-1 px-3.5! whitespace-nowrap lg:flex-none lg:px-[22px]!">
+      <ButtonLink
+        href="/guide"
+        variant="secondary"
+        className="flex-1 px-3.5! whitespace-nowrap lg:flex-none lg:px-[22px]!"
+      >
         <Download className="size-5" strokeWidth={1.75} aria-hidden="true" />
         English PDF
       </ButtonLink>
-      <ButtonLink href="/guide" variant="secondary" className="flex-1 px-3.5! whitespace-nowrap lg:flex-none lg:px-[22px]!">
+      <ButtonLink
+        href="/guide"
+        variant="secondary"
+        className="flex-1 px-3.5! whitespace-nowrap lg:flex-none lg:px-[22px]!"
+      >
         <Download className="size-5" strokeWidth={1.75} aria-hidden="true" />
         Urdu PDF
       </ButtonLink>

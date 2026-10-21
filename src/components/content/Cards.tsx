@@ -1,7 +1,11 @@
 import Link from "next/link";
 import { ChevronRight, MapPin } from "lucide-react";
 import { Chip, ChipList, DeadlineChip, VerificationBadge } from "@/components/ui/Chip";
-import type { FieldSummary, ScholarshipCard as ScholarshipCardData, UniversityCard as UniversityCardData } from "@/lib/data/public";
+import type {
+  FieldSummary,
+  ScholarshipCard as ScholarshipCardData,
+  UniversityCard as UniversityCardData,
+} from "@/lib/data/public";
 import { daysUntil, formatShortDate, initialsFor } from "@/lib/format";
 import { FieldIcon } from "./FieldIcon";
 
@@ -19,7 +23,9 @@ export function FieldCard({ field }: { field: FieldSummary }) {
       <span className="flex min-w-0 flex-1 flex-col gap-1">
         <span className="text-label-l">{field.name}</span>
         {field.you_might_enjoy && (
-          <span className="text-body-s text-muted">You might enjoy this if you like {field.you_might_enjoy}.</span>
+          <span className="text-body-s text-muted">
+            You might enjoy this if you like {field.you_might_enjoy}.
+          </span>
         )}
         {field.example_programmes.length > 0 && (
           <span className="text-label-s text-deep-sage">{field.example_programmes.join(", ")}</span>
@@ -70,7 +76,13 @@ export function UniversityAvatar({
   );
 }
 
-export function UniversityCard({ university: u, fieldId }: { university: UniversityCardData; fieldId?: string }) {
+export function UniversityCard({
+  university: u,
+  fieldId,
+}: {
+  university: UniversityCardData;
+  fieldId?: string;
+}) {
   const programmeCount = fieldId
     ? u.programmes.filter((p) => p.fieldId === fieldId).length
     : u.programmes.length;

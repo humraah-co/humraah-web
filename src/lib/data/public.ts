@@ -151,7 +151,11 @@ export const getUniversity = unstable_cache(
   async (slug: string): Promise<UniversityProfile | null | undefined> => {
     const supabase = createPublicClient();
     if (!supabase) return null;
-    const { data: uni, error } = await supabase.from("universities").select("*").eq("slug", slug).maybeSingle();
+    const { data: uni, error } = await supabase
+      .from("universities")
+      .select("*")
+      .eq("slug", slug)
+      .maybeSingle();
     if (error) fail("university", error.message);
     if (!uni) return undefined;
     const { data: progs, error: pErr } = await supabase

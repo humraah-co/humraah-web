@@ -132,10 +132,13 @@ export default async function UniversitiesPage({ searchParams }: { searchParams:
         <div className="flex min-w-0 flex-1 flex-col gap-3 lg:gap-4">
           {cards === null ? (
             <p className="rounded-2xl bg-tint-lavender p-5 text-body-m" role="status">
-              The database isn&apos;t connected yet. Add the Supabase environment variables to see universities.
+              The database isn&apos;t connected yet. Add the Supabase environment variables to see
+              universities.
             </p>
           ) : cards.length === 0 ? (
-            <p className="rounded-2xl bg-blush p-5 text-body-m">No universities are published yet. Check back soon.</p>
+            <p className="rounded-2xl bg-blush p-5 text-body-m">
+              No universities are published yet. Check back soon.
+            </p>
           ) : (
             <>
               <div className="flex items-center justify-between">
@@ -161,7 +164,15 @@ export default async function UniversitiesPage({ searchParams }: { searchParams:
                   <p className="mt-1 text-body-s text-muted">
                     Try removing a filter or searching a different word.{" "}
                     <Link
-                      href={hrefWith(filters, { q: "", cities: [], types: [], field: null, women: false, hostel: false, aid: false })}
+                      href={hrefWith(filters, {
+                        q: "",
+                        cities: [],
+                        types: [],
+                        field: null,
+                        women: false,
+                        hostel: false,
+                        aid: false,
+                      })}
                       className="text-deep-rose underline underline-offset-2 hover:text-charcoal"
                     >
                       Show all universities
@@ -213,7 +224,11 @@ function CampusNote() {
 function activeChips(filters: UniversityFilters, fieldName: string | undefined) {
   const chips: { key: string; label: string; href: string }[] = [];
   for (const city of filters.cities) {
-    chips.push({ key: `city-${city}`, label: city, href: hrefWith(filters, { cities: toggled(filters.cities, city) }) });
+    chips.push({
+      key: `city-${city}`,
+      label: city,
+      href: hrefWith(filters, { cities: toggled(filters.cities, city) }),
+    });
   }
   for (const type of filters.types) {
     chips.push({
@@ -222,10 +237,14 @@ function activeChips(filters: UniversityFilters, fieldName: string | undefined) 
       href: hrefWith(filters, { types: toggled(filters.types, type) }),
     });
   }
-  if (filters.field) chips.push({ key: "field", label: fieldName ?? filters.field, href: hrefWith(filters, { field: null }) });
-  if (filters.women) chips.push({ key: "women", label: "Women only", href: hrefWith(filters, { women: false }) });
-  if (filters.hostel) chips.push({ key: "hostel", label: "Hostel for women", href: hrefWith(filters, { hostel: false }) });
-  if (filters.aid) chips.push({ key: "aid", label: "Need-based aid", href: hrefWith(filters, { aid: false }) });
+  if (filters.field)
+    chips.push({ key: "field", label: fieldName ?? filters.field, href: hrefWith(filters, { field: null }) });
+  if (filters.women)
+    chips.push({ key: "women", label: "Women only", href: hrefWith(filters, { women: false }) });
+  if (filters.hostel)
+    chips.push({ key: "hostel", label: "Hostel for women", href: hrefWith(filters, { hostel: false }) });
+  if (filters.aid)
+    chips.push({ key: "aid", label: "Need-based aid", href: hrefWith(filters, { aid: false }) });
   if (filters.q) chips.push({ key: "q", label: `“${filters.q}”`, href: hrefWith(filters, { q: "" }) });
   return chips;
 }
