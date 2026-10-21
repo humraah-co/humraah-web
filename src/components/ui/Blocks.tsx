@@ -32,9 +32,9 @@ export function SectionHeader({
 }
 
 /** Callout/Remember: sage panel with a handwritten heading. */
-export function RememberCallout({ children }: { children: React.ReactNode }) {
+export function RememberCallout({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
-    <aside className="rounded-[18px] bg-tint-sage p-4">
+    <aside className={`rounded-[18px] bg-tint-sage p-4 ${className}`}>
       <p className="flex items-center gap-2 text-script">
         <Lightbulb className="size-5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
         Remember…
@@ -64,12 +64,14 @@ export function ImportantCallout({ title, children }: { title: string; children:
 export function NextSteps({
   items,
   action,
+  className = "",
 }: {
   items: string[];
   action: { href: string; label: string };
+  className?: string;
 }) {
   return (
-    <section aria-labelledby="next-steps" className="flex flex-col gap-3.5 rounded-3xl bg-blush p-5">
+    <section aria-labelledby="next-steps" className={`flex flex-col gap-3.5 rounded-3xl bg-blush p-5 ${className}`}>
       <h2 id="next-steps" className="flex items-center gap-2.5 text-h3">
         <span className="flex size-9 items-center justify-center rounded-pill bg-card">
           <Sprout className="size-5" strokeWidth={1.75} aria-hidden="true" />

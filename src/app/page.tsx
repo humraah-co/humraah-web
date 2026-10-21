@@ -7,11 +7,9 @@ import { ButtonLink } from "@/components/ui/Button";
 import { Chip, ChipList } from "@/components/ui/Chip";
 import { DottedPath, SectionHeader } from "@/components/ui/Blocks";
 import { listFields, listScholarshipCards, type ScholarshipCard as ScholarshipCardData } from "@/lib/data/public";
-import { daysUntil } from "@/lib/format";
+import { countWord, daysUntil } from "@/lib/format";
 
 export const revalidate = 300;
-
-const numberWords = ["no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
 
 /** Up to three scholarships: the ones closing next, then any without a confirmed date. */
 function closingSoon(all: ScholarshipCardData[]) {
@@ -27,7 +25,7 @@ export default async function HomePage() {
   const connected = fields !== null && scholarships !== null;
   const fieldCount = fields?.length ?? 0;
   const fieldsPhrase =
-    fieldCount > 0 ? `${numberWords[fieldCount] ?? fieldCount} fields of study` : "the fields of study";
+    fieldCount > 0 ? `${countWord(fieldCount)} fields of study` : "the fields of study";
   const closing = scholarships ? closingSoon(scholarships) : [];
 
   const steps: {

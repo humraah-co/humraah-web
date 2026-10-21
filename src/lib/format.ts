@@ -48,3 +48,10 @@ export function daysUntil(isoDate: string, now = new Date()) {
   const target = new Date(`${isoDate}T00:00:00`);
   return Math.round((target.getTime() - today.getTime()) / 86_400_000);
 }
+
+const countWords = ["no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
+
+/** "ten" for 10, "12" past that: how a short count reads in a sentence. */
+export function countWord(n: number) {
+  return countWords[n] ?? String(n);
+}
