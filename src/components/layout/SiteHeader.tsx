@@ -1,24 +1,17 @@
 import Link from "next/link";
 import { LogoHorizontal } from "@/components/brand/Logo";
 import { DesktopNavLinks } from "./DesktopNavLinks";
-import { LanguageSwitch, MenuButton, SearchButton } from "./HeaderActions";
+import { LanguageSwitch, SearchButton } from "./HeaderActions";
+import { MobileTopBar } from "./MobileTopBar";
 
 /**
- * Mobile "Top bar" (Figma 4:470) below 1024 px and "Desktop/Nav" (14:284)
- * from 1024 px up.
+ * Mobile top bar or back bar (see MobileTopBar) below 1024 px and
+ * "Desktop/Nav" (Figma 14:284) from 1024 px up.
  */
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-border-soft bg-cream">
-      {/* Mobile top bar */}
-      <div className="flex items-center justify-between px-4 py-2.5 lg:hidden">
-        <LogoHorizontal />
-        <div className="flex items-center gap-1.5">
-          <LanguageSwitch />
-          <SearchButton />
-          <MenuButton />
-        </div>
-      </div>
+      <MobileTopBar />
 
       {/* Desktop nav */}
       <nav

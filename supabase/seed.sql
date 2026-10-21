@@ -8,36 +8,56 @@
 -- ---------------------------------------------------------------------------
 -- Fields of study ("Exploring Your Options")
 -- ---------------------------------------------------------------------------
-insert into public.fields (slug, name, emoji, you_might_enjoy, example_programmes, sort_order, status) values
+insert into public.fields (slug, name, emoji, summary, you_might_enjoy, interests, example_programmes, sort_order, status) values
   ('business-management', 'Business & Management', '💼',
-   'Organising, leading, working with people, solving business problems',
+   'Running organisations, managing money and people, and understanding how markets work.',
+   'organising, leading, working with people and solving business problems',
+   array['Organising', 'Leading', 'Working with people', 'Business problems'],
    array['Business', 'Finance', 'Economics', 'Marketing', 'Tourism & Hospitality'], 1, 'published'),
   ('engineering', 'Engineering', '⚙️',
-   'Maths, science, building or figuring out how things work',
+   'Using maths and science to design, build and improve the things and systems around us.',
+   'maths, science, building or figuring out how things work',
+   array['Maths', 'Science', 'Building things', 'How things work'],
    array['Civil', 'Electrical', 'Mechanical', 'Chemical', 'Environmental'], 2, 'published'),
   ('computing-technology', 'Computing & Technology', '💻',
-   'Computers, technology, logic or solving problems',
+   'Using computers, logic and technology to solve problems, from building apps to working with data and AI.',
+   'computers, technology, logic or solving problems',
+   array['Computers', 'Technology', 'Logic', 'Solving problems'],
    array['Computer Science', 'AI', 'Data Science'], 3, 'published'),
   ('medicine-health', 'Medicine & Health', '🩺',
-   'Biology, science, helping people, health',
+   'Caring for people''s health, from treating patients to preventing illness in whole communities.',
+   'biology, science, helping people and health',
+   array['Biology', 'Science', 'Helping people', 'Health'],
    array['Medicine', 'Nursing', 'Pharmacy', 'Nutrition', 'Public Health'], 4, 'published'),
   ('social-behavioural-sciences', 'Social & Behavioural Sciences', '👥',
-   'People, society, relationships, communities',
+   'Understanding how people think and behave, and how societies and communities work.',
+   'people, society, relationships and communities',
+   array['People', 'Society', 'Relationships', 'Communities'],
    array['Psychology', 'Sociology', 'Political Science', 'IR', 'Social Work', 'Gender Studies', 'Criminology'], 5, 'published'),
   ('humanities-languages', 'Humanities & Languages', '📚',
-   'Reading, writing, history, languages, big ideas',
+   'Exploring ideas, history, literature and languages, and how they shape the way we live.',
+   'reading, writing, history, languages and big ideas',
+   array['Reading', 'Writing', 'History', 'Languages', 'Big ideas'],
    array['English Literature', 'History', 'Philosophy', 'Languages', 'Pakistan Studies', 'Liberal Arts'], 6, 'published'),
   ('arts-design-architecture', 'Arts, Design & Architecture', '🎨',
-   'Drawing, creating, designing, visual communication',
+   'Creating and designing, from buildings and products to images, fabrics and performances.',
+   'drawing, creating, designing and visual communication',
+   array['Drawing', 'Creating', 'Designing', 'Visual communication'],
    array['Architecture', 'Industrial Design', 'Fine Arts', 'Graphic Design', 'Textile Design', 'Performing Arts'], 7, 'published'),
   ('natural-applied-sciences', 'Natural & Applied Sciences', '🔬',
-   'Natural world, experimenting, scientific questions',
+   'Studying the natural world through experiments, and using that knowledge to solve real problems.',
+   'the natural world, experimenting and scientific questions',
+   array['The natural world', 'Experimenting', 'Scientific questions'],
    array['Biology', 'Chemistry', 'Physics', 'Maths', 'Biotech', 'Environmental Science', 'Food Science', 'Agriculture'], 8, 'published'),
   ('law', 'Law', '⚖️',
-   'Reading, argument, critical thinking, justice',
-   array['LLB / Law programmes'], 9, 'published'),
+   'Understanding the rules that govern society, and helping people use them to find justice.',
+   'reading, argument, critical thinking and justice',
+   array['Reading', 'Argument', 'Critical thinking', 'Justice'],
+   array['LLB and law programmes'], 9, 'published'),
   ('education', 'Education', '🎓',
-   'Teaching, helping others learn, working with young people',
+   'Helping others learn, from early childhood to adult education, and shaping how teaching works.',
+   'teaching, helping others learn and working with young people',
+   array['Teaching', 'Helping others learn', 'Working with young people'],
    array['Education', 'Educational Studies', 'Early Childhood Education', 'Special Education'], 10, 'published');
 
 -- ---------------------------------------------------------------------------
@@ -47,11 +67,11 @@ insert into public.fields (slug, name, emoji, you_might_enjoy, example_programme
 insert into public.universities
   (slug, name, short_name, city, campuses_note, province, type, women_only, website_url, status)
 values
-  ('aiou', 'Allama Iqbal Open University', 'AIOU', 'Islamabad', 'Islamabad & other campuses',
+  ('aiou', 'Allama Iqbal Open University', 'AIOU', 'Islamabad', 'Islamabad and other campuses',
    'Islamabad Capital Territory', 'public', false, 'https://www.aiou.edu.pk', 'published'),
   ('qau', 'Quaid-i-Azam University', 'QAU', 'Islamabad', null,
    'Islamabad Capital Territory', 'public', false, 'https://qau.edu.pk', 'published'),
-  ('comsats', 'COMSATS University Islamabad', 'COMSATS', 'Islamabad', 'Islamabad & other campuses',
+  ('comsats', 'COMSATS University Islamabad', 'COMSATS', 'Islamabad', 'Islamabad and other campuses',
    'Islamabad Capital Territory', 'public', false, 'https://www.comsats.edu.pk', 'published'),
   ('punjab-university', 'University of the Punjab', 'PU', 'Lahore', null,
    'Punjab', 'public', false, 'https://pu.edu.pk', 'published'),
@@ -60,14 +80,14 @@ values
   ('uet-lahore', 'University of Engineering & Technology, Lahore', 'UET', 'Lahore', null,
    'Punjab', 'public', false, 'https://www.uet.edu.pk', 'published'),
   ('fast-nuces', 'FAST National University of Computer and Emerging Sciences', 'FAST-NUCES', 'Islamabad',
-   'Islamabad & other campuses', 'Islamabad Capital Territory', 'private', false, 'https://www.nu.edu.pk', 'published'),
+   'Islamabad and other campuses', 'Islamabad Capital Territory', 'private', false, 'https://www.nu.edu.pk', 'published'),
   ('iba-karachi', 'Institute of Business Administration, Karachi', 'IBA', 'Karachi', null,
    'Sindh', 'public', false, 'https://www.iba.edu.pk', 'published'),
   ('lums', 'Lahore University of Management Sciences', 'LUMS', 'Lahore', null,
    'Punjab', 'private', false, 'https://lums.edu.pk', 'published'),
   ('aku', 'Aga Khan University', 'AKU', 'Karachi', null,
    'Sindh', 'private', false, 'https://www.aku.edu', 'published'),
-  ('nust', 'National University of Sciences & Technology', 'NUST', 'Islamabad', 'Islamabad & other campuses',
+  ('nust', 'National University of Sciences & Technology', 'NUST', 'Islamabad', 'Islamabad and other campuses',
    'Islamabad Capital Territory', 'public', false, 'https://nust.edu.pk', 'published');
 
 -- A few well-known programmes per university so field ↔ university links work.
@@ -141,6 +161,18 @@ values
    'Students from across Pakistan who meet the eligibility criteria.',
    'NOP students admitted to LUMS can receive fully funded financial support based on need.',
    '{}', false, 'https://lums.edu.pk', 'published');
+
+-- Card chips: what each scholarship covers and who it is reserved for.
+update public.scholarships as s
+set covers = v.covers, audience_note = v.audience
+from (values
+  ('benazir-undergraduate-scholarship', array[]::text[], '50% for women'),
+  ('scotland-pakistan-scholarships', array['Tuition', 'Hostel and travel'], 'For women'),
+  ('hec-need-based-scholarships', array['Tuition', 'Stipend'], null),
+  ('bnu-rahimeen-ahmad-scholarship', array['Full tuition'], 'For women'),
+  ('lums-nop', array['Need-based support'], null)
+) as v(slug, covers, audience)
+where s.slug = v.slug;
 
 -- Scotland Pakistan eligible areas mapped to fields of study.
 insert into public.scholarship_fields (scholarship_id, field_id)

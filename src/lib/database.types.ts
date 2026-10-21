@@ -36,6 +36,7 @@ export type Field = Audited & {
   emoji: string | null;
   summary: string | null;
   you_might_enjoy: string | null;
+  interests: string[];
   example_programmes: string[];
   sort_order: number;
 };
@@ -61,6 +62,8 @@ export type University = Audited & {
   fee_max_pkr: number | null;
   fee_note: string | null;
   admissions_window: string | null;
+  need_based_aid: boolean | null;
+  admission_test: string | null;
 };
 
 export type Programme = {
@@ -93,6 +96,8 @@ export type Scholarship = Audited & {
   deadline: string | null;
   deadline_note: string | null;
   official_url: string | null;
+  covers: string[];
+  audience_note: string | null;
 };
 
 export type ScholarshipField = { scholarship_id: string; field_id: string };

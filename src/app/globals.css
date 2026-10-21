@@ -54,7 +54,7 @@
   font-family: var(--font-serif);
   font-weight: 600;
   font-size: 32px;
-  line-height: 38px;
+  line-height: 36px;
   letter-spacing: -0.5px;
   @media (width >= 64rem) {
     font-size: 40px;
