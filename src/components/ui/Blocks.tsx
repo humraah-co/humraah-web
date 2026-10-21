@@ -10,9 +10,9 @@ export function SectionHeader({
   as: Heading = "h2",
   className = "",
 }: {
-  title: string;
+  title: React.ReactNode;
   href?: string;
-  linkLabel?: string;
+  linkLabel?: React.ReactNode;
   as?: "h2" | "h3";
   className?: string;
 }) {
