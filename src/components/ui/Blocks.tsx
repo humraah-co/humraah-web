@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CircleAlert, Lightbulb, Sprout } from "lucide-react";
+import { ChevronDown, CircleAlert, Lightbulb, Sprout, type LucideIcon } from "lucide-react";
 import { ButtonLink } from "./Button";
 
 /** Section header: H2 with an optional "See all" text link on the right. */
@@ -45,9 +45,17 @@ export function RememberCallout({ children, className = "" }: { children: React.
 }
 
 /** Callout/Important: coral panel for warnings. */
-export function ImportantCallout({ title, children }: { title: string; children: React.ReactNode }) {
+export function ImportantCallout({
+  title,
+  children,
+  className = "",
+}: {
+  title: string;
+  children: React.ReactNode;
+  className?: string;
+}) {
   return (
-    <aside className="rounded-[18px] bg-tint-coral p-4">
+    <aside className={`rounded-[18px] bg-tint-coral p-4 ${className}`}>
       <p className="flex items-center gap-2 text-label-m">
         <CircleAlert className="size-5 shrink-0 text-deep-rose" strokeWidth={1.75} aria-hidden="true" />
         {title}
@@ -111,5 +119,68 @@ export function DottedPath({ direction }: { direction: "vertical" | "horizontal"
         backgroundRepeat: vertical ? "repeat-y" : "repeat-x",
       }}
     />
+  );
+}
+
+/**
+ * Accordion: a section of a detail page that opens and closes. A native
+ * details element, so it works without JavaScript and is keyboard accessible.
+ */
+export function Accordion({
+  icon: Icon,
+  title,
+  defaultOpen = false,
+  children,
+}: {
+  icon: LucideIcon;
+  title: string;
+  defaultOpen?: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <details open={defaultOpen} className="group rounded-2xl border border-border-soft bg-card">
+      <summary className="flex cursor-pointer list-none items-center gap-3 p-4 lg:px-5 lg:py-[18px] [&::-webkit-details-marker]:hidden">
+        <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-blush group-open:bg-tint-coral">
+          <Icon className="size-5" strokeWidth={1.75} aria-hidden="true" />
+        </span>
+        <span className="flex-1 text-label-l">{title}</span>
+        <ChevronDown
+          className="size-5 shrink-0 transition-transform group-open:rotate-180"
+          strokeWidth={1.75}
+          aria-hidden="true"
+        />
+      </summary>
+      <div className="flex flex-col gap-3 px-4 pb-[18px] lg:px-5 lg:pb-5">{children}</div>
+    </details>
+  );
+}
+
+/** Step: a numbered step joined to the next by a dotted path. */
+export function Step({
+  number,
+  title,
+  last = false,
+  children,
+}: {
+  number: number;
+  title: string;
+  last?: boolean;
+  children?: React.ReactNode;
+}) {
+  return (
+    <li className="flex gap-3.5">
+      <div className="flex w-9 shrink-0 flex-col items-center gap-1.5">
+        <span className="flex size-9 items-center justify-center rounded-pill bg-coral text-label-m">{number}</span>
+        {!last && (
+          <span className="flex flex-1 flex-col items-center">
+            <DottedPath direction="vertical" />
+          </span>
+        )}
+      </div>
+      <div className={`flex min-w-0 flex-1 flex-col gap-1 pt-1.5 ${last ? "" : "pb-4"}`}>
+        <p className="text-label-l">{title}</p>
+        {children && <p className="text-body-m text-muted">{children}</p>}
+      </div>
+    </li>
   );
 }

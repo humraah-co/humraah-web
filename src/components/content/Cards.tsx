@@ -62,7 +62,7 @@ export function UniversityAvatar({
     <span
       aria-hidden="true"
       className={`flex shrink-0 items-center justify-center rounded-pill ${avatarTint(slug)} ${
-        size === "lg" ? "size-16 text-label-l" : "size-12 text-label-s"
+        size === "lg" ? "size-16 text-label-l lg:size-[72px]" : "size-12 text-label-s"
       }`}
     >
       {initialsFor(name, shortName)}
