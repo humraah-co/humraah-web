@@ -111,7 +111,7 @@ export default async function UniversityPage({ params }: Props) {
           </span>
         </nav>
 
-        <header className="flex flex-col gap-3 lg:grid lg:grid-cols-[minmax(0,1fr)_380px] lg:gap-x-12 lg:gap-y-3.5 lg:pt-4 lg:pb-10">
+        <header className="flex flex-col gap-3 lg:grid lg:grid-cols-[minmax(0,1fr)_380px] lg:grid-rows-[auto_1fr] lg:gap-x-12 lg:gap-y-3.5 lg:pt-4 lg:pb-10">
           <div className="flex flex-col gap-3 lg:col-start-1 lg:row-start-1 lg:gap-3.5">
             <div className="flex items-center gap-3 lg:gap-3.5">
               <UniversityAvatar slug={u.slug} name={u.name} shortName={u.short_name} size="lg" />
@@ -156,7 +156,7 @@ export default async function UniversityPage({ params }: Props) {
             <FactTile icon={Calendar} label="Applications" value={u.admissions_window ?? dateTbc} />
           </div>
 
-          <div className="order-3 flex flex-wrap items-center gap-2 pt-1 lg:order-none lg:col-start-1 lg:row-start-2 lg:gap-2.5 lg:pt-1">
+          <div className="order-3 flex flex-wrap items-center gap-2 pt-1 lg:order-none lg:col-start-1 lg:row-start-2 lg:gap-2.5 lg:self-start lg:pt-1">
             <VerificationBadge verifiedAt={u.last_verified_at} />
             {u.last_verified_at && (
               <p className="text-caption text-muted">Last verified {formatLongDate(u.last_verified_at)}</p>

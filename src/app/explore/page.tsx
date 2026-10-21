@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Search } from "lucide-react";
 import { FieldCard } from "@/components/content/Cards";
 import { Container } from "@/components/layout/PageShell";
+import { TwoColumns } from "@/components/layout/TwoColumns";
 import { RememberCallout } from "@/components/ui/Blocks";
 import { buttonStyles } from "@/components/ui/Button";
 import { listFields, type FieldSummary } from "@/lib/data/public";
@@ -104,13 +105,7 @@ export default async function ExplorePage({ searchParams }: { searchParams: Prom
                 </Link>
               </p>
             )}
-            <ul className="grid items-start gap-3 lg:grid-cols-2 lg:gap-x-6 lg:gap-y-4">
-              {shown!.map((field) => (
-                <li key={field.id} className="flex flex-col *:flex-1">
-                  <FieldCard field={field} />
-                </li>
-              ))}
-            </ul>
+            <TwoColumns items={shown!.map((field) => ({ key: field.id, node: <FieldCard field={field} /> }))} />
           </>
         )}
       </Container>

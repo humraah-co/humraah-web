@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ChevronDown, Search } from "lucide-react";
 import { UniversityCard } from "@/components/content/Cards";
 import { Container } from "@/components/layout/PageShell";
+import { TwoColumns } from "@/components/layout/TwoColumns";
 import { ImportantCallout } from "@/components/ui/Blocks";
 import { buttonStyles } from "@/components/ui/Button";
 import { ActiveFilterChip } from "@/components/ui/Chip";
@@ -87,9 +88,11 @@ export default async function UniversitiesPage({ searchParams }: { searchParams:
               className="min-w-0 flex-1 bg-transparent text-body-m text-charcoal outline-none placeholder:text-muted"
             />
           </span>
-          <button type="submit" className={`${buttonStyles.primary} hidden lg:inline-flex`}>
-            Search
-          </button>
+          <span className="hidden lg:block">
+            <button type="submit" className={buttonStyles.primary}>
+              Search
+            </button>
+          </span>
         </form>
 
         {cards && (
@@ -166,16 +169,13 @@ export default async function UniversitiesPage({ searchParams }: { searchParams:
                   </p>
                 </div>
               ) : (
-                <ul className="grid items-start gap-3 lg:grid-cols-2 lg:gap-4">
-                  {visible.map((u) => (
-                    <li key={u.id} className="flex flex-col *:flex-1">
-                      <UniversityCard university={u} fieldId={fieldId} />
-                    </li>
-                  ))}
-                  <li className={`hidden lg:block ${visible.length % 2 === 0 ? "lg:col-span-2" : ""}`}>
-                    <CampusNote />
-                  </li>
-                </ul>
+                <TwoColumns
+                  items={visible.map((u) => ({
+                    key: u.id,
+                    node: <UniversityCard university={u} fieldId={fieldId} />,
+                  }))}
+                  extra={<CampusNote />}
+                />
               )}
 
               {results.length > visible.length && (

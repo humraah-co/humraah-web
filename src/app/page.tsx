@@ -273,11 +273,11 @@ export default async function HomePage() {
 function GuideDownloads() {
   return (
     <>
-      <ButtonLink href="/guide" variant="secondary" className="flex-1 lg:flex-none">
+      <ButtonLink href="/guide" variant="secondary" className="flex-1 px-3.5! whitespace-nowrap lg:flex-none lg:px-[22px]!">
         <Download className="size-5" strokeWidth={1.75} aria-hidden="true" />
         English PDF
       </ButtonLink>
-      <ButtonLink href="/guide" variant="secondary" className="flex-1 lg:flex-none">
+      <ButtonLink href="/guide" variant="secondary" className="flex-1 px-3.5! whitespace-nowrap lg:flex-none lg:px-[22px]!">
         <Download className="size-5" strokeWidth={1.75} aria-hidden="true" />
         Urdu PDF
       </ButtonLink>
