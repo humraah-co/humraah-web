@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Award, BookOpen, Compass, House, Landmark, type LucideIcon } from "lucide-react";
-import { isActive } from "@/lib/nav";
+import { isActive, isQuizPath } from "@/lib/nav";
 
 const tabs: { href: string; label: string; icon: LucideIcon }[] = [
   { href: "/", label: "Home", icon: House },
@@ -30,7 +30,8 @@ export function BottomNav() {
       >
         <ul className="flex">
           {tabs.map(({ href, label, icon: Icon }) => {
-            const active = isActive(pathname, href);
+            // Quiz results sit under Explore (Figma 12:1222).
+            const active = isActive(pathname, href) || (href === "/explore" && isQuizPath(pathname));
             return (
               <li key={href} className="flex-1">
                 <Link

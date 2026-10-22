@@ -16,16 +16,21 @@ const card =
 // Card/Field
 // ---------------------------------------------------------------------------
 
-export function FieldCard({ field }: { field: FieldSummary }) {
+/** `reason` replaces the "You might enjoy this if…" line, e.g. on quiz results. */
+export function FieldCard({ field, reason }: { field: FieldSummary; reason?: string }) {
   return (
     <Link href={`/explore/${field.slug}`} className={`${card} flex-row items-start gap-3.5`}>
       <FieldIcon slug={field.slug} />
       <span className="flex min-w-0 flex-1 flex-col gap-1">
         <span className="text-label-l">{field.name}</span>
-        {field.you_might_enjoy && (
-          <span className="text-body-s text-muted">
-            You might enjoy this if you like {field.you_might_enjoy}.
-          </span>
+        {reason ? (
+          <span className="text-body-s text-muted">{reason}</span>
+        ) : (
+          field.you_might_enjoy && (
+            <span className="text-body-s text-muted">
+              You might enjoy this if you like {field.you_might_enjoy}.
+            </span>
+          )
         )}
         {field.example_programmes.length > 0 && (
           <span className="text-label-s text-deep-sage">{field.example_programmes.join(", ")}</span>
