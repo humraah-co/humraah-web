@@ -40,9 +40,11 @@ export function SearchButton() {
   );
 }
 
-export function MenuButton() {
+/** Opens the Menu screen; `from` is the current page, so closing the menu returns to it. */
+export function MenuButton({ from }: { from: string }) {
+  const href = from === "/" ? "/menu" : `/menu?from=${encodeURIComponent(from)}`;
   return (
-    <Link href="/menu" className={iconButton} aria-label="Menu">
+    <Link href={href} className={iconButton} aria-label="Menu">
       <Menu className="size-5" strokeWidth={1.75} aria-hidden="true" />
     </Link>
   );

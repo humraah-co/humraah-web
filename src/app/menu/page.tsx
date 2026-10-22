@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BookOpen, ChevronRight, Compass, Globe, Heart, Lightbulb, type LucideIcon } from "lucide-react";
+import { BookOpen, ChevronRight, Compass, Globe, Heart, Lightbulb, X, type LucideIcon } from "lucide-react";
 import { LogoHorizontal } from "@/components/brand/Logo";
-import { MenuClose } from "@/components/layout/MenuClose";
 import { HelpCallout } from "@/components/ui/Blocks";
 import { menuNav } from "@/lib/nav";
 
@@ -20,12 +19,26 @@ const icons: Record<string, LucideIcon> = {
  * Menu (Figma 30:2638): a full screen with its own header, opened from the
  * mobile top bar. Lists the pages that aren't in the bottom bar.
  */
-export default function MenuPage() {
+export default async function MenuPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ from?: string | string[] }>;
+}) {
+  const { from } = await searchParams;
+  const back = Array.isArray(from) ? from[0] : from;
+  // Only a path on this site, so the link can't be pointed elsewhere.
+  const closeHref = back && back.startsWith("/") && !back.startsWith("//") ? back : "/";
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-[560px] flex-col">
       <header className="flex items-center justify-between border-b border-border-soft px-4 py-2.5">
         <LogoHorizontal />
-        <MenuClose />
+        <Link
+          href={closeHref}
+          className="flex size-11 shrink-0 items-center justify-center rounded-pill border border-border-soft bg-card hover:bg-blush"
+          aria-label="Close the menu"
+        >
+          <X className="size-5" strokeWidth={1.75} aria-hidden="true" />
+        </Link>
       </header>
 
       <nav aria-label="Menu" className="px-5 py-2">
