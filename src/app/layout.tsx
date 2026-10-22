@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { BottomNav } from "@/components/layout/BottomNav";
-import { HideOnQuiz } from "@/components/layout/HideOnQuiz";
+import { HideOnFocusedPages } from "@/components/layout/HideOnFocusedPages";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { caveat, cormorant, dmSans, nastaliq } from "./fonts";
@@ -36,15 +36,15 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         >
           Skip to content
         </a>
-        <HideOnQuiz>
+        <HideOnFocusedPages>
           <SiteHeader />
-        </HideOnQuiz>
+        </HideOnFocusedPages>
         <main id="main" className="flex-1">
           {children}
         </main>
-        <HideOnQuiz>
+        <HideOnFocusedPages>
           <SiteFooter />
-        </HideOnQuiz>
+        </HideOnFocusedPages>
         <BottomNav />
       </body>
     </html>

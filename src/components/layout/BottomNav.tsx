@@ -16,11 +16,12 @@ const tabs: { href: string; label: string; icon: LucideIcon }[] = [
 /**
  * Sticky mobile bottom navigation (Figma 4:506). Active tab: pill tint/coral,
  * icon text/deep-rose, label text/charcoal. The spacer keeps the end of the
- * page clear of the bar. Quiz questions have their own sticky button instead.
+ * page clear of the bar. Quiz questions have their own sticky button instead, and the menu covers the
+ * whole screen.
  */
 export function BottomNav() {
   const pathname = usePathname();
-  if (pathname === "/quiz") return null;
+  if (pathname === "/quiz" || pathname === "/menu") return null;
   return (
     <>
       <div aria-hidden="true" className="h-[83px] shrink-0 lg:hidden" />

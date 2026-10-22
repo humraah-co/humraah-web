@@ -26,13 +26,13 @@ export const footerHelp: NavItem[] = [
   { href: "/about", label: "About and contact" },
 ];
 
-/** Pages reached from the mobile Menu screen rather than the bottom bar. */
-export const menuNav: NavItem[] = [
-  { href: "/quiz", label: "Where do I start?" },
-  { href: "/guidance", label: "Guidance" },
-  { href: "/resources", label: "Resources" },
-  { href: "/about", label: "About and contact" },
-  { href: "/privacy", label: "Privacy and disclaimer" },
+/** Pages reached from the mobile Menu screen (Figma 30:2638) rather than the bottom bar. */
+export const menuNav: (NavItem & { description: string })[] = [
+  { href: "/guidance", label: "Guidance", description: "Step-by-step help for every stage" },
+  { href: "/guide", label: "Higher Education Guide", description: "Free in English and Urdu" },
+  { href: "/resources", label: "Resources", description: "Official websites and tools" },
+  { href: "/about", label: "About and contact", description: "Who we are and how to reach us" },
+  { href: "/quiz", label: "Where do I start?", description: "A two-minute quiz" },
 ];
 
 export const contact = {
@@ -51,4 +51,9 @@ export function isActive(pathname: string, href: string) {
 /** The quiz has its own header and no site footer (Figma 25:1365, 31:1363). */
 export function isQuizPath(pathname: string) {
   return pathname === "/quiz" || pathname.startsWith("/quiz/");
+}
+
+/** Pages with their own header instead of the site header and footer: the quiz and the menu (30:2638). */
+export function isFocusedPath(pathname: string) {
+  return isQuizPath(pathname) || pathname === "/menu";
 }
