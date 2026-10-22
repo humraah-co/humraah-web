@@ -170,6 +170,8 @@ export type Database = {
       is_team_member: { Args: Record<string, never>; Returns: boolean };
       is_admin: { Args: Record<string, never>; Returns: boolean };
       is_owner: { Args: Record<string, never>; Returns: boolean };
+      accept_invite: { Args: { p_full_name: string }; Returns: TeamMember };
+      record_invite_resent: { Args: { p_user_id: string }; Returns: undefined };
     };
     Enums: {
       content_status: ContentStatus;
