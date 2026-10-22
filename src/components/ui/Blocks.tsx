@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ChevronDown, CircleAlert, Lightbulb, Sprout, type LucideIcon } from "lucide-react";
+import { formatLongDate, isStale } from "@/lib/format";
 import { ButtonLink } from "./Button";
 
 /** Section header: H2 with an optional "See all" text link on the right. */
@@ -193,5 +194,26 @@ export function Step({
         {children && <p className="text-body-m text-muted">{children}</p>}
       </div>
     </li>
+  );
+}
+
+/**
+ * Shown on any page whose details were last verified more than six months
+ * ago. Renders nothing when the entry is recent or not yet verified (the
+ * "Not yet verified" badge covers that case).
+ */
+export function StaleNotice({
+  verifiedAt,
+  className = "",
+}: {
+  verifiedAt: string | null;
+  className?: string;
+}) {
+  if (!verifiedAt || !isStale(verifiedAt)) return null;
+  return (
+    <ImportantCallout title="This may be out of date" className={className}>
+      We last checked these details on {formatLongDate(verifiedAt)}, more than six months ago. Check the
+      official website before you rely on them.
+    </ImportantCallout>
   );
 }

@@ -77,3 +77,14 @@ export function pointsFrom(text: string | null) {
     .map((s) => s.replace(/\.$/, "").trim())
     .filter(Boolean);
 }
+
+/** Six months: after this a verified entry may be out of date. */
+export const STALE_AFTER_MONTHS = 6;
+
+/** True when an entry was verified, but more than six months ago. */
+export function isStale(verifiedAt: string | null, now = new Date()) {
+  if (!verifiedAt) return false;
+  const limit = new Date(verifiedAt);
+  limit.setMonth(limit.getMonth() + STALE_AFTER_MONTHS);
+  return limit.getTime() < now.getTime();
+}

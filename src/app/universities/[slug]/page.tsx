@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import { UniversityAvatar } from "@/components/content/Cards";
 import { Container } from "@/components/layout/PageShell";
-import { Accordion, ImportantCallout, NextSteps, Step } from "@/components/ui/Blocks";
+import { Accordion, ImportantCallout, NextSteps, StaleNotice, Step } from "@/components/ui/Blocks";
 import { ButtonLink } from "@/components/ui/Button";
 import { Chip, HecBadge, SourceBadge, VerificationBadge } from "@/components/ui/Chip";
 import { ShareButton } from "@/components/ui/ShareButton";
@@ -171,6 +171,7 @@ export default async function UniversityPage({ params }: Props) {
               <p className="text-caption text-muted">Last verified {formatLongDate(u.last_verified_at)}</p>
             )}
             {u.source_url && <SourceBadge url={u.source_url} />}
+            <StaleNotice verifiedAt={u.last_verified_at} className="mt-1 basis-full" />
           </div>
         </header>
       </Container>

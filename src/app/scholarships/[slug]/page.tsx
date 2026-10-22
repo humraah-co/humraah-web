@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { Check, ChevronRight, CircleAlert, Clock } from "lucide-react";
 import { deadlineLabel, kindLabels, ScholarshipCard } from "@/components/content/Cards";
 import { Container } from "@/components/layout/PageShell";
-import { ImportantCallout, NextSteps, Step } from "@/components/ui/Blocks";
+import { ImportantCallout, NextSteps, StaleNotice, Step } from "@/components/ui/Blocks";
 import { ButtonLink } from "@/components/ui/Button";
 import { Chip, ChipList, SourceBadge, VerificationBadge } from "@/components/ui/Chip";
 import { ShareButton } from "@/components/ui/ShareButton";
@@ -106,6 +106,7 @@ export default async function ScholarshipPage({ params }: Props) {
             </p>
             {s.source_url && <SourceBadge url={s.source_url} />}
           </div>
+          <StaleNotice verifiedAt={s.last_verified_at} />
           <div className="flex flex-col gap-2.5 pt-1">
             {s.official_url ? (
               <ButtonLink href={s.official_url} external className="w-full">

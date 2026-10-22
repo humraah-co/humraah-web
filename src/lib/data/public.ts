@@ -46,10 +46,18 @@ export async function getPublishedCounts() {
 
 export type FieldSummary = Pick<
   Field,
-  "id" | "slug" | "name" | "summary" | "you_might_enjoy" | "interests" | "example_programmes"
+  | "id"
+  | "slug"
+  | "name"
+  | "summary"
+  | "you_might_enjoy"
+  | "interests"
+  | "example_programmes"
+  | "last_verified_at"
 >;
 
-const FIELD_COLUMNS = "id, slug, name, summary, you_might_enjoy, interests, example_programmes";
+const FIELD_COLUMNS =
+  "id, slug, name, summary, you_might_enjoy, interests, example_programmes, last_verified_at";
 
 export const listFields = unstable_cache(
   async (): Promise<FieldSummary[] | null> => {
