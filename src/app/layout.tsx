@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { BottomNav } from "@/components/layout/BottomNav";
+import { HideOnQuiz } from "@/components/layout/HideOnQuiz";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { caveat, cormorant, dmSans, nastaliq } from "./fonts";
@@ -28,18 +29,22 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       lang="en"
       className={`${dmSans.variable} ${cormorant.variable} ${caveat.variable} ${nastaliq.variable}`}
     >
-      <body className="flex min-h-dvh flex-col pb-[83px] antialiased lg:pb-0">
+      <body className="flex min-h-dvh flex-col antialiased">
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-pill focus:bg-card focus:px-4 focus:py-2"
         >
           Skip to content
         </a>
-        <SiteHeader />
+        <HideOnQuiz>
+          <SiteHeader />
+        </HideOnQuiz>
         <main id="main" className="flex-1">
           {children}
         </main>
-        <SiteFooter />
+        <HideOnQuiz>
+          <SiteFooter />
+        </HideOnQuiz>
         <BottomNav />
       </body>
     </html>

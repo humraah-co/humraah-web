@@ -47,3 +47,8 @@ export function isActive(pathname: string, href: string) {
   if (href === "/") return pathname === "/";
   return pathname === href || pathname.startsWith(`${href}/`);
 }
+
+/** The quiz has its own header and no site footer (Figma 25:1365, 31:1363). */
+export function isQuizPath(pathname: string) {
+  return pathname === "/quiz" || pathname.startsWith("/quiz/");
+}
