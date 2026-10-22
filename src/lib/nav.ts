@@ -50,7 +50,8 @@ export function isActive(pathname: string, href: string) {
 
 /** The quiz has its own header and no site footer (Figma 25:1365, 31:1363). */
 export function isQuizPath(pathname: string) {
-  return pathname === "/quiz" || pathname.startsWith("/quiz/");
+  // Exact paths, so a mistyped /quiz/… link gets the normal 404 page with the site header.
+  return pathname === "/quiz" || pathname === "/quiz/results";
 }
 
 /** Pages with their own header instead of the site header and footer: the quiz and the menu (30:2638). */
