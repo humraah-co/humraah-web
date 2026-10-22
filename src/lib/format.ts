@@ -125,3 +125,14 @@ export function personInitials(name: string) {
     .slice(0, 2);
   return words.map((w) => w[0]!.toUpperCase()).join("") || "?";
 }
+
+/** "Today", "Yesterday", "3 days ago", then the date: for "last active". */
+export function dayLabel(iso: string, now = new Date()) {
+  const day = (d: Date) =>
+    new Date(d.toLocaleString("en-US", { timeZone: "Asia/Karachi" })).setHours(0, 0, 0, 0);
+  const days = Math.round((day(now) - day(new Date(iso))) / 86_400_000);
+  if (days <= 0) return "Today";
+  if (days === 1) return "Yesterday";
+  if (days < 30) return `${days} days ago`;
+  return formatLongDate(iso);
+}
