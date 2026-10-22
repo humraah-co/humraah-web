@@ -1,12 +1,12 @@
 import Link from "next/link";
-import { ChevronRight, MapPin } from "lucide-react";
+import { ChevronRight, ExternalLink, MapPin, type LucideIcon } from "lucide-react";
 import { Chip, ChipList, DeadlineChip, VerificationBadge } from "@/components/ui/Chip";
 import type {
   FieldSummary,
   ScholarshipCard as ScholarshipCardData,
   UniversityCard as UniversityCardData,
 } from "@/lib/data/public";
-import { daysUntil, formatShortDate, initialsFor } from "@/lib/format";
+import { daysUntil, formatShortDate, hostOf, initialsFor } from "@/lib/format";
 import { FieldIcon } from "./FieldIcon";
 
 const card =
@@ -179,5 +179,70 @@ export function ScholarshipCard({ scholarship: s }: { scholarship: ScholarshipCa
         <VerificationBadge verifiedAt={s.last_verified_at} />
       </span>
     </Link>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Card/Resource
+// ---------------------------------------------------------------------------
+
+/**
+ * Card/Resource (Figma 4:355): an official link with its site underneath.
+ * External links open in a new tab; a `href` on this site doesn't.
+ */
+export function ResourceCard({
+  title,
+  description,
+  href,
+  source,
+  icon: Icon,
+}: {
+  title: string;
+  description: string | null;
+  /** null shows the card as "Coming soon" with no link. */
+  href: string | null;
+  /** Small deep-rose line, e.g. "hec.gov.pk". Defaults to the link's site. */
+  source?: string;
+  icon: LucideIcon;
+}) {
+  const external = !!href && !href.startsWith("/");
+  const body = (
+    <>
+      <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-tint-lavender">
+        <Icon className="size-5" strokeWidth={1.75} aria-hidden="true" />
+      </span>
+      <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+        <span className="text-label-l">{title}</span>
+        {description && <span className="text-body-s text-muted">{description}</span>}
+        <span className="text-caption break-words text-deep-rose">
+          {href ? (source ?? (external ? hostOf(href) : "Humraah")) : "Coming soon"}
+        </span>
+      </span>
+      {href &&
+        (external ? (
+          <ExternalLink className="size-5 shrink-0 text-deep-rose" strokeWidth={1.75} aria-hidden="true" />
+        ) : (
+          <ChevronRight className="size-5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
+        ))}
+    </>
+  );
+  const classes = "flex items-center gap-3 rounded-2xl border border-border-soft bg-card p-4";
+  if (!href) return <div className={classes}>{body}</div>;
+  if (!external)
+    return (
+      <Link href={href} className={`${classes} transition-shadow hover:shadow-raised`}>
+        {body}
+      </Link>
+    );
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`${classes} transition-shadow hover:shadow-raised`}
+    >
+      {body}
+      <span className="sr-only">(opens in a new tab)</span>
+    </a>
   );
 }
