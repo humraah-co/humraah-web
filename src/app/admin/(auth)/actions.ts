@@ -7,10 +7,12 @@ import {
   emailError,
   formPassword,
   formText,
+  nameError,
   newPasswordErrors,
   passwordUpdateMessage,
 } from "@/lib/admin/forms";
 import { ADMIN_HOME, AUTH_CONFIRM_PATH, RESET_PASSWORD_PATH, safeNextPath } from "@/lib/admin/paths";
+import { getAdminSession } from "@/lib/admin/session";
 import { KEEP_SIGNED_IN_COOKIE, keepSignedInCookieOptions } from "@/lib/supabase/cookies";
 import { getSupabaseEnv } from "@/lib/supabase/env";
 import { createSessionClient } from "@/lib/supabase/server";
@@ -89,4 +91,46 @@ export async function setNewPassword(_prev: NewPasswordState, form: FormData): P
   const { error } = await supabase.auth.updateUser({ password });
   if (error) return { status: "invalid", errors: { form: passwordUpdateMessage(error.code) } };
   redirect(`${ADMIN_HOME}?notice=password-updated`);
+}
+
+export type AcceptInviteState =
+  | { status: "idle" }
+  | {
+      status: "invalid";
+      errors: { name?: string; password?: string; confirm?: string; form?: string };
+      name: string;
+    };
+
+/** The last step of an invite: the person names themselves and chooses a password. */
+export async function acceptInvite(_prev: AcceptInviteState, form: FormData): Promise<AcceptInviteState> {
+  const name = formText(form, "name");
+  const password = formPassword(form, "password");
+  const errors = { name: nameError(name), ...newPasswordErrors(password, formPassword(form, "confirm")) };
+  if (errors.name || errors.password || errors.confirm) return { status: "invalid", errors, name };
+
+  const session = await getAdminSession();
+  if (!session?.user || session.member?.status !== "invited") {
+    return {
+      status: "invalid",
+      errors: { form: "This invite is no longer waiting to be accepted. Try signing in instead." },
+      name,
+    };
+  }
+  const { supabase } = session;
+  const { error } = await supabase.auth.updateUser({ password, data: { full_name: name } });
+  if (error) return { status: "invalid", errors: { form: passwordUpdateMessage(error.code) }, name };
+
+  // Sets the name and makes the membership active (and logs "joined").
+  const { error: acceptError } = await supabase.rpc("accept_invite", { p_full_name: name });
+  if (acceptError) {
+    console.error("accept_invite failed:", acceptError.message);
+    return {
+      status: "invalid",
+      errors: {
+        form: "Your password is saved, but we couldn’t finish setting up your account. Please try again.",
+      },
+      name,
+    };
+  }
+  redirect(`${ADMIN_HOME}?notice=welcome`);
 }
