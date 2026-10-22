@@ -11,7 +11,15 @@ import {
   newPasswordErrors,
   passwordUpdateMessage,
 } from "@/lib/admin/forms";
-import { ADMIN_HOME, AUTH_CONFIRM_PATH, RESET_PASSWORD_PATH, safeNextPath } from "@/lib/admin/paths";
+import {
+  ACCEPT_INVITE_PATH,
+  ADMIN_HOME,
+  AUTH_CONFIRM_PATH,
+  LOGIN_PATH,
+  NO_ACCESS_PATH,
+  RESET_PASSWORD_PATH,
+  safeNextPath,
+} from "@/lib/admin/paths";
 import { getAdminSession } from "@/lib/admin/session";
 import { KEEP_SIGNED_IN_COOKIE, keepSignedInCookieOptions } from "@/lib/supabase/cookies";
 import { getSupabaseEnv } from "@/lib/supabase/env";
@@ -39,7 +47,7 @@ export async function signIn(_prev: SignInState, form: FormData): Promise<SignIn
   else cookieStore.delete(KEEP_SIGNED_IN_COOKIE);
 
   const supabase = await createSessionClient({ keep });
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) {
     const message =
       error.status === 429
@@ -47,7 +55,20 @@ export async function signIn(_prev: SignInState, form: FormData): Promise<SignIn
         : signInFailed;
     return { status: "error", message, email };
   }
-  // The middleware sends people without an active membership on from here.
+
+  // Straight to the right page for their membership (the middleware would
+  // get them there too, but the address bar would still say /admin).
+  const { data: member } = await supabase
+    .from("team_members")
+    .select("status")
+    .eq("user_id", data.user.id)
+    .maybeSingle();
+  if (member?.status === "suspended") {
+    await supabase.auth.signOut();
+    redirect(`${LOGIN_PATH}?notice=suspended`);
+  }
+  if (member?.status === "invited") redirect(ACCEPT_INVITE_PATH);
+  if (!member) redirect(NO_ACCESS_PATH);
   redirect(safeNextPath(form.get("next")) ?? ADMIN_HOME);
 }
 
