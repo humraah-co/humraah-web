@@ -59,3 +59,21 @@ const countWords = ["no", "one", "two", "three", "four", "five", "six", "seven",
 export function countWord(n: number) {
   return countWords[n] ?? String(n);
 }
+
+/** One step per line, with any "1." or "-" marker removed. */
+export function stepsFrom(text: string | null) {
+  return (text ?? "")
+    .split(/\r?\n/)
+    .map((line) => line.replace(/^\s*(?:\d+[.)]|[-*•])\s*/, "").trim())
+    .filter(Boolean);
+}
+
+/** Points for a checklist: one per line, or one per sentence when the text is a single line. */
+export function pointsFrom(text: string | null) {
+  const lines = stepsFrom(text);
+  if (lines.length !== 1) return lines;
+  return lines[0]
+    .split(/(?<=[.!?])\s+(?=[A-Z0-9])/)
+    .map((s) => s.replace(/\.$/, "").trim())
+    .filter(Boolean);
+}

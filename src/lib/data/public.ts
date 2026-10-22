@@ -231,3 +231,23 @@ export const listScholarshipCards = unstable_cache(
   ["scholarship-cards"],
   { revalidate: REVALIDATE, tags: ["scholarships"] },
 );
+
+export type ScholarshipDetail = Scholarship & { fieldIds: string[] };
+
+export const getScholarship = unstable_cache(
+  async (slug: string): Promise<ScholarshipDetail | null | undefined> => {
+    const supabase = createPublicClient();
+    if (!supabase) return null;
+    const { data, error } = await supabase.from("scholarships").select("*").eq("slug", slug).maybeSingle();
+    if (error) fail("scholarship", error.message);
+    if (!data) return undefined;
+    const { data: links, error: lErr } = await supabase
+      .from("scholarship_fields")
+      .select("field_id")
+      .eq("scholarship_id", data.id);
+    if (lErr) fail("scholarship fields", lErr.message);
+    return { ...data, fieldIds: links.map((l) => l.field_id) };
+  },
+  ["scholarship"],
+  { revalidate: REVALIDATE, tags: ["scholarships"] },
+);
