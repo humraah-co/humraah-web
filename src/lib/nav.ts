@@ -1,5 +1,7 @@
 /** Site navigation, in the order used by the Figma headers and footers. */
 
+import { isAdminPath } from "@/lib/admin/paths";
+
 export type NavItem = { href: string; label: string };
 
 export const desktopNav: NavItem[] = [
@@ -54,7 +56,10 @@ export function isQuizPath(pathname: string) {
   return pathname === "/quiz" || pathname === "/quiz/results";
 }
 
-/** Pages with their own header instead of the site header and footer: the quiz and the menu (30:2638). */
+/**
+ * Pages with their own header instead of the site header and footer: the
+ * quiz, the menu (30:2638) and the admin area, which has its own layout.
+ */
 export function isFocusedPath(pathname: string) {
-  return isQuizPath(pathname) || pathname === "/menu";
+  return isQuizPath(pathname) || pathname === "/menu" || isAdminPath(pathname);
 }

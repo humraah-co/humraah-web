@@ -20,7 +20,7 @@ export type ContactState =
   | { status: "sent" };
 
 // Deliberately simple: something@something.something with no spaces.
-const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+export const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export function readContactForm(form: FormData): ContactInput {
   const text = (key: string) => {
