@@ -129,7 +129,7 @@ export function UniversityCard({
 const kindLabels: Record<ScholarshipCardData["kind"], string> = {
   government: "Government",
   external: "External",
-  university: "University",
+  university: "University aid",
   need: "Government",
   merit: "Merit",
 };

@@ -3,17 +3,20 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ChevronDown, SlidersHorizontal } from "lucide-react";
-import { buttonStyles } from "@/components/ui/Button";
+import { buttonStyles } from "./Button";
 
-/** Filter button (Figma 4:167) and the bottom sheet it opens on phones. */
+/**
+ * Filter button (Figma 4:167) and the bottom sheet it opens on phones.
+ * `showLabel` is the button that closes the sheet, e.g. "Show 12 universities".
+ */
 export function FilterSheet({
   count,
-  resultCount,
+  showLabel,
   clearHref,
   children,
 }: {
   count: number;
-  resultCount: number;
+  showLabel: string;
   clearHref: string;
   children: React.ReactNode;
 }) {
@@ -88,7 +91,7 @@ export function FilterSheet({
             </div>
             {children}
             <button type="button" onClick={() => setOpen(false)} className={`${buttonStyles.primary} w-full`}>
-              Show {resultCount} {resultCount === 1 ? "university" : "universities"}
+              {showLabel}
             </button>
           </div>
         </div>

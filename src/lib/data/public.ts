@@ -185,7 +185,7 @@ export async function listUniversitySlugs() {
 }
 
 // ---------------------------------------------------------------------------
-// Scholarships (cards only; the full pages arrive on Day 3)
+// Scholarships
 // ---------------------------------------------------------------------------
 
 export type ScholarshipCard = Pick<
@@ -193,6 +193,7 @@ export type ScholarshipCard = Pick<
   | "id"
   | "slug"
   | "name"
+  | "provider"
   | "kind"
   | "scope"
   | "summary"
@@ -201,11 +202,12 @@ export type ScholarshipCard = Pick<
   | "audience_note"
   | "deadline"
   | "deadline_note"
+  | "eligible_areas"
   | "last_verified_at"
 > & { fieldIds: string[] };
 
 const SCHOLARSHIP_CARD_COLUMNS =
-  "id, slug, name, kind, scope, summary, women_only, covers, audience_note, deadline, deadline_note, last_verified_at";
+  "id, slug, name, provider, kind, scope, summary, women_only, covers, audience_note, deadline, deadline_note, eligible_areas, last_verified_at";
 
 export const listScholarshipCards = unstable_cache(
   async (): Promise<ScholarshipCard[] | null> => {
