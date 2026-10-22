@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { ChevronDown, CircleAlert, Lightbulb, Sprout, type LucideIcon } from "lucide-react";
+import { ChevronDown, CircleAlert, Heart, Lightbulb, Sprout, type LucideIcon } from "lucide-react";
 import { formatLongDate, isStale } from "@/lib/format";
+import { contact } from "@/lib/nav";
 import { ButtonLink } from "./Button";
 
 /** Section header: H2 with an optional "See all" text link on the right. */
@@ -68,6 +69,30 @@ export function ImportantCallout({
         {title}
       </p>
       <p className="mt-1.5 text-body-s">{children}</p>
+    </aside>
+  );
+}
+
+/** Callout/Help: lavender panel pointing to Instagram and email. */
+export function HelpCallout({ className = "" }: { className?: string }) {
+  const link = "text-deep-rose underline underline-offset-2 hover:text-charcoal";
+  return (
+    <aside className={`rounded-[18px] bg-tint-lavender p-4 ${className}`}>
+      <p className="flex items-center gap-2 text-label-m">
+        <Heart className="size-5 shrink-0 text-deep-rose" strokeWidth={1.75} aria-hidden="true" />
+        Need help? Humraah is here.
+      </p>
+      <p className="mt-1.5 text-body-s">
+        You don’t have to figure everything out alone. Message us on Instagram{" "}
+        <a href={contact.instagramUrl} rel="noopener" className={link}>
+          {contact.instagramHandle}
+        </a>{" "}
+        or email{" "}
+        <a href={`mailto:${contact.email}`} className={link}>
+          {contact.email}
+        </a>
+        .
+      </p>
     </aside>
   );
 }
@@ -173,7 +198,7 @@ export function Step({
   children,
 }: {
   number: number;
-  title: string;
+  title: React.ReactNode;
   last?: boolean;
   children?: React.ReactNode;
 }) {
@@ -191,7 +216,7 @@ export function Step({
       </div>
       <div className={`flex min-w-0 flex-1 flex-col gap-1 pt-1.5 ${last ? "" : "pb-4"}`}>
         <p className="text-label-l">{title}</p>
-        {children && <p className="text-body-m text-muted">{children}</p>}
+        {children && <div className="text-body-m text-muted">{children}</div>}
       </div>
     </li>
   );

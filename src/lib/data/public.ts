@@ -1,7 +1,7 @@
 import "server-only";
 import { unstable_cache } from "next/cache";
 import { createPublicClient } from "@/lib/supabase/public";
-import type { Field, Scholarship, University } from "@/lib/database.types";
+import type { Field, GuidanceArticle, Resource, Scholarship, University } from "@/lib/database.types";
 
 /**
  * Public data access. Every query goes through the anon client, so row-level
@@ -258,4 +258,68 @@ export const getScholarship = unstable_cache(
   },
   ["scholarship"],
   { revalidate: REVALIDATE, tags: ["scholarships"] },
+);
+
+// ---------------------------------------------------------------------------
+// Guidance articles
+// ---------------------------------------------------------------------------
+
+export type GuidanceSummary = Pick<
+  GuidanceArticle,
+  "id" | "slug" | "title" | "summary" | "body_markdown" | "last_verified_at"
+>;
+
+/** Every published article in reading order. The body comes too, for the read time. */
+export const listGuidanceArticles = unstable_cache(
+  async (): Promise<GuidanceSummary[] | null> => {
+    const supabase = createPublicClient();
+    if (!supabase) return null;
+    const { data, error } = await supabase
+      .from("guidance_articles")
+      .select("id, slug, title, summary, body_markdown, last_verified_at")
+      .order("sort_order")
+      .order("title");
+    if (error) fail("guidance articles", error.message);
+    return data;
+  },
+  ["guidance-articles"],
+  { revalidate: REVALIDATE, tags: ["guidance"] },
+);
+
+export const getGuidanceArticle = unstable_cache(
+  async (slug: string): Promise<GuidanceArticle | null | undefined> => {
+    const supabase = createPublicClient();
+    if (!supabase) return null;
+    const { data, error } = await supabase
+      .from("guidance_articles")
+      .select("*")
+      .eq("slug", slug)
+      .maybeSingle();
+    if (error) fail("guidance article", error.message);
+    return data ?? undefined;
+  },
+  ["guidance-article"],
+  { revalidate: REVALIDATE, tags: ["guidance"] },
+);
+
+// ---------------------------------------------------------------------------
+// Resources
+// ---------------------------------------------------------------------------
+
+export type ResourceLink = Pick<Resource, "id" | "title" | "description" | "url" | "category">;
+
+export const listResources = unstable_cache(
+  async (): Promise<ResourceLink[] | null> => {
+    const supabase = createPublicClient();
+    if (!supabase) return null;
+    const { data, error } = await supabase
+      .from("resources")
+      .select("id, title, description, url, category")
+      .order("sort_order")
+      .order("title");
+    if (error) fail("resources", error.message);
+    return data;
+  },
+  ["resources"],
+  { revalidate: REVALIDATE, tags: ["resources"] },
 );

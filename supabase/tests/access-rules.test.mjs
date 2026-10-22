@@ -64,6 +64,15 @@ check(
   [{ n: 10 }],
 );
 check(
+  "anon sees the published guidance articles",
+  await as("anon", null, `select slug from guidance_articles order by sort_order`),
+  [
+    { slug: "how-to-research-a-university" },
+    { slug: "finding-the-right-university" },
+    { slug: "admissions-and-application-guide" },
+  ],
+);
+check(
   "anon cannot see draft AKU programmes",
   await as(
     "anon",

@@ -88,3 +88,18 @@ export function isStale(verifiedAt: string | null, now = new Date()) {
   limit.setMonth(limit.getMonth() + STALE_AFTER_MONTHS);
   return limit.getTime() < now.getTime();
 }
+
+/** "4 min read" at about 200 words a minute, never less than one minute. */
+export function readTime(markdown: string) {
+  const words = markdown.split(/\s+/).filter((w) => /\w/.test(w)).length;
+  return `${Math.max(1, Math.ceil(words / 200))} min read`;
+}
+
+/** "hec.gov.pk" from "https://www.hec.gov.pk/english"; the raw value if it isn't a URL. */
+export function hostOf(url: string) {
+  try {
+    return new URL(url).hostname.replace(/^www\./, "");
+  } catch {
+    return url;
+  }
+}
