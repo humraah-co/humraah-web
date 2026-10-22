@@ -1,0 +1,33 @@
+name: Bug (QA)
+description: Something on a preview or the live site doesn't work or doesn't match Figma
+labels: [bug, qa]
+body:
+  - type: input
+    id: where
+    attributes:
+      label: Page and link
+      description: The preview or live URL where you saw it
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what should happen?
+      description: Add a screenshot and the Figma screen it should match
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Device and browser
+      placeholder: e.g. Samsung A12, Chrome, slow 3G
+  - type: dropdown
+    id: severity
+    attributes:
+      label: How bad is it?
+      options:
+        - Blocks launch
+        - Should fix before launch
+        - Can wait until after launch
+    validations:
+      required: true

@@ -1,0 +1,23 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": { "source.fixAll.eslint": "explicit" },
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "tailwindCSS.experimental.configFile": "src/app/globals.css",
+  "css.lint.unknownAtRules": "ignore",
+  "search.exclude": { "**/.next": true, "**/node_modules": true },
+  "cSpell.words": [
+    "Humraah",
+    "humraahco",
+    "Nastaliq",
+    "Supabase",
+    "NUCES",
+    "COMSATS",
+    "LCWU",
+    "PEEF",
+    "Rahimeen"
+  ]
+}
