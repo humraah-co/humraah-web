@@ -92,12 +92,15 @@ export function ActivityItem({
   actorId,
   text,
   when,
+  extra,
 }: {
   actor: string;
   /** Null for changes made by the system (seeding, the service-role key): shown with a gear. */
   actorId: string | null;
   text: string;
   when: string;
+  /** Shown after the time, e.g. a link to the entry. */
+  extra?: React.ReactNode;
 }) {
   return (
     <li className="flex items-start gap-3">
@@ -113,7 +116,10 @@ export function ActivityItem({
       )}
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
         <p className="text-body-s break-words">{text}</p>
-        <p className="text-caption text-muted">{when}</p>
+        <p className="text-caption text-muted">
+          {when}
+          {extra}
+        </p>
       </div>
     </li>
   );
