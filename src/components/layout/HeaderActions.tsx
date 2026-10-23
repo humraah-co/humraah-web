@@ -6,12 +6,12 @@ const iconButton =
 
 /**
  * EN | اردو pill. The Urdu site arrives in week 2, so the Urdu half is shown
- * but not yet a link.
+ * but not yet a link. A little narrower below 360 px, to fit the phone top bar.
  */
 export function LanguageSwitch() {
   return (
     <div
-      className="flex h-11 shrink-0 items-center gap-2 rounded-pill border border-border-strong bg-card px-3.5"
+      className="flex h-11 shrink-0 items-center gap-2 rounded-pill border border-border-strong bg-card px-3.5 max-[360px]:px-3"
       role="group"
       aria-label="Language"
     >
