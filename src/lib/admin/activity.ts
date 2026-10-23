@@ -8,9 +8,11 @@ import type { ActivityLogEntry } from "@/lib/database.types";
 const contentVerbs: Record<string, (label: string) => string> = {
   created: (l) => `added ${l}`,
   updated: (l) => `updated ${l}`,
+  verified: (l) => `marked ${l} as verified`,
   published: (l) => `published ${l}`,
   draft: (l) => `moved ${l} back to draft`,
   archived: (l) => `archived ${l}`,
+  restored: (l) => `restored ${l} to drafts`,
   deleted: (l) => `deleted ${l}`,
 };
 
