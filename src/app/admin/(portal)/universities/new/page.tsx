@@ -11,7 +11,14 @@ export default async function NewUniversityPage() {
   const fields = await listFieldOptions(supabase);
   return (
     <UniversityEditor
-      meta={{ table: "universities", id: null, status: null, title: "New university", verifiedAt: null }}
+      meta={{
+        table: "universities",
+        id: null,
+        status: null,
+        title: "New university",
+        verifiedAt: null,
+        isAdmin: false,
+      }}
       initial={emptyUniversity}
       fields={fields}
     />

@@ -34,6 +34,8 @@ export type EditorMeta = {
   verifiedBy?: string;
   /** The public page, for published entries. */
   viewHref?: string;
+  /** Admins and the owner can restore and delete archived entries. */
+  isAdmin: boolean;
 };
 
 const disabledStyle = "disabled:cursor-not-allowed disabled:opacity-70";
@@ -77,6 +79,7 @@ export function EditorFrame<V>({
   const readOnly = meta.status === "archived";
   const published = meta.status === "published";
   const type = entryTypes[meta.table];
+  const entryHref = `${type.adminPath}/${meta.id}`;
   const dirty = !readOnly && JSON.stringify(values) !== JSON.stringify(initial);
   useUnsavedChanges(dirty);
 
@@ -164,6 +167,21 @@ export function EditorFrame<V>({
                 {button("publish", "Publish", "Publishing…", buttonStyles.primary)}
               </>
             ))}
+          {meta.id && !readOnly && (
+            <ButtonLink href={`${entryHref}?confirm=archive`} variant="text" className="sm:ml-1">
+              Archive<span className="sr-only"> {meta.title}</span>
+            </ButtonLink>
+          )}
+          {meta.id && readOnly && meta.isAdmin && (
+            <>
+              <ButtonLink href={`${entryHref}?confirm=restore`} variant="secondary">
+                Restore to drafts
+              </ButtonLink>
+              <ButtonLink href={`${entryHref}?confirm=delete`} variant="text" className="sm:ml-1">
+                Delete permanently
+              </ButtonLink>
+            </>
+          )}
         </div>
       </header>
 
@@ -176,8 +194,10 @@ export function EditorFrame<V>({
 
       {readOnly && (
         <p className="rounded-2xl bg-tint-lavender p-4 text-body-s">
-          This {type.one} is archived, so it isn’t on the site and can’t be edited. Only admins can restore
-          archived entries.
+          This {type.one} is archived, so it isn’t on the site and can’t be edited.{" "}
+          {meta.isAdmin
+            ? "Restore it to drafts to make changes, or delete it permanently."
+            : "Only admins can restore archived entries."}
         </p>
       )}
 
