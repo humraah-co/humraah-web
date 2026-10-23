@@ -139,7 +139,7 @@ export default async function DashboardPage({
                 <ActivityItem
                   key={entry.id}
                   actor={actorName(entry.actor_id, data.actors)}
-                  actorKey={entry.actor_id ?? "system"}
+                  actorId={entry.actor_id}
                   text={describeActivity(entry, data.actors)}
                   when={timeAgo(entry.created_at)}
                 />

@@ -1,4 +1,4 @@
-import type { LucideIcon } from "lucide-react";
+import { Settings, type LucideIcon } from "lucide-react";
 import { personInitials } from "@/lib/format";
 
 /** Building blocks shared by the admin pages (Figma Admin/* components). */
@@ -87,18 +87,28 @@ export function StatCard({
 /** Admin/Activity item (10:350). */
 export function ActivityItem({
   actor,
-  actorKey,
+  actorId,
   text,
   when,
 }: {
   actor: string;
-  actorKey: string;
+  /** Null for changes made by the system (seeding, the service-role key): shown with a gear. */
+  actorId: string | null;
   text: string;
   when: string;
 }) {
   return (
     <li className="flex items-start gap-3">
-      <Avatar name={actor} toneKey={actorKey} size="sm" />
+      {actorId ? (
+        <Avatar name={actor} toneKey={actorId} size="sm" />
+      ) : (
+        <span
+          aria-hidden="true"
+          className="flex size-8 shrink-0 items-center justify-center rounded-pill border border-border-soft bg-cream text-muted"
+        >
+          <Settings className="size-4" strokeWidth={1.75} />
+        </span>
+      )}
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
         <p className="text-body-s break-words">{text}</p>
         <p className="text-caption text-muted">{when}</p>

@@ -44,6 +44,10 @@ export function actorName(actorId: string | null, actors: Map<string, string>) {
 
 export function describeActivity(entry: ActivityLogEntry, actors: Map<string, string>) {
   const label = entry.summary ?? nouns[entry.entity_type] ?? "an entry";
+  // Team rows added outside the invite flow (e.g. the first owner, set up by hand).
+  if (entry.entity_type === "team_members" && entry.action === "created") {
+    return `${label} was added to the team`;
+  }
   const verbs = entry.entity_type === "team_members" ? teamVerbs : contentVerbs;
   const verb = verbs[entry.action] ?? ((l: string) => `changed ${l} (${entry.action})`);
   return `${actorName(entry.actor_id, actors)} ${verb(label)}`;

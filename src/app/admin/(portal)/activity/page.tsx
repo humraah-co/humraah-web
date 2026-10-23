@@ -29,7 +29,7 @@ export default async function ActivityPage() {
                 <ActivityItem
                   key={entry.id}
                   actor={actorName(entry.actor_id, actors)}
-                  actorKey={entry.actor_id ?? "system"}
+                  actorId={entry.actor_id}
                   text={describeActivity(entry, actors)}
                   when={`${timeAgo(entry.created_at)} · ${formatLongDate(entry.created_at)}`}
                 />
