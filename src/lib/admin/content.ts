@@ -364,6 +364,13 @@ export function statusFor(intent: SaveIntent, current: ContentStatus | null): Co
 /** Field errors keyed by field name; programme rows use "programmes.0.name". */
 export type FieldErrors = Record<string, string>;
 
+/** What an editor's save action sends back when nothing was saved (success redirects). */
+export type SaveState =
+  { status: "idle" } | { status: "invalid"; errors: FieldErrors; form?: string; at: number };
+
+const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+export const isUuid = (value: string) => uuidPattern.test(value);
+
 const SHORT_MAX = 200;
 const LONG_MAX = 5000;
 const urlPattern = /^https?:\/\/[^\s/$.?#][^\s]*\.[^\s]+$/i;

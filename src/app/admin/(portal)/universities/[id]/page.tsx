@@ -1,0 +1,70 @@
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { RecentChanges } from "@/components/admin/RecentChanges";
+import { UniversityEditor } from "@/components/admin/UniversityEditor";
+import { PageHeader } from "@/components/admin/Workspace";
+import { FormAlert } from "@/components/ui/Field";
+import { isUuid, universityToValues } from "@/lib/admin/content";
+import {
+  entryActivity,
+  getUniversityForEdit,
+  lastVerifier,
+  listFieldOptions,
+  teamNames,
+} from "@/lib/admin/entries";
+import { saveNotice } from "@/lib/admin/saveEntry";
+import { requireActiveMember } from "@/lib/admin/session";
+import { savedLine } from "@/lib/format";
+
+export const metadata: Metadata = { title: "Edit university" };
+
+type Props = {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+};
+
+export default async function EditUniversityPage({ params, searchParams }: Props) {
+  const { supabase } = await requireActiveMember();
+  const [{ id }, query] = await Promise.all([params, searchParams]);
+  if (!isUuid(id)) notFound();
+
+  const [entry, fields, recent, verifier, names] = await Promise.all([
+    getUniversityForEdit(supabase, id),
+    listFieldOptions(supabase),
+    entryActivity(supabase, "universities", id),
+    lastVerifier(supabase, "universities", id),
+    teamNames(supabase),
+  ]);
+  if (entry === null) {
+    return (
+      <>
+        <PageHeader title="Edit university" description="Update this university’s profile." />
+        <FormAlert>We couldn’t load this university. Please refresh the page.</FormAlert>
+      </>
+    );
+  }
+  if (!entry) notFound();
+  const u = entry.university;
+  const editor = u.updated_by ? names.get(u.updated_by) : undefined;
+
+  return (
+    <UniversityEditor
+      // A fresh form after every save, so "unsaved changes" starts from what was saved.
+      key={u.updated_at}
+      meta={{
+        table: "universities",
+        id: u.id,
+        status: u.status,
+        title: u.name,
+        savedLine: savedLine(u.updated_at, editor),
+        verifiedAt: u.last_verified_at,
+        verifiedBy: verifier ? names.get(verifier) : undefined,
+        viewHref: u.status === "published" ? `/universities/${u.slug}` : undefined,
+      }}
+      initial={universityToValues(u, entry.programmes)}
+      fields={fields}
+      notice={saveNotice(query.notice)}
+      recent={<RecentChanges entries={recent} actors={names} />}
+    />
+  );
+}

@@ -120,3 +120,17 @@ export async function slugTaken(
   const { data } = await query.limit(1);
   return !!data?.length;
 }
+
+/** Who last marked this entry as verified, from the activity log. */
+export async function lastVerifier(supabase: SessionClient, table: EntryTable, id: string) {
+  const { data } = await supabase
+    .from("activity_log")
+    .select("actor_id")
+    .eq("entity_type", table)
+    .eq("entity_id", id)
+    .eq("action", "verified")
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+  return data?.actor_id ?? null;
+}
