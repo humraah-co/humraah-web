@@ -92,11 +92,12 @@ export function SourceBadge({ url }: { url: string }) {
 export function DeadlineChip({ children, urgent = false }: { children: React.ReactNode; urgent?: boolean }) {
   return (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-[10px] px-2.5 py-1.5 text-label-s whitespace-nowrap text-charcoal ${
+      // Stays on one line when there's room; long text ("dates to be confirmed") wraps inside narrow cards.
+      className={`inline-flex max-w-full items-center gap-1.5 rounded-[10px] px-2.5 py-1.5 text-label-s text-charcoal ${
         urgent ? "bg-tint-coral" : "bg-blush"
       }`}
     >
-      <Clock className="size-4" strokeWidth={1.75} aria-hidden="true" />
+      <Clock className="size-4 shrink-0" strokeWidth={1.75} aria-hidden="true" />
       {children}
     </span>
   );
