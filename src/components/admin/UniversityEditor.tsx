@@ -163,7 +163,8 @@ export function UniversityEditor({
             <CheckboxInput
               name="hec_recognised"
               label="Recognised by HEC"
-              hint="Check the campus on hec.gov.pk before turning this on."
+              hint="Check the campus on hec.gov.pk before turning this on. Needed to publish."
+              error={errors.hec_recognised}
               checked={values.hec_recognised}
               onChange={set("hec_recognised")}
             />

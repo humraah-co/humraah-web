@@ -423,6 +423,9 @@ function feeError(value: string) {
 
 const feeNumber = (value: string) => (t(value) ? Number(t(value).replace(/[,\s]/g, "")) : null);
 
+export const HEC_REQUIRED =
+  "Only HEC-recognised universities can be published. Check the HEC list and tick this box once confirmed.";
+
 export function validateUniversity(v: UniversityValues, intent: SaveIntent, status: ContentStatus) {
   const errors: FieldErrors = {};
   const set = (key: string, message: string | undefined) => {
@@ -434,6 +437,8 @@ export function validateUniversity(v: UniversityValues, intent: SaveIntent, stat
   set("website_url", urlError(v.website_url));
   set("admissions_url", urlError(v.admissions_url));
   set("source_url", urlError(v.source_url) ?? sourceError(intent, status, v.source_url));
+  // The Universities page promises every listed university is HEC-recognised.
+  if (status === "published" && !v.hec_recognised) errors.hec_recognised = HEC_REQUIRED;
   set("fee_min_pkr", feeError(v.fee_min_pkr));
   set("fee_max_pkr", feeError(v.fee_max_pkr));
   const min = feeNumber(v.fee_min_pkr);
@@ -479,6 +484,7 @@ export const universityLabels: Record<string, string> = {
   campuses_note: "Campuses",
   overview: "Overview",
   website_url: "Official website",
+  hec_recognised: "Recognised by HEC",
   admissions_url: "Admissions page",
   admission_test: "Admission test",
   admissions_window: "Application window",

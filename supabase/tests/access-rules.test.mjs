@@ -440,7 +440,13 @@ const entryLog = async (id) =>
   (
     await as("authenticated", OWNER, `select action from activity_log where entity_id='${id}' order by id`)
   ).map((r) => r.action);
-const uni = { slug: "test-university", name: "Test University", city: "Quetta", type: "public" };
+const uni = {
+  slug: "test-university",
+  name: "Test University",
+  city: "Quetta",
+  type: "public",
+  hec_recognised: true,
+};
 const twoProgrammes = `jsonb_build_array(${programme("engineering", "BS Civil Engineering")}, ${programme("law", "LLB")})`;
 
 const created = await saveUni(
@@ -723,6 +729,91 @@ check(
   await as("anon", null, `select count(*)::int n from universities where hec_recognised`),
   [{ n: 10 }],
 );
+
+// ---------------------------------------------------------------------------
+// Only HEC-recognised universities can be published
+// ---------------------------------------------------------------------------
+const unrecognised = {
+  slug: "unrecognised-university",
+  name: "Unrecognised University",
+  city: "Gwadar",
+  source_url: "https://example.edu.pk",
+};
+const UNREC = (await saveUni(RES2, null, unrecognised))[0]?.id;
+check(
+  "a draft can be saved without HEC recognition",
+  await as("authenticated", RES2, `select status, hec_recognised from universities where id='${UNREC}'`),
+  [{ status: "draft", hec_recognised: false }],
+);
+check(
+  "publishing an unrecognised university is refused",
+  String(await saveUni(RES2, UNREC, { ...unrecognised, status: "published" })).includes(
+    "Only HEC-recognised universities can be published",
+  ),
+  true,
+);
+check(
+  "publishing it directly is refused too",
+  String(
+    await as("authenticated", RES2, `update universities set status='published' where id='${UNREC}'`),
+  ).includes("Only HEC-recognised universities can be published"),
+  true,
+);
+check(
+  "a refused publish leaves it a draft",
+  await as("authenticated", RES2, `select status from universities where id='${UNREC}'`),
+  [{ status: "draft" }],
+);
+check(
+  "a new university can't be inserted already published without recognition",
+  String(
+    await as(
+      "authenticated",
+      RES2,
+      `insert into universities (slug, name, city, source_url, status) values ('sneaky-university', 'Sneaky', 'Quetta', 'https://x.pk', 'published')`,
+    ),
+  ).includes("Only HEC-recognised universities can be published"),
+  true,
+);
+await saveUni(RES2, UNREC, { ...unrecognised, hec_recognised: true, status: "published" });
+check(
+  "publishing works once it's ticked",
+  await as("anon", null, `select hec_recognised from universities where id='${UNREC}'`),
+  [{ hec_recognised: true }],
+);
+check(
+  "a published university can't be updated to unrecognised",
+  String(
+    await saveUni(RES2, UNREC, { ...unrecognised, hec_recognised: false, status: "published" }),
+  ).includes("Only HEC-recognised universities can be published"),
+  true,
+);
+check(
+  "it can be moved to drafts and unticked together",
+  await as(
+    "authenticated",
+    RES2,
+    `select save_university('${UNREC}', '${JSON.stringify({ ...unrecognised, hec_recognised: false, status: "draft" })}'::jsonb, '[]'::jsonb) is not null as ok`,
+  ),
+  [{ ok: true }],
+);
+check(
+  "and archived while unrecognised",
+  await as(
+    "authenticated",
+    RES2,
+    `update universities set status='archived' where id='${UNREC}' returning status, hec_recognised`,
+  ),
+  [{ status: "archived", hec_recognised: false }],
+);
+check("the refused saves left nothing in the log; every real change is there", await entryLog(UNREC), [
+  "created",
+  "updated",
+  "published",
+  "draft",
+  "updated",
+  "archived",
+]);
 
 if (failed) {
   console.error(`${failed} check(s) failed`);
