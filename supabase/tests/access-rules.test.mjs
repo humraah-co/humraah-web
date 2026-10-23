@@ -398,6 +398,22 @@ check("the revoke is logged", await lastTeamLog(INV3), [
   { action: "invite_revoked", actor_id: ADM2, summary: "i3@x" },
 ]);
 
+check(
+  "invited admin accepts their own invite",
+  await as("authenticated", INV2, `select status, role, full_name from accept_invite('Ina Two')`),
+  [{ status: "active", role: "admin", full_name: "Ina Two" }],
+);
+check("the admin joining is logged", await lastTeamLog(INV2), [
+  { action: "joined", actor_id: INV2, summary: "Ina Two" },
+]);
+check(
+  "a new admin still cannot make themselves owner",
+  String(
+    await as("authenticated", INV2, `update team_members set role='owner' where user_id='${INV2}'`),
+  ).includes("ERROR"),
+  true,
+);
+
 if (failed) {
   console.error(`${failed} check(s) failed`);
   process.exit(1);
