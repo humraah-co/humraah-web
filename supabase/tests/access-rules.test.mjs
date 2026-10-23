@@ -683,6 +683,47 @@ check("every scholarship change is in the activity log", await entryLog(SCH), [
   "draft",
 ]);
 
+// ---------------------------------------------------------------------------
+// New entries make no public yes/no claims until someone sets them
+// ---------------------------------------------------------------------------
+check(
+  "a new university with no values set is not HEC-recognised, women only or need-based",
+  await as(
+    "authenticated",
+    RES2,
+    `insert into universities (slug, name, city) values ('plain-university', 'Plain University', 'Multan')
+     returning hec_recognised, women_only, need_based_aid, has_hostel`,
+  ),
+  [{ hec_recognised: false, women_only: false, need_based_aid: null, has_hostel: null }],
+);
+const PLAIN = (
+  await saveUni(RES2, null, { slug: "plain-editor-university", name: "Plain", city: "Sukkur" })
+)[0]?.id;
+check(
+  "the editor's save makes the same no claims when they aren't set",
+  await as(
+    "authenticated",
+    RES2,
+    `select hec_recognised, women_only, need_based_aid, has_hostel from universities where id='${PLAIN}'`,
+  ),
+  [{ hec_recognised: false, women_only: false, need_based_aid: null, has_hostel: null }],
+);
+check(
+  "a new scholarship with no values set is not for women only",
+  await as(
+    "authenticated",
+    RES2,
+    `insert into scholarships (slug, name, provider, kind) values ('plain-scholarship', 'Plain', 'Trust', 'merit')
+     returning women_only`,
+  ),
+  [{ women_only: false }],
+);
+check(
+  "seeded universities keep their HEC recognition",
+  await as("anon", null, `select count(*)::int n from universities where hec_recognised`),
+  [{ n: 10 }],
+);
+
 if (failed) {
   console.error(`${failed} check(s) failed`);
   process.exit(1);

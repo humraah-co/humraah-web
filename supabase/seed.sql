@@ -62,33 +62,34 @@ insert into public.fields (slug, name, emoji, summary, you_might_enjoy, interest
 
 -- ---------------------------------------------------------------------------
 -- Universities ("Some Pakistani universities you can explore include")
--- These are examples, not a ranking.
+-- These are examples, not a ranking. All are HEC-recognised; the column
+-- defaults to false, so the claim is stated here rather than assumed.
 -- ---------------------------------------------------------------------------
 insert into public.universities
-  (slug, name, short_name, city, campuses_note, province, type, women_only, website_url, status)
+  (slug, name, short_name, city, campuses_note, province, type, hec_recognised, women_only, website_url, status)
 values
   ('aiou', 'Allama Iqbal Open University', 'AIOU', 'Islamabad', 'Islamabad and other campuses',
-   'Islamabad Capital Territory', 'public', false, 'https://www.aiou.edu.pk', 'published'),
+   'Islamabad Capital Territory', 'public', true, false, 'https://www.aiou.edu.pk', 'published'),
   ('qau', 'Quaid-i-Azam University', 'QAU', 'Islamabad', null,
-   'Islamabad Capital Territory', 'public', false, 'https://qau.edu.pk', 'published'),
+   'Islamabad Capital Territory', 'public', true, false, 'https://qau.edu.pk', 'published'),
   ('comsats', 'COMSATS University Islamabad', 'COMSATS', 'Islamabad', 'Islamabad and other campuses',
-   'Islamabad Capital Territory', 'public', false, 'https://www.comsats.edu.pk', 'published'),
+   'Islamabad Capital Territory', 'public', true, false, 'https://www.comsats.edu.pk', 'published'),
   ('punjab-university', 'University of the Punjab', 'PU', 'Lahore', null,
-   'Punjab', 'public', false, 'https://pu.edu.pk', 'published'),
+   'Punjab', 'public', true, false, 'https://pu.edu.pk', 'published'),
   ('lcwu', 'Lahore College for Women University', 'LCWU', 'Lahore', null,
-   'Punjab', 'public', true, 'https://lcwu.edu.pk', 'published'),
+   'Punjab', 'public', true, true, 'https://lcwu.edu.pk', 'published'),
   ('uet-lahore', 'University of Engineering & Technology, Lahore', 'UET', 'Lahore', null,
-   'Punjab', 'public', false, 'https://www.uet.edu.pk', 'published'),
+   'Punjab', 'public', true, false, 'https://www.uet.edu.pk', 'published'),
   ('fast-nuces', 'FAST National University of Computer and Emerging Sciences', 'FAST-NUCES', 'Islamabad',
-   'Islamabad and other campuses', 'Islamabad Capital Territory', 'private', false, 'https://www.nu.edu.pk', 'published'),
+   'Islamabad and other campuses', 'Islamabad Capital Territory', 'private', true, false, 'https://www.nu.edu.pk', 'published'),
   ('iba-karachi', 'Institute of Business Administration, Karachi', 'IBA', 'Karachi', null,
-   'Sindh', 'public', false, 'https://www.iba.edu.pk', 'published'),
+   'Sindh', 'public', true, false, 'https://www.iba.edu.pk', 'published'),
   ('lums', 'Lahore University of Management Sciences', 'LUMS', 'Lahore', null,
-   'Punjab', 'private', false, 'https://lums.edu.pk', 'published'),
+   'Punjab', 'private', true, false, 'https://lums.edu.pk', 'published'),
   ('aku', 'Aga Khan University', 'AKU', 'Karachi', null,
-   'Sindh', 'private', false, 'https://www.aku.edu', 'published'),
+   'Sindh', 'private', true, false, 'https://www.aku.edu', 'published'),
   ('nust', 'National University of Sciences & Technology', 'NUST', 'Islamabad', 'Islamabad and other campuses',
-   'Islamabad Capital Territory', 'public', false, 'https://nust.edu.pk', 'published');
+   'Islamabad Capital Territory', 'public', true, false, 'https://nust.edu.pk', 'published');
 
 -- A few well-known programmes per university so field ↔ university links work.
 -- Researchers complete and verify the full lists in the admin portal.
