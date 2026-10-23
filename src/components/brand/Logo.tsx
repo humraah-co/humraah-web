@@ -6,11 +6,22 @@ import Link from "next/link";
  * wordmark with ہمراہ centred underneath. All three parts are the exact
  * vector files exported from the Figma file (public/brand).
  */
-export function LogoHorizontal({ href = "/" }: { href?: string }) {
+export function LogoHorizontal({
+  href = "/",
+  markOnlyBelowXl = false,
+}: {
+  href?: string;
+  /** Just the H mark from 1024 to 1279 px, where the desktop nav has no room for the wordmark. */
+  markOnlyBelowXl?: boolean;
+}) {
   return (
-    <Link href={href} aria-label="Humraah home" className="flex min-w-[140px] shrink-0 items-center gap-2.5">
+    <Link
+      href={href}
+      aria-label="Humraah home"
+      className={`flex shrink-0 items-center gap-2.5 ${markOnlyBelowXl ? "xl:min-w-[140px]" : "min-w-[140px]"}`}
+    >
       <LogoMark />
-      <span className="flex flex-col items-center gap-[3px]">
+      <span className={`flex-col items-center gap-[3px] ${markOnlyBelowXl ? "hidden xl:flex" : "flex"}`}>
         <img
           src="/brand/logo-wordmark.svg"
           alt=""

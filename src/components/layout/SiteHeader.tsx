@@ -6,7 +6,9 @@ import { MobileTopBar } from "./MobileTopBar";
 
 /**
  * Mobile top bar or back bar (see MobileTopBar) below 1024 px and
- * "Desktop/Nav" (Figma 14:284) from 1024 px up.
+ * "Desktop/Nav" (Figma 14:284) from 1024 px up. Below 1280 px the logo
+ * shows just its mark and the spacing tightens, so every label fits on
+ * one line without the buttons running off the edge.
  */
 export function SiteHeader() {
   return (
@@ -16,9 +18,9 @@ export function SiteHeader() {
       {/* Desktop nav */}
       <nav
         aria-label="Main"
-        className="mx-auto hidden max-w-[1440px] items-center justify-between gap-6 px-10 py-4 lg:flex xl:px-20"
+        className="mx-auto hidden max-w-[1440px] items-center justify-between gap-4 px-6 py-4 lg:flex xl:gap-6 xl:px-20"
       >
-        <LogoHorizontal />
+        <LogoHorizontal markOnlyBelowXl />
         <DesktopNavLinks />
         <div className="flex items-center gap-2.5">
           <LanguageSwitch />
