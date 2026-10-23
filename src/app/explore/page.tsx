@@ -46,8 +46,9 @@ export default async function ExplorePage({
 
   return (
     <>
-      <Container className="flex flex-col gap-3 pt-6 pb-2 lg:flex-row lg:items-end lg:gap-12 lg:pt-12 lg:pb-8">
-        <div className="flex flex-col gap-3 lg:flex-1 lg:gap-3.5">
+      {/* The quiz box sits beside the heading from 1280 px; below that it runs full width underneath. */}
+      <Container className="flex flex-col gap-3 pt-6 pb-2 lg:gap-6 lg:pt-12 lg:pb-8 xl:flex-row xl:items-end xl:gap-12">
+        <div className="flex flex-col gap-3 lg:gap-3.5 xl:flex-1">
           <h1 className="text-h1 lg:text-[40px] lg:leading-[46px]">What could you study?</h1>
           <p className="max-w-[640px] text-body-m text-muted lg:text-body-l">
             There are so many fields to explore.
@@ -74,8 +75,8 @@ export default async function ExplorePage({
           </form>
         </div>
 
-        <aside className="flex items-center gap-3 rounded-[20px] bg-lavender p-4 lg:w-[420px] lg:shrink-0 lg:flex-col lg:items-start lg:gap-2.5 lg:rounded-3xl lg:p-6">
-          <div className="flex min-w-0 flex-1 flex-col gap-0.5 lg:flex-none lg:gap-2.5">
+        <aside className="flex items-center gap-3 rounded-[20px] bg-lavender p-4 lg:gap-6 lg:rounded-3xl lg:p-6 xl:w-[420px] xl:shrink-0 xl:flex-col xl:items-start xl:gap-2.5">
+          <div className="flex min-w-0 flex-1 flex-col gap-0.5 lg:gap-1.5 xl:flex-none xl:gap-2.5">
             <p className="text-script">Not sure where to begin?</p>
             <p className="text-body-s lg:text-body-m">
               Take a two-minute quiz and we’ll suggest a few fields
