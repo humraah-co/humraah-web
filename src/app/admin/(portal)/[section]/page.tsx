@@ -11,8 +11,6 @@ import { requireActiveMember } from "@/lib/admin/session";
  * (e.g. app/admin/(portal)/universities) takes over from this one.
  */
 const sections: Record<string, { title: string; description: string }> = {
-  universities: { title: "Universities", description: "Add, edit, verify and publish university profiles." },
-  scholarships: { title: "Scholarships", description: "Add, edit, verify and publish scholarships." },
   resources: { title: "Resources", description: "Manage the links on the Resources page." },
   fields: { title: "Fields of study", description: "Edit the ten fields of study." },
   guidance: { title: "Guidance articles", description: "Write and publish guidance articles." },
