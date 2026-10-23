@@ -18,8 +18,6 @@ const sections: Record<string, { title: string; description: string }> = {
     title: "Needs review",
     description: "Every entry that is unverified, out of date or missing a source.",
   },
-  search: { title: "Search", description: "Search universities and scholarships." },
-  new: { title: "Add an entry", description: "Start a new university, scholarship or resource." },
 };
 
 type Props = { params: Promise<{ section: string }>; searchParams: Promise<{ q?: string | string[] }> };

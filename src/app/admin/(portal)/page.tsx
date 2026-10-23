@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Award, CircleAlert, Compass, Globe, Landmark, Lightbulb, Mail, Plus, Search } from "lucide-react";
+import { Award, CircleAlert, Compass, Globe, Landmark, Lightbulb, Mail, Search } from "lucide-react";
+import { AddEntryMenu } from "@/components/admin/AddEntryMenu";
 import { ActivityItem, PageHeader, Panel, StatCard } from "@/components/admin/Workspace";
-import { ButtonLink, buttonStyles } from "@/components/ui/Button";
+import { buttonStyles } from "@/components/ui/Button";
 import { Chip, DeadlineChip } from "@/components/ui/Chip";
 import { FormNotice } from "@/components/ui/Field";
 import { actorName, describeActivity } from "@/lib/admin/activity";
+import { entryTypes, isEntryTable } from "@/lib/admin/content";
 import { contentSections, getDashboard, type Counts, type ReviewItem } from "@/lib/admin/dashboard";
 import { requireActiveMember } from "@/lib/admin/session";
 import { isAdminRole } from "@/lib/admin/team";
@@ -26,7 +28,7 @@ function caption(counts: Counts) {
 }
 const total = (counts: Counts) => (counts ? counts.published + counts.draft : null);
 
-/** Admin – Dashboard (Figma 13:1209). Counts come from the database; editing arrives on Day 5. */
+/** Admin – Dashboard (Figma 13:1209). Counts come from the database. */
 export default async function DashboardPage({
   searchParams,
 }: {
@@ -56,10 +58,7 @@ export default async function DashboardPage({
             />
           </label>
         </form>
-        <ButtonLink href="/admin/new">
-          <Plus className="size-5" strokeWidth={1.75} aria-hidden="true" />
-          Add an entry
-        </ButtonLink>
+        <AddEntryMenu />
       </PageHeader>
 
       {message && <FormNotice>{message}</FormNotice>}
@@ -176,6 +175,12 @@ function ReasonChip({ reason }: { reason: ReviewItem["reason"] }) {
   }
 }
 
+/** Universities and scholarships open in their editor; the rest go to their section for now. */
+function reviewHref(item: ReviewItem) {
+  if (isEntryTable(item.table)) return `${entryTypes[item.table].adminPath}/${item.id}`;
+  return `/admin/${contentSections[item.table].section}`;
+}
+
 /** The Needs review table; on a phone each row stacks. */
 function ReviewTable({ items, failed }: { items: ReviewItem[]; failed: boolean }) {
   if (failed) {
@@ -230,7 +235,7 @@ function ReviewTable({ items, failed }: { items: ReviewItem[]; failed: boolean }
                 <ReasonChip reason={item.reason} />
               </td>
               <td className="ml-auto md:py-3.5 md:pr-6 md:text-right">
-                <Link href={`/admin/${section.section}`} className={buttonStyles.text}>
+                <Link href={reviewHref(item)} className={buttonStyles.text}>
                   Review<span className="sr-only"> {item.name}</span>
                 </Link>
               </td>

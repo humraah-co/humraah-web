@@ -1,7 +1,7 @@
 import "server-only";
 import type { ActivityLogEntry, ContentStatus } from "@/lib/database.types";
 import type { createSessionClient } from "@/lib/supabase/server";
-import { scholarshipKindLabels, type EntryTable } from "./content";
+import { fold, scholarshipKindLabels, type EntryTable } from "./content";
 
 type SessionClient = Awaited<ReturnType<typeof createSessionClient>>;
 
@@ -52,6 +52,13 @@ export async function listEntries(supabase: SessionClient, table: EntryTable): P
     detail: [scholarshipKindLabels[kind], women_only ? "for women" : null].filter(Boolean).join(", "),
     search: provider,
   }));
+}
+
+/** Entries whose name, web address, short name or provider contains the search text. */
+export function searchEntries(rows: EntryRow[], q: string) {
+  const query = fold(q.trim());
+  if (!query) return rows;
+  return rows.filter((r) => [r.name, r.slug, r.search ?? ""].some((text) => fold(text).includes(query)));
 }
 
 /** Names for the people who made changes: full name, else email. */
