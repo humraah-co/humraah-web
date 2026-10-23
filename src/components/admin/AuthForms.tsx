@@ -12,6 +12,7 @@ import {
 } from "@/app/admin/(auth)/actions";
 import { buttonStyles } from "@/components/ui/Button";
 import { checkboxClass, Field, FormAlert, FormNotice, fieldClass } from "@/components/ui/Field";
+import { PasswordInput } from "@/components/ui/PasswordInput";
 import { EMAIL_MAX, PASSWORD_MAX, PASSWORD_MIN } from "@/lib/admin/forms";
 import { FORGOT_PASSWORD_PATH, LOGIN_PATH } from "@/lib/admin/paths";
 
@@ -41,10 +42,9 @@ export function SignInForm({ next }: { next?: string }) {
         />
       </Field>
       <Field id="password" label="Password">
-        <input
+        <PasswordInput
           id="password"
           name="password"
-          type="password"
           autoComplete="current-password"
           required
           aria-invalid={!!error}
@@ -139,10 +139,9 @@ export function PasswordFields({ errors }: { errors: { password?: string; confir
         error={errors.password}
         hint={`At least ${PASSWORD_MIN} characters.`}
       >
-        <input
+        <PasswordInput
           id="password"
           name="password"
-          type="password"
           autoComplete="new-password"
           required
           minLength={PASSWORD_MIN}
@@ -153,10 +152,9 @@ export function PasswordFields({ errors }: { errors: { password?: string; confir
         />
       </Field>
       <Field id="confirm" label="Type it again" error={errors.confirm}>
-        <input
+        <PasswordInput
           id="confirm"
           name="confirm"
-          type="password"
           autoComplete="new-password"
           required
           maxLength={PASSWORD_MAX}
