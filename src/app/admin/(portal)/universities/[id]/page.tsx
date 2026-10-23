@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { EntryConfirm } from "@/components/admin/EntryConfirm";
 import { RecentChanges } from "@/components/admin/RecentChanges";
 import { UniversityEditor } from "@/components/admin/UniversityEditor";
 import { PageHeader } from "@/components/admin/Workspace";
@@ -12,8 +13,9 @@ import {
   listFieldOptions,
   teamNames,
 } from "@/lib/admin/entries";
-import { saveNotice } from "@/lib/admin/saveEntry";
+import { editorNotice } from "@/lib/admin/saveEntry";
 import { requireActiveMember } from "@/lib/admin/session";
+import { isAdminRole } from "@/lib/admin/team";
 import { savedLine } from "@/lib/format";
 
 export const metadata: Metadata = { title: "Edit university" };
@@ -24,7 +26,7 @@ type Props = {
 };
 
 export default async function EditUniversityPage({ params, searchParams }: Props) {
-  const { supabase } = await requireActiveMember();
+  const { supabase, member } = await requireActiveMember();
   const [{ id }, query] = await Promise.all([params, searchParams]);
   if (!isUuid(id)) notFound();
 
@@ -48,23 +50,33 @@ export default async function EditUniversityPage({ params, searchParams }: Props
   const editor = u.updated_by ? names.get(u.updated_by) : undefined;
 
   return (
-    <UniversityEditor
-      // A fresh form after every save, so "unsaved changes" starts from what was saved.
-      key={u.updated_at}
-      meta={{
-        table: "universities",
-        id: u.id,
-        status: u.status,
-        title: u.name,
-        savedLine: savedLine(u.updated_at, editor),
-        verifiedAt: u.last_verified_at,
-        verifiedBy: verifier ? names.get(verifier) : undefined,
-        viewHref: u.status === "published" ? `/universities/${u.slug}` : undefined,
-      }}
-      initial={universityToValues(u, entry.programmes)}
-      fields={fields}
-      notice={saveNotice(query.notice)}
-      recent={<RecentChanges entries={recent} actors={names} />}
-    />
+    <>
+      <UniversityEditor
+        // A fresh form after every save, so "unsaved changes" starts from what was saved.
+        key={u.updated_at}
+        meta={{
+          table: "universities",
+          id: u.id,
+          status: u.status,
+          title: u.name,
+          savedLine: savedLine(u.updated_at, editor),
+          verifiedAt: u.last_verified_at,
+          verifiedBy: verifier ? names.get(verifier) : undefined,
+          viewHref: u.status === "published" ? `/universities/${u.slug}` : undefined,
+          isAdmin: isAdminRole(member.role),
+        }}
+        initial={universityToValues(u, entry.programmes)}
+        fields={fields}
+        notice={editorNotice(query)}
+        recent={<RecentChanges entries={recent} actors={names} />}
+      />
+      <EntryConfirm
+        table="universities"
+        entry={u}
+        confirm={query.confirm}
+        error={query.error}
+        isAdmin={isAdminRole(member.role)}
+      />
+    </>
   );
 }

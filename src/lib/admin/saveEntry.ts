@@ -152,22 +152,33 @@ export async function saveEntry(table: EntryTable, form: FormData): Promise<Save
   redirect(`${entryTypes[table].adminPath}/${savedId}?notice=${notice}`);
 }
 
-const noticeText: Record<SaveNotice, string> = {
+const noticeText: Record<string, string> = {
   created: "Draft saved. It isn’t on the site until you publish it.",
   saved: "Draft saved.",
   published: "Published. It’s on the site now.",
   updated: "Changes saved. The site shows them now.",
   unpublished: "Moved to drafts. It’s no longer on the site.",
   verified: "Saved and marked as verified today.",
-  "verify-failed": "Your changes were saved, but we couldn’t mark the entry as verified. Please try again.",
+  archived: "Archived. It’s no longer on the site.",
+  restored: "Restored to drafts. Check it and publish it again when it’s ready.",
 };
 
-/** The message for a "?notice=" after saving, if it's one of ours. */
-export function saveNotice(notice: unknown) {
-  if (typeof notice !== "string" || !(notice in noticeText)) return undefined;
-  const key = notice as SaveNotice;
-  return {
-    text: noticeText[key],
-    tone: key === "verify-failed" ? ("problem" as const) : ("success" as const),
-  };
+const problemText: Record<string, string> = {
+  "verify-failed": "Your changes were saved, but we couldn’t mark the entry as verified. Please try again.",
+  "not-allowed": "Only admins can restore or permanently delete entries.",
+  "not-archived": "Only archived entries can be restored or deleted. Archive it first.",
+  archived: "This entry is already archived.",
+  failed: "Something went wrong. Please refresh the page and try again.",
+};
+
+/** The message for an editor page's "?notice=" or "?error=", if it's one of ours. */
+export function editorNotice(query: Record<string, string | string[] | undefined>) {
+  const { notice, error } = query;
+  if (typeof error === "string" && error in problemText) {
+    return { text: problemText[error], tone: "problem" as const };
+  }
+  if (notice === "verify-failed") return { text: problemText[notice], tone: "problem" as const };
+  if (typeof notice === "string" && notice in noticeText) {
+    return { text: noticeText[notice], tone: "success" as const };
+  }
 }

@@ -11,7 +11,14 @@ export default async function NewScholarshipPage() {
   const fields = await listFieldOptions(supabase);
   return (
     <ScholarshipEditor
-      meta={{ table: "scholarships", id: null, status: null, title: "New scholarship", verifiedAt: null }}
+      meta={{
+        table: "scholarships",
+        id: null,
+        status: null,
+        title: "New scholarship",
+        verifiedAt: null,
+        isAdmin: false,
+      }}
       initial={emptyScholarship}
       fields={fields}
     />

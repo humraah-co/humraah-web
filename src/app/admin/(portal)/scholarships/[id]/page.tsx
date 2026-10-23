@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { EntryConfirm } from "@/components/admin/EntryConfirm";
 import { RecentChanges } from "@/components/admin/RecentChanges";
 import { ScholarshipEditor } from "@/components/admin/ScholarshipEditor";
 import { PageHeader } from "@/components/admin/Workspace";
@@ -12,8 +13,9 @@ import {
   listFieldOptions,
   teamNames,
 } from "@/lib/admin/entries";
-import { saveNotice } from "@/lib/admin/saveEntry";
+import { editorNotice } from "@/lib/admin/saveEntry";
 import { requireActiveMember } from "@/lib/admin/session";
+import { isAdminRole } from "@/lib/admin/team";
 import { savedLine } from "@/lib/format";
 
 export const metadata: Metadata = { title: "Edit scholarship" };
@@ -24,7 +26,7 @@ type Props = {
 };
 
 export default async function EditScholarshipPage({ params, searchParams }: Props) {
-  const { supabase } = await requireActiveMember();
+  const { supabase, member } = await requireActiveMember();
   const [{ id }, query] = await Promise.all([params, searchParams]);
   if (!isUuid(id)) notFound();
 
@@ -48,23 +50,33 @@ export default async function EditScholarshipPage({ params, searchParams }: Prop
   const editor = s.updated_by ? names.get(s.updated_by) : undefined;
 
   return (
-    <ScholarshipEditor
-      // A fresh form after every save, so "unsaved changes" starts from what was saved.
-      key={s.updated_at}
-      meta={{
-        table: "scholarships",
-        id: s.id,
-        status: s.status,
-        title: s.name,
-        savedLine: savedLine(s.updated_at, editor),
-        verifiedAt: s.last_verified_at,
-        verifiedBy: verifier ? names.get(verifier) : undefined,
-        viewHref: s.status === "published" ? `/scholarships/${s.slug}` : undefined,
-      }}
-      initial={scholarshipToValues(s, entry.fieldIds)}
-      fields={fields}
-      notice={saveNotice(query.notice)}
-      recent={<RecentChanges entries={recent} actors={names} />}
-    />
+    <>
+      <ScholarshipEditor
+        // A fresh form after every save, so "unsaved changes" starts from what was saved.
+        key={s.updated_at}
+        meta={{
+          table: "scholarships",
+          id: s.id,
+          status: s.status,
+          title: s.name,
+          savedLine: savedLine(s.updated_at, editor),
+          verifiedAt: s.last_verified_at,
+          verifiedBy: verifier ? names.get(verifier) : undefined,
+          viewHref: s.status === "published" ? `/scholarships/${s.slug}` : undefined,
+          isAdmin: isAdminRole(member.role),
+        }}
+        initial={scholarshipToValues(s, entry.fieldIds)}
+        fields={fields}
+        notice={editorNotice(query)}
+        recent={<RecentChanges entries={recent} actors={names} />}
+      />
+      <EntryConfirm
+        table="scholarships"
+        entry={s}
+        confirm={query.confirm}
+        error={query.error}
+        isAdmin={isAdminRole(member.role)}
+      />
+    </>
   );
 }
