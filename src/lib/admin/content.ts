@@ -147,6 +147,10 @@ export type ScholarshipValues = {
   source_url: string;
 };
 
+/**
+ * Blank forms. Every yes/no shown on the public site starts as "no" or
+ * "not sure yet", never as a claim nobody has checked.
+ */
 export const emptyUniversity: UniversityValues = {
   name: "",
   short_name: "",
@@ -155,7 +159,7 @@ export const emptyUniversity: UniversityValues = {
   campuses_note: "",
   province: "",
   type: "",
-  hec_recognised: true,
+  hec_recognised: false,
   women_only: false,
   has_hostel: "",
   need_based_aid: "",
