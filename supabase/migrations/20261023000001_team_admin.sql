@@ -125,7 +125,7 @@ begin
 end;
 $$;
 
-drop trigger team_members_log on public.team_members;
+drop trigger if exists team_members_log on public.team_members;
 create trigger team_members_log after insert or update or delete on public.team_members
   for each row execute function public.log_team_activity();
 

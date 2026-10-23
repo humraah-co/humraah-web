@@ -40,7 +40,7 @@ end;
 $$;
 
 -- The editor's "Recent changes" and the activity log's filters.
-create index activity_log_entity_idx on public.activity_log (entity_type, entity_id, created_at desc);
+create index if not exists activity_log_entity_idx on public.activity_log (entity_type, entity_id, created_at desc);
 
 -- ---------------------------------------------------------------------------
 -- Publishing and verifying need a source link
@@ -73,8 +73,10 @@ begin
 end;
 $$;
 
+drop trigger if exists universities_guard_source on public.universities;
 create trigger universities_guard_source before insert or update on public.universities
   for each row execute function public.guard_content_source();
+drop trigger if exists scholarships_guard_source on public.scholarships;
 create trigger scholarships_guard_source before insert or update on public.scholarships
   for each row execute function public.guard_content_source();
 
