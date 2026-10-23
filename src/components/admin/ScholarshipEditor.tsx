@@ -67,6 +67,7 @@ export function ScholarshipEditor({
   return (
     <EditorFrame
       meta={meta}
+      initial={initial}
       values={values}
       labels={scholarshipLabels}
       action={saveScholarship}

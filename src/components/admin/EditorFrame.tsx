@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Check, ChevronRight, CircleAlert } from "lucide-react";
 import { StatusChip } from "@/components/admin/EntryChips";
 import { TextInput, fieldId } from "@/components/admin/EditorParts";
+import { useUnsavedChanges } from "@/components/admin/useUnsavedChanges";
 import { ButtonLink, buttonStyles } from "@/components/ui/Button";
 import { UnverifiedBadge, VerifiedBadge } from "@/components/ui/Chip";
 import { FormAlert, FormNotice } from "@/components/ui/Field";
@@ -48,6 +49,7 @@ const disabledStyle = "disabled:cursor-not-allowed disabled:opacity-70";
  */
 export function EditorFrame<V>({
   meta,
+  initial,
   values,
   labels,
   action,
@@ -57,6 +59,8 @@ export function EditorFrame<V>({
   children,
 }: {
   meta: EditorMeta;
+  /** The values as saved, to tell when there are unsaved changes. */
+  initial: V;
   values: V;
   labels: Record<string, string>;
   action: (state: SaveState, form: FormData) => Promise<SaveState>;
@@ -73,6 +77,8 @@ export function EditorFrame<V>({
   const readOnly = meta.status === "archived";
   const published = meta.status === "published";
   const type = entryTypes[meta.table];
+  const dirty = !readOnly && JSON.stringify(values) !== JSON.stringify(initial);
+  useUnsavedChanges(dirty);
 
   // After a refused save, focus the first field to fix (or the message when it isn't about a field).
   useEffect(() => {
@@ -133,7 +139,11 @@ export function EditorFrame<V>({
           <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
             <h1 className="text-h1 break-words lg:tracking-[-0.2px]">{meta.title}</h1>
             {meta.status && <StatusChip status={meta.status} />}
-            {meta.savedLine && <p className="text-caption text-muted">{meta.savedLine}</p>}
+            {dirty ? (
+              <p className="text-label-s text-deep-rose">Unsaved changes</p>
+            ) : (
+              meta.savedLine && <p className="text-caption text-muted">{meta.savedLine}</p>
+            )}
           </div>
         </div>
         <div className="flex flex-col gap-2.5 sm:flex-row sm:flex-wrap sm:items-center">

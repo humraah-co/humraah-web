@@ -63,6 +63,7 @@ export function UniversityEditor({
   return (
     <EditorFrame
       meta={meta}
+      initial={initial}
       values={values}
       labels={universityLabels}
       action={saveUniversity}
