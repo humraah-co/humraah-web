@@ -71,12 +71,12 @@ export const provinces = [
 export const SLUG_MAX = 80;
 const slugPattern = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 
+/** Lower case without accents, so "quaid" finds "Quaid-i-Azam" and "Lahore" finds "LAHORE". */
+export const fold = (text: string) => text.normalize("NFKD").replace(/\p{M}/gu, "").toLowerCase();
+
 /** "Quaid-i-Azam University" → "quaid-i-azam-university". */
 export function slugify(text: string) {
-  return text
-    .normalize("NFKD")
-    .replace(/[̀-ͯ]/g, "")
-    .toLowerCase()
+  return fold(text)
     .replace(/&/g, " and ")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "")

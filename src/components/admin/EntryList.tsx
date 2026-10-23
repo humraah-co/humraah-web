@@ -6,7 +6,7 @@ import { ButtonLink, buttonStyles } from "@/components/ui/Button";
 import { OptionChip } from "@/components/ui/Chip";
 import { FormAlert, FormNotice } from "@/components/ui/Field";
 import { entryTypes, type EntryTable } from "@/lib/admin/content";
-import type { EntryRow } from "@/lib/admin/entries";
+import { searchEntries, type EntryRow } from "@/lib/admin/entries";
 import type { ContentStatus } from "@/lib/database.types";
 import { timeAgo } from "@/lib/format";
 
@@ -43,9 +43,6 @@ function listHref(base: string, params: Partial<ListParams>) {
   return s ? `${base}?${s}` : base;
 }
 
-/** Lower case without accents, so "quaid" finds "Quaid-i-Azam". */
-const fold = (text: string) => text.normalize("NFKD").replace(/[̀-ͯ]/g, "").toLowerCase();
-
 const copy = {
   universities: {
     description: "Add and update university profiles. Every entry needs an official source.",
@@ -79,10 +76,7 @@ export function EntryList({
   const type = entryTypes[table];
   const base = type.adminPath;
 
-  const query = fold(params.q);
-  const matching = (rows ?? []).filter(
-    (r) => !query || [r.name, r.slug, r.search ?? ""].some((text) => fold(text).includes(query)),
-  );
+  const matching = searchEntries(rows ?? [], params.q);
   const counts: Record<Tab, number> = {
     all: matching.length,
     published: matching.filter((r) => r.status === "published").length,
