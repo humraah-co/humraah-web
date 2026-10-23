@@ -29,6 +29,7 @@ begin
 end;
 $$;
 
+drop trigger if exists universities_guard_hec on public.universities;
 create trigger universities_guard_hec before insert or update on public.universities
   for each row execute function public.guard_university_hec();
 
