@@ -8,38 +8,60 @@ import Link from "next/link";
  */
 export function LogoHorizontal({
   href = "/",
-  markOnlyBelowXl = false,
+  fit = "full",
 }: {
   href?: string;
-  /** Just the H mark from 1024 to 1279 px, where the desktop nav has no room for the wordmark. */
-  markOnlyBelowXl?: boolean;
+  fit?: keyof typeof horizontalFits;
 }) {
+  const f = horizontalFits[fit];
   return (
-    <Link
-      href={href}
-      aria-label="Humraah home"
-      className={`flex shrink-0 items-center gap-2.5 ${markOnlyBelowXl ? "xl:min-w-[140px]" : "min-w-[140px]"}`}
-    >
-      <LogoMark />
-      <span className={`flex-col items-center gap-[3px] ${markOnlyBelowXl ? "hidden xl:flex" : "flex"}`}>
+    <Link href={href} aria-label="Humraah home" className={`flex shrink-0 items-center ${f.link}`}>
+      <LogoMark className={f.mark} />
+      <span className={`flex-col items-center ${f.words}`}>
         <img
           src="/brand/logo-wordmark.svg"
           alt=""
           width={116}
           height={12.876}
-          className="block h-[12.876px] w-[116px]"
+          className={`block ${f.wordmark}`}
         />
-        <img
-          src="/brand/logo-urdu.svg"
-          alt=""
-          width={23.04}
-          height={12.528}
-          className="block h-[12.528px] w-[23.04px]"
-        />
+        <img src="/brand/logo-urdu.svg" alt="" width={23.04} height={12.528} className={`block ${f.urdu}`} />
       </span>
     </Link>
   );
 }
+
+const fullMark = "h-[35.552px] w-[38.4px]";
+const fullWordmark = "h-[12.876px] w-[116px]";
+const fullUrdu = "h-[12.528px] w-[23.04px]";
+
+/** Where the horizontal logo has to give up some room. */
+const horizontalFits = {
+  /** The Figma size everywhere. */
+  full: {
+    link: "min-w-[140px] gap-2.5",
+    mark: fullMark,
+    words: "flex gap-[3px]",
+    wordmark: fullWordmark,
+    urdu: fullUrdu,
+  },
+  /** Desktop nav: just the H mark from 1024 to 1279 px, where the links need the room. */
+  markOnlyBelowXl: {
+    link: "gap-2.5 xl:min-w-[140px]",
+    mark: fullMark,
+    words: "hidden gap-[3px] xl:flex",
+    wordmark: fullWordmark,
+    urdu: fullUrdu,
+  },
+  /** Phone top bar: 80% size below 640 px, so it never touches the language switch. */
+  smallerOnPhones: {
+    link: "gap-2 sm:min-w-[140px] sm:gap-2.5",
+    mark: "h-[28.442px] w-[30.72px] sm:h-[35.552px] sm:w-[38.4px]",
+    words: "flex gap-[2.4px] sm:gap-[3px]",
+    wordmark: "h-[10.301px] w-[92.8px] sm:h-[12.876px] sm:w-[116px]",
+    urdu: "h-[10.022px] w-[18.432px] sm:h-[12.528px] sm:w-[23.04px]",
+  },
+};
 
 /**
  * Logo/Stacked (Figma 3:206): the primary lockup for the hero, About and

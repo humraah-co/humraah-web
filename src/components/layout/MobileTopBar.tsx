@@ -41,9 +41,10 @@ export function MobileTopBar() {
   }
 
   return (
-    <div className="flex items-center justify-between px-4 py-2.5 lg:hidden">
-      <LogoHorizontal />
-      <div className="flex items-center gap-1.5">
+    // gap-3 keeps at least 12 px between the logo and the language switch on the narrowest phones.
+    <div className="flex items-center justify-between gap-3 px-4 py-2.5 lg:hidden">
+      <LogoHorizontal fit="smallerOnPhones" />
+      <div className="flex items-center gap-1 sm:gap-1.5">
         <LanguageSwitch />
         <SearchButton />
         <MenuButton from={pathname} />
