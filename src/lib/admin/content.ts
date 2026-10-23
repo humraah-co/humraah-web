@@ -84,6 +84,21 @@ export function slugify(text: string) {
     .replace(/-+$/, "");
 }
 
+/**
+ * "hec.gov.pk" → "https://hec.gov.pk": adds https:// when no scheme was
+ * typed, so people can paste an address as they'd say it. Anything with
+ * another scheme (mailto:, javascript: …) is left as typed, and the check
+ * below turns it down, since only http and https links are accepted.
+ */
+export function normaliseUrl(value: string) {
+  const v = value.trim();
+  if (!v) return "";
+  if (/^https?:\/\//i.test(v)) return v;
+  // A scheme is letters then ":" — but "hec.gov.pk:8080" is a host and port.
+  if (/^[a-z][a-z0-9+.-]*:(?!\d)/i.test(v)) return v;
+  return `https://${v.replace(/^\/+/, "")}`;
+}
+
 // ---------------------------------------------------------------------------
 // Form values: what the editors hold, as text the inputs can show
 // ---------------------------------------------------------------------------
@@ -267,6 +282,7 @@ export function scholarshipToValues(s: Scholarship, fieldIds: string[]): Scholar
 // ---------------------------------------------------------------------------
 
 const str = (value: unknown) => (typeof value === "string" ? value : "");
+const link = (value: unknown) => normaliseUrl(str(value));
 const bool = (value: unknown) => value === true;
 const oneOf = <T extends string>(value: unknown, options: readonly T[], fallback: T): T =>
   options.includes(value as T) ? (value as T) : fallback;
@@ -290,8 +306,8 @@ export function parseUniversity(raw: unknown): UniversityValues {
     has_hostel: oneOf(r.has_hostel, yesNoOptions, ""),
     need_based_aid: oneOf(r.need_based_aid, yesNoOptions, ""),
     overview: str(r.overview),
-    website_url: str(r.website_url),
-    admissions_url: str(r.admissions_url),
+    website_url: link(r.website_url),
+    admissions_url: link(r.admissions_url),
     admission_test: str(r.admission_test),
     admissions_window: str(r.admissions_window),
     fee_min_pkr: str(r.fee_min_pkr),
@@ -299,7 +315,7 @@ export function parseUniversity(raw: unknown): UniversityValues {
     fee_note: str(r.fee_note),
     how_to_apply: str(r.how_to_apply),
     required_documents: str(r.required_documents),
-    source_url: str(r.source_url),
+    source_url: link(r.source_url),
     programmes: programmes.map((p, i) => {
       const row = (p && typeof p === "object" ? p : {}) as Record<string, unknown>;
       return {
@@ -336,8 +352,8 @@ export function parseScholarship(raw: unknown): ScholarshipValues {
     deadline: str(r.deadline),
     deadline_note: str(r.deadline_note),
     how_to_apply: str(r.how_to_apply),
-    official_url: str(r.official_url),
-    source_url: str(r.source_url),
+    official_url: link(r.official_url),
+    source_url: link(r.source_url),
   };
 }
 
@@ -392,7 +408,7 @@ function sourceError(intent: SaveIntent, status: ContentStatus, source: string) 
 
 function urlError(value: string) {
   if (t(value) && !urlPattern.test(t(value))) {
-    return "That web address doesn’t look right. It should start with https://";
+    return "That doesn’t look like a web address. Check it, for example hec.gov.pk or https://hec.gov.pk.";
   }
 }
 
