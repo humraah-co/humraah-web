@@ -20,7 +20,7 @@ export function SiteHeader() {
         aria-label="Main"
         className="mx-auto hidden max-w-[1440px] items-center justify-between gap-4 px-6 py-4 lg:flex xl:gap-6 xl:px-20"
       >
-        <LogoHorizontal markOnlyBelowXl />
+        <LogoHorizontal fit="markOnlyBelowXl" />
         <DesktopNavLinks />
         <div className="flex items-center gap-2.5">
           <LanguageSwitch />
