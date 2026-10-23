@@ -2,7 +2,6 @@
 
 import { useActionState, useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { acceptInvite, type AcceptInviteState } from "@/app/admin/(auth)/actions";
 import { PasswordFields } from "@/components/admin/AuthForms";
 import { buttonStyles } from "@/components/ui/Button";
@@ -53,9 +52,9 @@ type LinkState = "checking" | "expired" | "missing";
  * (or #error=… when the link has expired). The fragment never reaches the
  * server, so this reads it, stores the session as cookies, removes the
  * tokens from the address bar and reloads the page as the invited person.
+ * If that hasn't happened after 10 seconds, it shows the expired message.
  */
 export function InviteLink({ linkError }: { linkError: boolean }) {
-  const router = useRouter();
   const [state, setState] = useState<LinkState>(linkError ? "expired" : "checking");
 
   useEffect(() => {
@@ -69,17 +68,38 @@ export function InviteLink({ linkError }: { linkError: boolean }) {
     } else if (!accessToken || !refreshToken || !supabase) {
       setState("missing");
     } else {
+      let settled = false;
+      const expire = () => {
+        window.history.replaceState(null, "", window.location.pathname);
+        setState("expired");
+      };
+      // Don't leave the person on "Checking…" if Supabase never answers.
+      const timer = window.setTimeout(() => {
+        if (settled) return;
+        settled = true;
+        expire();
+      }, 10_000);
       supabase.auth
         .setSession({ access_token: accessToken, refresh_token: refreshToken })
         .then(({ error }) => {
-          window.history.replaceState(null, "", window.location.pathname);
-          if (error) setState("expired");
-          else router.refresh();
+          if (settled) return;
+          settled = true;
+          window.clearTimeout(timer);
+          // A full reload (without the tokens) so the server renders the
+          // page with the new session cookies.
+          if (error) expire();
+          else window.location.replace(window.location.pathname);
+        })
+        .catch(() => {
+          if (settled) return;
+          settled = true;
+          window.clearTimeout(timer);
+          expire();
         });
-      return;
+      return () => window.clearTimeout(timer);
     }
     if (window.location.hash) window.history.replaceState(null, "", window.location.pathname);
-  }, [linkError, router]);
+  }, [linkError]);
 
   if (state === "checking") {
     return (
