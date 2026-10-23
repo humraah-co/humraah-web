@@ -36,7 +36,7 @@ const OWNER = "00000000-0000-0000-0000-000000000001",
   SUS = "00000000-0000-0000-0000-000000000004";
 await db.exec(`insert into auth.users values ('${OWNER}','o@x'),('${ADMIN}','a@x'),('${RES}','r@x'),('${SUS}','s@x');
  insert into team_members (user_id,email,role,status) values ('${OWNER}','o@x','owner','active'),('${ADMIN}','a@x','admin','active'),('${RES}','r@x','researcher','active'),('${SUS}','s@x','researcher','suspended');
- update universities set status='draft' where slug='aku';`);
+ update universities set status='draft', source_url='https://www.aku.edu' where slug='aku';`);
 
 async function as(role, uid, sql) {
   try {
@@ -201,7 +201,7 @@ check(
       `select action from activity_log where entity_type='universities' order by id desc limit 3`,
     )
   ).map((r) => r.action),
-  ["deleted", "draft", "archived"],
+  ["deleted", "restored", "archived"],
 );
 check(
   "nobody can write activity log directly",
@@ -413,6 +413,275 @@ check(
   ).includes("ERROR"),
   true,
 );
+
+// ---------------------------------------------------------------------------
+// Content editing (Day 5): saving, publishing, verifying, archiving, the log
+// ---------------------------------------------------------------------------
+// RES2 is an active researcher and ADM2 an admin (see above).
+const SUS2 = "00000000-0000-0000-0000-000000000016";
+await db.exec(`insert into auth.users values ('${SUS2}','s3@x');
+ insert into team_members (user_id,email,role,status) values ('${SUS2}','s3@x','researcher','suspended');`);
+const fieldId = (slug) => `(select id from fields where slug='${slug}')`;
+const programme = (field, name) => `jsonb_build_object('field_id', ${fieldId(field)}, 'name', '${name}')`;
+const json = (values) => `'${JSON.stringify(values)}'::jsonb`;
+const saveUni = (uid, id, values, programmes = "'[]'::jsonb") =>
+  as(
+    "authenticated",
+    uid,
+    `select save_university(${id ? `'${id}'` : "null"}, ${json(values)}, ${programmes}) as id`,
+  );
+const saveSchol = (uid, id, values, fieldIds = "'{}'::uuid[]") =>
+  as(
+    "authenticated",
+    uid,
+    `select save_scholarship(${id ? `'${id}'` : "null"}, ${json(values)}, ${fieldIds}) as id`,
+  );
+const entryLog = async (id) =>
+  (
+    await as("authenticated", OWNER, `select action from activity_log where entity_id='${id}' order by id`)
+  ).map((r) => r.action);
+const uni = { slug: "test-university", name: "Test University", city: "Quetta", type: "public" };
+const twoProgrammes = `jsonb_build_array(${programme("engineering", "BS Civil Engineering")}, ${programme("law", "LLB")})`;
+
+const created = await saveUni(
+  RES2,
+  null,
+  uni,
+  `jsonb_build_array(${programme("engineering", "BS Civil Engineering")})`,
+);
+const UNI = created[0]?.id;
+check("researcher creates a draft university", typeof UNI, "string");
+check(
+  "a new university starts as a draft, made by the researcher",
+  await as(
+    "authenticated",
+    RES2,
+    `select status, created_by, updated_by from universities where id='${UNI}'`,
+  ),
+  [{ status: "draft", created_by: RES2, updated_by: RES2 }],
+);
+check(
+  "anon cannot see the draft",
+  await as("anon", null, `select id from universities where id='${UNI}'`),
+  [],
+);
+check(
+  "anon cannot see the draft's programmes",
+  await as("anon", null, `select name from programmes where university_id='${UNI}'`),
+  [],
+);
+await saveUni(RES2, UNI, uni, `jsonb_build_array(${programme("engineering", "BS Civil Engineering")})`);
+check("saving with no changes logs nothing", await entryLog(UNI), ["created"]);
+await saveUni(RES2, UNI, uni, twoProgrammes);
+check(
+  "a programmes-only change saves the programmes",
+  await as(
+    "authenticated",
+    RES2,
+    `select name from programmes where university_id='${UNI}' order by sort_order`,
+  ),
+  [{ name: "BS Civil Engineering" }, { name: "LLB" }],
+);
+check("a programmes-only change is logged as an update", await entryLog(UNI), ["created", "updated"]);
+check(
+  "publishing without a source link is refused",
+  String(await saveUni(RES2, UNI, { ...uni, status: "published" }, twoProgrammes)).includes(
+    "source link before publishing",
+  ),
+  true,
+);
+check("a refused publish changes nothing", await entryLog(UNI), ["created", "updated"]);
+await saveUni(
+  RES2,
+  UNI,
+  { ...uni, source_url: "https://example.edu.pk", status: "published" },
+  twoProgrammes,
+);
+check(
+  "researcher publishes with a source link",
+  await as("authenticated", RES2, `select status, source_url from universities where id='${UNI}'`),
+  [{ status: "published", source_url: "https://example.edu.pk" }],
+);
+check("the edit and the publish are logged separately", await entryLog(UNI), [
+  "created",
+  "updated",
+  "updated",
+  "published",
+]);
+check(
+  "anon sees the published university and its programmes",
+  await as("anon", null, `select count(*)::int n from programmes where university_id='${UNI}'`),
+  [{ n: 2 }],
+);
+await saveUni(
+  RES2,
+  UNI,
+  {
+    ...uni,
+    source_url: "https://example.edu.pk",
+    status: "published",
+    last_verified_at: "2020-01-01",
+    created_by: OWNER,
+  },
+  twoProgrammes,
+);
+check(
+  "the editor cannot set the verified date or the creator",
+  await as("authenticated", RES2, `select last_verified_at, created_by from universities where id='${UNI}'`),
+  [{ last_verified_at: null, created_by: RES2 }],
+);
+check(
+  "researcher marks the university as verified",
+  (
+    await as(
+      "authenticated",
+      RES2,
+      `update universities set last_verified_at=now() where id='${UNI}' returning last_verified_at`,
+    )
+  ).length,
+  1,
+);
+check(
+  "verifying without a source link is refused",
+  String(
+    await as("authenticated", RES2, `update universities set last_verified_at=now() where slug='qau'`),
+  ).includes("source link before marking"),
+  true,
+);
+check(
+  "a slug already in use is refused",
+  String(await saveUni(RES2, null, { ...uni, slug: "qau" })).includes("universities_slug_key"),
+  true,
+);
+check(
+  "anon cannot save a university",
+  typeof (await saveUni(null, null, { ...uni, slug: "anon-university" })),
+  "string",
+);
+check(
+  "a suspended member cannot save a university",
+  String(await saveUni(SUS2, null, { ...uni, slug: "suspended-university" })).includes("Only team members"),
+  true,
+);
+check(
+  "researcher archives the university",
+  await as(
+    "authenticated",
+    RES2,
+    `update universities set status='archived' where id='${UNI}' returning status`,
+  ),
+  [{ status: "archived" }],
+);
+check(
+  "anon cannot see the archived university",
+  await as("anon", null, `select id from universities where id='${UNI}'`),
+  [],
+);
+check(
+  "anon cannot see the archived university's programmes",
+  await as("anon", null, `select name from programmes where university_id='${UNI}'`),
+  [],
+);
+check(
+  "an archived university cannot be edited",
+  String(await saveUni(RES2, UNI, { ...uni, name: "Renamed" }, twoProgrammes)).includes("Restore it first"),
+  true,
+);
+check(
+  "researcher cannot restore",
+  String(
+    await as("authenticated", RES2, `update universities set status='draft' where id='${UNI}'`),
+  ).includes("Only admins can restore"),
+  true,
+);
+check(
+  "researcher cannot delete",
+  await as("authenticated", RES2, `delete from universities where id='${UNI}' returning id`),
+  [],
+);
+check(
+  "admin restores to draft",
+  await as(
+    "authenticated",
+    ADM2,
+    `update universities set status='draft' where id='${UNI}' returning status`,
+  ),
+  [{ status: "draft" }],
+);
+check(
+  "admin deletes permanently",
+  await as("authenticated", ADM2, `delete from universities where id='${UNI}' returning slug`),
+  [{ slug: "test-university" }],
+);
+check(
+  "deleting removes the programmes too",
+  await as("authenticated", ADM2, `select count(*)::int n from programmes where university_id='${UNI}'`),
+  [{ n: 0 }],
+);
+check("every university change is in the activity log", await entryLog(UNI), [
+  "created",
+  "updated",
+  "updated",
+  "published",
+  "verified",
+  "archived",
+  "restored",
+  "deleted",
+]);
+check(
+  "the log names who made each change",
+  await as(
+    "authenticated",
+    OWNER,
+    `select distinct actor_id from activity_log where entity_id='${UNI}' order by actor_id`,
+  ),
+  [{ actor_id: ADM2 }, { actor_id: RES2 }],
+);
+
+const schol = { slug: "test-scholarship", name: "Test Scholarship", provider: "Test Trust", kind: "need" };
+const twoFields = `array[${fieldId("law")}, ${fieldId("education")}]::uuid[]`;
+const SCH = (await saveSchol(RES2, null, schol, `array[${fieldId("law")}]::uuid[]`))[0]?.id;
+check("researcher creates a draft scholarship", typeof SCH, "string");
+check(
+  "anon cannot see the draft scholarship's fields",
+  await as("anon", null, `select field_id from scholarship_fields where scholarship_id='${SCH}'`),
+  [],
+);
+await saveSchol(RES2, SCH, schol, twoFields);
+check(
+  "a fields-only change saves the fields",
+  await as(
+    "authenticated",
+    RES2,
+    `select count(*)::int n from scholarship_fields where scholarship_id='${SCH}'`,
+  ),
+  [{ n: 2 }],
+);
+await saveSchol(RES2, SCH, schol, twoFields);
+await saveSchol(RES2, SCH, { ...schol, source_url: "https://example.org", status: "published" }, twoFields);
+check(
+  "anon sees the published scholarship's fields",
+  await as("anon", null, `select count(*)::int n from scholarship_fields where scholarship_id='${SCH}'`),
+  [{ n: 2 }],
+);
+await saveSchol(RES2, SCH, { ...schol, source_url: "https://example.org", status: "draft" }, twoFields);
+check(
+  "anon cannot see a scholarship moved back to draft",
+  await as("anon", null, `select id from scholarships where id='${SCH}'`),
+  [],
+);
+check(
+  "a scholarship slug already in use is refused",
+  String(await saveSchol(RES2, null, { ...schol, slug: "lums-nop" })).includes("scholarships_slug_key"),
+  true,
+);
+check("every scholarship change is in the activity log", await entryLog(SCH), [
+  "created",
+  "updated",
+  "updated",
+  "published",
+  "draft",
+]);
 
 if (failed) {
   console.error(`${failed} check(s) failed`);

@@ -172,6 +172,18 @@ export type Database = {
       is_owner: { Args: Record<string, never>; Returns: boolean };
       accept_invite: { Args: { p_full_name: string }; Returns: TeamMember };
       record_invite_resent: { Args: { p_user_id: string }; Returns: undefined };
+      save_university: {
+        Args: {
+          p_id: string | null;
+          p_values: Record<string, unknown>;
+          p_programmes: Record<string, unknown>[];
+        };
+        Returns: string;
+      };
+      save_scholarship: {
+        Args: { p_id: string | null; p_values: Record<string, unknown>; p_field_ids: string[] };
+        Returns: string;
+      };
     };
     Enums: {
       content_status: ContentStatus;
