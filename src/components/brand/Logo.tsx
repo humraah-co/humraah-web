@@ -53,13 +53,17 @@ const horizontalFits = {
     wordmark: fullWordmark,
     urdu: fullUrdu,
   },
-  /** Phone top bar: 80% size below 640 px, so it never touches the language switch. */
+  /**
+   * Phone top bar: 80% size below 640 px and 60% below 360 px, so it never
+   * touches the language switch, even on a 320 px screen.
+   */
   smallerOnPhones: {
-    link: "gap-2 sm:min-w-[140px] sm:gap-2.5",
-    mark: "h-[28.442px] w-[30.72px] sm:h-[35.552px] sm:w-[38.4px]",
-    words: "flex gap-[2.4px] sm:gap-[3px]",
-    wordmark: "h-[10.301px] w-[92.8px] sm:h-[12.876px] sm:w-[116px]",
-    urdu: "h-[10.022px] w-[18.432px] sm:h-[12.528px] sm:w-[23.04px]",
+    link: "gap-2 max-[360px]:gap-1.5 sm:min-w-[140px] sm:gap-2.5",
+    mark: "h-[28.442px] w-[30.72px] max-[360px]:h-[21.331px] max-[360px]:w-[23.04px] sm:h-[35.552px] sm:w-[38.4px]",
+    words: "flex gap-[2.4px] max-[360px]:gap-[1.8px] sm:gap-[3px]",
+    wordmark:
+      "h-[10.301px] w-[92.8px] max-[360px]:h-[7.726px] max-[360px]:w-[69.6px] sm:h-[12.876px] sm:w-[116px]",
+    urdu: "h-[10.022px] w-[18.432px] max-[360px]:h-[7.517px] max-[360px]:w-[13.824px] sm:h-[12.528px] sm:w-[23.04px]",
   },
 };
 
