@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import type { PostgrestError } from "@supabase/supabase-js";
 import type { ContentStatus } from "@/lib/database.types";
 import {
+  HEC_REQUIRED,
   entryTypes,
   isSaveIntent,
   isUuid,
@@ -67,6 +68,9 @@ function explain(error: PostgrestError, table: EntryTable, intent: SaveIntent): 
         ? "Add the official source link before marking this as verified."
         : "Add the official source link before publishing.";
     return { status: "invalid", at, errors: { source_url: message } };
+  }
+  if (error.code === "23514" && error.message.includes("HEC-recognised")) {
+    return { status: "invalid", at, errors: { hec_recognised: HEC_REQUIRED } };
   }
   if (error.code === "P0002") return { status: "invalid", at, errors: {}, form: ENTRY_GONE };
   if (error.message.includes("Restore it first"))

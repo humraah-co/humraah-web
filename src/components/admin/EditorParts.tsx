@@ -1,5 +1,5 @@
 import { ChevronDown } from "lucide-react";
-import { Field, checkboxClass, fieldClass } from "@/components/ui/Field";
+import { ErrorText, Field, checkboxClass, fieldClass } from "@/components/ui/Field";
 
 /**
  * Inputs for the content editors: each one a labelled Input/Field (Figma
@@ -148,12 +148,14 @@ export function CheckboxInput({
   name,
   label,
   hint,
+  error,
   checked,
   onChange,
 }: {
   name: string;
   label: string;
   hint?: string;
+  error?: string;
   checked: boolean;
   onChange: (checked: boolean) => void;
 }) {
@@ -165,18 +167,20 @@ export function CheckboxInput({
         type="checkbox"
         checked={checked}
         onChange={(e) => onChange(e.target.checked)}
-        aria-describedby={hint ? `${id}-hint` : undefined}
+        aria-invalid={!!error}
+        aria-describedby={describedBy(id, error, hint)}
         className={`${checkboxClass} mt-0.5 size-6 rounded-[7px]`}
       />
       <div className="flex flex-col gap-0.5">
         <label htmlFor={id} className="cursor-pointer text-label-m">
           {label}
         </label>
-        {hint && (
+        {hint && !error && (
           <p id={`${id}-hint`} className="text-caption text-muted">
             {hint}
           </p>
         )}
+        {error && <ErrorText id={`${id}-error`}>{error}</ErrorText>}
       </div>
     </div>
   );
