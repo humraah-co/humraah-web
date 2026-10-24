@@ -2,15 +2,13 @@
 
 import { useActionState, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { CircleAlert, CircleCheck } from "lucide-react";
+import { CircleCheck } from "lucide-react";
 import { sendContactMessage } from "@/app/about/actions";
 import { buttonStyles } from "@/components/ui/Button";
+import { checkboxClass, ErrorText, Field, FormAlert, fieldClass } from "@/components/ui/Field";
 import { contactPrivacy } from "@/content/contactPrivacy";
 import { LIMITS, type ContactField, type ContactState } from "@/lib/contact";
 import { contact } from "@/lib/nav";
-
-const fieldClass =
-  "w-full rounded-xl border border-border-strong bg-card px-3.5 text-body-m text-charcoal placeholder:text-muted aria-[invalid=true]:border-deep-rose aria-[invalid=true]:border-2";
 
 /** "Send us a message" (Figma 30:2531). Posts to a server action, so it works without JavaScript too. */
 export function ContactForm() {
@@ -59,20 +57,13 @@ function Form({ onReset }: { onReset: () => void }) {
       <h3 className="text-h3">Send us a message</h3>
 
       {state.status === "error" && (
-        <p role="alert" className="flex items-start gap-2 rounded-2xl bg-tint-coral p-3.5 text-body-s">
-          <CircleAlert
-            className="mt-0.5 size-5 shrink-0 text-deep-rose"
-            strokeWidth={1.75}
-            aria-hidden="true"
-          />
-          <span>
-            Sorry, we couldn’t send your message just now. Please try again in a few minutes, or email us at{" "}
-            <a href={`mailto:${contact.email}`} className="text-deep-rose underline underline-offset-2">
-              {contact.email}
-            </a>
-            .
-          </span>
-        </p>
+        <FormAlert>
+          Sorry, we couldn’t send your message just now. Please try again in a few minutes, or email us at{" "}
+          <a href={`mailto:${contact.email}`} className="text-deep-rose underline underline-offset-2">
+            {contact.email}
+          </a>
+          .
+        </FormAlert>
       )}
 
       <Field id="name" label="Your name" error={errors.name}>
@@ -154,7 +145,7 @@ function Form({ onReset }: { onReset: () => void }) {
             required
             aria-invalid={!!errors.privacy}
             aria-describedby={describedBy("privacy")}
-            className="mt-0.5 size-6 shrink-0 cursor-pointer appearance-none rounded-[7px] border-[1.5px] border-muted bg-card bg-center bg-no-repeat checked:border-deep-rose checked:bg-tint-coral checked:bg-[url('/brand/check.svg')] aria-[invalid=true]:border-deep-rose"
+            className={`mt-0.5 size-6 rounded-[7px] ${checkboxClass}`}
           />
           {contactPrivacy.checkboxLabel}
         </label>
@@ -170,36 +161,5 @@ function Form({ onReset }: { onReset: () => void }) {
       </button>
       <p className="text-caption text-muted">We’ll reply by email.</p>
     </form>
-  );
-}
-
-function Field({
-  id,
-  label,
-  error,
-  children,
-}: {
-  id: string;
-  label: string;
-  error?: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="flex flex-col gap-1.5">
-      <label htmlFor={id} className="text-label-m">
-        {label}
-      </label>
-      {children}
-      {error && <ErrorText id={`${id}-error`}>{error}</ErrorText>}
-    </div>
-  );
-}
-
-function ErrorText({ id, children }: { id: string; children: React.ReactNode }) {
-  return (
-    <p id={id} className="flex items-center gap-1.5 text-body-s text-deep-rose">
-      <CircleAlert className="size-4 shrink-0" strokeWidth={1.75} aria-hidden="true" />
-      {children}
-    </p>
   );
 }

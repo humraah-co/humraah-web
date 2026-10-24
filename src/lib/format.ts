@@ -103,3 +103,36 @@ export function hostOf(url: string) {
     return url;
   }
 }
+
+/** "Just now", "3 hours ago", "Yesterday", "4 days ago", then the date. */
+export function timeAgo(iso: string, now = new Date()) {
+  const minutes = Math.floor((now.getTime() - new Date(iso).getTime()) / 60_000);
+  if (minutes < 1) return "Just now";
+  if (minutes < 60) return minutes === 1 ? "1 minute ago" : `${minutes} minutes ago`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return hours === 1 ? "1 hour ago" : `${hours} hours ago`;
+  const days = Math.floor(hours / 24);
+  if (days === 1) return "Yesterday";
+  if (days < 7) return `${days} days ago`;
+  return formatLongDate(iso);
+}
+
+/** "RA" for "Researcher A", "IK" for "ina.khan@…": the letters on a person's avatar. */
+export function personInitials(name: string) {
+  const words = name
+    .split(/[\s._@-]+/)
+    .filter(Boolean)
+    .slice(0, 2);
+  return words.map((w) => w[0]!.toUpperCase()).join("") || "?";
+}
+
+/** "Today", "Yesterday", "3 days ago", then the date: for "last active". */
+export function dayLabel(iso: string, now = new Date()) {
+  const day = (d: Date) =>
+    new Date(d.toLocaleString("en-US", { timeZone: "Asia/Karachi" })).setHours(0, 0, 0, 0);
+  const days = Math.round((day(now) - day(new Date(iso))) / 86_400_000);
+  if (days <= 0) return "Today";
+  if (days === 1) return "Yesterday";
+  if (days < 30) return `${days} days ago`;
+  return formatLongDate(iso);
+}

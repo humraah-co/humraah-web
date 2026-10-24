@@ -51,7 +51,7 @@ export function LogoStacked({ size = "hero" }: { size?: keyof typeof stackedSize
   );
 }
 
-/** Figma sizes: the home hero, the guide cover (28:2282, 33:2734) and the About hero (30:2444, 33:3140). */
+/** Figma sizes: the home hero, the guide cover (28:2282, 33:2734), the admin sign-in and the About hero (30:2444, 33:3140). */
 const stackedSizes = {
   hero: {
     gap: "gap-[16.8px]",
@@ -64,6 +64,13 @@ const stackedSizes = {
     mark: "h-[61.994px] w-[66.96px] lg:h-[89.991px] lg:w-[97.2px]",
     wordmark: "h-[13.764px] w-[124px] lg:h-[19.98px] lg:w-[180px]",
     urdu: "h-[19.418px] w-[35.712px] lg:h-[28.188px] lg:w-[51.84px]",
+  },
+  /** Admin sign-in brand panel (35:3104): the hero size on desktop, smaller on a phone. */
+  auth: {
+    gap: "gap-[8.68px] lg:gap-[16.8px]",
+    mark: "h-[61.994px] w-[66.96px] lg:h-[119.988px] lg:w-[129.6px]",
+    wordmark: "h-[13.764px] w-[124px] lg:h-[26.64px] lg:w-[240px]",
+    urdu: "h-[19.418px] w-[35.712px] lg:h-[37.584px] lg:w-[69.12px]",
   },
   about: {
     gap: "gap-[11.2px] lg:gap-[13.44px]",

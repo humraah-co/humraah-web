@@ -1,0 +1,87 @@
+import { NextResponse, type NextRequest } from "next/server";
+import { createServerClient } from "@supabase/ssr";
+import type { Database } from "@/lib/database.types";
+import {
+  ACCEPT_INVITE_PATH,
+  ADMIN_HOME,
+  LOGIN_PATH,
+  NO_ACCESS_PATH,
+  isOpenAdminPath,
+} from "@/lib/admin/paths";
+import { KEEP_SIGNED_IN_COOKIE, sessionCookieOptions } from "@/lib/supabase/cookies";
+import { getSupabaseEnv } from "@/lib/supabase/env";
+
+/**
+ * Guards the admin area (/admin/*) and keeps the session fresh:
+ *   signed out                → /admin/login
+ *   invited, not yet accepted → /admin/accept-invite
+ *   suspended                 → signed out, then /admin/login
+ *   no team_members row       → /admin/no-access
+ * Pages and actions check again on the server (requireActiveMember), and
+ * row-level security applies underneath both.
+ */
+export async function middleware(request: NextRequest) {
+  const { pathname, search } = request.nextUrl;
+  const open = isOpenAdminPath(pathname);
+  const env = getSupabaseEnv();
+  if (!env) return open ? NextResponse.next() : NextResponse.redirect(new URL(LOGIN_PATH, request.url));
+
+  let response = NextResponse.next({ request });
+  const keep = request.cookies.has(KEEP_SIGNED_IN_COOKIE);
+  const supabase = createServerClient<Database>(env.url, env.anonKey, {
+    cookies: {
+      getAll: () => request.cookies.getAll(),
+      setAll: (toSet, headers) => {
+        toSet.forEach(({ name, value }) => request.cookies.set(name, value));
+        response = NextResponse.next({ request });
+        toSet.forEach(({ name, value, options }) =>
+          response.cookies.set(name, value, sessionCookieOptions(options, keep)),
+        );
+        Object.entries(headers ?? {}).forEach(([key, value]) => response.headers.set(key, value));
+      },
+    },
+  });
+
+  // Carries any refreshed or cleared session cookies over to a redirect.
+  const redirectTo = (to: string) => {
+    const redirect = NextResponse.redirect(new URL(to, request.url));
+    response.cookies.getAll().forEach((cookie) => redirect.cookies.set(cookie));
+    response.headers.forEach((value, key) => {
+      if (key === "cache-control" || key === "expires" || key === "pragma") redirect.headers.set(key, value);
+    });
+    return redirect;
+  };
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    if (open) return response;
+    const next = pathname === ADMIN_HOME ? "" : `?next=${encodeURIComponent(pathname + search)}`;
+    return redirectTo(LOGIN_PATH + next);
+  }
+
+  const { data: member } = await supabase
+    .from("team_members")
+    .select("status")
+    .eq("user_id", user.id)
+    .maybeSingle();
+  const status = member?.status;
+
+  if (status === "suspended") {
+    await supabase.auth.signOut();
+    return open ? response : redirectTo(`${LOGIN_PATH}?notice=suspended`);
+  }
+  if (open) {
+    // Already signed in: skip the sign-in page.
+    return pathname === LOGIN_PATH && status === "active" ? redirectTo(ADMIN_HOME) : response;
+  }
+  if (status === "active") return pathname === NO_ACCESS_PATH ? redirectTo(ADMIN_HOME) : response;
+  if (status === "invited") return redirectTo(ACCEPT_INVITE_PATH);
+  return pathname === NO_ACCESS_PATH ? response : redirectTo(NO_ACCESS_PATH);
+}
+
+export const config = {
+  matcher: ["/admin/:path*"],
+};
