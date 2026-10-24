@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Award, BookOpen, Compass, House, Landmark, type LucideIcon } from "lucide-react";
+import { isAdminPath } from "@/lib/admin/paths";
 import { isActive, isQuizPath } from "@/lib/nav";
 
 const tabs: { href: string; label: string; icon: LucideIcon }[] = [
@@ -16,12 +17,12 @@ const tabs: { href: string; label: string; icon: LucideIcon }[] = [
 /**
  * Sticky mobile bottom navigation (Figma 4:506). Active tab: pill tint/coral,
  * icon text/deep-rose, label text/charcoal. The spacer keeps the end of the
- * page clear of the bar. Quiz questions have their own sticky button instead, and the menu covers the
- * whole screen.
+ * page clear of the bar. Quiz questions have their own sticky button instead, the menu covers the
+ * whole screen, and the admin area has its own navigation.
  */
 export function BottomNav() {
   const pathname = usePathname();
-  if (pathname === "/quiz" || pathname === "/menu") return null;
+  if (pathname === "/quiz" || pathname === "/menu" || isAdminPath(pathname)) return null;
   return (
     <>
       <div aria-hidden="true" className="h-[83px] shrink-0 lg:hidden" />

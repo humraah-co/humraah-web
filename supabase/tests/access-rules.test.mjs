@@ -209,6 +209,211 @@ check(
   "string",
 );
 
+// ---------------------------------------------------------------------------
+// Team management (Day 4): invites, accepting, suspending, the activity log
+// ---------------------------------------------------------------------------
+const ADM2 = "00000000-0000-0000-0000-000000000011",
+  RES2 = "00000000-0000-0000-0000-000000000012",
+  INV = "00000000-0000-0000-0000-000000000013",
+  INV2 = "00000000-0000-0000-0000-000000000014",
+  INV3 = "00000000-0000-0000-0000-000000000015";
+await db.exec(`insert into auth.users values ('${ADM2}','a2@x'),('${RES2}','r2@x'),('${INV}','i@x'),('${INV2}','i2@x'),('${INV3}','i3@x');
+ insert into team_members (user_id,email,full_name,role,status) values ('${ADM2}','a2@x','Admin Two','admin','active'),('${RES2}','r2@x','Res Two','researcher','active');`);
+const lastTeamLog = async (uid) =>
+  as(
+    "authenticated",
+    OWNER,
+    `select action, actor_id, summary from activity_log where entity_type='team_members' and entity_id='${uid}' order by id desc limit 1`,
+  );
+
+check(
+  "admin invites a researcher",
+  await as(
+    "authenticated",
+    ADM2,
+    `insert into team_members (user_id,email,full_name,role,status,invited_by) values ('${INV}','i@x','Ina','researcher','invited','${ADM2}') returning status`,
+  ),
+  [{ status: "invited" }],
+);
+check("the invite is logged with who sent it", await lastTeamLog(INV), [
+  { action: "invited", actor_id: ADM2, summary: "Ina" },
+]);
+check(
+  "researcher cannot invite",
+  typeof (await as(
+    "authenticated",
+    RES2,
+    `insert into team_members (user_id,email,role,status) values ('${INV3}','i3@x','researcher','invited')`,
+  )),
+  "string",
+);
+check(
+  "invited person sees only their own team row",
+  await as("authenticated", INV, `select user_id from team_members`),
+  [{ user_id: INV }],
+);
+check(
+  "invited person cannot activate themselves directly",
+  await as(
+    "authenticated",
+    INV,
+    `update team_members set status='active' where user_id='${INV}' returning status`,
+  ),
+  [],
+);
+check(
+  "anon cannot accept an invite",
+  typeof (await as("anon", null, `select * from accept_invite('Ina')`)),
+  "string",
+);
+check(
+  "invited person accepts with their name",
+  await as("authenticated", INV, `select status, full_name from accept_invite('  Ina Khan ')`),
+  [{ status: "active", full_name: "Ina Khan" }],
+);
+check("accepting is logged as joining", await lastTeamLog(INV), [
+  { action: "joined", actor_id: INV, summary: "Ina Khan" },
+]);
+check(
+  "an invite can only be accepted once",
+  String(await as("authenticated", INV, `select * from accept_invite('Ina')`)).includes("no pending invite"),
+  true,
+);
+check(
+  "an active member cannot use accept_invite",
+  String(await as("authenticated", SUS, `select * from accept_invite('S')`)).includes("no pending invite"),
+  true,
+);
+check(
+  "owner invites an admin",
+  await as(
+    "authenticated",
+    OWNER,
+    `insert into team_members (user_id,email,role,status) values ('${INV2}','i2@x','admin','invited') returning role`,
+  ),
+  [{ role: "admin" }],
+);
+check(
+  "accepting needs a name",
+  String(await as("authenticated", INV2, `select * from accept_invite('   ')`)).includes("Name must"),
+  true,
+);
+check(
+  "admin cannot resend an admin's invite",
+  String(await as("authenticated", ADM2, `select record_invite_resent('${INV2}')`)).includes(
+    "Only the owner",
+  ),
+  true,
+);
+check(
+  "researcher cannot resend invites",
+  String(await as("authenticated", RES2, `select record_invite_resent('${INV2}')`)).includes("Only admins"),
+  true,
+);
+check(
+  "resending needs a pending invite",
+  String(await as("authenticated", OWNER, `select record_invite_resent('${RES2}')`)).includes(
+    "no pending invite",
+  ),
+  true,
+);
+check(
+  "owner resends an invite",
+  Array.isArray(await as("authenticated", OWNER, `select record_invite_resent('${INV2}')`)),
+  true,
+);
+check("the resend is logged", await lastTeamLog(INV2), [
+  { action: "invite_resent", actor_id: OWNER, summary: "i2@x" },
+]);
+check(
+  "owner cannot suspend themselves",
+  String(
+    await as("authenticated", OWNER, `update team_members set status='suspended' where user_id='${OWNER}'`),
+  ).includes("own status"),
+  true,
+);
+check(
+  "admin cannot suspend themselves",
+  typeof (await as(
+    "authenticated",
+    ADM2,
+    `update team_members set status='suspended' where user_id='${ADM2}' returning status`,
+  )),
+  "string",
+);
+check(
+  "nobody can remove themselves",
+  String(await as("authenticated", OWNER, `delete from team_members where user_id='${OWNER}'`)).includes(
+    "remove yourself",
+  ),
+  true,
+);
+check(
+  "admin cannot suspend another admin",
+  String(
+    await as("authenticated", ADM2, `update team_members set status='suspended' where user_id='${ADMIN}'`),
+  ).includes("Only the owner"),
+  true,
+);
+check(
+  "admin suspends a researcher",
+  await as(
+    "authenticated",
+    ADM2,
+    `update team_members set status='suspended' where user_id='${RES2}' returning status`,
+  ),
+  [{ status: "suspended" }],
+);
+check("the suspension is logged", await lastTeamLog(RES2), [
+  { action: "suspended", actor_id: ADM2, summary: "Res Two" },
+]);
+check(
+  "a suspended researcher can no longer read the team",
+  await as("authenticated", RES2, `select user_id from team_members where user_id<>'${RES2}'`),
+  [],
+);
+check(
+  "admin reactivates a researcher",
+  await as(
+    "authenticated",
+    ADM2,
+    `update team_members set status='active' where user_id='${RES2}' returning status`,
+  ),
+  [{ status: "active" }],
+);
+check("the reactivation is logged", await lastTeamLog(RES2), [
+  { action: "reactivated", actor_id: ADM2, summary: "Res Two" },
+]);
+await as(
+  "authenticated",
+  ADM2,
+  `insert into team_members (user_id,email,role,status) values ('${INV3}','i3@x','researcher','invited')`,
+);
+check(
+  "admin revokes a pending invite",
+  await as("authenticated", ADM2, `delete from team_members where user_id='${INV3}' returning user_id`),
+  [{ user_id: INV3 }],
+);
+check("the revoke is logged", await lastTeamLog(INV3), [
+  { action: "invite_revoked", actor_id: ADM2, summary: "i3@x" },
+]);
+
+check(
+  "invited admin accepts their own invite",
+  await as("authenticated", INV2, `select status, role, full_name from accept_invite('Ina Two')`),
+  [{ status: "active", role: "admin", full_name: "Ina Two" }],
+);
+check("the admin joining is logged", await lastTeamLog(INV2), [
+  { action: "joined", actor_id: INV2, summary: "Ina Two" },
+]);
+check(
+  "a new admin still cannot make themselves owner",
+  String(
+    await as("authenticated", INV2, `update team_members set role='owner' where user_id='${INV2}'`),
+  ).includes("ERROR"),
+  true,
+);
+
 if (failed) {
   console.error(`${failed} check(s) failed`);
   process.exit(1);
