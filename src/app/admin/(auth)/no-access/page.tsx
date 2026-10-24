@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { signOut } from "@/app/admin/actions";
 import { buttonStyles } from "@/components/ui/Button";
+import { SubmitButton } from "@/components/ui/SubmitButton";
 import { getAdminSession } from "@/lib/admin/session";
 import { LOGIN_PATH } from "@/lib/admin/paths";
 import { contact } from "@/lib/nav";
@@ -32,9 +33,9 @@ export default async function NoAccessPage() {
         </p>
       </header>
       <form action={signOut}>
-        <button type="submit" className={`${buttonStyles.primary} w-full`}>
+        <SubmitButton pendingLabel="Signing out…" className={`${buttonStyles.primary} w-full`}>
           Sign out
-        </button>
+        </SubmitButton>
       </form>
     </>
   );

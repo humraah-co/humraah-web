@@ -2,6 +2,7 @@ import { archiveEntry, deleteEntry, restoreEntry } from "@/app/admin/(portal)/en
 import { Modal } from "@/components/admin/Modal";
 import { ButtonLink, buttonStyles } from "@/components/ui/Button";
 import { Field, fieldClass } from "@/components/ui/Field";
+import { SubmitButton } from "@/components/ui/SubmitButton";
 import { entryTypes, type EntryTable } from "@/lib/admin/content";
 import type { ContentStatus } from "@/lib/database.types";
 
@@ -36,14 +37,14 @@ export function EntryConfirm({
       <input type="hidden" name="id" value={entry.id} />
     </>
   );
-  const buttons = (label: string) => (
+  const buttons = (label: string, pendingLabel: string) => (
     <div className="flex flex-col-reverse gap-2.5 sm:flex-row sm:justify-end">
       <ButtonLink href={closeHref} variant="secondary">
         Cancel
       </ButtonLink>
-      <button type="submit" className={`${buttonStyles.primary} cursor-pointer`}>
+      <SubmitButton pendingLabel={pendingLabel} className={buttonStyles.primary}>
         {label}
-      </button>
+      </SubmitButton>
     </div>
   );
 
@@ -55,7 +56,7 @@ export function EntryConfirm({
         </p>
         <form action={archiveEntry} className="flex flex-col gap-4">
           {hidden}
-          {buttons("Archive")}
+          {buttons("Archive", "Archiving…")}
         </form>
       </Modal>
     );
@@ -69,7 +70,7 @@ export function EntryConfirm({
         </p>
         <form action={restoreEntry} className="flex flex-col gap-4">
           {hidden}
-          {buttons("Restore to drafts")}
+          {buttons("Restore to drafts", "Restoring…")}
         </form>
       </Modal>
     );
@@ -104,7 +105,7 @@ export function EntryConfirm({
               className={`${fieldClass} h-12`}
             />
           </Field>
-          {buttons("Delete permanently")}
+          {buttons("Delete permanently", "Deleting…")}
         </form>
       </Modal>
     );
