@@ -149,38 +149,53 @@ export function EditorFrame<V>({
             )}
           </div>
         </div>
-        <div className="flex flex-col gap-2.5 sm:flex-row sm:flex-wrap sm:items-center">
-          {meta.viewHref && (
-            <ButtonLink href={meta.viewHref} variant="secondary" external>
-              View on site
-            </ButtonLink>
-          )}
-          {!readOnly &&
-            (published ? (
-              <>
-                {button("unpublish", "Move to drafts", "Moving…", buttonStyles.secondary)}
-                {button("update", "Update", "Updating…", buttonStyles.primary)}
-              </>
-            ) : (
-              <>
-                {button("draft", "Save draft", "Saving…", buttonStyles.secondary)}
-                {button("publish", "Publish", "Publishing…", buttonStyles.primary)}
-              </>
-            ))}
-          {meta.id && !readOnly && (
-            <ButtonLink href={`${entryHref}?confirm=archive`} variant="text" className="sm:ml-1">
-              Archive<span className="sr-only"> {meta.title}</span>
-            </ButtonLink>
-          )}
-          {meta.id && readOnly && meta.isAdmin && (
-            <>
-              <ButtonLink href={`${entryHref}?confirm=restore`} variant="secondary">
-                Restore to drafts
+        <div className="flex flex-col gap-2 xl:items-end">
+          <div className="flex flex-col gap-2.5 sm:flex-row sm:flex-wrap sm:items-center">
+            {meta.viewHref && (
+              <ButtonLink href={meta.viewHref} variant="secondary" external>
+                View on site
               </ButtonLink>
-              <ButtonLink href={`${entryHref}?confirm=delete`} variant="text" className="sm:ml-1">
-                Delete permanently
+            )}
+            {!readOnly &&
+              (published ? (
+                <>
+                  {button("unpublish", "Move to drafts", "Moving…", buttonStyles.secondary)}
+                  {button("update", "Update", "Updating…", buttonStyles.primary)}
+                </>
+              ) : (
+                <>
+                  {button("draft", "Save draft", "Saving…", buttonStyles.secondary)}
+                  {button("publish", "Publish", "Publishing…", buttonStyles.primary)}
+                </>
+              ))}
+            {meta.id && !readOnly && (
+              <ButtonLink href={`${entryHref}?confirm=archive`} variant="text" className="sm:ml-1">
+                Archive<span className="sr-only"> {meta.title}</span>
               </ButtonLink>
-            </>
+            )}
+            {meta.id && readOnly && meta.isAdmin && (
+              <>
+                <ButtonLink href={`${entryHref}?confirm=restore`} variant="secondary">
+                  Restore to drafts
+                </ButtonLink>
+                <ButtonLink href={`${entryHref}?confirm=delete`} variant="text" className="sm:ml-1">
+                  Delete permanently
+                </ButtonLink>
+              </>
+            )}
+          </div>
+          {meta.id && !readOnly && meta.isAdmin && (
+            // Deleting needs the entry archived first; say where to find it (#11).
+            <p className="max-w-[440px] text-caption text-muted xl:text-right">
+              To delete, archive this entry first. Archived entries can be deleted from the{" "}
+              <Link
+                href={`${type.adminPath}?status=archived`}
+                className="text-deep-rose underline underline-offset-2 hover:text-charcoal"
+              >
+                Archived tab
+              </Link>
+              .
+            </p>
           )}
         </div>
       </header>
