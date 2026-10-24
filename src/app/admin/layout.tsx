@@ -7,6 +7,10 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
+// Every /admin page is for one signed-in person: render it per request,
+// never at build time and never from a shared cache.
+export const dynamic = "force-dynamic";
+
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return children;
 }
