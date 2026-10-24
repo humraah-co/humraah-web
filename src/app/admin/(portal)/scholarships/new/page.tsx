@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import { ScholarshipEditor } from "@/components/admin/ScholarshipEditor";
 import { emptyScholarship } from "@/lib/admin/content";
 import { listFieldOptions } from "@/lib/admin/entries";
-import { requireActiveMember } from "@/lib/admin/session";
+import { getSessionClient, requireActiveMember } from "@/lib/admin/session";
 
 export const metadata: Metadata = { title: "New scholarship" };
 
 export default async function NewScholarshipPage() {
-  const { supabase } = await requireActiveMember();
-  const fields = await listFieldOptions(supabase);
+  const supabase = await getSessionClient();
+  // Loaded alongside the membership check; nothing renders until it passes.
+  const [, fields] = await Promise.all([requireActiveMember(), listFieldOptions(supabase)]);
   return (
     <ScholarshipEditor
       meta={{

@@ -8,7 +8,7 @@ import { buttonStyles } from "@/components/ui/Button";
 import { FormNotice } from "@/components/ui/Field";
 import { actorName, describeActivity } from "@/lib/admin/activity";
 import { getDashboard, type Counts } from "@/lib/admin/dashboard";
-import { requireActiveMember } from "@/lib/admin/session";
+import { getSessionClient, requireActiveMember } from "@/lib/admin/session";
 import { isAdminRole } from "@/lib/admin/team";
 import { timeAgo } from "@/lib/format";
 
@@ -33,12 +33,15 @@ export default async function DashboardPage({
 }: {
   searchParams: Promise<{ notice?: string | string[] }>;
 }) {
-  const { supabase, member } = await requireActiveMember();
-  const isAdmin = isAdminRole(member.role);
-  const [{ notice }, data] = await Promise.all([
+  const supabase = await getSessionClient();
+  // Loaded alongside the membership check; nothing renders until it passes.
+  // Messages are read for everyone; row-level security returns none to researchers, who don't see the card.
+  const [{ member }, { notice }, data] = await Promise.all([
+    requireActiveMember(),
     searchParams,
-    getDashboard(supabase, { withMessages: isAdmin }),
+    getDashboard(supabase, { withMessages: true }),
   ]);
+  const isAdmin = isAdminRole(member.role);
   const message = typeof notice === "string" ? notices[notice] : undefined;
   const { counts } = data;
 

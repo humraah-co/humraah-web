@@ -2,14 +2,18 @@ import type { Metadata } from "next";
 import { ReviewTable } from "@/components/admin/ReviewTable";
 import { PageHeader, Panel } from "@/components/admin/Workspace";
 import { getDashboard } from "@/lib/admin/dashboard";
-import { requireActiveMember } from "@/lib/admin/session";
+import { getSessionClient, requireActiveMember } from "@/lib/admin/session";
 
 export const metadata: Metadata = { title: "Needs review" };
 
 /** Every entry in the dashboard's "Needs review", most urgent first. */
 export default async function ReviewPage() {
-  const { supabase } = await requireActiveMember();
-  const { review, reviewCount } = await getDashboard(supabase, { withMessages: false });
+  const supabase = await getSessionClient();
+  // Loaded alongside the membership check; nothing renders until it passes.
+  const [, { review, reviewCount }] = await Promise.all([
+    requireActiveMember(),
+    getDashboard(supabase, { withMessages: false }),
+  ]);
   return (
     <>
       <PageHeader

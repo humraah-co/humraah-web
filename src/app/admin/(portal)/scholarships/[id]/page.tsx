@@ -14,7 +14,7 @@ import {
   teamNames,
 } from "@/lib/admin/entries";
 import { editorNotice } from "@/lib/admin/saveEntry";
-import { requireActiveMember } from "@/lib/admin/session";
+import { getSessionClient, requireActiveMember } from "@/lib/admin/session";
 import { isAdminRole } from "@/lib/admin/team";
 import { savedLine } from "@/lib/format";
 
@@ -26,11 +26,13 @@ type Props = {
 };
 
 export default async function EditScholarshipPage({ params, searchParams }: Props) {
-  const { supabase, member } = await requireActiveMember();
+  const supabase = await getSessionClient();
   const [{ id }, query] = await Promise.all([params, searchParams]);
   if (!isUuid(id)) notFound();
 
-  const [entry, fields, recent, verifier, names] = await Promise.all([
+  // Loaded alongside the membership check; nothing renders until it passes.
+  const [{ member }, entry, fields, recent, verifier, names] = await Promise.all([
+    requireActiveMember(),
     getScholarshipForEdit(supabase, id),
     listFieldOptions(supabase),
     entryActivity(supabase, "scholarships", id),

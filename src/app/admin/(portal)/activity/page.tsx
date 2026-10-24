@@ -18,7 +18,7 @@ import {
 } from "@/lib/admin/activityLog";
 import { entryTypes, isEntryTable } from "@/lib/admin/content";
 import { teamNames } from "@/lib/admin/entries";
-import { requireActiveMember } from "@/lib/admin/session";
+import { getSessionClient, requireActiveMember } from "@/lib/admin/session";
 import type { ActivityLogEntry } from "@/lib/database.types";
 import { formatLongDate } from "@/lib/format";
 
@@ -62,9 +62,14 @@ export default async function ActivityPage({
 }: {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
-  const { supabase } = await requireActiveMember();
+  const supabase = await getSessionClient();
   const filters = readActivityFilters(await searchParams);
-  const [result, names] = await Promise.all([getActivityPage(supabase, filters), teamNames(supabase)]);
+  // Loaded alongside the membership check; nothing renders until it passes.
+  const [, result, names] = await Promise.all([
+    requireActiveMember(),
+    getActivityPage(supabase, filters),
+    teamNames(supabase),
+  ]);
   const existing = result ? await existingEntries(supabase, result.entries) : new Set<string>();
   const filtered = !!(filters.type || filters.person || filters.action || filters.from || filters.to);
   const now = new Date();

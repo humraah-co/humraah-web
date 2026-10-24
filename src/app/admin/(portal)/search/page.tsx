@@ -7,7 +7,7 @@ import { PageHeader } from "@/components/admin/Workspace";
 import { FormAlert } from "@/components/ui/Field";
 import { entryTypes, type EntryTable } from "@/lib/admin/content";
 import { listEntries, searchEntries, type EntryRow } from "@/lib/admin/entries";
-import { requireActiveMember } from "@/lib/admin/session";
+import { getSessionClient, requireActiveMember } from "@/lib/admin/session";
 
 export const metadata: Metadata = { title: "Search" };
 
@@ -21,13 +21,16 @@ export default async function SearchPage({
 }: {
   searchParams: Promise<{ q?: string | string[] }>;
 }) {
-  const { supabase } = await requireActiveMember();
+  const supabase = await getSessionClient();
   const { q: raw } = await searchParams;
   const q = typeof raw === "string" ? raw.trim().slice(0, 100) : "";
 
-  const [universities, scholarships] = q
-    ? await Promise.all([listEntries(supabase, "universities"), listEntries(supabase, "scholarships")])
-    : [[], []];
+  // Loaded alongside the membership check; nothing renders until it passes.
+  const [, universities, scholarships] = await Promise.all([
+    requireActiveMember(),
+    q ? listEntries(supabase, "universities") : [],
+    q ? listEntries(supabase, "scholarships") : [],
+  ]);
   const groups: { table: EntryTable; rows: EntryRow[] | null }[] = [
     { table: "universities", rows: universities && searchEntries(universities, q) },
     { table: "scholarships", rows: scholarships && searchEntries(scholarships, q) },

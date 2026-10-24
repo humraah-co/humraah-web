@@ -6,7 +6,7 @@ import { Avatar, PageHeader } from "@/components/admin/Workspace";
 import { ButtonLink, buttonStyles } from "@/components/ui/Button";
 import { Chip, type ChipTone } from "@/components/ui/Chip";
 import { FormAlert, FormNotice } from "@/components/ui/Field";
-import { requireActiveMember, type Member } from "@/lib/admin/session";
+import { getSessionClient, requireActiveMember, type Member } from "@/lib/admin/session";
 import { canManage, invitableRoles, isAdminRole, roleLabels, statusLabels } from "@/lib/admin/team";
 import type { MemberStatus, TeamRole } from "@/lib/database.types";
 import { dayLabel, timeAgo } from "@/lib/format";
@@ -82,8 +82,10 @@ type Search = {
  * the team can see the list; admins and the owner can manage it.
  */
 export default async function TeamPage({ searchParams }: { searchParams: Promise<Search> }) {
-  const { supabase, member: me } = await requireActiveMember();
-  const [params, membersResult, signIns] = await Promise.all([
+  const supabase = await getSessionClient();
+  // Loaded alongside the membership check; nothing renders until it passes.
+  const [{ member: me }, params, membersResult, signIns] = await Promise.all([
+    requireActiveMember(),
     searchParams,
     supabase.from("team_members").select("user_id, email, full_name, role, status, created_at"),
     lastSignIns(),

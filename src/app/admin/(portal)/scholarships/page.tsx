@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { EntryList, readListParams } from "@/components/admin/EntryList";
 import { listEntries, teamNames } from "@/lib/admin/entries";
-import { requireActiveMember } from "@/lib/admin/session";
+import { getSessionClient, requireActiveMember } from "@/lib/admin/session";
 
 export const metadata: Metadata = { title: "Scholarships" };
 
@@ -9,8 +9,10 @@ type Search = Record<string, string | string[] | undefined>;
 
 /** Admin – Scholarships (Figma 35:3417). */
 export default async function ScholarshipsPage({ searchParams }: { searchParams: Promise<Search> }) {
-  const { supabase } = await requireActiveMember();
-  const [raw, rows, names] = await Promise.all([
+  const supabase = await getSessionClient();
+  // Loaded alongside the membership check; nothing renders until it passes.
+  const [, raw, rows, names] = await Promise.all([
+    requireActiveMember(),
     searchParams,
     listEntries(supabase, "scholarships"),
     teamNames(supabase),
