@@ -1,7 +1,7 @@
 import "server-only";
 import { unstable_cache } from "next/cache";
 import { createPublicClient } from "@/lib/supabase/public";
-import type { Field, Scholarship, University } from "@/lib/database.types";
+import type { Field, GuidanceArticle, Resource, Scholarship, University } from "@/lib/database.types";
 
 /**
  * Public data access. Every query goes through the anon client, so row-level
@@ -46,10 +46,18 @@ export async function getPublishedCounts() {
 
 export type FieldSummary = Pick<
   Field,
-  "id" | "slug" | "name" | "summary" | "you_might_enjoy" | "interests" | "example_programmes"
+  | "id"
+  | "slug"
+  | "name"
+  | "summary"
+  | "you_might_enjoy"
+  | "interests"
+  | "example_programmes"
+  | "last_verified_at"
 >;
 
-const FIELD_COLUMNS = "id, slug, name, summary, you_might_enjoy, interests, example_programmes";
+const FIELD_COLUMNS =
+  "id, slug, name, summary, you_might_enjoy, interests, example_programmes, last_verified_at";
 
 export const listFields = unstable_cache(
   async (): Promise<FieldSummary[] | null> => {
@@ -185,7 +193,7 @@ export async function listUniversitySlugs() {
 }
 
 // ---------------------------------------------------------------------------
-// Scholarships (cards only; the full pages arrive on Day 3)
+// Scholarships
 // ---------------------------------------------------------------------------
 
 export type ScholarshipCard = Pick<
@@ -193,6 +201,7 @@ export type ScholarshipCard = Pick<
   | "id"
   | "slug"
   | "name"
+  | "provider"
   | "kind"
   | "scope"
   | "summary"
@@ -201,11 +210,12 @@ export type ScholarshipCard = Pick<
   | "audience_note"
   | "deadline"
   | "deadline_note"
+  | "eligible_areas"
   | "last_verified_at"
 > & { fieldIds: string[] };
 
 const SCHOLARSHIP_CARD_COLUMNS =
-  "id, slug, name, kind, scope, summary, women_only, covers, audience_note, deadline, deadline_note, last_verified_at";
+  "id, slug, name, provider, kind, scope, summary, women_only, covers, audience_note, deadline, deadline_note, eligible_areas, last_verified_at";
 
 export const listScholarshipCards = unstable_cache(
   async (): Promise<ScholarshipCard[] | null> => {
@@ -228,4 +238,88 @@ export const listScholarshipCards = unstable_cache(
   },
   ["scholarship-cards"],
   { revalidate: REVALIDATE, tags: ["scholarships"] },
+);
+
+export type ScholarshipDetail = Scholarship & { fieldIds: string[] };
+
+export const getScholarship = unstable_cache(
+  async (slug: string): Promise<ScholarshipDetail | null | undefined> => {
+    const supabase = createPublicClient();
+    if (!supabase) return null;
+    const { data, error } = await supabase.from("scholarships").select("*").eq("slug", slug).maybeSingle();
+    if (error) fail("scholarship", error.message);
+    if (!data) return undefined;
+    const { data: links, error: lErr } = await supabase
+      .from("scholarship_fields")
+      .select("field_id")
+      .eq("scholarship_id", data.id);
+    if (lErr) fail("scholarship fields", lErr.message);
+    return { ...data, fieldIds: links.map((l) => l.field_id) };
+  },
+  ["scholarship"],
+  { revalidate: REVALIDATE, tags: ["scholarships"] },
+);
+
+// ---------------------------------------------------------------------------
+// Guidance articles
+// ---------------------------------------------------------------------------
+
+export type GuidanceSummary = Pick<
+  GuidanceArticle,
+  "id" | "slug" | "title" | "summary" | "body_markdown" | "last_verified_at"
+>;
+
+/** Every published article in reading order. The body comes too, for the read time. */
+export const listGuidanceArticles = unstable_cache(
+  async (): Promise<GuidanceSummary[] | null> => {
+    const supabase = createPublicClient();
+    if (!supabase) return null;
+    const { data, error } = await supabase
+      .from("guidance_articles")
+      .select("id, slug, title, summary, body_markdown, last_verified_at")
+      .order("sort_order")
+      .order("title");
+    if (error) fail("guidance articles", error.message);
+    return data;
+  },
+  ["guidance-articles"],
+  { revalidate: REVALIDATE, tags: ["guidance"] },
+);
+
+export const getGuidanceArticle = unstable_cache(
+  async (slug: string): Promise<GuidanceArticle | null | undefined> => {
+    const supabase = createPublicClient();
+    if (!supabase) return null;
+    const { data, error } = await supabase
+      .from("guidance_articles")
+      .select("*")
+      .eq("slug", slug)
+      .maybeSingle();
+    if (error) fail("guidance article", error.message);
+    return data ?? undefined;
+  },
+  ["guidance-article"],
+  { revalidate: REVALIDATE, tags: ["guidance"] },
+);
+
+// ---------------------------------------------------------------------------
+// Resources
+// ---------------------------------------------------------------------------
+
+export type ResourceLink = Pick<Resource, "id" | "title" | "description" | "url" | "category">;
+
+export const listResources = unstable_cache(
+  async (): Promise<ResourceLink[] | null> => {
+    const supabase = createPublicClient();
+    if (!supabase) return null;
+    const { data, error } = await supabase
+      .from("resources")
+      .select("id, title, description, url, category")
+      .order("sort_order")
+      .order("title");
+    if (error) fail("resources", error.message);
+    return data;
+  },
+  ["resources"],
+  { revalidate: REVALIDATE, tags: ["resources"] },
 );

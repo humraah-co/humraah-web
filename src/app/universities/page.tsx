@@ -8,7 +8,7 @@ import { ImportantCallout } from "@/components/ui/Blocks";
 import { buttonStyles } from "@/components/ui/Button";
 import { ActiveFilterChip } from "@/components/ui/Chip";
 import { FilterGroups } from "@/components/universities/FilterGroups";
-import { FilterSheet } from "@/components/universities/FilterControls";
+import { FilterSheet } from "@/components/ui/FilterControls";
 import { listFields, listUniversityCards } from "@/lib/data/public";
 import {
   activeFilterCount,
@@ -97,7 +97,7 @@ export default async function UniversitiesPage({ searchParams }: { searchParams:
 
         {cards && (
           <div className="flex flex-wrap items-center gap-2 lg:hidden">
-            <FilterSheet count={filterCount} resultCount={results.length} clearHref={clearHref}>
+            <FilterSheet count={filterCount} showLabel={`Show ${countLabel}`} clearHref={clearHref}>
               <div className="flex flex-col gap-[22px]">{filterGroups}</div>
             </FilterSheet>
             {chips.map((chip) => (

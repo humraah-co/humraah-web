@@ -46,7 +46,7 @@ export function MobileTopBar() {
       <div className="flex items-center gap-1.5">
         <LanguageSwitch />
         <SearchButton />
-        <MenuButton />
+        <MenuButton from={pathname} />
       </div>
     </div>
   );

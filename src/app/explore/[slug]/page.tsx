@@ -5,7 +5,7 @@ import { ChevronRight } from "lucide-react";
 import { ScholarshipCard, UniversityCard } from "@/components/content/Cards";
 import { FieldIcon } from "@/components/content/FieldIcon";
 import { Container } from "@/components/layout/PageShell";
-import { NextSteps, RememberCallout, SectionHeader } from "@/components/ui/Blocks";
+import { NextSteps, RememberCallout, SectionHeader, StaleNotice } from "@/components/ui/Blocks";
 import { Chip, ChipList } from "@/components/ui/Chip";
 import { getField, listFields, listScholarshipCards, listUniversityCards } from "@/lib/data/public";
 
@@ -72,6 +72,7 @@ export default async function FieldPage({ params }: Props) {
           <p className="text-body-m text-muted lg:max-w-[680px] lg:text-body-l">
             {field.summary ?? "A description of this field is to be confirmed."}
           </p>
+          <StaleNotice verifiedAt={field.last_verified_at} className="lg:max-w-[680px]" />
 
           <div className="mt-2 flex flex-col gap-2.5 lg:mt-0">
             <h2 className="text-label-l">You might enjoy this if you like</h2>

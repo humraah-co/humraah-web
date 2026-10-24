@@ -1,7 +1,7 @@
 import { OptionChip } from "@/components/ui/Chip";
 import type { FieldSummary } from "@/lib/data/public";
 import { hrefWith, toggled, type UniversityFilters } from "@/lib/universityFilters";
-import { FieldSelect, FilterCheckbox, MoreOptions } from "./FilterControls";
+import { FieldSelect, FilterCheckbox, MoreOptions } from "@/components/ui/FilterControls";
 
 /** Cities shown before "More cities". */
 const VISIBLE_CITIES = 6;

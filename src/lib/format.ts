@@ -59,3 +59,47 @@ const countWords = ["no", "one", "two", "three", "four", "five", "six", "seven",
 export function countWord(n: number) {
   return countWords[n] ?? String(n);
 }
+
+/** One step per line, with any "1." or "-" marker removed. */
+export function stepsFrom(text: string | null) {
+  return (text ?? "")
+    .split(/\r?\n/)
+    .map((line) => line.replace(/^\s*(?:\d+[.)]|[-*•])\s*/, "").trim())
+    .filter(Boolean);
+}
+
+/** Points for a checklist: one per line, or one per sentence when the text is a single line. */
+export function pointsFrom(text: string | null) {
+  const lines = stepsFrom(text);
+  if (lines.length !== 1) return lines;
+  return lines[0]
+    .split(/(?<=[.!?])\s+(?=[A-Z0-9])/)
+    .map((s) => s.replace(/\.$/, "").trim())
+    .filter(Boolean);
+}
+
+/** Six months: after this a verified entry may be out of date. */
+export const STALE_AFTER_MONTHS = 6;
+
+/** True when an entry was verified, but more than six months ago. */
+export function isStale(verifiedAt: string | null, now = new Date()) {
+  if (!verifiedAt) return false;
+  const limit = new Date(verifiedAt);
+  limit.setMonth(limit.getMonth() + STALE_AFTER_MONTHS);
+  return limit.getTime() < now.getTime();
+}
+
+/** "4 min read" at about 200 words a minute, never less than one minute. */
+export function readTime(markdown: string) {
+  const words = markdown.split(/\s+/).filter((w) => /\w/.test(w)).length;
+  return `${Math.max(1, Math.ceil(words / 200))} min read`;
+}
+
+/** "hec.gov.pk" from "https://www.hec.gov.pk/english"; the raw value if it isn't a URL. */
+export function hostOf(url: string) {
+  try {
+    return new URL(url).hostname.replace(/^www\./, "");
+  } catch {
+    return url;
+  }
+}

@@ -18,12 +18,12 @@ import {
 } from "lucide-react";
 import { UniversityAvatar } from "@/components/content/Cards";
 import { Container } from "@/components/layout/PageShell";
-import { Accordion, ImportantCallout, NextSteps, Step } from "@/components/ui/Blocks";
+import { Accordion, ImportantCallout, NextSteps, StaleNotice, Step } from "@/components/ui/Blocks";
 import { ButtonLink } from "@/components/ui/Button";
 import { Chip, HecBadge, SourceBadge, VerificationBadge } from "@/components/ui/Chip";
 import { ShareButton } from "@/components/ui/ShareButton";
 import { getUniversity, listFields, listUniversitySlugs, type ProgrammeSummary } from "@/lib/data/public";
-import { formatFeeRange, formatLongDate } from "@/lib/format";
+import { formatFeeRange, formatLongDate, stepsFrom } from "@/lib/format";
 import { contact } from "@/lib/nav";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -58,14 +58,6 @@ const typicalSteps = [
     text: "Check the test date and what it covers early.",
   },
 ];
-
-/** One step per line, with any "1." or "-" marker removed. */
-function stepsFrom(text: string | null) {
-  return (text ?? "")
-    .split(/\r?\n/)
-    .map((line) => line.replace(/^\s*(?:\d+[.)]|[-*•])\s*/, "").trim())
-    .filter(Boolean);
-}
 
 const TBC = "To be confirmed";
 
@@ -179,6 +171,7 @@ export default async function UniversityPage({ params }: Props) {
               <p className="text-caption text-muted">Last verified {formatLongDate(u.last_verified_at)}</p>
             )}
             {u.source_url && <SourceBadge url={u.source_url} />}
+            <StaleNotice verifiedAt={u.last_verified_at} className="mt-1 basis-full" />
           </div>
         </header>
       </Container>

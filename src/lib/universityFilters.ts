@@ -24,11 +24,11 @@ export type UniversityFilters = {
   limit: number;
 };
 
-type RawParams = Record<string, string | string[] | undefined>;
+export type RawParams = Record<string, string | string[] | undefined>;
 
-const many = (value: string | string[] | undefined) =>
+export const many = (value: string | string[] | undefined) =>
   value === undefined ? [] : (Array.isArray(value) ? value : [value]).map((v) => v.trim()).filter(Boolean);
-const one = (value: string | string[] | undefined) => many(value)[0];
+export const one = (value: string | string[] | undefined) => many(value)[0];
 
 export function parseFilters(raw: RawParams): UniversityFilters {
   const limit = Number.parseInt(one(raw.limit) ?? "", 10);
