@@ -26,6 +26,13 @@ import { getSupabaseEnv } from "@/lib/supabase/env";
  *   invited on No access    → /admin/accept-invite
  */
 export async function middleware(request: NextRequest) {
+  const response = await guard(request);
+  // Admin responses, redirects included, are for one person: never stored by a browser or shared cache.
+  response.headers.set("Cache-Control", "private, no-store");
+  return response;
+}
+
+async function guard(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
   const open = isOpenAdminPath(pathname);
   const env = getSupabaseEnv();
