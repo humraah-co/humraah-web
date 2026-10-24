@@ -41,7 +41,7 @@ export const contact = {
   instagramHandle: "@humraahco",
   instagramUrl: "https://www.instagram.com/humraahco/",
   linkedinLabel: "Humraah",
-  email: "humraahco@gmail.com",
+  email: "humraah.contact@gmail.com",
 };
 
 /** True when `pathname` is `href` or a page inside it (e.g. /universities/qau). */

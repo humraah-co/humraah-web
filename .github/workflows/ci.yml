@@ -29,5 +29,5 @@ jobs:
       - run: npm run format:check
       - name: Database access-rule tests
         run: npm run test:db
-      - name: Build
-        run: npm run build
+      - name: Build (no Supabase settings; admin pages must not be prerendered)
+        run: npm run build:ci

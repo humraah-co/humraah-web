@@ -8,36 +8,17 @@ import type { Field, GuidanceArticle, Resource, Scholarship, University } from "
  * security limits results to published rows. Each function returns `null`
  * when Supabase isn't configured, and throws on a real database error.
  *
- * Results are cached for five minutes, so a change published in the admin
- * portal shows on the site within five minutes.
+ * Every query here is cached (unstable_cache) and tagged by table, so the
+ * public pages don't touch the database on each visit. Saving, archiving
+ * or deleting an entry in the admin portal clears its table's tag
+ * (revalidateEntries), so changes show straight away; otherwise the cache
+ * refreshes every five minutes. New public queries should be cached the
+ * same way.
  */
 const REVALIDATE = 300;
 
 function fail(what: string, message: string): never {
   throw new Error(`Could not load ${what}: ${message}`);
-}
-
-// ---------------------------------------------------------------------------
-// Counts
-// ---------------------------------------------------------------------------
-
-export async function getPublishedCounts() {
-  const supabase = createPublicClient();
-  if (!supabase) return null;
-
-  const count = async (table: "fields" | "universities" | "scholarships" | "resources") => {
-    const { count, error } = await supabase.from(table).select("*", { count: "exact", head: true });
-    if (error) fail(table, error.message);
-    return count ?? 0;
-  };
-
-  const [fields, universities, scholarships, resources] = await Promise.all([
-    count("fields"),
-    count("universities"),
-    count("scholarships"),
-    count("resources"),
-  ]);
-  return { fields, universities, scholarships, resources };
 }
 
 // ---------------------------------------------------------------------------

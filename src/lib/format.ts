@@ -136,3 +136,10 @@ export function dayLabel(iso: string, now = new Date()) {
   if (days < 30) return `${days} days ago`;
   return formatLongDate(iso);
 }
+
+/** "Saved 3 minutes ago by Ina Khan", "Saved yesterday", "Saved 12 Oct 2026". */
+export function savedLine(iso: string, by?: string, now = new Date()) {
+  const ago = timeAgo(iso, now);
+  const when = /^\d/.test(ago) ? ago : ago[0].toLowerCase() + ago.slice(1);
+  return `Saved ${when}${by ? ` by ${by}` : ""}`;
+}

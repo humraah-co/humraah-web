@@ -142,14 +142,3 @@ export async function getDashboard(supabase: SessionClient, { withMessages }: { 
     actors,
   } satisfies Dashboard;
 }
-
-export async function getRecentActivity(supabase: SessionClient, limit: number) {
-  const [activity, team] = await Promise.all([
-    supabase.from("activity_log").select("*").order("created_at", { ascending: false }).limit(limit),
-    supabase.from("team_members").select("user_id, full_name, email"),
-  ]);
-  return {
-    activity: activity.data ?? null,
-    actors: new Map((team.data ?? []).map((m) => [m.user_id, m.full_name || m.email])),
-  };
-}

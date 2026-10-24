@@ -34,6 +34,7 @@ export default async function GuidancePage() {
         </p>
       ) : null}
 
+      {/* Cards in a row match heights (grid rows stretch); summaries are clamped to two lines, the full text is on the article page. */}
       <ul className="mt-5 grid gap-3 lg:mt-10 lg:grid-cols-2 lg:gap-x-6 lg:gap-y-4">
         {(articles ?? []).map((a, i) => (
           <li key={a.id} className="flex flex-col *:flex-1">
@@ -42,10 +43,10 @@ export default async function GuidancePage() {
               className="group flex items-center gap-3.5 rounded-[20px] border border-border-soft bg-card p-4 transition-shadow hover:shadow-raised"
             >
               <ArticleIcon slug={a.slug} index={i} />
-              <span className="flex min-w-0 flex-1 flex-col gap-1">
+              <span className="flex min-w-0 flex-1 flex-col gap-1 self-stretch">
                 <span className="text-label-l">{a.title}</span>
-                {a.summary && <span className="text-body-s text-muted">{a.summary}</span>}
-                <span className="flex items-center gap-1 text-caption text-muted">
+                {a.summary && <span className="line-clamp-2 text-body-s text-muted">{a.summary}</span>}
+                <span className="mt-auto flex items-center gap-1 text-caption text-muted">
                   <Clock className="size-3.5" strokeWidth={1.75} aria-hidden="true" />
                   {readTime(a.body_markdown)}
                 </span>
@@ -58,8 +59,9 @@ export default async function GuidancePage() {
             </Link>
           </li>
         ))}
-        <li className="mt-4 lg:mt-0">
-          <HelpCallout className="h-full" />
+        {/* Sized to its own content, not stretched to the card beside it. */}
+        <li className="mt-4 lg:mt-0 lg:self-start">
+          <HelpCallout />
         </li>
       </ul>
     </Container>

@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { signOut } from "@/app/admin/actions";
 import { AcceptInviteForm, InviteLink } from "@/components/admin/AcceptInvite";
 import { buttonStyles } from "@/components/ui/Button";
+import { SubmitButton } from "@/components/ui/SubmitButton";
 import { ADMIN_HOME } from "@/lib/admin/paths";
 import { getAdminSession } from "@/lib/admin/session";
 
@@ -43,9 +44,9 @@ export default async function AcceptInvitePage({
           may have been withdrawn. If you think this is a mistake, ask an admin.
         </p>
         <form action={signOut}>
-          <button type="submit" className={`${buttonStyles.secondary} w-full`}>
+          <SubmitButton pendingLabel="Signing out…" className={`${buttonStyles.secondary} w-full`}>
             Sign out
-          </button>
+          </SubmitButton>
         </form>
       </>
     );

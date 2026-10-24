@@ -8,17 +8,32 @@ import { ACCEPT_INVITE_PATH, LOGIN_PATH, NO_ACCESS_PATH } from "./paths";
 
 export type Member = Pick<TeamMember, "user_id" | "email" | "full_name" | "role" | "status">;
 
+/** Who the session belongs to, from its verified token. */
+export type SessionUser = { id: string; email: string };
+
 /**
- * The signed-in user and their team_members row, once per request.
- * Null when Supabase isn't configured.
+ * The signed-in member's Supabase client, once per request. The layout,
+ * the page and their queries share it.
+ */
+export const getSessionClient = cache(createSessionClient);
+
+/**
+ * The signed-in user and their team_members row, once per request (the
+ * layout and the page share the result). Null when Supabase isn't
+ * configured.
+ *
+ * getClaims() checks the session token's signature and expiry locally
+ * against the project's published signing keys, so it costs no round trip
+ * once those keys are cached. The member row is then read live, so a
+ * suspension or role change counts straight away.
  */
 export const getAdminSession = cache(async () => {
   if (!getSupabaseEnv()) return null;
-  const supabase = await createSessionClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) return { supabase, user: null, member: null };
+  const supabase = await getSessionClient();
+  const { data, error } = await supabase.auth.getClaims();
+  const claims = error ? null : data?.claims;
+  if (!claims?.sub) return { supabase, user: null, member: null };
+  const user: SessionUser = { id: claims.sub, email: typeof claims.email === "string" ? claims.email : "" };
   const { data: member } = await supabase
     .from("team_members")
     .select("user_id, email, full_name, role, status")
@@ -31,6 +46,12 @@ export const getAdminSession = cache(async () => {
  * For every admin page and team action, on top of the middleware: the
  * caller must be signed in with an active membership. Returns their row
  * as it is now, so role checks never rely on anything the browser sent.
+ *
+ * Pages may start their own queries at the same time (with
+ * getSessionClient()), as long as they render nothing until this has
+ * passed: row-level security limits what those queries can return, and a
+ * redirect from here stops the page before anything is shown. Server
+ * actions call this before they change anything.
  */
 export async function requireActiveMember() {
   const session = await getAdminSession();

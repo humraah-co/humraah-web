@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Award, CircleAlert, Compass, Globe, Landmark, Lightbulb, Mail, Plus, Search } from "lucide-react";
+import { Award, CircleAlert, Compass, Globe, Landmark, Lightbulb, Mail, Search } from "lucide-react";
+import { AddEntryMenu } from "@/components/admin/AddEntryMenu";
+import { ReviewTable } from "@/components/admin/ReviewTable";
 import { ActivityItem, PageHeader, Panel, StatCard } from "@/components/admin/Workspace";
-import { ButtonLink, buttonStyles } from "@/components/ui/Button";
-import { Chip, DeadlineChip } from "@/components/ui/Chip";
+import { buttonStyles } from "@/components/ui/Button";
+import { NavForm } from "@/components/ui/NavForm";
 import { FormNotice } from "@/components/ui/Field";
 import { actorName, describeActivity } from "@/lib/admin/activity";
-import { contentSections, getDashboard, type Counts, type ReviewItem } from "@/lib/admin/dashboard";
-import { requireActiveMember } from "@/lib/admin/session";
+import { getDashboard, type Counts } from "@/lib/admin/dashboard";
+import { getSessionClient, requireActiveMember } from "@/lib/admin/session";
 import { isAdminRole } from "@/lib/admin/team";
-import { formatLongDate, timeAgo } from "@/lib/format";
+import { timeAgo } from "@/lib/format";
 
 export const metadata: Metadata = { title: "Dashboard" };
 
@@ -26,26 +28,29 @@ function caption(counts: Counts) {
 }
 const total = (counts: Counts) => (counts ? counts.published + counts.draft : null);
 
-/** Admin – Dashboard (Figma 13:1209). Counts come from the database; editing arrives on Day 5. */
+/** Admin – Dashboard (Figma 13:1209). Counts come from the database. */
 export default async function DashboardPage({
   searchParams,
 }: {
   searchParams: Promise<{ notice?: string | string[] }>;
 }) {
-  const { supabase, member } = await requireActiveMember();
-  const isAdmin = isAdminRole(member.role);
-  const [{ notice }, data] = await Promise.all([
+  const supabase = await getSessionClient();
+  // Loaded alongside the membership check; nothing renders until it passes.
+  // Messages are read for everyone; row-level security returns none to researchers, who don't see the card.
+  const [{ member }, { notice }, data] = await Promise.all([
+    requireActiveMember(),
     searchParams,
-    getDashboard(supabase, { withMessages: isAdmin }),
+    getDashboard(supabase, { withMessages: true }),
   ]);
+  const isAdmin = isAdminRole(member.role);
   const message = typeof notice === "string" ? notices[notice] : undefined;
   const { counts } = data;
 
   return (
     <>
       <PageHeader title="Welcome back" description="Here’s what needs attention this week.">
-        <form action="/admin/search" role="search" className="lg:w-[350px]">
-          <label className="flex h-[52px] items-center gap-2.5 rounded-pill border border-border-strong bg-card px-[18px]">
+        <NavForm action="/admin/search" role="search" className="lg:w-[350px]">
+          <label className="flex h-[52px] items-center gap-2.5 rounded-pill border border-border-strong bg-card px-[18px] has-[input:focus-visible]:outline-3 has-[input:focus-visible]:outline-offset-2 has-[input:focus-visible]:outline-deep-rose">
             <Search className="size-5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
             <span className="sr-only">Search universities and scholarships</span>
             <input
@@ -55,11 +60,8 @@ export default async function DashboardPage({
               className="min-w-0 flex-1 bg-transparent text-body-m text-ellipsis outline-none placeholder:text-muted"
             />
           </label>
-        </form>
-        <ButtonLink href="/admin/new">
-          <Plus className="size-5" strokeWidth={1.75} aria-hidden="true" />
-          Add an entry
-        </ButtonLink>
+        </NavForm>
+        <AddEntryMenu />
       </PageHeader>
 
       {message && <FormNotice>{message}</FormNotice>}
@@ -156,88 +158,5 @@ export default async function DashboardPage({
         </section>
       </div>
     </>
-  );
-}
-
-function ReasonChip({ reason }: { reason: ReviewItem["reason"] }) {
-  switch (reason.type) {
-    case "deadline":
-      return (
-        <DeadlineChip urgent>
-          {reason.days === 0 ? "Deadline today" : `Deadline in ${plural(reason.days, "day")}`}
-        </DeadlineChip>
-      );
-    case "unverified":
-      return <Chip tone="lavender">Not yet verified</Chip>;
-    case "stale":
-      return <Chip tone="coral">Not verified in 6+ months</Chip>;
-    case "no-source":
-      return <Chip tone="coral">Missing source link</Chip>;
-  }
-}
-
-/** The Needs review table; on a phone each row stacks. */
-function ReviewTable({ items, failed }: { items: ReviewItem[]; failed: boolean }) {
-  if (failed) {
-    return (
-      <p className="border-t border-border-soft px-5 py-4 text-body-s text-muted lg:px-6">
-        Couldn’t load entries.
-      </p>
-    );
-  }
-  if (!items.length) {
-    return (
-      <p className="border-t border-border-soft px-5 py-4 text-body-s text-muted lg:px-6">
-        Nothing needs review right now. Every entry is verified, recent and has a source.
-      </p>
-    );
-  }
-  return (
-    <table className="w-full text-left">
-      <thead className="hidden bg-cream md:table-header-group">
-        <tr className="text-label-s text-muted">
-          <th scope="col" className="px-6 py-2.5 font-semibold">
-            Entry
-          </th>
-          <th scope="col" className="w-[120px] py-2.5 font-semibold">
-            Last verified
-          </th>
-          <th scope="col" className="w-[206px] py-2.5 pl-4 font-semibold">
-            Why it needs review
-          </th>
-          <th scope="col" className="w-[88px] py-2.5 pr-6">
-            <span className="sr-only">Action</span>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {items.map((item) => {
-          const section = contentSections[item.table];
-          return (
-            <tr
-              key={`${item.table}-${item.id}`}
-              className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-border-soft px-5 py-3.5 md:table-row md:px-0"
-            >
-              <td className="w-full md:w-auto md:py-3.5 md:pl-6">
-                <p className="text-label-m">{item.name}</p>
-                <p className="text-caption text-muted">{section.kind}</p>
-              </td>
-              <td className="w-full text-body-s md:w-auto md:py-3.5">
-                <span className="md:hidden">Last verified: </span>
-                {item.lastVerifiedAt ? formatLongDate(item.lastVerifiedAt) : "Never"}
-              </td>
-              <td className="md:py-3.5 md:pl-4">
-                <ReasonChip reason={item.reason} />
-              </td>
-              <td className="ml-auto md:py-3.5 md:pr-6 md:text-right">
-                <Link href={`/admin/${section.section}`} className={buttonStyles.text}>
-                  Review<span className="sr-only"> {item.name}</span>
-                </Link>
-              </td>
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
   );
 }

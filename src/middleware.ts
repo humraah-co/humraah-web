@@ -12,15 +12,27 @@ import { KEEP_SIGNED_IN_COOKIE, sessionCookieOptions } from "@/lib/supabase/cook
 import { getSupabaseEnv } from "@/lib/supabase/env";
 
 /**
- * Guards the admin area (/admin/*) and keeps the session fresh:
- *   signed out                → /admin/login
- *   invited, not yet accepted → /admin/accept-invite
- *   suspended                 → signed out, then /admin/login
- *   no team_members row       → /admin/no-access
- * Pages and actions check again on the server (requireActiveMember), and
- * row-level security applies underneath both.
+ * Guards the admin area (/admin/*) and keeps the session fresh. Signed out
+ * → /admin/login. The session is checked with getClaims(), which verifies
+ * the token locally, so a workspace page costs no round trip here.
+ *
+ * Membership (invited, suspended, no team_members row) is checked by every
+ * workspace page and action on the server (requireActiveMember), with
+ * row-level security underneath, so it isn't read again here for them. The
+ * sign-in pages and No access act on it, so for those it's read here:
+ *   suspended               → signed out, then /admin/login
+ *   active on /admin/login  → /admin
+ *   active on No access     → /admin
+ *   invited on No access    → /admin/accept-invite
  */
 export async function middleware(request: NextRequest) {
+  const response = await guard(request);
+  // Admin responses, redirects included, are for one person: never stored by a browser or shared cache.
+  response.headers.set("Cache-Control", "private, no-store");
+  return response;
+}
+
+async function guard(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
   const open = isOpenAdminPath(pathname);
   const env = getSupabaseEnv();
@@ -52,20 +64,22 @@ export async function middleware(request: NextRequest) {
     return redirect;
   };
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { data, error } = await supabase.auth.getClaims();
+  const userId = error ? null : data?.claims.sub;
 
-  if (!user) {
+  if (!userId) {
     if (open) return response;
     const next = pathname === ADMIN_HOME ? "" : `?next=${encodeURIComponent(pathname + search)}`;
     return redirectTo(LOGIN_PATH + next);
   }
 
+  // Workspace pages check the membership themselves (requireActiveMember).
+  if (!open && pathname !== NO_ACCESS_PATH) return response;
+
   const { data: member } = await supabase
     .from("team_members")
     .select("status")
-    .eq("user_id", user.id)
+    .eq("user_id", userId)
     .maybeSingle();
   const status = member?.status;
 

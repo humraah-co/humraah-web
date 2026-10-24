@@ -18,7 +18,9 @@ const tabs: { href: string; label: string; icon: LucideIcon }[] = [
  * Sticky mobile bottom navigation (Figma 4:506). Active tab: pill tint/coral,
  * icon text/deep-rose, label text/charcoal. The spacer keeps the end of the
  * page clear of the bar. Quiz questions have their own sticky button instead, the menu covers the
- * whole screen, and the admin area has its own navigation.
+ * whole screen, and the admin area has its own navigation. Below 400 px the labels lose their
+ * letter-spacing and shrink a touch (more below 340 px) so "Universities" and "Scholarships"
+ * never touch; every label stays in full.
  */
 export function BottomNav() {
   const pathname = usePathname();
@@ -28,7 +30,7 @@ export function BottomNav() {
       <div aria-hidden="true" className="h-[83px] shrink-0 lg:hidden" />
       <nav
         aria-label="Primary"
-        className="fixed inset-x-0 bottom-0 z-40 border-t border-border-soft bg-card px-1.5 pt-2 pb-[max(22px,env(safe-area-inset-bottom))] shadow-bottom-bar lg:hidden"
+        className="fixed inset-x-0 bottom-0 z-40 border-t border-border-soft bg-card px-1.5 pt-2 pb-[max(22px,env(safe-area-inset-bottom))] shadow-bottom-bar max-[399px]:px-1 lg:hidden"
       >
         <ul className="flex">
           {tabs.map(({ href, label, icon: Icon }) => {
@@ -48,7 +50,13 @@ export function BottomNav() {
                   >
                     <Icon className="size-[22px]" strokeWidth={1.75} aria-hidden="true" />
                   </span>
-                  <span className={`text-label-xs ${active ? "text-charcoal" : "text-muted"}`}>{label}</span>
+                  <span
+                    className={`text-label-xs whitespace-nowrap max-[399px]:text-[10.5px] max-[399px]:tracking-normal max-[339px]:text-[10px] ${
+                      active ? "text-charcoal" : "text-muted"
+                    }`}
+                  >
+                    {label}
+                  </span>
                 </Link>
               </li>
             );
