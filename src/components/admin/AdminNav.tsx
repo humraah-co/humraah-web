@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link, { useLinkStatus } from "next/link";
 import { usePathname } from "next/navigation";
 import {
   Activity,
@@ -35,6 +35,21 @@ const items: { href: string; label: string; icon: LucideIcon }[] = [
 type Me = { name: string; userId: string; role: TeamRole };
 
 /**
+ * Lights up a link the moment it's clicked, while its page loads, so the
+ * sidebar never looks like it ignored the click.
+ */
+function PendingHighlight() {
+  const { pending } = useLinkStatus();
+  if (!pending) return null;
+  return (
+    <span
+      aria-hidden="true"
+      className="absolute inset-0 -z-10 rounded-xl bg-tint-coral/70 motion-safe:animate-pulse"
+    />
+  );
+}
+
+/**
  * Admin/Sidebar (10:316) on desktop. On a phone the same links sit in a
  * menu under a top bar. Team is shown to everyone: researchers see it
  * read-only.
@@ -50,7 +65,7 @@ export function AdminNav({ me }: { me: Me }) {
             <Link
               href={href}
               aria-current={active ? "page" : undefined}
-              className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-label-m transition-colors ${
+              className={`relative isolate flex items-center gap-3 rounded-xl px-3 py-2.5 text-label-m transition-colors ${
                 active ? "bg-tint-coral text-charcoal" : "text-muted hover:bg-cream hover:text-charcoal"
               }`}
             >
@@ -60,6 +75,7 @@ export function AdminNav({ me }: { me: Me }) {
                 aria-hidden="true"
               />
               {label}
+              <PendingHighlight />
             </Link>
           </li>
         );
