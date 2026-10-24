@@ -3,6 +3,7 @@ import { Plus, Search } from "lucide-react";
 import { StatusChip, VerifiedCell } from "@/components/admin/EntryChips";
 import { PageHeader, Pager } from "@/components/admin/Workspace";
 import { ButtonLink, buttonStyles } from "@/components/ui/Button";
+import { NavForm } from "@/components/ui/NavForm";
 import { OptionChip } from "@/components/ui/Chip";
 import { FormAlert, FormNotice } from "@/components/ui/Field";
 import { entryTypes, type EntryTable } from "@/lib/admin/content";
@@ -91,7 +92,7 @@ export function EntryList({
   return (
     <>
       <PageHeader title={type.label} description={copy[table].description}>
-        <form action={base} role="search" className="lg:w-[320px]">
+        <NavForm action={base} role="search" className="lg:w-[320px]">
           {params.status !== "all" && <input type="hidden" name="status" value={params.status} />}
           <label className="flex h-[52px] items-center gap-2.5 rounded-pill border border-border-strong bg-card px-[18px] has-[input:focus-visible]:outline-3 has-[input:focus-visible]:outline-offset-2 has-[input:focus-visible]:outline-deep-rose">
             <Search className="size-5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
@@ -104,7 +105,7 @@ export function EntryList({
               className="min-w-0 flex-1 bg-transparent text-body-m outline-none placeholder:text-muted"
             />
           </label>
-        </form>
+        </NavForm>
         <ButtonLink href={`${base}/new`}>
           <Plus className="size-5" strokeWidth={1.75} aria-hidden="true" />
           {copy[table].add}

@@ -5,6 +5,8 @@ import { ActivityItem, PageHeader, Pager } from "@/components/admin/Workspace";
 import { buttonStyles } from "@/components/ui/Button";
 import { OptionChip } from "@/components/ui/Chip";
 import { FormAlert, fieldClass } from "@/components/ui/Field";
+import { NavForm } from "@/components/ui/NavForm";
+import { SubmitButton } from "@/components/ui/SubmitButton";
 import { actorName, describeActivity } from "@/lib/admin/activity";
 import {
   ACTIVITY_PAGE_SIZE,
@@ -202,7 +204,7 @@ function Select({
   );
 }
 
-/** Person, action and dates: a plain GET form, so it works without JavaScript. */
+/** Person, action and dates: a GET form, so it works without JavaScript too. */
 function ActivityFilterForm({
   filters,
   people,
@@ -213,7 +215,9 @@ function ActivityFilterForm({
   filtered: boolean;
 }) {
   return (
-    <form
+    <NavForm
+      // Fresh fields whenever the filters in the address change (e.g. after "Clear filters").
+      key={activityHref(filters)}
       action="/admin/activity"
       aria-label="Filter the activity log"
       className="grid gap-4 rounded-[20px] border border-border-soft bg-card p-5 sm:grid-cols-2 lg:p-6 xl:grid-cols-[repeat(4,minmax(0,1fr))_auto] xl:items-end"
@@ -254,15 +258,15 @@ function ActivityFilterForm({
         <input id="to" name="to" type="date" defaultValue={filters.to} className={`${fieldClass} h-12`} />
       </div>
       <div className="flex items-center gap-4 sm:col-span-2 xl:col-span-1">
-        <button type="submit" className={`${buttonStyles.small} cursor-pointer px-5 py-3`}>
+        <SubmitButton pendingLabel="Applying…" className={`${buttonStyles.small} px-5 py-3`}>
           Apply
-        </button>
+        </SubmitButton>
         {filtered && (
           <Link href="/admin/activity" className={buttonStyles.text}>
             Clear filters
           </Link>
         )}
       </div>
-    </form>
+    </NavForm>
   );
 }

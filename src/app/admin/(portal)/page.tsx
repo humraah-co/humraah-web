@@ -5,6 +5,7 @@ import { AddEntryMenu } from "@/components/admin/AddEntryMenu";
 import { ReviewTable } from "@/components/admin/ReviewTable";
 import { ActivityItem, PageHeader, Panel, StatCard } from "@/components/admin/Workspace";
 import { buttonStyles } from "@/components/ui/Button";
+import { NavForm } from "@/components/ui/NavForm";
 import { FormNotice } from "@/components/ui/Field";
 import { actorName, describeActivity } from "@/lib/admin/activity";
 import { getDashboard, type Counts } from "@/lib/admin/dashboard";
@@ -48,7 +49,7 @@ export default async function DashboardPage({
   return (
     <>
       <PageHeader title="Welcome back" description="Here’s what needs attention this week.">
-        <form action="/admin/search" role="search" className="lg:w-[350px]">
+        <NavForm action="/admin/search" role="search" className="lg:w-[350px]">
           <label className="flex h-[52px] items-center gap-2.5 rounded-pill border border-border-strong bg-card px-[18px] has-[input:focus-visible]:outline-3 has-[input:focus-visible]:outline-offset-2 has-[input:focus-visible]:outline-deep-rose">
             <Search className="size-5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
             <span className="sr-only">Search universities and scholarships</span>
@@ -59,7 +60,7 @@ export default async function DashboardPage({
               className="min-w-0 flex-1 bg-transparent text-body-m text-ellipsis outline-none placeholder:text-muted"
             />
           </label>
-        </form>
+        </NavForm>
         <AddEntryMenu />
       </PageHeader>
 

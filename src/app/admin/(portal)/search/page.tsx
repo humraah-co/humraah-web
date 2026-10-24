@@ -5,6 +5,7 @@ import { Search } from "lucide-react";
 import { StatusChip } from "@/components/admin/EntryChips";
 import { PageHeader } from "@/components/admin/Workspace";
 import { FormAlert } from "@/components/ui/Field";
+import { NavForm } from "@/components/ui/NavForm";
 import { entryTypes, type EntryTable } from "@/lib/admin/content";
 import { listEntries, searchEntries, type EntryRow } from "@/lib/admin/entries";
 import { getSessionClient, requireActiveMember } from "@/lib/admin/session";
@@ -45,7 +46,7 @@ export default async function SearchPage({
   return (
     <>
       <PageHeader title="Search" description="Find a university or scholarship to edit, in any status." />
-      <form action="/admin/search" role="search" className="max-w-[560px]">
+      <NavForm action="/admin/search" role="search" className="max-w-[560px]">
         <label className="flex h-[52px] items-center gap-2.5 rounded-pill border border-border-strong bg-card px-[18px] has-[input:focus-visible]:outline-3 has-[input:focus-visible]:outline-offset-2 has-[input:focus-visible]:outline-deep-rose">
           <Search className="size-5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
           <span className="sr-only">Search universities and scholarships</span>
@@ -57,7 +58,7 @@ export default async function SearchPage({
             className="min-w-0 flex-1 bg-transparent text-body-m outline-none placeholder:text-muted"
           />
         </label>
-      </form>
+      </NavForm>
 
       {failed && <FormAlert>We couldn’t search just now. Please refresh the page.</FormAlert>}
       {q && !failed && (
