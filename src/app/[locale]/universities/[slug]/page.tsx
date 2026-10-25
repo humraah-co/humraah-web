@@ -266,7 +266,7 @@ export default async function UniversityPage({ params }: Props) {
             <div className="flex flex-col gap-1.5">
               <h3 className="text-label-m">{t("tests")}</h3>
               {tests.length > 0 ? (
-                <ul className="list-disc pl-5 text-body-m marker:text-muted">
+                <ul className="list-disc ps-5 text-body-m marker:text-muted">
                   {tests.map((test) => (
                     <li key={test}>{test}</li>
                   ))}
@@ -278,7 +278,7 @@ export default async function UniversityPage({ params }: Props) {
             <div className="flex flex-col gap-1.5">
               <h3 className="text-label-m">{t("documents")}</h3>
               {u.required_documents.length > 0 ? (
-                <ul className="list-disc pl-5 text-body-m marker:text-muted">
+                <ul className="list-disc ps-5 text-body-m marker:text-muted">
                   {u.required_documents.map((d) => (
                     <li key={d}>{d}</li>
                   ))}

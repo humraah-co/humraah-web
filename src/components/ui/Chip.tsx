@@ -1,6 +1,7 @@
 import { Check, CircleAlert, Clock, ExternalLink, Landmark, ShieldCheck, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { Ltr } from "./Ltr";
 
 /**
  * Chips and badges from the Figma design system (Chip/*, Badge/*).
@@ -32,7 +33,7 @@ export function ChipList({ children, className = "" }: { children: React.ReactNo
 }
 
 const badge =
-  "inline-flex items-center gap-1.5 rounded-pill py-1 pr-2.5 pl-2 text-label-s whitespace-nowrap text-charcoal";
+  "inline-flex items-center gap-1.5 rounded-pill py-1 pe-2.5 ps-2 text-label-s whitespace-nowrap text-charcoal";
 
 /** Badge/Verified: a researcher has checked this against the official source. */
 export function VerifiedBadge() {
@@ -88,7 +89,7 @@ export function SourceBadge({ url }: { url: string }) {
       className={`${badge} border border-border-soft bg-card hover:bg-blush`}
     >
       <ExternalLink className="size-3.5" strokeWidth={2} aria-hidden="true" />
-      {t("source", { host })}
+      <span>{t.rich("source", { host: () => <Ltr>{host}</Ltr> })}</span>
       <span className="sr-only">{common("opensInNewTab")}</span>
     </a>
   );
@@ -130,7 +131,7 @@ export function OptionChip({
       aria-current={selected ? "true" : undefined}
       className={`inline-flex items-center gap-1.5 rounded-pill py-[9px] text-label-m whitespace-nowrap text-charcoal transition-colors ${
         selected
-          ? "border-[1.5px] border-deep-rose bg-tint-coral pr-4 pl-3"
+          ? "border-[1.5px] border-deep-rose bg-tint-coral ps-3 pe-4"
           : "border border-border-strong bg-card px-4 hover:bg-blush"
       }`}
     >
@@ -148,7 +149,7 @@ export function ActiveFilterChip({ href, children }: { href: string; children: R
     <Link
       href={href}
       scroll={false}
-      className="inline-flex items-center gap-1.5 rounded-pill border-[1.5px] border-coral bg-tint-coral py-[7px] pr-2.5 pl-3.5 text-label-s whitespace-nowrap text-charcoal hover:bg-blush"
+      className="inline-flex items-center gap-1.5 rounded-pill border-[1.5px] border-coral bg-tint-coral py-[7px] ps-3.5 pe-2.5 text-label-s whitespace-nowrap text-charcoal hover:bg-blush"
     >
       {children}
       <X className="size-3.5" strokeWidth={2} aria-hidden="true" />

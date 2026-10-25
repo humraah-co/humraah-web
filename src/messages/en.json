@@ -39,8 +39,8 @@
     "explore": "Explore",
     "help": "Help",
     "contact": "Contact",
-    "instagram": "Instagram: {handle}",
-    "linkedin": "LinkedIn: {name}",
+    "instagram": "Instagram: <handle></handle>",
+    "linkedin": "LinkedIn: <name></name>",
     "motto": "WALKING ALONGSIDE. GROWING TOGETHER.",
     "privacyLink": "Privacy and disclaimer"
   },
@@ -57,7 +57,7 @@
     "verified": "Verified",
     "notYetVerified": "Not yet verified",
     "hecRecognised": "HEC-recognised",
-    "source": "Source: {host}"
+    "source": "Source: <host></host>"
   },
   "blocks": {
     "remember": "Remember…",
@@ -786,8 +786,8 @@
       }
     },
     "contactTitle": "Get in touch",
-    "instagram": "Instagram: {handle}",
-    "linkedin": "LinkedIn: {name}"
+    "instagram": "Instagram: <handle></handle>",
+    "linkedin": "LinkedIn: <name></name>"
   },
   "privacy": {
     "title": "Privacy and disclaimer",

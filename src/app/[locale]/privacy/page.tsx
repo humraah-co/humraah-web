@@ -39,7 +39,7 @@ export default async function PrivacyPage({ params }: { params: LocaleParams }) 
           <p className="text-body-m">
             {t.rich("disclaimerP3", {
               email: () => (
-                <a href={`mailto:${contact.email}`} className={link}>
+                <a href={`mailto:${contact.email}`} className={link} lang="en" dir="ltr">
                   {contact.email}
                 </a>
               ),

@@ -50,7 +50,7 @@ export function FilterSheet({
         type="button"
         onClick={() => setOpen(true)}
         aria-haspopup="dialog"
-        className="inline-flex items-center gap-2 rounded-pill border-[1.25px] border-charcoal bg-card py-2.5 pr-3 pl-4 text-label-m text-charcoal"
+        className="inline-flex items-center gap-2 rounded-pill border-[1.25px] border-charcoal bg-card py-2.5 ps-4 pe-3 text-label-m text-charcoal"
       >
         <SlidersHorizontal className="size-[18px]" strokeWidth={1.75} aria-hidden="true" />
         {t("filters")}
@@ -123,7 +123,7 @@ export function FieldSelect({
           const option = options.find((o) => o.slug === event.target.value);
           router.push(option ? option.href : allHref, { scroll: false });
         }}
-        className="h-12 w-full cursor-pointer appearance-none rounded-xl border border-border-strong bg-card pr-10 pl-3.5 text-body-m text-charcoal"
+        className="h-12 w-full cursor-pointer appearance-none rounded-xl border border-border-strong bg-card ps-3.5 pe-10 text-body-m text-charcoal"
       >
         <option value="">{t("allFields")}</option>
         {options.map((o) => (
@@ -133,7 +133,7 @@ export function FieldSelect({
         ))}
       </select>
       <ChevronDown
-        className="pointer-events-none absolute top-1/2 right-3.5 size-5 -translate-y-1/2"
+        className="pointer-events-none absolute end-3.5 top-1/2 size-5 -translate-y-1/2"
         strokeWidth={1.75}
         aria-hidden="true"
       />

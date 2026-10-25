@@ -31,7 +31,7 @@ export default async function GlobalNotFound() {
       <body className="flex min-h-dvh flex-col antialiased">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-pill focus:bg-card focus:px-4 focus:py-2"
+          className="sr-only focus:not-sr-only focus:fixed focus:start-2 focus:top-2 focus:z-50 focus:rounded-pill focus:bg-card focus:px-4 focus:py-2"
         >
           {t("skipToContent")}
         </a>

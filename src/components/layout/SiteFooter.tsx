@@ -1,6 +1,7 @@
 import { AtSign, Mail, Users } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { LogoHorizontal } from "@/components/brand/Logo";
+import { Ltr } from "@/components/ui/Ltr";
 import { Link } from "@/i18n/navigation";
 import { contact, footerExplore, footerHelp, type NavItem } from "@/lib/nav";
 
@@ -28,14 +29,14 @@ export function SiteFooter() {
           <p className="hidden text-label-s text-muted lg:block">{t("contact")}</p>
           <ContactRow icon={<AtSign className="size-[18px]" strokeWidth={1.75} />}>
             <a href={contact.instagramUrl} className="hover:text-deep-rose" rel="noopener">
-              {t("instagram", { handle: contact.instagramHandle })}
+              {t.rich("instagram", { handle: () => <Ltr>{contact.instagramHandle}</Ltr> })}
             </a>
           </ContactRow>
           <ContactRow icon={<Users className="size-[18px]" strokeWidth={1.75} />}>
-            {t("linkedin", { name: contact.linkedinLabel })}
+            <span>{t.rich("linkedin", { name: () => <Ltr>{contact.linkedinLabel}</Ltr> })}</span>
           </ContactRow>
           <ContactRow icon={<Mail className="size-[18px]" strokeWidth={1.75} />}>
-            <a href={`mailto:${contact.email}`} className="hover:text-deep-rose">
+            <a href={`mailto:${contact.email}`} className="hover:text-deep-rose" lang="en" dir="ltr">
               {contact.email}
             </a>
           </ContactRow>

@@ -144,3 +144,28 @@
     font-family: var(--font-urdu);
   }
 }
+
+/*
+ * Urdu pages (<html lang="ur" dir="rtl">). Nastaliq needs about twice the
+ * line height of Latin text or its letters are cut off, and it breaks apart
+ * if letters are spaced. So on Urdu pages every text style, and any fixed
+ * leading-[…] a page sets, becomes Nastaliq with a tall line height that
+ * scales with the font size. English inside Urdu (names, emails, links,
+ * marked lang="en") keeps the Latin font.
+ */
+@layer utilities {
+  :root:lang(ur) body :is([class*="text-"], [class*="leading-"], [class*="font-"]):not(:lang(en)) {
+    font-family: var(--font-urdu);
+    letter-spacing: 0;
+    line-height: 1.9;
+  }
+  :root:lang(ur) body [lang="en"] {
+    font-family: var(--font-sans);
+    letter-spacing: 0;
+  }
+
+  /* Arrows point the way you read: back is to the right in Urdu. */
+  [dir="rtl"] :is(.lucide-chevron-right, .lucide-chevron-left, .lucide-arrow-left, .lucide-arrow-right) {
+    scale: -1 1;
+  }
+}

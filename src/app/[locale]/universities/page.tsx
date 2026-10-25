@@ -278,7 +278,7 @@ function SortMenu({ filters }: { filters: UniversityFilters }) {
         {t("sort", { order: current.label })}
         <ChevronDown className="size-4" strokeWidth={1.75} aria-hidden="true" />
       </summary>
-      <ul className="absolute right-0 z-10 mt-1 w-36 rounded-2xl border border-border-soft bg-card p-1.5 shadow-raised">
+      <ul className="absolute end-0 z-10 mt-1 w-36 rounded-2xl border border-border-soft bg-card p-1.5 shadow-raised">
         {options.map((o) => (
           <li key={o.sort}>
             <Link

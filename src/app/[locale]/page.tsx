@@ -112,14 +112,14 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
               alt=""
               width={80}
               height={120}
-              className="absolute top-[290px] left-[410px] block h-[120px] w-20"
+              className="absolute start-[410px] top-[290px] block h-[120px] w-20"
             />
             <img
               src="/brand/deco-arcs.svg"
               alt=""
               width={100}
               height={52}
-              className="absolute top-9 left-9 block h-[52px] w-[100px]"
+              className="absolute start-9 top-9 block h-[52px] w-[100px]"
             />
           </div>
         </div>
@@ -145,7 +145,7 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
                       <span className="flex flex-1 flex-col items-center pt-0.5 pb-1 lg:hidden">
                         <DottedPath direction="vertical" />
                       </span>
-                      <span className="hidden flex-1 items-center pr-1 lg:flex">
+                      <span className="hidden flex-1 items-center pe-1 lg:flex">
                         <DottedPath direction="horizontal" />
                       </span>
                     </>

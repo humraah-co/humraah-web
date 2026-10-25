@@ -71,6 +71,7 @@ function Form({ onReset }: { onReset: () => void }) {
               <a
                 href={`mailto:${contact.email}`}
                 className="text-deep-rose underline underline-offset-2"
+                lang="en"
                 dir="ltr"
               >
                 {contact.email}

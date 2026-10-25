@@ -43,7 +43,7 @@ function BlockView({ block }: { block: Block }) {
       const List = block.ordered ? "ol" : "ul";
       return (
         <List
-          className={`flex flex-col gap-1.5 pl-5 text-body-m marker:text-muted ${block.ordered ? "list-decimal" : "list-disc"}`}
+          className={`flex flex-col gap-1.5 ps-5 text-body-m marker:text-muted ${block.ordered ? "list-decimal" : "list-disc"}`}
         >
           {block.items.map((item, i) => (
             <li key={i}>
@@ -120,7 +120,7 @@ function Inlines({ nodes }: { nodes: Inline[] }) {
             {!n.href.startsWith("mailto:") && (
               <>
                 <ExternalLink
-                  className="ml-0.5 inline size-3.5 align-[-2px]"
+                  className="ms-0.5 inline size-3.5 align-[-2px]"
                   strokeWidth={2}
                   aria-hidden="true"
                 />

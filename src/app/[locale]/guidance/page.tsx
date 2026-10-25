@@ -53,7 +53,7 @@ export default async function GuidancePage({ params }: { params: LocaleParams })
                 </span>
               </span>
               <ChevronRight
-                className="size-5 shrink-0 transition-transform group-hover:translate-x-0.5"
+                className="size-5 shrink-0 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5"
                 strokeWidth={1.75}
                 aria-hidden="true"
               />

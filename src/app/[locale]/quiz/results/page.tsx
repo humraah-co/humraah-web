@@ -109,7 +109,7 @@ export default async function QuizResultsPage({
             {fields && fields.length > 0 ? t("exploreAll", { count: fields.length }) : t("explore")}
           </ButtonLink>
           <ShareButton variant="whatsapp" title={t("shareTitle")} className="w-full lg:w-auto" />
-          <Link href="/quiz" className={`${buttonStyles.text} self-center lg:ml-1`}>
+          <Link href="/quiz" className={`${buttonStyles.text} self-center lg:ms-1`}>
             {t("retake")}
           </Link>
         </div>

@@ -90,12 +90,12 @@ export function HelpCallout({ className = "" }: { className?: string }) {
       <p className="mt-1.5 text-body-s">
         {t.rich("helpText", {
           instagram: () => (
-            <a href={contact.instagramUrl} rel="noopener" className={link} dir="ltr">
+            <a href={contact.instagramUrl} rel="noopener" className={link} lang="en" dir="ltr">
               {contact.instagramHandle}
             </a>
           ),
           email: () => (
-            <a href={`mailto:${contact.email}`} className={link} dir="ltr">
+            <a href={`mailto:${contact.email}`} className={link} lang="en" dir="ltr">
               {contact.email}
             </a>
           ),

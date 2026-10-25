@@ -3,6 +3,7 @@ import { useLocale, useTranslations } from "next-intl";
 import type { Locale } from "@/i18n/config";
 import { Link } from "@/i18n/navigation";
 import { Chip, ChipList, DeadlineChip, VerificationBadge } from "@/components/ui/Chip";
+import { Ltr } from "@/components/ui/Ltr";
 import type {
   FieldSummary,
   ScholarshipCard as ScholarshipCardData,
@@ -40,7 +41,7 @@ export function FieldCard({ field, reason }: { field: FieldSummary; reason?: str
         )}
       </span>
       <ChevronRight
-        className="size-5 shrink-0 text-charcoal transition-transform group-hover:translate-x-0.5"
+        className="size-5 shrink-0 text-charcoal transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5"
         strokeWidth={1.75}
         aria-hidden="true"
       />
@@ -107,7 +108,7 @@ export function UniversityCard({
           </span>
         </span>
         <ChevronRight
-          className="size-5 shrink-0 transition-transform group-hover:translate-x-0.5"
+          className="size-5 shrink-0 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5"
           strokeWidth={1.75}
           aria-hidden="true"
         />
@@ -226,7 +227,7 @@ export function ResourceCard({
         <span className="text-label-l">{title}</span>
         {description && <span className="text-body-s text-muted">{description}</span>}
         <span className="text-caption break-words text-deep-rose">
-          {href ? (source ?? (external ? hostOf(href) : t("humraah"))) : common("comingSoon")}
+          {href ? (source ?? (external ? <Ltr>{hostOf(href)}</Ltr> : t("humraah"))) : common("comingSoon")}
         </span>
       </span>
       {href &&

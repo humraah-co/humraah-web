@@ -5,6 +5,7 @@ import { ContactForm } from "@/components/about/ContactForm";
 import { LogoStacked } from "@/components/brand/Logo";
 import { Container } from "@/components/layout/PageShell";
 import { HelpCallout } from "@/components/ui/Blocks";
+import { Ltr } from "@/components/ui/Ltr";
 import { contact } from "@/lib/nav";
 import { pageLocale, type LocaleParams } from "@/i18n/server";
 
@@ -35,7 +36,7 @@ export default async function AboutPage({ params }: { params: LocaleParams }) {
     <>
       {/* Hero: a centred blush panel on phones (30:2442), text beside the logo panel on desktop (33:3140). */}
       <Container className="px-4 pt-4 pb-2 lg:px-20 lg:pt-14 lg:pb-0">
-        <div className="flex flex-col items-center gap-3.5 rounded-[32px] bg-blush px-5 pt-8 pb-7 text-center lg:grid lg:grid-cols-[minmax(0,1fr)_442px] lg:items-center lg:gap-16 lg:rounded-none lg:bg-transparent lg:p-0 lg:text-left">
+        <div className="flex flex-col items-center gap-3.5 rounded-[32px] bg-blush px-5 pt-8 pb-7 text-center lg:grid lg:grid-cols-[minmax(0,1fr)_442px] lg:items-center lg:gap-16 lg:rounded-none lg:bg-transparent lg:p-0 lg:text-start">
           <div className="order-2 flex flex-col gap-3.5 lg:order-1 lg:gap-4">
             <p className="text-script text-charcoal lg:text-[28px] lg:leading-[32px] lg:text-deep-rose">
               {t("tagline")}
@@ -90,16 +91,16 @@ export default async function AboutPage({ params }: { params: LocaleParams }) {
             <li className="flex items-center gap-2.5">
               <AtSign className="size-5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
               <a href={contact.instagramUrl} rel="noopener" className="hover:text-deep-rose">
-                {t("instagram", { handle: contact.instagramHandle })}
+                {t.rich("instagram", { handle: () => <Ltr>{contact.instagramHandle}</Ltr> })}
               </a>
             </li>
             <li className="flex items-center gap-2.5">
               <Users className="size-5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
-              {t("linkedin", { name: contact.linkedinLabel })}
+              <span>{t.rich("linkedin", { name: () => <Ltr>{contact.linkedinLabel}</Ltr> })}</span>
             </li>
             <li className="flex items-center gap-2.5">
               <Mail className="size-5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
-              <a href={`mailto:${contact.email}`} className="hover:text-deep-rose">
+              <a href={`mailto:${contact.email}`} className="hover:text-deep-rose" lang="en" dir="ltr">
                 {contact.email}
               </a>
             </li>
