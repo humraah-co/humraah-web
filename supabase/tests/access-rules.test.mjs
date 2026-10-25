@@ -926,6 +926,34 @@ check(
   true,
 );
 
+// The translations migration, applied to the seeded content as it is in production.
+const translations = fs.readFileSync(`${repo}/migrations/20261025000002_urdu_translations.sql`, "utf8");
+await db.exec(translations);
+check(
+  "the translations fill today's content",
+  await as(
+    "anon",
+    null,
+    `select (select count(*)::int from fields where name_ur is not null and summary_ur is not null) fields,
+       (select count(*)::int from scholarships where summary_ur is not null) scholarships,
+       (select count(*)::int from guidance_articles where body_markdown_ur like '%##%') guidance,
+       (select count(*)::int from resources where title_ur is not null) resources`,
+  ),
+  [{ fields: 10, scholarships: 6, guidance: 3, resources: 2 }],
+);
+check(
+  "names stay in English",
+  await as("anon", null, `select count(*)::int n from universities where name_ur is not null`),
+  [{ n: 0 }],
+);
+await db.exec(`update scholarships set summary_ur = 'درست کیا گیا خلاصہ' where slug = 'peef';`);
+await db.exec(translations);
+check(
+  "running the translations again keeps a later correction",
+  await as("anon", null, `select summary_ur from scholarships where slug='peef'`),
+  [{ summary_ur: "درست کیا گیا خلاصہ" }],
+);
+
 if (failed) {
   console.error(`${failed} check(s) failed`);
   process.exit(1);
