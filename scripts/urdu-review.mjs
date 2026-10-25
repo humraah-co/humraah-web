@@ -40,20 +40,31 @@ function parseCsv(text) {
   let row = [];
   let value = "";
   let quoted = false;
+  const endCell = () => {
+    row.push(value);
+    value = "";
+  };
+  const endRow = () => {
+    endCell();
+    rows.push(row);
+    row = [];
+  };
   for (let i = 0; i < text.length; i++) {
     const c = text[i];
     if (quoted) {
-      if (c === '"' && text[i + 1] === '"') ((value += '"'), i++);
-      else if (c === '"') quoted = false;
+      if (c === '"' && text[i + 1] === '"') {
+        value += '"';
+        i++;
+      } else if (c === '"') quoted = false;
       else value += c;
     } else if (c === '"') quoted = true;
-    else if (c === ",") (row.push(value), (value = ""));
+    else if (c === ",") endCell();
     else if (c === "\n" || c === "\r") {
       if (c === "\r" && text[i + 1] === "\n") i++;
-      (row.push(value), rows.push(row), (row = []), (value = ""));
+      endRow();
     } else value += c;
   }
-  if (value || row.length) (row.push(value), rows.push(row));
+  if (value || row.length) endRow();
   return rows.filter((r) => r.some((v) => v !== ""));
 }
 

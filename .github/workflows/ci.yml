@@ -29,5 +29,7 @@ jobs:
       - run: npm run format:check
       - name: Database access-rule tests
         run: npm run test:db
-      - name: Build (no Supabase settings; admin pages must not be prerendered)
+      - name: Language tests (routing, the Urdu flag, fallback, message files)
+        run: npm run test:i18n
+      - name: Build (no Supabase settings, Urdu on; admin pages must not be prerendered)
         run: npm run build:ci
