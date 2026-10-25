@@ -15,6 +15,7 @@ import { contact } from "@/lib/nav";
 import { isForWomen } from "@/lib/scholarshipFilters";
 import type { Locale } from "@/i18n/config";
 import { Link } from "@/i18n/navigation";
+import { alternates } from "@/i18n/metadata";
 import { pageLocale, type LocaleParams } from "@/i18n/server";
 
 type Props = { params: LocaleParams<{ slug: string }> };
@@ -30,7 +31,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const scholarship = await getScholarship(slug);
   const t = await getTranslations({ locale, namespace: "scholarship" });
   if (!scholarship) return { title: t("metaTitle") };
-  return { title: scholarship.name, description: scholarship.summary ?? undefined };
+  return {
+    title: scholarship.name,
+    description: scholarship.summary ?? undefined,
+    alternates: alternates(`/scholarships/${slug}`, locale),
+  };
 }
 
 /** Typical steps from Figma, shown until a researcher writes this scholarship's own ("scholarship.typicalSteps"). */
@@ -39,6 +44,7 @@ const typicalSteps = ["rules", "documents", "deadline", "track"] as const;
 export default async function ScholarshipPage({ params }: Props) {
   const locale = await pageLocale(params);
   const t = await getTranslations("scholarship");
+  const common = await getTranslations("common");
   const kinds = await getTranslations("scholarshipKinds");
   const { slug } = await params;
   const [scholarship, cards] = await Promise.all([getScholarship(slug), listScholarshipCards()]);
@@ -62,7 +68,7 @@ export default async function ScholarshipPage({ params }: Props) {
   return (
     <Container className="flex flex-col pt-5 pb-7 lg:grid lg:grid-cols-[minmax(0,1fr)_380px] lg:items-start lg:gap-x-12 lg:pt-4 lg:pb-16">
       <nav
-        aria-label="Breadcrumb"
+        aria-label={common("breadcrumb")}
         className="hidden items-center gap-1.5 text-body-s lg:col-span-2 lg:flex lg:pb-4"
       >
         <Link

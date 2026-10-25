@@ -7,7 +7,8 @@ import { stripLocale } from "@/i18n/config";
 import { ArrowLeft } from "lucide-react";
 import { LogoHorizontal } from "@/components/brand/Logo";
 import { ShareButton } from "@/components/ui/ShareButton";
-import { LanguageSwitch, MenuButton, SearchButton } from "./HeaderActions";
+import { MenuButton, SearchButton } from "./HeaderActions";
+import { LanguageSwitch } from "./LanguageSwitch";
 
 /** Sections whose detail pages (/section/slug) use "App bar/Back" on mobile; values are "nav" labels. */
 const detailParents: Record<string, "explore" | "universities" | "scholarships" | "guidance"> = {

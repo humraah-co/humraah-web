@@ -6,11 +6,13 @@ import { LogoStacked } from "@/components/brand/Logo";
 import { Container } from "@/components/layout/PageShell";
 import { buttonStyles } from "@/components/ui/Button";
 import { guideChapters, guidePdfs, type GuidePdf } from "@/config/guide";
+import { alternates } from "@/i18n/metadata";
 import { pageLocale, type LocaleParams } from "@/i18n/server";
 
 export async function generateMetadata({ params }: { params: LocaleParams }): Promise<Metadata> {
-  const t = await getTranslations({ locale: (await params).locale, namespace: "guide" });
-  return { title: t("title"), description: t("metaDescription") };
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "guide" });
+  return { title: t("title"), description: t("metaDescription"), alternates: alternates("/guide", locale) };
 }
 
 export default async function GuidePage({ params }: { params: LocaleParams }) {

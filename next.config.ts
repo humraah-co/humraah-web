@@ -15,6 +15,9 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // app/global-not-found.tsx: the 404 for addresses that match no page. The
+  // site's real root layouts are per area (public and admin).
+  experimental: { globalNotFound: true },
   async headers() {
     return [
       { source: "/:path*", headers: securityHeaders },

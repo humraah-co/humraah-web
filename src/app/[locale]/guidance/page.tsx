@@ -7,11 +7,13 @@ import { HelpCallout } from "@/components/ui/Blocks";
 import { listGuidanceArticles } from "@/lib/data/public";
 import { readMinutes } from "@/lib/format";
 import { Link } from "@/i18n/navigation";
+import { alternates } from "@/i18n/metadata";
 import { pageLocale, type LocaleParams } from "@/i18n/server";
 
 export async function generateMetadata({ params }: { params: LocaleParams }): Promise<Metadata> {
-  const t = await getTranslations({ locale: (await params).locale, namespace: "guidance" });
-  return { title: t("title"), description: t("intro") };
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "guidance" });
+  return { title: t("title"), description: t("intro"), alternates: alternates("/guidance", locale) };
 }
 
 export const revalidate = 300;

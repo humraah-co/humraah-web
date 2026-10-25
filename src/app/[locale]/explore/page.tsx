@@ -9,11 +9,17 @@ import { buttonStyles } from "@/components/ui/Button";
 import { listFields, type FieldSummary } from "@/lib/data/public";
 import { countWord } from "@/lib/format";
 import { Link } from "@/i18n/navigation";
+import { alternates } from "@/i18n/metadata";
 import { pageLocale, type LocaleParams } from "@/i18n/server";
 
 export async function generateMetadata({ params }: { params: LocaleParams }): Promise<Metadata> {
-  const t = await getTranslations({ locale: (await params).locale, namespace: "explore" });
-  return { title: t("metaTitle"), description: t("metaDescription") };
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "explore" });
+  return {
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+    alternates: alternates("/explore", locale),
+  };
 }
 
 /** Case-insensitive match on the field name, summary, interests and example programmes. */

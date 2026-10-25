@@ -3,7 +3,8 @@
     "skipToContent": "Skip to content",
     "title": "Humraah – higher education guidance for girls in Pakistan",
     "titleTemplate": "%s · Humraah",
-    "description": "Find out what you could study, which universities offer it and how to pay for it. Humraah walks alongside girls in Pakistan towards higher education."
+    "description": "Find out what you could study, which universities offer it and how to pay for it. Humraah walks alongside girls in Pakistan towards higher education.",
+    "siteName": "Humraah"
   },
   "brand": {
     "home": "Humraah home"
@@ -51,7 +52,8 @@
     "removeFilter": "Remove this filter",
     "comingSoon": "Coming soon",
     "toBeConfirmed": "To be confirmed.",
-    "readTime": "{count} min read"
+    "readTime": "{count} min read",
+    "breadcrumb": "Breadcrumb"
   },
   "badges": {
     "verified": "Verified",
@@ -816,6 +818,7 @@
     "text": "It may have moved, or the link may be wrong. Let's get you back on track.",
     "home": "Go to the home page",
     "popular": "Popular pages",
-    "orTry": "Or try"
+    "orTry": "Or try",
+    "metaTitle": "Page not found · Humraah"
   }
 }

@@ -23,11 +23,17 @@ import {
 } from "@/lib/universityFilters";
 import { localizedPath } from "@/i18n/config";
 import { Link } from "@/i18n/navigation";
+import { alternates } from "@/i18n/metadata";
 import { pageLocale, type LocaleParams } from "@/i18n/server";
 
 export async function generateMetadata({ params }: { params: LocaleParams }): Promise<Metadata> {
-  const t = await getTranslations({ locale: (await params).locale, namespace: "universities" });
-  return { title: t("metaTitle"), description: t("metaDescription") };
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "universities" });
+  return {
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+    alternates: alternates("/universities", locale),
+  };
 }
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;

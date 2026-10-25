@@ -9,6 +9,7 @@ import { HelpCallout, ImportantCallout, NextSteps, StaleNotice } from "@/compone
 import { getGuidanceArticle, listGuidanceArticles } from "@/lib/data/public";
 import { hostOf, readMinutes } from "@/lib/format";
 import { Link } from "@/i18n/navigation";
+import { alternates } from "@/i18n/metadata";
 import { pageLocale, type LocaleParams } from "@/i18n/server";
 
 type Props = { params: LocaleParams<{ slug: string }> };
@@ -24,7 +25,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const article = await getGuidanceArticle(slug);
   const t = await getTranslations({ locale, namespace: "guidance" });
   if (!article) return { title: t("title") };
-  return { title: article.title, description: article.summary ?? undefined };
+  return {
+    title: article.title,
+    description: article.summary ?? undefined,
+    alternates: alternates(`/guidance/${slug}`, locale),
+  };
 }
 
 export default async function GuidanceArticlePage({ params }: Props) {
@@ -47,7 +52,7 @@ export default async function GuidanceArticlePage({ params }: Props) {
 
   return (
     <Container className="pt-5 pb-7 lg:pt-4 lg:pb-16">
-      <nav aria-label="Breadcrumb" className="hidden items-center gap-1.5 text-body-s lg:flex">
+      <nav aria-label={common("breadcrumb")} className="hidden items-center gap-1.5 text-body-s lg:flex">
         <Link
           href="/guidance"
           className="py-2.5 text-label-m text-deep-rose underline underline-offset-2 hover:text-charcoal"

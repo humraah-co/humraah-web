@@ -5,11 +5,17 @@ import { ResourceCard } from "@/components/content/Cards";
 import { Container } from "@/components/layout/PageShell";
 import { listResources, type ResourceLink } from "@/lib/data/public";
 import type { ResourceCategory } from "@/lib/database.types";
+import { alternates } from "@/i18n/metadata";
 import { pageLocale, type LocaleParams } from "@/i18n/server";
 
 export async function generateMetadata({ params }: { params: LocaleParams }): Promise<Metadata> {
-  const t = await getTranslations({ locale: (await params).locale, namespace: "resources" });
-  return { title: t("metaTitle"), description: t("metaDescription") };
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "resources" });
+  return {
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+    alternates: alternates("/resources", locale),
+  };
 }
 
 export const revalidate = 300;

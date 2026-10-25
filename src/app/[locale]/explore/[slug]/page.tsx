@@ -9,6 +9,7 @@ import { NextSteps, RememberCallout, SectionHeader, StaleNotice } from "@/compon
 import { Chip, ChipList } from "@/components/ui/Chip";
 import { getField, listFields, listScholarshipCards, listUniversityCards } from "@/lib/data/public";
 import { Link } from "@/i18n/navigation";
+import { alternates } from "@/i18n/metadata";
 import { pageLocale, type LocaleParams } from "@/i18n/server";
 
 type Props = { params: LocaleParams<{ slug: string }> };
@@ -25,12 +26,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const field = await getField(slug);
   const t = await getTranslations({ locale, namespace: "field" });
   if (!field) return { title: t("metaTitle") };
-  return { title: field.name, description: field.summary ?? undefined };
+  return {
+    title: field.name,
+    description: field.summary ?? undefined,
+    alternates: alternates(`/explore/${slug}`, locale),
+  };
 }
 
 export default async function FieldPage({ params }: Props) {
   await pageLocale(params);
   const t = await getTranslations("field");
+  const common = await getTranslations("common");
   const { slug } = await params;
   const field = await getField(slug);
   if (field === null) {
@@ -57,7 +63,7 @@ export default async function FieldPage({ params }: Props) {
 
   return (
     <Container className="pt-5 pb-7 lg:pt-4 lg:pb-16">
-      <nav aria-label="Breadcrumb" className="hidden items-center gap-1.5 text-body-s lg:flex">
+      <nav aria-label={common("breadcrumb")} className="hidden items-center gap-1.5 text-body-s lg:flex">
         <Link
           href="/explore"
           className="py-2.5 text-label-m text-deep-rose underline underline-offset-2 hover:text-charcoal"

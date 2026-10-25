@@ -7,11 +7,17 @@ import { Container } from "@/components/layout/PageShell";
 import { HelpCallout } from "@/components/ui/Blocks";
 import { Ltr } from "@/components/ui/Ltr";
 import { contact } from "@/lib/nav";
+import { alternates } from "@/i18n/metadata";
 import { pageLocale, type LocaleParams } from "@/i18n/server";
 
 export async function generateMetadata({ params }: { params: LocaleParams }): Promise<Metadata> {
-  const t = await getTranslations({ locale: (await params).locale, namespace: "about" });
-  return { title: t("metaTitle"), description: t("metaDescription") };
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "about" });
+  return {
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+    alternates: alternates("/about", locale),
+  };
 }
 
 /** Text for each is in "about.story" and "about.values". */

@@ -27,6 +27,7 @@ import { getUniversity, listFields, listUniversitySlugs, type ProgrammeSummary }
 import { formatFeeRange, formatLongDate, stepsFrom } from "@/lib/format";
 import { contact } from "@/lib/nav";
 import { Link } from "@/i18n/navigation";
+import { alternates } from "@/i18n/metadata";
 import { pageLocale, type LocaleParams } from "@/i18n/server";
 
 type Props = { params: LocaleParams<{ slug: string }> };
@@ -42,7 +43,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const university = await getUniversity(slug);
   const t = await getTranslations({ locale, namespace: "university" });
   if (!university) return { title: t("metaTitle") };
-  return { title: university.name, description: university.overview ?? undefined };
+  return {
+    title: university.name,
+    description: university.overview ?? undefined,
+    alternates: alternates(`/universities/${slug}`, locale),
+  };
 }
 
 /** Typical steps from Figma, shown until a researcher writes this university's own ("university.typicalSteps"). */
@@ -51,6 +56,7 @@ const typicalSteps = ["eligible", "register", "form", "fee", "test"] as const;
 export default async function UniversityPage({ params }: Props) {
   const locale = await pageLocale(params);
   const t = await getTranslations("university");
+  const common = await getTranslations("common");
   const { slug } = await params;
   const [university, fields] = await Promise.all([getUniversity(slug), listFields()]);
   if (university === null) {
@@ -98,7 +104,7 @@ export default async function UniversityPage({ params }: Props) {
   return (
     <>
       <Container className="pt-5 lg:pt-4">
-        <nav aria-label="Breadcrumb" className="hidden items-center gap-1.5 text-body-s lg:flex">
+        <nav aria-label={common("breadcrumb")} className="hidden items-center gap-1.5 text-body-s lg:flex">
           <Link
             href="/universities"
             className="py-2.5 text-label-m text-deep-rose underline underline-offset-2 hover:text-charcoal"

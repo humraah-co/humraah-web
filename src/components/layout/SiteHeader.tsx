@@ -2,7 +2,8 @@ import { LogoHorizontal } from "@/components/brand/Logo";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { DesktopNavLinks } from "./DesktopNavLinks";
-import { LanguageSwitch, SearchButton } from "./HeaderActions";
+import { SearchButton } from "./HeaderActions";
+import { LanguageSwitch } from "./LanguageSwitch";
 import { MobileTopBar } from "./MobileTopBar";
 
 /**

@@ -6,7 +6,8 @@ import { BottomNav } from "@/components/layout/BottomNav";
 import { HideOnFocusedPages } from "@/components/layout/HideOnFocusedPages";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
-import { directionFor } from "@/i18n/config";
+import { directionFor, urduEnabled } from "@/i18n/config";
+import { openGraphLocale } from "@/i18n/metadata";
 import { clientMessages } from "@/i18n/messages";
 import { routing } from "@/i18n/routing";
 import { caveat, cormorant, dmSans, nastaliq } from "../fonts";
@@ -19,12 +20,19 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
-  const t = await getTranslations({ locale: (await params).locale, namespace: "layout" });
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) return {};
+  const t = await getTranslations({ locale, namespace: "layout" });
   return {
     metadataBase: new URL(siteUrl),
     title: { default: t("title"), template: t("titleTemplate") },
     description: t("description"),
-    openGraph: { siteName: "Humraah", locale: "en_PK", type: "website" },
+    openGraph: {
+      siteName: t("siteName"),
+      locale: openGraphLocale[locale],
+      alternateLocale: urduEnabled() ? openGraphLocale[locale === "en" ? "ur" : "en"] : undefined,
+      type: "website",
+    },
   };
 }
 

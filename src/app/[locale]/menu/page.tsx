@@ -2,14 +2,17 @@ import type { Metadata } from "next";
 import { BookOpen, ChevronRight, Compass, Globe, Heart, Lightbulb, X, type LucideIcon } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { LogoHorizontal } from "@/components/brand/Logo";
+import { LanguageSwitch } from "@/components/layout/LanguageSwitch";
 import { HelpCallout } from "@/components/ui/Blocks";
 import { menuNav } from "@/lib/nav";
 import { Link } from "@/i18n/navigation";
+import { alternates } from "@/i18n/metadata";
 import { pageLocale, type LocaleParams } from "@/i18n/server";
 
 export async function generateMetadata({ params }: { params: LocaleParams }): Promise<Metadata> {
-  const t = await getTranslations({ locale: (await params).locale, namespace: "menu" });
-  return { title: t("title") };
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "menu" });
+  return { title: t("title"), alternates: alternates("/menu", locale) };
 }
 
 const icons: Record<string, LucideIcon> = {
@@ -80,33 +83,10 @@ export default async function MenuPage({
       </nav>
 
       <div className="flex flex-col gap-2.5 px-5 pt-5 pb-2">
-        <p id="language-label" className="text-label-s text-muted">
+        <p className="text-label-s text-muted" aria-hidden="true">
           {language("label")}
         </p>
-        <div
-          role="group"
-          aria-labelledby="language-label"
-          className="flex items-center gap-1 rounded-pill bg-blush p-1"
-        >
-          <span
-            aria-current="true"
-            className="flex flex-1 items-center justify-center rounded-pill bg-card px-2 py-2.5 text-label-m"
-          >
-            English
-          </span>
-          <span
-            lang="ur"
-            dir="rtl"
-            aria-disabled="true"
-            title={language("comingSoon")}
-            className="flex flex-1 items-center justify-center px-2 py-0.5 font-urdu text-[13px] leading-[28px] text-muted"
-          >
-            اردو
-            <span className="sr-only" lang="en" dir="ltr">
-              {language("comingSoonShort")}
-            </span>
-          </span>
-        </div>
+        <LanguageSwitch variant="menu" />
       </div>
 
       <div className="flex-1" />
