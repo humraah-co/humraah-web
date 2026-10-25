@@ -1,0 +1,939 @@
+﻿location,page,English,Urdu
+ui:layout.skipToContent,every page,Skip to content,مواد پر جائیں
+ui:layout.title,every page,Humraah – higher education guidance for girls in Pakistan,ہمراہ – پاکستان کی لڑکیوں کے لیے اعلیٰ تعلیم میں رہنمائی
+ui:layout.titleTemplate,every page,%s · Humraah,%s · ہمراہ
+ui:layout.description,every page,"Find out what you could study, which universities offer it and how to pay for it. Humraah walks alongside girls in Pakistan towards higher education.",جانیں کہ آپ کیا پڑھ سکتی ہیں، کون سی یونیورسٹیاں یہ پڑھاتی ہیں اور فیس کا انتظام کیسے ہو۔ ہمراہ اعلیٰ تعلیم کے سفر میں پاکستان کی لڑکیوں کے ساتھ ساتھ چلتا ہے۔
+ui:layout.siteName,every page,Humraah,ہمراہ
+ui:brand.home,every page,Humraah home,ہمراہ کا ہوم پیج
+ui:nav.main,every page (menus),Main,مرکزی
+ui:nav.primary,every page (menus),Primary,بنیادی
+ui:nav.home,every page (menus),Home,ہوم
+ui:nav.explore,every page (menus),Explore fields,شعبے دیکھیں
+ui:nav.exploreShort,every page (menus),Explore,شعبے
+ui:nav.universities,every page (menus),Universities,یونیورسٹیاں
+ui:nav.scholarships,every page (menus),Scholarships,اسکالرشپس
+ui:nav.guidance,every page (menus),Guidance,رہنمائی
+ui:nav.guide,every page (menus),Guide,گائیڈ
+ui:nav.guideFull,every page (menus),Higher Education Guide,اعلیٰ تعلیم گائیڈ
+ui:nav.resources,every page (menus),Resources,وسائل
+ui:nav.about,every page (menus),About,ہمارے بارے میں
+ui:nav.aboutContact,every page (menus),About and contact,تعارف اور رابطہ
+ui:nav.whereToStart,every page (menus),Where do I start?,کہاں سے شروع کروں؟
+ui:nav.menu,every page (menus),Menu,مینو
+ui:nav.searchUniversities,every page (menus),Search universities,یونیورسٹیاں تلاش کریں
+ui:nav.backTo,every page (menus),Back to {section},واپس: {section}
+ui:language.label,every page (language switch),Language,زبان
+ui:language.comingSoon,every page (language switch),Urdu version coming soon,اردو ورژن جلد آ رہا ہے
+ui:language.comingSoonShort,every page (language switch),(coming soon),(جلد آ رہا ہے)
+ui:footer.tagline,every page (footer),"Walking alongside you, towards your dreams.",آپ کے خوابوں کی طرف، آپ کے ساتھ ساتھ۔
+ui:footer.about,every page (footer),"A youth-led initiative giving girls the information, resources and support to pursue higher education and build their own paths forward.",نوجوانوں کی ایک کوشش، جو لڑکیوں کو اعلیٰ تعلیم حاصل کرنے اور اپنا راستہ خود بنانے کے لیے معلومات، وسائل اور ساتھ دیتی ہے۔
+ui:footer.disclaimer,every page (footer),"Humraah shares information to help you plan. Always confirm fees, dates and requirements on the official website before you apply.",ہمراہ آپ کی منصوبہ بندی میں مدد کے لیے معلومات دیتا ہے۔ اپلائی کرنے سے پہلے فیس، تاریخیں اور شرائط ہمیشہ آفیشل ویب سائٹ پر دیکھ لیں۔
+ui:footer.explore,every page (footer),Explore,دیکھیں
+ui:footer.help,every page (footer),Help,مدد
+ui:footer.contact,every page (footer),Contact,رابطہ
+ui:footer.instagram,every page (footer),Instagram: <handle></handle>,انسٹاگرام: <handle></handle>
+ui:footer.linkedin,every page (footer),LinkedIn: <name></name>,لنکڈ اِن: <name></name>
+ui:footer.motto,every page (footer),WALKING ALONGSIDE. GROWING TOGETHER.,ساتھ چلیں، ساتھ بڑھیں۔
+ui:footer.privacyLink,every page (footer),Privacy and disclaimer,رازداری اور اعلانِ لاتعلقی
+ui:common.seeAll,many pages,See all,سب دیکھیں
+ui:common.opensInNewTab,many pages,(opens in a new tab),(نئے ٹیب میں کھلے گا)
+ui:common.selected,many pages,(selected),(منتخب)
+ui:common.removeFilter,many pages,Remove this filter,یہ فلٹر ہٹائیں
+ui:common.comingSoon,many pages,Coming soon,جلد آ رہا ہے
+ui:common.toBeConfirmed,many pages,To be confirmed.,ابھی طے نہیں۔
+ui:common.readTime,many pages,{count} min read,پڑھنے میں {count} منٹ
+ui:common.breadcrumb,many pages,Breadcrumb,آپ یہاں ہیں
+ui:common.availableInEnglish,many pages,Available in English,انگریزی میں دستیاب
+ui:badges.verified,many pages,Verified,تصدیق شدہ
+ui:badges.notYetVerified,many pages,Not yet verified,ابھی تصدیق نہیں ہوئی
+ui:badges.hecRecognised,many pages,HEC-recognised,HEC سے تسلیم شدہ
+ui:badges.source,many pages,Source: <host></host>,ذریعہ: <host></host>
+ui:blocks.remember,many pages,Remember…,یاد رکھیں…
+ui:blocks.helpTitle,many pages,Need help? Humraah is here.,مدد چاہیے؟ ہمراہ حاضر ہے۔
+ui:blocks.helpText,many pages,You don’t have to figure everything out alone. Message us on Instagram <instagram></instagram> or email <email></email>.,آپ کو سب کچھ اکیلے نہیں سمجھنا۔ ہمیں انسٹاگرام <instagram></instagram> پر پیغام بھیجیں یا <email></email> پر ای میل کریں۔
+ui:blocks.nextSteps,many pages,Your next steps,آپ کے اگلے قدم
+ui:blocks.staleTitle,many pages,This may be out of date,ہو سکتا ہے یہ معلومات پرانی ہوں
+ui:blocks.staleText,many pages,"We last checked these details on {date}, more than six months ago. Check the official website before you rely on them.",ہم نے یہ تفصیلات آخری بار {date} کو دیکھی تھیں، یعنی چھ مہینے سے زیادہ پہلے۔ ان پر بھروسہ کرنے سے پہلے آفیشل ویب سائٹ ضرور دیکھیں۔
+ui:filters.filters,"/universities, /scholarships",Filters,فلٹرز
+ui:filters.applied,"/universities, /scholarships",applied,لگے ہوئے
+ui:filters.close,"/universities, /scholarships",Close filters,فلٹرز بند کریں
+ui:filters.clearAll,"/universities, /scholarships",Clear all,سب ہٹائیں
+ui:filters.fieldOfStudy,"/universities, /scholarships",Field of study,شعبہ
+ui:filters.allFields,"/universities, /scholarships",All fields,تمام شعبے
+ui:share.whatsapp,detail pages,Share on WhatsApp,واٹس ایپ پر شیئر کریں
+ui:share.copied,detail pages,Link copied,لنک کاپی ہو گیا
+ui:share.sharePage,detail pages,Share this page,یہ صفحہ شیئر کریں
+ui:cards.youMightEnjoy,lists and cards,You might enjoy this if you like {interests}.,اگر آپ کو {interests} پسند ہے تو شاید یہ آپ کو اچھا لگے۔
+ui:cards.public,lists and cards,Public,سرکاری
+ui:cards.private,lists and cards,Private,نجی
+ui:cards.womenOnly,lists and cards,Women only,صرف خواتین کے لیے
+ui:cards.programmes,lists and cards,"{count, plural, one {# programme} other {# programmes}}","{count, plural, one {# پروگرام} other {# پروگرام}}"
+ui:cards.financialAid,lists and cards,Financial aid,مالی مدد
+ui:cards.applications,lists and cards,Applications: {window},داخلے: {window}
+ui:cards.datesToBeConfirmed,lists and cards,dates to be confirmed,تاریخیں ابھی طے نہیں
+ui:cards.needBased,lists and cards,Need-based,ضرورت کی بنیاد پر
+ui:cards.covers,lists and cards,Covers,اس میں شامل
+ui:cards.humraah,lists and cards,Humraah,ہمراہ
+ui:deadline.closed,scholarship cards,Closed {date},{date} کو بند ہو گئی
+ui:deadline.closingSoon,scholarship cards,Closing soon: {date},جلد بند ہو رہی ہے: {date}
+ui:deadline.closes,scholarship cards,Closes {date},آخری تاریخ {date}
+ui:deadline.toBeConfirmed,scholarship cards,Deadline to be confirmed,آخری تاریخ ابھی طے نہیں
+ui:scholarshipKinds.government,scholarships,Government,سرکاری
+ui:scholarshipKinds.need,scholarships,Government,سرکاری
+ui:scholarshipKinds.external,scholarships,External,بیرونی
+ui:scholarshipKinds.university,scholarships,University aid,یونیورسٹی کی مدد
+ui:scholarshipKinds.merit,scholarships,Merit,میرٹ
+ui:contact.title,/about (contact form),Send us a message,ہمیں پیغام بھیجیں
+ui:contact.name,/about (contact form),Your name,آپ کا نام
+ui:contact.email,/about (contact form),Email address,ای میل ایڈریس
+ui:contact.message,/about (contact form),Message,پیغام
+ui:contact.messagePlaceholder,/about (contact form),Write your question here,اپنا سوال یہاں لکھیں
+ui:contact.privacyLink,/about (contact form),Privacy and disclaimer,رازداری اور اعلانِ لاتعلقی
+ui:contact.send,/about (contact form),Send message,پیغام بھیجیں
+ui:contact.sending,/about (contact form),Sending…,بھیجا جا رہا ہے…
+ui:contact.replyByEmail,/about (contact form),We’ll reply by email.,ہم ای میل پر جواب دیں گے۔
+ui:contact.sentTitle,/about (contact form),"Thank you, your message is on its way",شکریہ، آپ کا پیغام ہم تک پہنچ رہا ہے
+ui:contact.sentText,/about (contact form),"We’ll reply by email. It can take a few days, so please check your spam folder too.",ہم ای میل پر جواب دیں گے۔ اس میں چند دن لگ سکتے ہیں، اس لیے اپنا اسپیم فولڈر بھی دیکھتی رہیں۔
+ui:contact.sendAnother,/about (contact form),Send another message,ایک اور پیغام بھیجیں
+ui:contact.sendFailed,/about (contact form),"Sorry, we couldn’t send your message just now. Please try again in a few minutes, or email us at <email></email>.",معذرت، ابھی آپ کا پیغام نہیں جا سکا۔ چند منٹ بعد دوبارہ کوشش کریں، یا ہمیں <email></email> پر ای میل کریں۔
+ui:contact.errors.nameRequired,/about (contact form),Please tell us your name.,براہِ کرم اپنا نام لکھیں۔
+ui:contact.errors.nameTooLong,/about (contact form),Please keep your name under {max} characters.,براہِ کرم نام {max} حروف سے کم رکھیں۔
+ui:contact.errors.emailRequired,/about (contact form),Please add your email address so we can reply.,براہِ کرم اپنا ای میل ایڈریس لکھیں تاکہ ہم جواب دے سکیں۔
+ui:contact.errors.emailInvalid,/about (contact form),"Please check your email address, for example name@example.com.",براہِ کرم اپنا ای میل ایڈریس دوبارہ دیکھیں، مثلاً name@example.com
+ui:contact.errors.messageRequired,/about (contact form),Please write your message.,براہِ کرم اپنا پیغام لکھیں۔
+ui:contact.errors.messageTooLong,/about (contact form),Please keep your message under {max} characters.,براہِ کرم پیغام {max} حروف سے کم رکھیں۔
+ui:contact.errors.privacyRequired,/about (contact form),Please confirm you have read the Contact Form Privacy Notice.,براہِ کرم تصدیق کریں کہ آپ نے رابطہ فارم کا رازداری نوٹس پڑھ لیا ہے۔
+ui:privacyNotice.heading,"/about, /privacy",Contact Form Privacy Notice: {title},رابطہ فارم کا رازداری نوٹس: {title}
+ui:privacyNotice.title,"/about, /privacy",Contacting Humraah,ہمراہ سے رابطہ
+ui:privacyNotice.p1,"/about, /privacy","If you contact Humraah through this form, we will use the information you submit to read and respond to your message and to follow up where needed. Please share only the information necessary for your enquiry. Do not include passwords, identity-document numbers, detailed financial records or other sensitive personal information in the message.",اگر آپ اس فارم کے ذریعے ہمراہ سے رابطہ کرتی ہیں تو ہم آپ کی بھیجی ہوئی معلومات آپ کا پیغام پڑھنے، اس کا جواب دینے اور ضرورت ہو تو آگے بات کرنے کے لیے استعمال کریں گے۔ براہِ کرم صرف وہی معلومات دیں جو آپ کے سوال کے لیے ضروری ہوں۔ پیغام میں پاس ورڈ، شناختی دستاویزات کے نمبر، تفصیلی مالی ریکارڈ یا کوئی اور حساس ذاتی معلومات نہ لکھیں۔
+ui:privacyNotice.p2,"/about, /privacy","Your message may be accessible to the Humraah team members responsible for managing enquiries. Before this form goes live, Humraah will confirm who can access submissions, where they are stored, how long they are kept, and how a sender can request correction or deletion. We will update this notice to reflect those practices. If you are under 18, consider asking a trusted adult for help before sharing personal information online.",آپ کا پیغام ہمراہ کی ٹیم کے وہ لوگ دیکھ سکتے ہیں جو سوالات کا جواب دیتے ہیں۔ یہ فارم شروع ہونے سے پہلے ہمراہ طے کرے گا کہ پیغامات کون دیکھ سکتا ہے، وہ کہاں رکھے جاتے ہیں، کب تک رکھے جاتے ہیں، اور بھیجنے والا انہیں درست کروانے یا مٹوانے کی درخواست کیسے کر سکتا ہے۔ ہم یہ نوٹس انہی طریقوں کے مطابق اپ ڈیٹ کریں گے۔ اگر آپ کی عمر 18 سال سے کم ہے تو آن لائن ذاتی معلومات دینے سے پہلے کسی قابلِ اعتماد بڑے سے مدد لے لیں۔
+ui:privacyNotice.checkbox,"/about, /privacy",I have read the Contact Form Privacy Notice.,میں نے رابطہ فارم کا رازداری نوٹس پڑھ لیا ہے۔
+ui:quiz.exit,/quiz,Exit quiz,کوئز چھوڑیں
+ui:quiz.exitLabel,/quiz,Exit the quiz,کوئز سے باہر جائیں
+ui:quiz.progress,/quiz,Quiz progress,کوئز میں پیش رفت
+ui:quiz.questions.q1.title,/quiz,What do you enjoy?,آپ کو کیا اچھا لگتا ہے؟
+ui:quiz.questions.q1.clause,/quiz,you enjoy {things},آپ کو {things} اچھا لگتا ہے
+ui:quiz.questions.q1.options.science,/quiz,Science,سائنس
+ui:quiz.questions.q1.options.maths,/quiz,Maths,ریاضی
+ui:quiz.questions.q1.options.languages,/quiz,Languages,زبانیں
+ui:quiz.questions.q1.options.art,/quiz,Art and creativity,آرٹ اور تخلیق
+ui:quiz.questions.q1.options.technology,/quiz,Technology,ٹیکنالوجی
+ui:quiz.questions.q1.options.business,/quiz,Business,کاروبار
+ui:quiz.questions.q1.options.helping,/quiz,Helping people,لوگوں کی مدد
+ui:quiz.questions.q1.options.society,/quiz,People and society,لوگ اور معاشرہ
+ui:quiz.questions.q1.options.nature,/quiz,Nature and environment,قدرت اور ماحول
+ui:quiz.questions.q1.options.other,/quiz,Something else,کچھ اور
+ui:quiz.questions.q1.phrases.science,/quiz,science,سائنس
+ui:quiz.questions.q1.phrases.maths,/quiz,maths,ریاضی
+ui:quiz.questions.q1.phrases.languages,/quiz,languages,زبانیں
+ui:quiz.questions.q1.phrases.art,/quiz,art and creativity,آرٹ اور تخلیق
+ui:quiz.questions.q1.phrases.technology,/quiz,technology,ٹیکنالوجی
+ui:quiz.questions.q1.phrases.business,/quiz,business,کاروبار
+ui:quiz.questions.q1.phrases.helping,/quiz,helping people,لوگوں کی مدد کرنا
+ui:quiz.questions.q1.phrases.society,/quiz,people and society,لوگ اور معاشرہ
+ui:quiz.questions.q1.phrases.nature,/quiz,nature and environment,قدرت اور ماحول
+ui:quiz.questions.q1.phrases.other,/quiz,other things,دوسری چیزیں
+ui:quiz.questions.q2.title,/quiz,What are you good at?,آپ کس چیز میں اچھی ہیں؟
+ui:quiz.questions.q2.clause,/quiz,you’re good at {things},آپ {things} میں اچھی ہیں
+ui:quiz.questions.q2.options.problems,/quiz,Solving problems,مسئلے حل کرنا
+ui:quiz.questions.q2.options.explaining,/quiz,Explaining things,چیزیں سمجھانا
+ui:quiz.questions.q2.options.writing,/quiz,Writing,لکھنا
+ui:quiz.questions.q2.options.numbers,/quiz,Working with numbers,اعداد کے ساتھ کام
+ui:quiz.questions.q2.options.drawing,/quiz,Drawing and design,ڈرائنگ اور ڈیزائن
+ui:quiz.questions.q2.options.building,/quiz,Building and fixing things,چیزیں بنانا اور ٹھیک کرنا
+ui:quiz.questions.q2.options.organising,/quiz,Organising and planning,انتظام اور منصوبہ بندی
+ui:quiz.questions.q2.options.listening,/quiz,Listening to people,لوگوں کی بات سننا
+ui:quiz.questions.q2.options.debating,/quiz,Debating and persuading,بحث اور قائل کرنا
+ui:quiz.questions.q2.options.research,/quiz,Finding things out,نئی باتیں معلوم کرنا
+ui:quiz.questions.q2.phrases.problems,/quiz,solving problems,مسئلے حل کرنے
+ui:quiz.questions.q2.phrases.explaining,/quiz,explaining things,چیزیں سمجھانے
+ui:quiz.questions.q2.phrases.writing,/quiz,writing,لکھنے
+ui:quiz.questions.q2.phrases.numbers,/quiz,working with numbers,اعداد کے ساتھ کام کرنے
+ui:quiz.questions.q2.phrases.drawing,/quiz,drawing and design,ڈرائنگ اور ڈیزائن
+ui:quiz.questions.q2.phrases.building,/quiz,building and fixing things,چیزیں بنانے اور ٹھیک کرنے
+ui:quiz.questions.q2.phrases.organising,/quiz,organising and planning,انتظام اور منصوبہ بندی
+ui:quiz.questions.q2.phrases.listening,/quiz,listening to people,لوگوں کی بات سننے
+ui:quiz.questions.q2.phrases.debating,/quiz,debating and persuading,بحث کرنے اور قائل کرنے
+ui:quiz.questions.q2.phrases.research,/quiz,finding things out,نئی باتیں معلوم کرنے
+ui:quiz.questions.q3.title,/quiz,Which subjects do you like most?,آپ کو کون سے مضامین سب سے زیادہ پسند ہیں؟
+ui:quiz.questions.q3.clause,/quiz,you like {things},آپ کو {things} پسند ہے
+ui:quiz.questions.q3.options.biology,/quiz,Biology,بیالوجی
+ui:quiz.questions.q3.options.chemistry,/quiz,Chemistry,کیمسٹری
+ui:quiz.questions.q3.options.physics,/quiz,Physics,فزکس
+ui:quiz.questions.q3.options.maths,/quiz,Maths,ریاضی
+ui:quiz.questions.q3.options.computer,/quiz,Computer science,کمپیوٹر سائنس
+ui:quiz.questions.q3.options.english-urdu,/quiz,English or Urdu,انگریزی یا اردو
+ui:quiz.questions.q3.options.history,/quiz,History and Pakistan Studies,تاریخ اور مطالعہ پاکستان
+ui:quiz.questions.q3.options.economics,/quiz,Economics or accounting,معاشیات یا اکاؤنٹنگ
+ui:quiz.questions.q3.options.art,/quiz,Art,آرٹ
+ui:quiz.questions.q3.options.psychology,/quiz,Psychology or sociology,نفسیات یا سوشیالوجی
+ui:quiz.questions.q3.phrases.biology,/quiz,biology,بیالوجی
+ui:quiz.questions.q3.phrases.chemistry,/quiz,chemistry,کیمسٹری
+ui:quiz.questions.q3.phrases.physics,/quiz,physics,فزکس
+ui:quiz.questions.q3.phrases.maths,/quiz,maths,ریاضی
+ui:quiz.questions.q3.phrases.computer,/quiz,computer science,کمپیوٹر سائنس
+ui:quiz.questions.q3.phrases.english-urdu,/quiz,English or Urdu,انگریزی یا اردو
+ui:quiz.questions.q3.phrases.history,/quiz,history and Pakistan Studies,تاریخ اور مطالعہ پاکستان
+ui:quiz.questions.q3.phrases.economics,/quiz,economics or accounting,معاشیات یا اکاؤنٹنگ
+ui:quiz.questions.q3.phrases.art,/quiz,art,آرٹ
+ui:quiz.questions.q3.phrases.psychology,/quiz,psychology or sociology,نفسیات یا سوشیالوجی
+ui:quiz.questions.q4.title,/quiz,Where can you picture yourself working?,آپ خود کو کہاں کام کرتے دیکھ سکتی ہیں؟
+ui:quiz.questions.q4.clause,/quiz,you can picture yourself {things},آپ خود کو {things} کام کرتے دیکھ سکتی ہیں
+ui:quiz.questions.q4.options.hospital,/quiz,A hospital or clinic,ہسپتال یا کلینک
+ui:quiz.questions.q4.options.office,/quiz,An office,دفتر
+ui:quiz.questions.q4.options.lab,/quiz,A lab,لیب
+ui:quiz.questions.q4.options.classroom,/quiz,A classroom,کلاس روم
+ui:quiz.questions.q4.options.court,/quiz,A courtroom,عدالت
+ui:quiz.questions.q4.options.studio,/quiz,A studio,اسٹوڈیو
+ui:quiz.questions.q4.options.site,/quiz,On site or outdoors,سائٹ پر یا باہر
+ui:quiz.questions.q4.options.online,/quiz,Online or from home,آن لائن یا گھر سے
+ui:quiz.questions.q4.options.community,/quiz,In the community,کمیونٹی میں
+ui:quiz.questions.q4.options.unsure,/quiz,I’m not sure yet,ابھی پتا نہیں
+ui:quiz.questions.q4.phrases.hospital,/quiz,in a hospital or clinic,ہسپتال یا کلینک میں
+ui:quiz.questions.q4.phrases.office,/quiz,in an office,دفتر میں
+ui:quiz.questions.q4.phrases.lab,/quiz,in a lab,لیب میں
+ui:quiz.questions.q4.phrases.classroom,/quiz,in a classroom,کلاس روم میں
+ui:quiz.questions.q4.phrases.court,/quiz,in a courtroom,عدالت میں
+ui:quiz.questions.q4.phrases.studio,/quiz,in a studio,اسٹوڈیو میں
+ui:quiz.questions.q4.phrases.site,/quiz,on site or outdoors,سائٹ پر یا باہر
+ui:quiz.questions.q4.phrases.online,/quiz,working online,آن لائن
+ui:quiz.questions.q4.phrases.community,/quiz,in the community,کمیونٹی میں
+ui:quiz.questions.q4.phrases.unsure,/quiz,i’m not sure yet,ابھی پتا نہیں
+ui:quiz.questions.q5.title,/quiz,What matters most to you?,آپ کے لیے سب سے اہم کیا ہے؟
+ui:quiz.questions.q5.clause,/quiz,you care about {things},آپ کے لیے {things} اہم ہے
+ui:quiz.questions.q5.options.helping,/quiz,Helping others,دوسروں کی مدد
+ui:quiz.questions.q5.options.creating,/quiz,Creating new things,نئی چیزیں بنانا
+ui:quiz.questions.q5.options.fairness,/quiz,Fairness and justice,انصاف اور برابری
+ui:quiz.questions.q5.options.discovery,/quiz,Discovering how things work,یہ جاننا کہ چیزیں کیسے کام کرتی ہیں
+ui:quiz.questions.q5.options.earning,/quiz,Earning a good living,اچھی کمائی
+ui:quiz.questions.q5.options.sharing,/quiz,Sharing what I know,اپنا علم بانٹنا
+ui:quiz.questions.q5.options.ideas,/quiz,Big ideas and stories,بڑے خیالات اور کہانیاں
+ui:quiz.questions.q5.options.future,/quiz,Building the future,مستقبل بنانا
+ui:quiz.questions.q5.phrases.helping,/quiz,helping others,دوسروں کی مدد کرنا
+ui:quiz.questions.q5.phrases.creating,/quiz,creating new things,نئی چیزیں بنانا
+ui:quiz.questions.q5.phrases.fairness,/quiz,fairness and justice,انصاف اور برابری
+ui:quiz.questions.q5.phrases.discovery,/quiz,discovering how things work,یہ جاننا کہ چیزیں کیسے کام کرتی ہیں
+ui:quiz.questions.q5.phrases.earning,/quiz,earning a good living,اچھی کمائی
+ui:quiz.questions.q5.phrases.sharing,/quiz,sharing what you know,اپنا علم بانٹنا
+ui:quiz.questions.q5.phrases.ideas,/quiz,big ideas and stories,بڑے خیالات اور کہانیاں
+ui:quiz.questions.q5.phrases.future,/quiz,building the future,مستقبل بنانا
+ui:quiz.questions.q6.title,/quiz,How do you like to learn?,آپ کیسے سیکھنا پسند کرتی ہیں؟
+ui:quiz.questions.q6.clause,/quiz,you like learning by {things},آپ {things} سیکھنا پسند کرتی ہیں
+ui:quiz.questions.q6.options.hands-on,/quiz,Doing things hands-on,خود کر کے
+ui:quiz.questions.q6.options.reading,/quiz,Reading,پڑھ کر
+ui:quiz.questions.q6.options.talking,/quiz,Talking it through,بات چیت کر کے
+ui:quiz.questions.q6.options.experiments,/quiz,Experiments,تجربات
+ui:quiz.questions.q6.options.computers,/quiz,Using computers,کمپیوٹر کے ذریعے
+ui:quiz.questions.q6.options.visual,/quiz,Pictures and diagrams,تصویریں اور خاکے
+ui:quiz.questions.q6.options.projects,/quiz,Real-world projects,اصل زندگی کے پروجیکٹس
+ui:quiz.questions.q6.phrases.hands-on,/quiz,doing things hands-on,خود کر کے
+ui:quiz.questions.q6.phrases.reading,/quiz,reading,پڑھ کر
+ui:quiz.questions.q6.phrases.talking,/quiz,talking things through,بات چیت کر کے
+ui:quiz.questions.q6.phrases.experiments,/quiz,doing experiments,تجربات کر کے
+ui:quiz.questions.q6.phrases.computers,/quiz,using computers,کمپیوٹر کے ذریعے
+ui:quiz.questions.q6.phrases.visual,/quiz,looking at pictures and diagrams,تصویریں اور خاکے دیکھ کر
+ui:quiz.questions.q6.phrases.projects,/quiz,working on real projects,اصل پروجیکٹس پر کام کر کے
+ui:quiz.summary.q1,/quiz,what you enjoy ({things}),آپ کی پسند ({things})
+ui:quiz.summary.q2,/quiz,what you’re good at ({things}),آپ کی خوبیوں ({things})
+ui:quiz.reason,/quiz,Because {clauses}.,کیونکہ {clauses}۔
+ui:quiz.title,/quiz,Where do I start?,کہاں سے شروع کروں؟
+ui:quiz.metaDescription,/quiz,"Six quick questions about what you enjoy and what you're good at, and fields of study to explore.",چھ آسان سوال، کہ آپ کو کیا اچھا لگتا ہے اور آپ کس چیز میں اچھی ہیں، اور پھر وہ شعبے جو آپ دیکھ سکتی ہیں۔
+ui:quiz.previousQuestion,/quiz,Previous question,پچھلا سوال
+ui:quiz.backHome,/quiz,Back to home,واپس ہوم پیج پر
+ui:quiz.questionOf,/quiz,Question {step} of {total},سوال {step} از {total}
+ui:quiz.duration,/quiz,About 2 minutes,تقریباً 2 منٹ
+ui:quiz.noWrongAnswers,/quiz,There are no wrong answers,کوئی جواب غلط نہیں
+ui:quiz.hint,/quiz,Pick as many as you like. You can change your answers later.,جتنے چاہیں چنیں۔ آپ بعد میں اپنے جواب بدل سکتی ہیں۔
+ui:quiz.remember,/quiz,You don’t have to know what you want to become yet. This just gives you a place to start.,ابھی یہ جاننا ضروری نہیں کہ آپ آگے چل کر کیا بننا چاہتی ہیں۔ یہ بس شروع کرنے کی ایک جگہ ہے۔
+ui:quiz.back,/quiz,Back,واپس
+ui:quiz.seeResults,/quiz,See my results,میرے نتائج دیکھیں
+ui:quiz.nextQuestion,/quiz,Next question,اگلا سوال
+ui:quiz.results.metaTitle,/quiz,Your quiz results,آپ کے کوئز کے نتائج
+ui:quiz.results.metaDescription,/quiz,"Fields of study you might enjoy, based on your answers to the Where do I start? quiz.","وہ شعبے جو شاید آپ کو اچھے لگیں، ""کہاں سے شروع کروں؟"" کوئز میں آپ کے جوابوں کی بنیاد پر۔"
+ui:quiz.results.title,/quiz,Your results,آپ کے نتائج
+ui:quiz.results.backLabel,/quiz,Back to the last question,آخری سوال پر واپس جائیں
+ui:quiz.results.allAnswered,/quiz,All {total} questions answered,تمام {total} سوالوں کے جواب دے دیے
+ui:quiz.results.someAnswered,/quiz,{answered} of {total} questions answered,{total} میں سے {answered} سوالوں کے جواب دیے
+ui:quiz.results.script,/quiz,Here’s what we found,ہمیں یہ ملا
+ui:quiz.results.heading,/quiz,You might enjoy…,شاید آپ کو یہ اچھا لگے…
+ui:quiz.results.basedOn,/quiz,Based on {summary}.,{summary} کی بنیاد پر۔
+ui:quiz.results.basedOnAnswers,/quiz,Based on your answers.,آپ کے جوابوں کی بنیاد پر۔
+ui:quiz.results.notConnected,/quiz,The database isn't connected yet. Add the Supabase environment variables to see your results.,ڈیٹا بیس ابھی منسلک نہیں ہے۔ اپنے نتائج دیکھنے کے لیے Supabase کے environment variables شامل کریں۔
+ui:quiz.results.needMore,/quiz,We need a few more answers to suggest fields.,شعبے بتانے کے لیے ہمیں چند اور جواب چاہییں۔
+ui:quiz.results.needMoreHint,/quiz,"Pick what you enjoy and what you’re good at, or <explore>browse every field</explore>.",بتائیں کہ آپ کو کیا اچھا لگتا ہے اور آپ کس چیز میں اچھی ہیں، یا <explore>سارے شعبے دیکھیں</explore>۔
+ui:quiz.results.remember,/quiz,"These are starting points, not final answers. Your interests may change, and that’s part of the journey.",یہ شروعات ہیں، آخری فیصلے نہیں۔ آپ کی دلچسپیاں بدل سکتی ہیں، اور یہ بھی سفر کا حصہ ہے۔
+ui:quiz.results.exploreAll,/quiz,Explore all {count} fields,تمام {count} شعبے دیکھیں
+ui:quiz.results.explore,/quiz,Explore fields,شعبے دیکھیں
+ui:quiz.results.shareTitle,/quiz,My Humraah quiz results,ہمراہ کوئز میں میرے نتائج
+ui:quiz.results.retake,/quiz,Retake the quiz,کوئز دوبارہ کریں
+ui:universities.filterCity,/universities,City,شہر
+ui:universities.moreCities,/universities,More cities,مزید شہر
+ui:universities.filterType,/universities,Type of university,یونیورسٹی کی قسم
+ui:universities.public,/universities,Public,سرکاری
+ui:universities.private,/universities,Private,نجی
+ui:universities.filterField,/universities,Field of study,شعبہ
+ui:universities.filterGoodToKnow,/universities,Good to know,جاننا اچھا ہے
+ui:universities.womenOnly,/universities,Women-only universities,صرف خواتین کی یونیورسٹیاں
+ui:universities.hostel,/universities,Hostel available for women,خواتین کے لیے ہاسٹل
+ui:universities.aid,/universities,Need-based financial aid,ضرورت کی بنیاد پر مالی مدد
+ui:universities.metaTitle,/universities,Universities,یونیورسٹیاں
+ui:universities.metaDescription,/universities,"Find universities in Pakistan, then see their programmes, fees and how to apply.",پاکستان کی یونیورسٹیاں تلاش کریں، پھر ان کے پروگرام، فیس اور اپلائی کرنے کا طریقہ دیکھیں۔
+ui:universities.title,/universities,Find a university,یونیورسٹی تلاش کریں
+ui:universities.intro,/universities,"Every university listed is recognised by HEC. Open one to see programmes, fees and how to apply.",یہاں دی گئی ہر یونیورسٹی HEC سے تسلیم شدہ ہے۔ کسی بھی یونیورسٹی کو کھول کر اس کے پروگرام، فیس اور اپلائی کرنے کا طریقہ دیکھیں۔
+ui:universities.search,/universities,"Search by name, city or subject",نام، شہر یا مضمون سے تلاش کریں
+ui:universities.searchButton,/universities,Search,تلاش کریں
+ui:universities.count,/universities,"{count, plural, one {# university} other {# universities}}","{count, plural, one {# یونیورسٹی} other {# یونیورسٹیاں}}"
+ui:universities.show,/universities,"Show {count, plural, one {# university} other {# universities}}","{count, plural, one {# یونیورسٹی دیکھیں} other {# یونیورسٹیاں دیکھیں}}"
+ui:universities.filters,/universities,Filters,فلٹرز
+ui:universities.clearAll,/universities,Clear all,سب ہٹائیں
+ui:universities.notConnected,/universities,The database isn't connected yet. Add the Supabase environment variables to see universities.,ڈیٹا بیس ابھی منسلک نہیں ہے۔ یونیورسٹیاں دیکھنے کے لیے Supabase کے environment variables شامل کریں۔
+ui:universities.noUniversities,/universities,No universities are published yet. Check back soon.,ابھی کوئی یونیورسٹی شائع نہیں ہوئی۔ جلد دوبارہ دیکھیں۔
+ui:universities.noMatch,/universities,No universities match these filters.,ان فلٹرز سے کوئی یونیورسٹی نہیں ملی۔
+ui:universities.noMatchHint,/universities,Try removing a filter or searching a different word.,کوئی فلٹر ہٹا کر یا کوئی اور لفظ تلاش کر کے دیکھیں۔
+ui:universities.showAll,/universities,Show all universities,تمام یونیورسٹیاں دیکھیں
+ui:universities.showMore,/universities,Show more universities,مزید یونیورسٹیاں دیکھیں
+ui:universities.campusTitle,/universities,Check the exact campus,صحیح کیمپس دیکھیں
+ui:universities.campusText,/universities,Always check that the campus you’re applying to is on HEC’s recognised list before you apply.,اپلائی کرنے سے پہلے ہمیشہ دیکھ لیں کہ جس کیمپس میں آپ اپلائی کر رہی ہیں وہ HEC کی تسلیم شدہ فہرست میں شامل ہے۔
+ui:universities.chipWomen,/universities,Women only,صرف خواتین کے لیے
+ui:universities.chipHostel,/universities,Hostel for women,خواتین کے لیے ہاسٹل
+ui:universities.chipAid,/universities,Need-based aid,ضرورت کی بنیاد پر مدد
+ui:universities.chipQuery,/universities,“{query}”,”{query}“
+ui:universities.sortAz,/universities,A to Z,A سے Z
+ui:universities.sortZa,/universities,Z to A,Z سے A
+ui:universities.sort,/universities,Sort: {order},ترتیب: {order}
+ui:scholarships.filterType,/scholarships,Type of support,مدد کی قسم
+ui:scholarships.types.government,/scholarships,Government,سرکاری
+ui:scholarships.types.university,/scholarships,University aid,یونیورسٹی کی مدد
+ui:scholarships.types.external,/scholarships,External,بیرونی
+ui:scholarships.types.merit,/scholarships,Merit,میرٹ
+ui:scholarships.filterField,/scholarships,Field of study,شعبہ
+ui:scholarships.anyFieldNote,/scholarships,Includes scholarships open to any field.,اس میں وہ اسکالرشپس بھی شامل ہیں جو ہر شعبے کے لیے ہیں۔
+ui:scholarships.filterGoodToKnow,/scholarships,Good to know,جاننا اچھا ہے
+ui:scholarships.forWomen,/scholarships,For women,خواتین کے لیے
+ui:scholarships.metaTitle,/scholarships,Scholarships,اسکالرشپس
+ui:scholarships.metaDescription,/scholarships,"Find scholarships and financial aid for university in Pakistan and abroad: who they're for, what they cover and when they close.",پاکستان اور بیرونِ ملک یونیورسٹی کی پڑھائی کے لیے اسکالرشپس اور مالی مدد تلاش کریں: یہ کس کے لیے ہیں، کیا کچھ شامل ہے اور کب بند ہوتی ہیں۔
+ui:scholarships.title,/scholarships,Find a scholarship,اسکالرشپ تلاش کریں
+ui:scholarships.intro,/scholarships,"Don’t assume university is out of reach because of fees. Universities and organisations offer support for tuition, living costs, books and more.",یہ نہ سمجھیں کہ فیس کی وجہ سے یونیورسٹی آپ کی پہنچ سے باہر ہے۔ یونیورسٹیاں اور ادارے ٹیوشن، رہنے کے خرچ، کتابوں اور بہت کچھ کے لیے مدد دیتے ہیں۔
+ui:scholarships.search,/scholarships,Search scholarships,اسکالرشپس تلاش کریں
+ui:scholarships.scopeLabel,/scholarships,Where you'll study,آپ کہاں پڑھیں گی
+ui:scholarships.scope.all,/scholarships,All,سب
+ui:scholarships.scope.pakistan,/scholarships,Pakistan,پاکستان
+ui:scholarships.scope.international,/scholarships,International,بیرونِ ملک
+ui:scholarships.count,/scholarships,"{count, plural, one {# scholarship} other {# scholarships}}","{count, plural, one {# اسکالرشپ} other {# اسکالرشپس}}"
+ui:scholarships.show,/scholarships,"Show {count, plural, one {# scholarship} other {# scholarships}}","{count, plural, one {# اسکالرشپ دیکھیں} other {# اسکالرشپس دیکھیں}}"
+ui:scholarships.filters,/scholarships,Filters,فلٹرز
+ui:scholarships.clearAll,/scholarships,Clear all,سب ہٹائیں
+ui:scholarships.notConnected,/scholarships,The database isn't connected yet. Add the Supabase environment variables to see scholarships.,ڈیٹا بیس ابھی منسلک نہیں ہے۔ اسکالرشپس دیکھنے کے لیے Supabase کے environment variables شامل کریں۔
+ui:scholarships.noScholarships,/scholarships,No scholarships are published yet. Check back soon.,ابھی کوئی اسکالرشپ شائع نہیں ہوئی۔ جلد دوبارہ دیکھیں۔
+ui:scholarships.noMatch,/scholarships,No scholarships match these filters.,ان فلٹرز سے کوئی اسکالرشپ نہیں ملی۔
+ui:scholarships.noMatchHint,/scholarships,Try removing a filter or searching a different word.,کوئی فلٹر ہٹا کر یا کوئی اور لفظ تلاش کر کے دیکھیں۔
+ui:scholarships.showAll,/scholarships,Show all scholarships,تمام اسکالرشپس دیکھیں
+ui:scholarships.importantTitle,/scholarships,Important,اہم بات
+ui:scholarships.importantText,/scholarships,"Scholarships, eligibility and deadlines change. Always check the provider’s official website before you apply.",اسکالرشپس، اہلیت اور آخری تاریخیں بدلتی رہتی ہیں۔ اپلائی کرنے سے پہلے ہمیشہ دینے والے ادارے کی آفیشل ویب سائٹ دیکھیں۔
+ui:scholarships.chipQuery,/scholarships,“{query}”,”{query}“
+ui:scholarships.sortDeadline,/scholarships,closing soon,جلد بند ہونے والی
+ui:scholarships.sortAz,/scholarships,A to Z,A سے Z
+ui:scholarships.sort,/scholarships,Sort: {order},ترتیب: {order}
+ui:home.fieldsPhrase,/,"{count, plural, =0 {the fields of study} other {{word} fields of study}}","{count, plural, =0 {مختلف شعبے} other {# شعبے}}"
+ui:home.heroScript,/,"For every girl who dreams, questions and hopes",ہر اس لڑکی کے لیے جو خواب دیکھتی ہے، سوال کرتی ہے اور امید رکھتی ہے
+ui:home.heroTitle,/,Your path to university starts here.,یونیورسٹی تک آپ کا راستہ یہاں سے شروع ہوتا ہے۔
+ui:home.heroText,/,"Find out what you could study, which universities offer it, what it costs and where to start, one step at a time.",جانیں کہ آپ کیا پڑھ سکتی ہیں، کون سی یونیورسٹیاں یہ پڑھاتی ہیں، خرچ کتنا ہے اور شروع کہاں سے کریں، ایک ایک قدم کر کے۔
+ui:home.heroStart,/,Where do I start?,کہاں سے شروع کروں؟
+ui:home.heroUniversities,/,Explore universities,یونیورسٹیاں دیکھیں
+ui:home.pathTitle,/,From “I don’t know” to “I’ve applied”,”مجھے نہیں پتا“ سے ”میں نے اپلائی کر دیا“ تک
+ui:home.step,/,Step {number},قدم {number}
+ui:home.steps.discover.title,/,Discover what you enjoy,جانیں آپ کو کیا اچھا لگتا ہے
+ui:home.steps.discover.text,/,Take a two-minute quiz or browse {fields}.,دو منٹ کا کوئز کریں یا {fields} دیکھیں۔
+ui:home.steps.discover.link,/,Take the quiz,کوئز کریں
+ui:home.steps.universities.title,/,Find universities,یونیورسٹیاں تلاش کریں
+ui:home.steps.universities.text,/,"See programmes, fees and how to apply, with the official source for every detail.",پروگرام، فیس اور اپلائی کرنے کا طریقہ دیکھیں، اور ہر بات کا آفیشل ذریعہ بھی۔
+ui:home.steps.universities.link,/,Find a university,یونیورسٹی تلاش کریں
+ui:home.steps.scholarships.title,/,Find support to pay,فیس کے لیے مدد تلاش کریں
+ui:home.steps.scholarships.text,/,Merit and need-based scholarships from Pakistan and abroad.,پاکستان اور بیرونِ ملک کی میرٹ اور ضرورت کی بنیاد پر اسکالرشپس۔
+ui:home.steps.scholarships.link,/,Find scholarships,اسکالرشپس تلاش کریں
+ui:home.steps.guide.title,/,Plan your next step,اپنا اگلا قدم طے کریں
+ui:home.steps.guide.text,/,Keep track with our free guide in English and Urdu.,ہماری مفت گائیڈ کے ساتھ اپنی تیاری پر نظر رکھیں، انگریزی اور اردو میں۔
+ui:home.steps.guide.link,/,Get the guide,گائیڈ حاصل کریں
+ui:home.closingSoon,/,Closing soon,جلد بند ہو رہی ہیں
+ui:home.closingSoonFull,/,Scholarships closing soon,جلد بند ہونے والی اسکالرشپس
+ui:home.seeAll,/,See all,سب دیکھیں
+ui:home.seeAllScholarships,/,See all scholarships,تمام اسکالرشپس دیکھیں
+ui:home.notConnected,/,The database isn't connected yet. Add the Supabase environment variables to see scholarships.,ڈیٹا بیس ابھی منسلک نہیں ہے۔ اسکالرشپس دیکھنے کے لیے Supabase کے environment variables شامل کریں۔
+ui:home.noScholarships,/,No scholarships are published yet. Check back soon.,ابھی کوئی اسکالرشپ شائع نہیں ہوئی۔ جلد دوبارہ دیکھیں۔
+ui:home.guideCover,/,Higher Education Guide,اعلیٰ تعلیم گائیڈ
+ui:home.guideTitle,/,Our free Higher Education Guide,ہماری مفت اعلیٰ تعلیم گائیڈ
+ui:home.guideTextShort,/,"Discover yourself, explore your options and find the right university.",خود کو جانیں، اپنے راستے دیکھیں اور صحیح یونیورسٹی تلاش کریں۔
+ui:home.guideTextLong,/,"Discover yourself, explore your options, find the right university and build your path, in English and Urdu.",خود کو جانیں، اپنے راستے دیکھیں، صحیح یونیورسٹی تلاش کریں اور اپنا راستہ بنائیں، انگریزی اور اردو میں۔
+ui:home.guideChapters.why,/,Why higher education matters,اعلیٰ تعلیم کیوں اہم ہے
+ui:home.guideChapters.discover,/,Discover yourself,خود کو جانیں
+ui:home.guideChapters.options,/,Exploring your options,اپنے راستے دیکھیں
+ui:home.guideChapters.university,/,Finding the right university,صحیح یونیورسٹی کی تلاش
+ui:home.guideChapters.path,/,Build your path,اپنا راستہ بنائیں
+ui:home.guideFree,/,"Free to download, in English and Urdu.",مفت ڈاؤن لوڈ، انگریزی اور اردو میں۔
+ui:home.whyTitle,/,Humraah means “companion”.,ہمراہ کا مطلب ہے ”ساتھی“۔
+ui:home.whyTextShort,/,"Many girls in Pakistan stop after FSc, not because they don’t want to continue, but because no one showed them how. We’re here to walk alongside you.",پاکستان میں بہت سی لڑکیاں FSc کے بعد پڑھائی چھوڑ دیتی ہیں، اس لیے نہیں کہ وہ آگے پڑھنا نہیں چاہتیں، بلکہ اس لیے کہ کسی نے انہیں راستہ نہیں دکھایا۔ ہم آپ کے ساتھ ساتھ چلنے کے لیے ہیں۔
+ui:home.whyTextLong,/,"Many girls in Pakistan stop after FSc, not because they don’t want to continue, but because no one showed them how. We’re here to walk alongside you, with the information, resources and support to pursue higher education and build your own path forward.",پاکستان میں بہت سی لڑکیاں FSc کے بعد پڑھائی چھوڑ دیتی ہیں، اس لیے نہیں کہ وہ آگے پڑھنا نہیں چاہتیں، بلکہ اس لیے کہ کسی نے انہیں راستہ نہیں دکھایا۔ ہم آپ کے ساتھ ساتھ چلنے کے لیے ہیں، معلومات، وسائل اور ساتھ کے ساتھ، تاکہ آپ اعلیٰ تعلیم حاصل کریں اور اپنا راستہ خود بنائیں۔
+ui:home.aboutLink,/,About Humraah,ہمراہ کے بارے میں
+ui:home.englishPdf,/,English PDF,انگریزی PDF
+ui:home.urduPdf,/,Urdu PDF,اردو PDF
+ui:explore.metaTitle,/explore,Explore fields of study,شعبے دیکھیں
+ui:explore.metaDescription,/explore,Browse popular fields of study in Pakistan and what you might enjoy in each.,پاکستان کے مقبول تعلیمی شعبے دیکھیں اور جانیں کہ ہر ایک میں آپ کو کیا اچھا لگ سکتا ہے۔
+ui:explore.title,/explore,What could you study?,آپ کیا پڑھ سکتی ہیں؟
+ui:explore.intro,/explore,There are so many fields to explore. Here are {word} popular areas and what you might enjoy in each.,دیکھنے کو بہت سے شعبے ہیں۔ یہاں {count} مقبول شعبے ہیں، اور یہ بھی کہ ہر ایک میں آپ کو کیا اچھا لگ سکتا ہے۔
+ui:explore.introEmpty,/explore,There are so many fields to explore. Check back soon for popular areas and what you might enjoy in each.,دیکھنے کو بہت سے شعبے ہیں۔ مقبول شعبوں کے لیے جلد دوبارہ دیکھیں۔
+ui:explore.search,/explore,Search fields or programmes,شعبے یا پروگرام تلاش کریں
+ui:explore.quizTitle,/explore,Not sure where to begin?,سمجھ نہیں آ رہا کہاں سے شروع کریں؟
+ui:explore.quizTextShort,/explore,Take a two-minute quiz and we’ll suggest a few fields.,دو منٹ کا کوئز کریں، ہم آپ کو چند شعبے بتائیں گے۔
+ui:explore.quizTextLong,/explore,Take a two-minute quiz and we’ll suggest a few fields to explore.,دو منٹ کا کوئز کریں، ہم آپ کو دیکھنے کے لیے چند شعبے بتائیں گے۔
+ui:explore.quizLink,/explore,Take the quiz,کوئز کریں
+ui:explore.notConnected,/explore,The database isn't connected yet. Add the Supabase environment variables to see fields of study.,ڈیٹا بیس ابھی منسلک نہیں ہے۔ شعبے دیکھنے کے لیے Supabase کے environment variables شامل کریں۔
+ui:explore.noFields,/explore,No fields of study are published yet. Check back soon.,ابھی کوئی شعبہ شائع نہیں ہوا۔ جلد دوبارہ دیکھیں۔
+ui:explore.noMatch,/explore,No fields match “{query}”.,”{query}“ سے کوئی شعبہ نہیں ملا۔
+ui:explore.noMatchHint,/explore,"Try a shorter word, like a subject you enjoy.",کوئی چھوٹا لفظ آزمائیں، جیسے کوئی مضمون جو آپ کو اچھا لگتا ہو۔
+ui:explore.showAllFields,/explore,Show all fields,تمام شعبے دیکھیں
+ui:explore.matches,/explore,"{count, plural, one {# field matches} other {# fields match}} “{query}”.","”{query}“ سے {count, plural, one {# شعبہ ملا} other {# شعبے ملے}}۔"
+ui:explore.showAll,/explore,Show all,سب دیکھیں
+ui:explore.remember,/explore,"These are just starting points. There are many more programmes and combinations, and universities may name them differently.",یہ صرف شروعات ہیں۔ اور بھی بہت سے پروگرام اور امتزاج ہیں، اور یونیورسٹیاں ان کے نام الگ بھی رکھ سکتی ہیں۔
+ui:field.metaTitle,/explore/[field],Field of study,شعبہ
+ui:field.notConnected,/explore/[field],The database isn't connected yet. Add the Supabase environment variables to see this field.,ڈیٹا بیس ابھی منسلک نہیں ہے۔ یہ شعبہ دیکھنے کے لیے Supabase کے environment variables شامل کریں۔
+ui:field.breadcrumb,/explore/[field],Explore fields,شعبے دیکھیں
+ui:field.noSummary,/explore/[field],A description of this field is to be confirmed.,اس شعبے کی تفصیل ابھی طے نہیں۔
+ui:field.enjoyTitle,/explore/[field],You might enjoy this if you like,اگر آپ کو یہ پسند ہے تو شاید یہ شعبہ اچھا لگے
+ui:field.programmesTitle,/explore/[field],Programmes you could explore,پروگرام جو آپ دیکھ سکتی ہیں
+ui:field.toBeConfirmed,/explore/[field],To be confirmed.,ابھی طے نہیں۔
+ui:field.remember,/explore/[field],Universities may name programmes differently. Check the programme page on the official website.,یونیورسٹیاں پروگراموں کے نام الگ رکھ سکتی ہیں۔ آفیشل ویب سائٹ پر پروگرام کا صفحہ ضرور دیکھیں۔
+ui:field.nextSteps.compare,/explore/[field],Pick two universities to compare,موازنے کے لیے دو یونیورسٹیاں چنیں
+ui:field.nextSteps.requirements,/explore/[field],Check admission requirements,داخلے کی شرائط دیکھیں
+ui:field.nextSteps.scholarship,/explore/[field],Look for a scholarship,کوئی اسکالرشپ تلاش کریں
+ui:field.nextSteps.action,/explore/[field],Find universities,یونیورسٹیاں تلاش کریں
+ui:field.universitiesTitle,/explore/[field],Universities offering this,یہ پڑھانے والی یونیورسٹیاں
+ui:field.seeAll,/explore/[field],See all,سب دیکھیں
+ui:field.seeAllUniversities,/explore/[field],See all universities,تمام یونیورسٹیاں دیکھیں
+ui:field.universitiesNotConnected,/explore/[field],"The database isn't connected yet, so universities can't be shown.",ڈیٹا بیس ابھی منسلک نہیں ہے، اس لیے یونیورسٹیاں نہیں دکھائی جا سکتیں۔
+ui:field.noUniversities,/explore/[field],We haven't listed universities for this field yet. Universities to be confirmed.,ہم نے ابھی اس شعبے کے لیے یونیورسٹیاں نہیں لکھیں۔ یونیورسٹیاں ابھی طے نہیں۔
+ui:field.browseUniversities,/explore/[field],Browse all universities,تمام یونیورسٹیاں دیکھیں
+ui:field.scholarshipsTitle,/explore/[field],Scholarships to look at,یہ اسکالرشپس دیکھیں
+ui:field.seeAllScholarships,/explore/[field],See all scholarships,تمام اسکالرشپس دیکھیں
+ui:field.scholarshipsNotConnected,/explore/[field],"The database isn't connected yet, so scholarships can't be shown.",ڈیٹا بیس ابھی منسلک نہیں ہے، اس لیے اسکالرشپس نہیں دکھائی جا سکتیں۔
+ui:field.noScholarships,/explore/[field],No scholarships are listed for this field yet. Scholarships to be confirmed.,اس شعبے کے لیے ابھی کوئی اسکالرشپ نہیں لکھی گئی۔ اسکالرشپس ابھی طے نہیں۔
+ui:field.browseScholarships,/explore/[field],Browse all scholarships,تمام اسکالرشپس دیکھیں
+ui:university.metaTitle,/universities/[university],University,یونیورسٹی
+ui:university.notConnected,/universities/[university],The database isn't connected yet. Add the Supabase environment variables to see this university.,ڈیٹا بیس ابھی منسلک نہیں ہے۔ یہ یونیورسٹی دیکھنے کے لیے Supabase کے environment variables شامل کریں۔
+ui:university.feeRange,/universities/[university],{min} to {max},{min} سے {max}
+ui:university.toBeConfirmed,/universities/[university],To be confirmed,ابھی طے نہیں
+ui:university.datesToBeConfirmed,/universities/[university],Dates to be confirmed,تاریخیں ابھی طے نہیں
+ui:university.otherProgrammes,/universities/[university],Other programmes,دوسرے پروگرام
+ui:university.breadcrumb,/universities/[university],Universities,یونیورسٹیاں
+ui:university.public,/universities/[university],Public,سرکاری
+ui:university.private,/universities/[university],Private,نجی
+ui:university.womenOnly,/universities/[university],Women only,صرف خواتین کے لیے
+ui:university.noOverview,/universities/[university],An overview of this university is to be confirmed.,اس یونیورسٹی کا تعارف ابھی طے نہیں۔
+ui:university.visitWebsite,/universities/[university],Visit official website,آفیشل ویب سائٹ دیکھیں
+ui:university.noWebsite,/universities/[university],Official website to be confirmed.,آفیشل ویب سائٹ ابھی طے نہیں۔
+ui:university.shareTitle,/universities/[university],{name} on Humraah,ہمراہ پر {name}
+ui:university.factFees,/universities/[university],Fees,فیس
+ui:university.factTest,/universities/[university],Admission test,داخلہ ٹیسٹ
+ui:university.factApplications,/universities/[university],Applications,داخلے
+ui:university.lastVerified,/universities/[university],Last verified {date},آخری تصدیق {date}
+ui:university.applyTitle,/universities/[university],Everything you need to apply,اپلائی کرنے کے لیے ضروری ہر بات
+ui:university.programmes,/universities/[university],Programmes,پروگرام
+ui:university.noProgrammes,/universities/[university],Programmes to be confirmed. Check the official website for the full list.,پروگرام ابھی طے نہیں۔ پوری فہرست کے لیے آفیشل ویب سائٹ دیکھیں۔
+ui:university.programmesNote,/universities/[university],Programme names and seats change each year. Confirm them on the official website.,پروگراموں کے نام اور سیٹیں ہر سال بدلتی ہیں۔ آفیشل ویب سائٹ پر ضرور دیکھ لیں۔
+ui:university.howToApply,/universities/[university],How to apply,اپلائی کیسے کریں
+ui:university.confirmSteps,/universities/[university],Confirm each step on the official admissions page.,ہر قدم آفیشل داخلے کے صفحے پر ضرور دیکھ لیں۔
+ui:university.typicalStepsIntro,/universities/[university],Typical steps. Confirm each one on the official admissions page.,عام طور پر یہ قدم ہوتے ہیں۔ ہر ایک آفیشل داخلے کے صفحے پر ضرور دیکھ لیں۔
+ui:university.typicalSteps.eligible.title,/universities/[university],Check you’re eligible,دیکھیں کہ آپ اہل ہیں
+ui:university.typicalSteps.eligible.text,/universities/[university],Read the subject and grade requirements for your programme.,اپنے پروگرام کے لیے مضامین اور نمبروں کی شرائط پڑھیں۔
+ui:university.typicalSteps.register.title,/universities/[university],Register on the admissions portal,داخلہ پورٹل پر رجسٹر کریں
+ui:university.typicalSteps.register.text,/universities/[university],Create an account on the university’s official portal only.,اکاؤنٹ صرف یونیورسٹی کے آفیشل پورٹل پر بنائیں۔
+ui:university.typicalSteps.form.title,/universities/[university],Fill in the form and upload documents,فارم بھریں اور کاغذات اپ لوڈ کریں
+ui:university.typicalSteps.form.text,/universities/[university],"Keep scans of your CNIC or B-Form, results and photos ready.",اپنے CNIC یا B-Form، رزلٹ اور تصویروں کی اسکین تیار رکھیں۔
+ui:university.typicalSteps.fee.title,/universities/[university],Pay the application fee,درخواست کی فیس جمع کروائیں
+ui:university.typicalSteps.fee.text,/universities/[university],Use only the payment methods listed on the official website.,صرف وہی طریقے استعمال کریں جو آفیشل ویب سائٹ پر لکھے ہوں۔
+ui:university.typicalSteps.test.title,/universities/[university],"Take the admission test, if there is one",اگر داخلہ ٹیسٹ ہو تو دیں
+ui:university.typicalSteps.test.text,/universities/[university],Check the test date and what it covers early.,ٹیسٹ کی تاریخ اور اس میں کیا آئے گا، یہ پہلے سے دیکھ لیں۔
+ui:university.requirements,/universities/[university],Admission requirements,داخلے کی شرائط
+ui:university.noRequirements,/universities/[university],Admission requirements to be confirmed.,داخلے کی شرائط ابھی طے نہیں۔
+ui:university.fees,/universities/[university],Fees,فیس
+ui:university.noFees,/universities/[university],Fees to be confirmed.,فیس ابھی طے نہیں۔
+ui:university.aid,/universities/[university],Scholarships and financial aid,اسکالرشپس اور مالی مدد
+ui:university.aidYes,/universities/[university],This university offers need-based financial aid.,یہ یونیورسٹی ضرورت کی بنیاد پر مالی مدد دیتی ہے۔
+ui:university.aidNo,/universities/[university],No need-based financial aid is listed for this university.,اس یونیورسٹی کے لیے ضرورت کی بنیاد پر کوئی مالی مدد درج نہیں۔
+ui:university.aidUnknown,/universities/[university],Financial aid details to be confirmed.,مالی مدد کی تفصیل ابھی طے نہیں۔
+ui:university.browseScholarships,/universities/[university],Browse scholarships,اسکالرشپس دیکھیں
+ui:university.dates,/universities/[university],Important dates,اہم تاریخیں
+ui:university.noDates,/universities/[university],Application dates to be confirmed.,داخلے کی تاریخیں ابھی طے نہیں۔
+ui:university.testsDocuments,/universities/[university],Tests and documents,ٹیسٹ اور کاغذات
+ui:university.tests,/universities/[university],Admission tests,داخلہ ٹیسٹ
+ui:university.noTests,/universities/[university],Admission tests to be confirmed.,داخلہ ٹیسٹ ابھی طے نہیں۔
+ui:university.documents,/universities/[university],Documents to prepare,تیار رکھنے والے کاغذات
+ui:university.noDocuments,/universities/[university],Required documents to be confirmed.,ضروری کاغذات ابھی طے نہیں۔
+ui:university.international,/universities/[university],International and exchange,بین الاقوامی اور ایکسچینج
+ui:university.noInternational,/universities/[university],International and exchange details to be confirmed. Ask the university's admissions office.,بین الاقوامی اور ایکسچینج کی تفصیل ابھی طے نہیں۔ یونیورسٹی کے داخلہ دفتر سے پوچھیں۔
+ui:university.links,/universities/[university],Official links,آفیشل لنکس
+ui:university.linkWebsite,/universities/[university],Official website,آفیشل ویب سائٹ
+ui:university.linkAdmissions,/universities/[university],Admissions page,داخلے کا صفحہ
+ui:university.linkSource,/universities/[university],Source we checked,وہ ذریعہ جو ہم نے دیکھا
+ui:university.noLinks,/universities/[university],Official links to be confirmed.,آفیشل لنکس ابھی طے نہیں۔
+ui:university.nextSteps.dates,/universities/[university],Note the application dates,داخلے کی تاریخیں نوٹ کریں
+ui:university.nextSteps.requirements,/universities/[university],Check the admission requirements,داخلے کی شرائط دیکھیں
+ui:university.nextSteps.scholarship,/universities/[university],Look for a scholarship,کوئی اسکالرشپ تلاش کریں
+ui:university.nextSteps.action,/universities/[university],Find scholarships,اسکالرشپس تلاش کریں
+ui:university.beforeTitle,/universities/[university],Before you apply,اپلائی کرنے سے پہلے
+ui:university.beforeText,/universities/[university],"Fees, eligibility and deadlines change. Always check the official website before you apply.",فیس، اہلیت اور آخری تاریخیں بدلتی رہتی ہیں۔ اپلائی کرنے سے پہلے ہمیشہ آفیشل ویب سائٹ دیکھیں۔
+ui:university.outdated,/universities/[university],Spotted something outdated?,کوئی بات پرانی لگی؟
+ui:university.tellUs,/universities/[university],Tell us,ہمیں بتائیں
+ui:scholarship.metaTitle,/scholarships/[scholarship],Scholarship,اسکالرشپ
+ui:scholarship.notConnected,/scholarships/[scholarship],The database isn't connected yet. Add the Supabase environment variables to see this scholarship.,ڈیٹا بیس ابھی منسلک نہیں ہے۔ یہ اسکالرشپ دیکھنے کے لیے Supabase کے environment variables شامل کریں۔
+ui:scholarship.breadcrumb,/scholarships/[scholarship],Scholarships,اسکالرشپس
+ui:scholarship.needBased,/scholarships/[scholarship],Need-based,ضرورت کی بنیاد پر
+ui:scholarship.forWomen,/scholarships/[scholarship],For women,خواتین کے لیے
+ui:scholarship.studyAbroad,/scholarships/[scholarship],Study abroad,بیرونِ ملک تعلیم
+ui:scholarship.noSummary,/scholarships/[scholarship],A summary of this scholarship is to be confirmed.,اس اسکالرشپ کا خلاصہ ابھی طے نہیں۔
+ui:scholarship.offeredBy,/scholarships/[scholarship],Offered by {provider},دینے والا ادارہ: {provider}
+ui:scholarship.lastVerified,/scholarships/[scholarship],Last verified {date},آخری تصدیق {date}
+ui:scholarship.checkWebsite,/scholarships/[scholarship],Please check the official website,براہِ کرم آفیشل ویب سائٹ دیکھیں
+ui:scholarship.apply,/scholarships/[scholarship],Apply on the official website,آفیشل ویب سائٹ پر اپلائی کریں
+ui:scholarship.noWebsite,/scholarships/[scholarship],Official website to be confirmed.,آفیشل ویب سائٹ ابھی طے نہیں۔
+ui:scholarship.shareTitle,/scholarships/[scholarship],{name} on Humraah,ہمراہ پر {name}
+ui:scholarship.nextSteps.eligibility,/scholarships/[scholarship],Check you meet the eligibility,دیکھیں کہ آپ اہل ہیں
+ui:scholarship.nextSteps.documents,/scholarships/[scholarship],Get your documents ready,اپنے کاغذات تیار کریں
+ui:scholarship.nextSteps.deadline,/scholarships/[scholarship],Note the deadline,آخری تاریخ نوٹ کریں
+ui:scholarship.nextSteps.action,/scholarships/[scholarship],See more scholarships,مزید اسکالرشپس دیکھیں
+ui:scholarship.related,/scholarships/[scholarship],You might also look at,یہ بھی دیکھیں
+ui:scholarship.seeAll,/scholarships/[scholarship],See all,سب دیکھیں
+ui:scholarship.covers,/scholarships/[scholarship],What it can cover,اس میں کیا شامل ہو سکتا ہے
+ui:scholarship.noCovers,/scholarships/[scholarship],What it covers is to be confirmed.,اس میں کیا شامل ہے، یہ ابھی طے نہیں۔
+ui:scholarship.eligible,/scholarships/[scholarship],You may be eligible if…,آپ اہل ہو سکتی ہیں اگر…
+ui:scholarship.noEligible,/scholarships/[scholarship],Who can apply is to be confirmed.,کون اپلائی کر سکتا ہے، یہ ابھی طے نہیں۔
+ui:scholarship.areas,/scholarships/[scholarship],Current eligible areas,اس وقت اہل علاقے
+ui:scholarship.noAreas,/scholarships/[scholarship],Eligible areas to be confirmed.,اہل علاقے ابھی طے نہیں۔
+ui:scholarship.howToApply,/scholarships/[scholarship],How to apply,اپلائی کیسے کریں
+ui:scholarship.confirmSteps,/scholarships/[scholarship],Confirm each step on the official website.,ہر قدم آفیشل ویب سائٹ پر ضرور دیکھ لیں۔
+ui:scholarship.typicalStepsIntro,/scholarships/[scholarship],Typical steps. Confirm each one on the official website.,عام طور پر یہ قدم ہوتے ہیں۔ ہر ایک آفیشل ویب سائٹ پر ضرور دیکھ لیں۔
+ui:scholarship.typicalSteps.rules.title,/scholarships/[scholarship],Read the rules,قواعد پڑھیں
+ui:scholarship.typicalSteps.rules.text,/scholarships/[scholarship],Check eligibility and what you need on the official website.,آفیشل ویب سائٹ پر اہلیت اور ضروری چیزیں دیکھیں۔
+ui:scholarship.typicalSteps.documents.title,/scholarships/[scholarship],Prepare your documents,اپنے کاغذات تیار کریں
+ui:scholarship.typicalSteps.documents.text,/scholarships/[scholarship],Keep your results and ID documents ready.,اپنے رزلٹ اور شناختی کاغذات تیار رکھیں۔
+ui:scholarship.typicalSteps.deadline.title,/scholarships/[scholarship],Apply before the deadline,آخری تاریخ سے پہلے اپلائی کریں
+ui:scholarship.typicalSteps.deadline.text,/scholarships/[scholarship],Submit only through the official website.,درخواست صرف آفیشل ویب سائٹ کے ذریعے جمع کروائیں۔
+ui:scholarship.typicalSteps.track.title,/scholarships/[scholarship],Keep track,نظر رکھیں
+ui:scholarship.typicalSteps.track.text,/scholarships/[scholarship],Note your application number and check for updates.,اپنی درخواست کا نمبر لکھ لیں اور اپ ڈیٹس دیکھتی رہیں۔
+ui:scholarship.importantTitle,/scholarships/[scholarship],Important,اہم بات
+ui:scholarship.importantText,/scholarships/[scholarship],"Fees, eligibility and deadlines change. Always check the official website before you apply.",فیس، اہلیت اور آخری تاریخیں بدلتی رہتی ہیں۔ اپلائی کرنے سے پہلے ہمیشہ آفیشل ویب سائٹ دیکھیں۔
+ui:scholarship.outdated,/scholarships/[scholarship],Spotted something outdated?,کوئی بات پرانی لگی؟
+ui:scholarship.tellUs,/scholarships/[scholarship],Tell us,ہمیں بتائیں
+ui:scholarship.deadline.toBeConfirmed,/scholarships/[scholarship],Deadline to be confirmed,آخری تاریخ ابھی طے نہیں
+ui:scholarship.deadline.closed,/scholarships/[scholarship],Applications closed,داخلے بند ہو گئے
+ui:scholarship.deadline.closingSoon,/scholarships/[scholarship],Closing soon,جلد بند ہو رہی ہے
+ui:scholarship.deadline.open,/scholarships/[scholarship],Open,کھلی ہے
+ui:scholarship.deadline.closedOn,/scholarships/[scholarship],Closed on {date},{date} کو بند ہو گئی
+ui:scholarship.deadline.on,/scholarships/[scholarship],Deadline: {date},آخری تاریخ: {date}
+ui:scholarship.deadline.checkDates,/scholarships/[scholarship],Check the official website for this year’s dates.,اس سال کی تاریخوں کے لیے آفیشل ویب سائٹ دیکھیں۔
+ui:guide.title,/guide,Higher Education Guide,اعلیٰ تعلیم گائیڈ
+ui:guide.metaDescription,/guide,"A free guide in English and Urdu to help you take your first step: discover yourself, explore your options and find the right university.",انگریزی اور اردو میں ایک مفت گائیڈ، جو آپ کا پہلا قدم اٹھانے میں مدد دیتی ہے: خود کو جانیں، اپنے راستے دیکھیں اور صحیح یونیورسٹی تلاش کریں۔
+ui:guide.intro,/guide,"A free guide to help you take your first step: discover yourself, explore your options and find the right university.",ایک مفت گائیڈ، جو آپ کا پہلا قدم اٹھانے میں مدد دیتی ہے: خود کو جانیں، اپنے راستے دیکھیں اور صحیح یونیورسٹی تلاش کریں۔
+ui:guide.inside,/guide,What’s inside,اس میں کیا ہے
+ui:guide.chapters.note.title,/guide,A note from Humraah,ہمراہ کی طرف سے چند باتیں
+ui:guide.chapters.note.summary,/guide,"Why we made this guide, and who it’s for.",ہم نے یہ گائیڈ کیوں بنائی، اور یہ کس کے لیے ہے۔
+ui:guide.chapters.why.title,/guide,Why higher education matters,اعلیٰ تعلیم کیوں اہم ہے
+ui:guide.chapters.why.summary,/guide,What higher education is and how it can help you.,اعلیٰ تعلیم کیا ہے اور یہ آپ کی کیسے مدد کر سکتی ہے۔
+ui:guide.chapters.discover.title,/guide,Discover yourself,خود کو جانیں
+ui:guide.chapters.discover.summary,/guide,"What you enjoy, what you’re good at, and your top three.",آپ کو کیا اچھا لگتا ہے، آپ کس چیز میں اچھی ہیں، اور آپ کی تین پسندیدہ چیزیں۔
+ui:guide.chapters.options.title,/guide,Exploring your options,اپنے راستے دیکھیں
+ui:guide.chapters.options.summary,/guide,Ten popular fields and what you might enjoy in each.,دس مقبول شعبے اور ہر ایک میں آپ کو کیا اچھا لگ سکتا ہے۔
+ui:guide.chapters.university.title,/guide,Finding the right university,صحیح یونیورسٹی کی تلاش
+ui:guide.chapters.university.summary,/guide,How to research universities and pay for your studies.,یونیورسٹیوں کے بارے میں کیسے معلوم کریں اور پڑھائی کا خرچ کیسے اٹھائیں۔
+ui:guide.chapters.path.title,/guide,Build your path,اپنا راستہ بنائیں
+ui:guide.chapters.path.summary,/guide,"Your interest, your options and your next step.",آپ کی دلچسپی، آپ کے راستے اور آپ کا اگلا قدم۔
+ui:guide.signOff,/guide,"With love, Humraah",محبت کے ساتھ، ہمراہ
+ui:guide.languages.en,/guide,English,انگریزی
+ui:guide.languages.ur,/guide,Urdu,اردو
+ui:guide.pdf,/guide,PDF,PDF
+ui:guide.pdfSize,/guide,"PDF, {size}",PDF، {size}
+ui:guide.pdfSoon,/guide,PDF coming soon,PDF جلد آ رہی ہے
+ui:guide.download,/guide,Download,ڈاؤن لوڈ
+ui:guide.downloadLabel,/guide,Download the {language} guide (PDF),{language} گائیڈ ڈاؤن لوڈ کریں (PDF)
+ui:guide.downloadLabelSize,/guide,"Download the {language} guide (PDF, {size})",{language} گائیڈ ڈاؤن لوڈ کریں (PDF، {size})
+ui:guide.readOnline,/guide,Read online,آن لائن پڑھیں
+ui:guide.readOnlineNote,/guide,(the {language} guide opens in a new tab),({language} گائیڈ نئے ٹیب میں کھلے گی)
+ui:guide.comingSoon,/guide,Coming soon,جلد آ رہی ہے
+ui:guidance.title,/guidance,Guidance,رہنمائی
+ui:guidance.intro,/guidance,"Simple, step-by-step help for every stage, from choosing a field to paying for university.",ہر مرحلے کے لیے آسان، قدم بہ قدم مدد، شعبہ چننے سے لے کر یونیورسٹی کی فیس تک۔
+ui:guidance.notConnected,/guidance,The database isn't connected yet. Add the Supabase environment variables to see guidance.,ڈیٹا بیس ابھی منسلک نہیں ہے۔ رہنمائی دیکھنے کے لیے Supabase کے environment variables شامل کریں۔
+ui:guidance.noArticles,/guidance,No guidance is published yet. Check back soon.,ابھی کوئی رہنمائی شائع نہیں ہوئی۔ جلد دوبارہ دیکھیں۔
+ui:guidance.articleNotConnected,/guidance,The database isn't connected yet. Add the Supabase environment variables to see this article.,ڈیٹا بیس ابھی منسلک نہیں ہے۔ یہ مضمون دیکھنے کے لیے Supabase کے environment variables شامل کریں۔
+ui:guidance.noBody,/guidance,This article is to be confirmed. Check back soon.,یہ مضمون ابھی طے نہیں۔ جلد دوبارہ دیکھیں۔
+ui:guidance.officialTitle,/guidance,Use official sources,آفیشل ذرائع استعمال کریں
+ui:guidance.officialText,/guidance,"Don’t rely only on TikTok, Instagram, WhatsApp messages or random websites. Use the university’s official website for the final answer.",صرف ٹک ٹاک، انسٹاگرام، واٹس ایپ پیغامات یا کسی بھی ویب سائٹ پر بھروسہ نہ کریں۔ آخری جواب کے لیے یونیورسٹی کی آفیشل ویب سائٹ دیکھیں۔
+ui:guidance.sourceTitle,/guidance,Source we checked,وہ ذریعہ جو ہم نے دیکھا
+ui:guidance.sourceText,/guidance,The official page this guidance was checked against.,وہ آفیشل صفحہ جس سے یہ رہنمائی ملا کر دیکھی گئی۔
+ui:guidance.nextSteps.subject,/guidance,Pick one subject you’re curious about,کوئی ایک مضمون چنیں جس کے بارے میں آپ جاننا چاہتی ہیں
+ui:guidance.nextSteps.universities,/guidance,Find two universities that offer it,دو یونیورسٹیاں تلاش کریں جو یہ پڑھاتی ہوں
+ui:guidance.nextSteps.admissions,/guidance,Check their official admission pages,ان کے آفیشل داخلے کے صفحات دیکھیں
+ui:guidance.nextSteps.action,/guidance,Find a university,یونیورسٹی تلاش کریں
+ui:resources.metaTitle,/resources,Resources,وسائل
+ui:resources.metaDescription,/resources,"Official websites and tools we trust for university, scholarships and admission tests in Pakistan.",پاکستان میں یونیورسٹی، اسکالرشپس اور داخلہ ٹیسٹوں کے لیے آفیشل ویب سائٹس اور ٹولز جن پر ہمیں بھروسہ ہے۔
+ui:resources.title,/resources,Useful resources,مفید وسائل
+ui:resources.intro,/resources,Official websites and tools we trust. Each link opens the official source.,آفیشل ویب سائٹس اور ٹولز جن پر ہمیں بھروسہ ہے۔ ہر لنک آفیشل ذریعہ کھولتا ہے۔
+ui:resources.notConnected,/resources,The database isn't connected yet. Add the Supabase environment variables to see resources.,ڈیٹا بیس ابھی منسلک نہیں ہے۔ وسائل دیکھنے کے لیے Supabase کے environment variables شامل کریں۔
+ui:resources.noResources,/resources,No resources are published yet. The research team is adding official links. Check back soon.,ابھی کوئی وسائل شائع نہیں ہوئے۔ ریسرچ ٹیم آفیشل لنکس شامل کر رہی ہے۔ جلد دوبارہ دیکھیں۔
+ui:resources.groups.official,/resources,HEC and official resources,HEC اور آفیشل وسائل
+ui:resources.groups.scholarships,/resources,Scholarships,اسکالرشپس
+ui:resources.groups.tests,/resources,Admission tests,داخلہ ٹیسٹ
+ui:resources.groups.guidance,/resources,Career exploration,کیریئر کے بارے میں جانیں
+ui:resources.fromHumraah,/resources,From Humraah,ہمراہ کی طرف سے
+ui:resources.guideTitle,/resources,Higher Education Guide,اعلیٰ تعلیم گائیڈ
+ui:resources.guideText,/resources,Our free guide in English and Urdu.,ہماری مفت گائیڈ، انگریزی اور اردو میں۔
+ui:about.metaTitle,/about,About and contact,تعارف اور رابطہ
+ui:about.metaDescription,/about,"Humraah is a youth-led initiative giving girls in Pakistan the information, resources and support to pursue higher education.",ہمراہ نوجوانوں کی ایک کوشش ہے جو پاکستان کی لڑکیوں کو اعلیٰ تعلیم حاصل کرنے کے لیے معلومات، وسائل اور ساتھ دیتی ہے۔
+ui:about.tagline,/about,Har Raah Mein Humraah.,ہر راہ میں ہمراہ۔
+ui:about.title,/about,Humraah means “companion”.,ہمراہ کا مطلب ہے ”ساتھی“۔
+ui:about.intro,/about,"A youth-led initiative giving girls the information, resources and support to pursue higher education and build their own paths forward.",نوجوانوں کی ایک کوشش، جو لڑکیوں کو اعلیٰ تعلیم حاصل کرنے اور اپنا راستہ خود بنانے کے لیے معلومات، وسائل اور ساتھ دیتی ہے۔
+ui:about.story.name.title,/about,The name,نام
+ui:about.story.name.text,/about,Humraah means companion: someone who walks the journey with you.,ہمراہ کا مطلب ہے ساتھی: وہ جو سفر میں آپ کے ساتھ چلے۔
+ui:about.story.problem.title,/about,The problem,مسئلہ
+ui:about.story.problem.text,/about,"In Pakistan, many girls who get an education stop at FSc, even when they want to continue. Not always because they don’t want to. Often because no one showed them how.",پاکستان میں بہت سی پڑھی لکھی لڑکیاں FSc پر رک جاتی ہیں، چاہے وہ آگے پڑھنا چاہتی ہوں۔ ہمیشہ اس لیے نہیں کہ وہ نہیں چاہتیں۔ اکثر اس لیے کہ کسی نے انہیں راستہ نہیں دکھایا۔
+ui:about.story.work.title,/about,What we do,ہم کیا کرتے ہیں
+ui:about.story.work.text,/about,"We give girls the information, resources, guidance and support to explore their own path, no one else’s.",ہم لڑکیوں کو معلومات، وسائل، رہنمائی اور ساتھ دیتے ہیں تاکہ وہ اپنا راستہ خود تلاش کریں، کسی اور کا نہیں۔
+ui:about.promiseLabel,/about,Our promise,ہمارا وعدہ
+ui:about.promise,/about,"Walking alongside you, towards your dreams.",آپ کے خوابوں کی طرف، آپ کے ساتھ ساتھ۔
+ui:about.valuesTitle,/about,What we believe in,ہم کس بات پر یقین رکھتے ہیں
+ui:about.values.knowledge.title,/about,Empower with knowledge,علم سے مضبوط بنانا
+ui:about.values.knowledge.text,/about,"Clear, official information you can trust.",صاف اور آفیشل معلومات جن پر آپ بھروسہ کر سکیں۔
+ui:about.values.access.title,/about,Make opportunities accessible,مواقع سب کی پہنچ میں
+ui:about.values.access.text,/about,Free resources in English and Urdu.,انگریزی اور اردو میں مفت وسائل۔
+ui:about.values.community.title,/about,Build a supportive community,ساتھ دینے والی کمیونٹی
+ui:about.values.community.text,/about,Girls helping girls find their way.,لڑکیاں لڑکیوں کو راستہ ڈھونڈنے میں مدد دیتی ہیں۔
+ui:about.values.confidence.title,/about,Encourage confidence,اعتماد بڑھانا
+ui:about.values.confidence.text,/about,"Your path, your choices.",آپ کا راستہ، آپ کے فیصلے۔
+ui:about.contactTitle,/about,Get in touch,ہم سے رابطہ کریں
+ui:about.instagram,/about,Instagram: <handle></handle>,انسٹاگرام: <handle></handle>
+ui:about.linkedin,/about,LinkedIn: <name></name>,لنکڈ اِن: <name></name>
+ui:privacy.title,/privacy,Privacy and disclaimer,رازداری اور اعلانِ لاتعلقی
+ui:privacy.metaDescription,/privacy,"How Humraah's information should be used, and what happens to messages sent through the contact form.",ہمراہ کی معلومات کیسے استعمال کی جائیں، اور رابطہ فارم سے بھیجے گئے پیغامات کا کیا ہوتا ہے۔
+ui:privacy.disclaimer,/privacy,Disclaimer,اعلانِ لاتعلقی
+ui:privacy.disclaimerP1,/privacy,"Humraah shares information to help you plan your higher education. We take care to check it against official sources, but fees, dates, eligibility and requirements change, and some entries have not been verified yet. Always confirm the details on the official website of the university, scholarship provider or Higher Education Commission (HEC) before you apply or pay anything.",ہمراہ آپ کی اعلیٰ تعلیم کی منصوبہ بندی میں مدد کے لیے معلومات دیتا ہے۔ ہم انہیں آفیشل ذرائع سے ملا کر دیکھنے کی پوری کوشش کرتے ہیں، لیکن فیس، تاریخیں، اہلیت اور شرائط بدلتی رہتی ہیں، اور کچھ معلومات کی ابھی تصدیق نہیں ہوئی۔ اپلائی کرنے یا کوئی بھی رقم ادا کرنے سے پہلے ہمیشہ یونیورسٹی، اسکالرشپ دینے والے ادارے یا ہائر ایجوکیشن کمیشن (HEC) کی آفیشل ویب سائٹ پر تفصیلات دیکھ لیں۔
+ui:privacy.disclaimerP2,/privacy,"Humraah is an independent, youth-led initiative. We are not part of HEC, any university or any scholarship provider, and a listing on this site is not a ranking, a recommendation or a guarantee of admission or funding. Links to other websites are provided for convenience; we are not responsible for their content.",ہمراہ نوجوانوں کی ایک آزاد کوشش ہے۔ ہم HEC، کسی یونیورسٹی یا کسی اسکالرشپ دینے والے ادارے کا حصہ نہیں ہیں، اور اس سائٹ پر کسی کا نام ہونا نہ کوئی درجہ بندی ہے، نہ سفارش، اور نہ داخلے یا مالی مدد کی ضمانت۔ دوسری ویب سائٹس کے لنکس آپ کی آسانی کے لیے دیے گئے ہیں؛ ان کے مواد کی ذمہ داری ہماری نہیں۔
+ui:privacy.disclaimerP3,/privacy,Spotted something wrong or out of date? Email us at <email></email>.,کوئی بات غلط یا پرانی لگی؟ ہمیں <email></email> پر ای میل کریں۔
+ui:privacy.noticeTitle,/privacy,Contact Form Privacy Notice,رابطہ فارم کا رازداری نوٹس
+ui:menu.title,/menu,Menu,مینو
+ui:menu.close,/menu,Close the menu,مینو بند کریں
+ui:menu.privacy,/menu,Privacy and disclaimer,رازداری اور اعلانِ لاتعلقی
+ui:menu.descriptions.guidance,/menu,Step-by-step help for every stage,ہر مرحلے کے لیے قدم بہ قدم مدد
+ui:menu.descriptions.guideFull,/menu,Free in English and Urdu,مفت، انگریزی اور اردو میں
+ui:menu.descriptions.resources,/menu,Official websites and tools,آفیشل ویب سائٹس اور ٹولز
+ui:menu.descriptions.aboutContact,/menu,Who we are and how to reach us,ہم کون ہیں اور ہم سے رابطہ کیسے کریں
+ui:menu.descriptions.whereToStart,/menu,A two-minute quiz,دو منٹ کا کوئز
+ui:notFound.script,page not found,This path doesn't lead anywhere yet.,یہ راستہ ابھی کہیں نہیں جاتا۔
+ui:notFound.title,page not found,We couldn't find that page,ہمیں یہ صفحہ نہیں ملا
+ui:notFound.text,page not found,"It may have moved, or the link may be wrong. Let's get you back on track.",ہو سکتا ہے یہ صفحہ کہیں اور چلا گیا ہو، یا لنک غلط ہو۔ چلیں، آپ کو واپس صحیح راستے پر لاتے ہیں۔
+ui:notFound.home,page not found,Go to the home page,ہوم پیج پر جائیں
+ui:notFound.popular,page not found,Popular pages,مقبول صفحات
+ui:notFound.orTry,page not found,Or try,یا یہ دیکھیں
+ui:notFound.metaTitle,page not found,Page not found · Humraah,صفحہ نہیں ملا · ہمراہ
+db:fields/business-management/name_ur,/explore/business-management,Business & Management,کاروبار اور مینجمنٹ
+db:fields/business-management/summary_ur,/explore/business-management,"Running organisations, managing money and people, and understanding how markets work.",اداروں کو چلانا، پیسے اور لوگوں کا انتظام کرنا، اور یہ سمجھنا کہ بازار کیسے کام کرتے ہیں۔
+db:fields/business-management/you_might_enjoy_ur,/explore/business-management,"organising, leading, working with people and solving business problems",انتظام کرنا، قیادت کرنا، لوگوں کے ساتھ کام کرنا اور کاروباری مسئلے حل کرنا
+db:fields/business-management/interests_ur,/explore/business-management,"Organising
+Leading
+Working with people
+Business problems","انتظام کرنا
+قیادت
+لوگوں کے ساتھ کام
+کاروباری مسئلے"
+db:fields/engineering/name_ur,/explore/engineering,Engineering,انجینئرنگ
+db:fields/engineering/summary_ur,/explore/engineering,"Using maths and science to design, build and improve the things and systems around us.",ریاضی اور سائنس کی مدد سے اپنے آس پاس کی چیزیں اور نظام ڈیزائن کرنا، بنانا اور بہتر کرنا۔
+db:fields/engineering/you_might_enjoy_ur,/explore/engineering,"maths, science, building or figuring out how things work",ریاضی، سائنس، چیزیں بنانا یا یہ سمجھنا کہ چیزیں کیسے کام کرتی ہیں
+db:fields/engineering/interests_ur,/explore/engineering,"Maths
+Science
+Building things
+How things work","ریاضی
+سائنس
+چیزیں بنانا
+چیزیں کیسے کام کرتی ہیں"
+db:fields/computing-technology/name_ur,/explore/computing-technology,Computing & Technology,کمپیوٹنگ اور ٹیکنالوجی
+db:fields/computing-technology/summary_ur,/explore/computing-technology,"Using computers, logic and technology to solve problems, from building apps to working with data and AI.",کمپیوٹر، منطق اور ٹیکنالوجی سے مسئلے حل کرنا، ایپس بنانے سے لے کر ڈیٹا اور AI پر کام تک۔
+db:fields/computing-technology/you_might_enjoy_ur,/explore/computing-technology,"computers, technology, logic or solving problems",کمپیوٹر، ٹیکنالوجی، منطق یا مسئلے حل کرنا
+db:fields/computing-technology/interests_ur,/explore/computing-technology,"Computers
+Technology
+Logic
+Solving problems","کمپیوٹر
+ٹیکنالوجی
+منطق
+مسئلے حل کرنا"
+db:fields/medicine-health/name_ur,/explore/medicine-health,Medicine & Health,طب اور صحت
+db:fields/medicine-health/summary_ur,/explore/medicine-health,"Caring for people's health, from treating patients to preventing illness in whole communities.",لوگوں کی صحت کا خیال رکھنا، مریضوں کے علاج سے لے کر پوری کمیونٹی کو بیماریوں سے بچانے تک۔
+db:fields/medicine-health/you_might_enjoy_ur,/explore/medicine-health,"biology, science, helping people and health",بیالوجی، سائنس، لوگوں کی مدد اور صحت
+db:fields/medicine-health/interests_ur,/explore/medicine-health,"Biology
+Science
+Helping people
+Health","بیالوجی
+سائنس
+لوگوں کی مدد
+صحت"
+db:fields/social-behavioural-sciences/name_ur,/explore/social-behavioural-sciences,Social & Behavioural Sciences,سماجی اور رویّوں کے علوم
+db:fields/social-behavioural-sciences/summary_ur,/explore/social-behavioural-sciences,"Understanding how people think and behave, and how societies and communities work.",یہ سمجھنا کہ لوگ کیسے سوچتے اور برتاؤ کرتے ہیں، اور معاشرے اور کمیونٹیز کیسے چلتی ہیں۔
+db:fields/social-behavioural-sciences/you_might_enjoy_ur,/explore/social-behavioural-sciences,"people, society, relationships and communities",لوگ، معاشرہ، رشتے اور کمیونٹیز
+db:fields/social-behavioural-sciences/interests_ur,/explore/social-behavioural-sciences,"People
+Society
+Relationships
+Communities","لوگ
+معاشرہ
+رشتے
+کمیونٹیز"
+db:fields/humanities-languages/name_ur,/explore/humanities-languages,Humanities & Languages,ہیومینٹیز اور زبانیں
+db:fields/humanities-languages/summary_ur,/explore/humanities-languages,"Exploring ideas, history, literature and languages, and how they shape the way we live.",خیالات، تاریخ، ادب اور زبانوں کو جاننا، اور یہ کہ یہ ہماری زندگی کو کیسے بناتے ہیں۔
+db:fields/humanities-languages/you_might_enjoy_ur,/explore/humanities-languages,"reading, writing, history, languages and big ideas",پڑھنا، لکھنا، تاریخ، زبانیں اور بڑے خیالات
+db:fields/humanities-languages/interests_ur,/explore/humanities-languages,"Reading
+Writing
+History
+Languages
+Big ideas","پڑھنا
+لکھنا
+تاریخ
+زبانیں
+بڑے خیالات"
+db:fields/arts-design-architecture/name_ur,/explore/arts-design-architecture,"Arts, Design & Architecture",آرٹ، ڈیزائن اور آرکیٹیکچر
+db:fields/arts-design-architecture/summary_ur,/explore/arts-design-architecture,"Creating and designing, from buildings and products to images, fabrics and performances.",تخلیق اور ڈیزائن، عمارتوں اور چیزوں سے لے کر تصویروں، کپڑوں اور پرفارمنس تک۔
+db:fields/arts-design-architecture/you_might_enjoy_ur,/explore/arts-design-architecture,"drawing, creating, designing and visual communication",ڈرائنگ، تخلیق، ڈیزائن اور تصویروں کے ذریعے بات کہنا
+db:fields/arts-design-architecture/interests_ur,/explore/arts-design-architecture,"Drawing
+Creating
+Designing
+Visual communication","ڈرائنگ
+تخلیق
+ڈیزائن
+تصویروں سے بات کہنا"
+db:fields/natural-applied-sciences/name_ur,/explore/natural-applied-sciences,Natural & Applied Sciences,قدرتی اور اطلاقی سائنس
+db:fields/natural-applied-sciences/summary_ur,/explore/natural-applied-sciences,"Studying the natural world through experiments, and using that knowledge to solve real problems.",تجربات کے ذریعے قدرتی دنیا کو سمجھنا، اور اس علم سے اصل مسئلے حل کرنا۔
+db:fields/natural-applied-sciences/you_might_enjoy_ur,/explore/natural-applied-sciences,"the natural world, experimenting and scientific questions",قدرتی دنیا، تجربات اور سائنسی سوالات
+db:fields/natural-applied-sciences/interests_ur,/explore/natural-applied-sciences,"The natural world
+Experimenting
+Scientific questions","قدرتی دنیا
+تجربات
+سائنسی سوالات"
+db:fields/law/name_ur,/explore/law,Law,قانون
+db:fields/law/summary_ur,/explore/law,"Understanding the rules that govern society, and helping people use them to find justice.",ان قوانین کو سمجھنا جن سے معاشرہ چلتا ہے، اور لوگوں کو انصاف حاصل کرنے میں مدد دینا۔
+db:fields/law/you_might_enjoy_ur,/explore/law,"reading, argument, critical thinking and justice",پڑھنا، دلیل دینا، گہرائی سے سوچنا اور انصاف
+db:fields/law/interests_ur,/explore/law,"Reading
+Argument
+Critical thinking
+Justice","پڑھنا
+دلیل
+گہرائی سے سوچنا
+انصاف"
+db:fields/education/name_ur,/explore/education,Education,تعلیم
+db:fields/education/summary_ur,/explore/education,"Helping others learn, from early childhood to adult education, and shaping how teaching works.",دوسروں کو سکھانے میں مدد دینا، بچپن سے لے کر بڑوں کی تعلیم تک، اور پڑھانے کے طریقے بہتر بنانا۔
+db:fields/education/you_might_enjoy_ur,/explore/education,"teaching, helping others learn and working with young people",پڑھانا، دوسروں کو سکھانا اور نوجوانوں کے ساتھ کام کرنا
+db:fields/education/interests_ur,/explore/education,"Teaching
+Helping others learn
+Working with young people","پڑھانا
+دوسروں کو سکھانا
+نوجوانوں کے ساتھ کام"
+db:universities/aiou/campuses_note_ur,/universities/aiou,Islamabad and other campuses,اسلام آباد اور دوسرے کیمپس
+db:universities/comsats/campuses_note_ur,/universities/comsats,Islamabad and other campuses,اسلام آباد اور دوسرے کیمپس
+db:universities/fast-nuces/campuses_note_ur,/universities/fast-nuces,Islamabad and other campuses,اسلام آباد اور دوسرے کیمپس
+db:universities/nust/campuses_note_ur,/universities/nust,Islamabad and other campuses,اسلام آباد اور دوسرے کیمپس
+db:scholarships/benazir-undergraduate-scholarship/summary_ur,/scholarships/benazir-undergraduate-scholarship,For financially deserving students pursuing undergraduate degrees at participating public universities.,شامل سرکاری یونیورسٹیوں میں انڈرگریجویٹ ڈگری کرنے والے ضرورت مند طلبہ کے لیے۔
+db:scholarships/benazir-undergraduate-scholarship/who_its_for_ur,/scholarships/benazir-undergraduate-scholarship,Financially deserving undergraduate students at participating public universities. 50% of scholarships are reserved for female students.,شامل سرکاری یونیورسٹیوں کے ضرورت مند انڈرگریجویٹ طلبہ۔ 50 فیصد اسکالرشپس طالبات کے لیے مخصوص ہیں۔
+db:scholarships/benazir-undergraduate-scholarship/audience_note_ur,/scholarships/benazir-undergraduate-scholarship,50% for women,50 فیصد خواتین کے لیے
+db:scholarships/hec-need-based-scholarships/summary_ur,/scholarships/hec-need-based-scholarships,Financial support for students who demonstrate financial need at participating universities.,شامل یونیورسٹیوں میں ان طلبہ کے لیے مالی مدد جو یہ دکھا سکیں کہ انہیں مالی ضرورت ہے۔
+db:scholarships/hec-need-based-scholarships/who_its_for_ur,/scholarships/hec-need-based-scholarships,Students who demonstrate financial need at participating universities.,شامل یونیورسٹیوں کے وہ طلبہ جو اپنی مالی ضرورت ثابت کر سکیں۔
+db:scholarships/hec-need-based-scholarships/what_it_covers_ur,/scholarships/hec-need-based-scholarships,Support can include tuition and a stipend.,اس مدد میں ٹیوشن فیس اور ماہانہ وظیفہ شامل ہو سکتا ہے۔
+db:scholarships/hec-need-based-scholarships/covers_ur,/scholarships/hec-need-based-scholarships,"Tuition
+Stipend","ٹیوشن
+ماہانہ وظیفہ"
+db:scholarships/lums-nop/summary_ur,/scholarships/lums-nop,Students from across Pakistan can apply if they meet the eligibility criteria.,پاکستان بھر سے طلبہ اپلائی کر سکتے ہیں، اگر وہ اہلیت کی شرائط پوری کرتے ہوں۔
+db:scholarships/lums-nop/who_its_for_ur,/scholarships/lums-nop,Students from across Pakistan who meet the eligibility criteria.,پاکستان بھر کے وہ طلبہ جو اہلیت کی شرائط پوری کرتے ہوں۔
+db:scholarships/lums-nop/what_it_covers_ur,/scholarships/lums-nop,NOP students admitted to LUMS can receive fully funded financial support based on need.,LUMS میں داخلہ پانے والے NOP طلبہ کو ضرورت کی بنیاد پر مکمل مالی مدد مل سکتی ہے۔
+db:scholarships/lums-nop/covers_ur,/scholarships/lums-nop,Need-based support,ضرورت کی بنیاد پر مدد
+db:scholarships/peef/summary_ur,/scholarships/peef,"For talented and financially deserving students, including undergraduate students in Punjab.",پنجاب کے ذہین اور ضرورت مند طلبہ کے لیے، بشمول انڈرگریجویٹ طلبہ۔
+db:scholarships/peef/who_its_for_ur,/scholarships/peef,"Talented and financially deserving students in Punjab. Special-quota scholarships for orphans, children of low-grade government employees, children of divorced mothers, minorities and students with disabilities.",پنجاب کے ذہین اور ضرورت مند طلبہ۔ یتیموں، کم گریڈ کے سرکاری ملازمین کے بچوں، طلاق یافتہ ماؤں کے بچوں، اقلیتوں اور معذور طلبہ کے لیے خصوصی کوٹے کی اسکالرشپس بھی ہیں۔
+db:scholarships/bnu-rahimeen-ahmad-scholarship/summary_ur,/scholarships/bnu-rahimeen-ahmad-scholarship,A 100% scholarship for at least one female undergraduate student for a four-year degree.,کم از کم ایک انڈرگریجویٹ طالبہ کے لیے چار سالہ ڈگری کی 100 فیصد اسکالرشپ۔
+db:scholarships/bnu-rahimeen-ahmad-scholarship/who_its_for_ur,/scholarships/bnu-rahimeen-ahmad-scholarship,Female undergraduate students at Beaconhouse National University.,Beaconhouse National University کی انڈرگریجویٹ طالبات۔
+db:scholarships/bnu-rahimeen-ahmad-scholarship/what_it_covers_ur,/scholarships/bnu-rahimeen-ahmad-scholarship,100% scholarship for a four-year degree.,چار سالہ ڈگری کے لیے 100 فیصد اسکالرشپ۔
+db:scholarships/bnu-rahimeen-ahmad-scholarship/audience_note_ur,/scholarships/bnu-rahimeen-ahmad-scholarship,For women,خواتین کے لیے
+db:scholarships/bnu-rahimeen-ahmad-scholarship/covers_ur,/scholarships/bnu-rahimeen-ahmad-scholarship,Full tuition,پوری ٹیوشن
+db:scholarships/scotland-pakistan-scholarships/summary_ur,/scholarships/scotland-pakistan-scholarships,For Pakistani women pursuing eligible undergraduate degrees at HEC-recognised universities.,HEC سے تسلیم شدہ یونیورسٹیوں میں اہل انڈرگریجویٹ ڈگری کرنے والی پاکستانی خواتین کے لیے۔
+db:scholarships/scotland-pakistan-scholarships/who_its_for_ur,/scholarships/scotland-pakistan-scholarships,Pakistani women studying eligible undergraduate degrees at HEC-recognised universities.,HEC سے تسلیم شدہ یونیورسٹیوں میں اہل انڈرگریجویٹ ڈگری کرنے والی پاکستانی خواتین۔
+db:scholarships/scotland-pakistan-scholarships/what_it_covers_ur,/scholarships/scotland-pakistan-scholarships,"Depending on the award, support can include tuition fees, hostel costs and travel.",اسکالرشپ کے لحاظ سے اس میں ٹیوشن فیس، ہاسٹل اور سفر کا خرچ شامل ہو سکتا ہے۔
+db:scholarships/scotland-pakistan-scholarships/audience_note_ur,/scholarships/scotland-pakistan-scholarships,For women,خواتین کے لیے
+db:scholarships/scotland-pakistan-scholarships/covers_ur,/scholarships/scotland-pakistan-scholarships,"Tuition
+Hostel and travel","ٹیوشن
+ہاسٹل اور سفر"
+db:scholarships/scotland-pakistan-scholarships/eligible_areas_ur,/scholarships/scotland-pakistan-scholarships,"Education
+Sustainable Energy
+Food Security & Agriculture
+Health Sciences
+STEM
+Climate","تعلیم
+پائیدار توانائی
+غذائی تحفظ اور زراعت
+صحت کے علوم
+STEM
+موسمیاتی تبدیلی"
+db:resources/https://www.hec.gov.pk/title_ur,/resources,Higher Education Commission (HEC),ہائر ایجوکیشن کمیشن (HEC)
+db:resources/https://www.hec.gov.pk/description_ur,/resources,"Pakistan's official body for universities, degree recognition and HEC scholarships.",پاکستان میں یونیورسٹیوں، ڈگریوں کی تصدیق اور HEC اسکالرشپس کا آفیشل ادارہ۔
+db:resources/https://www.hec.gov.pk/english/universities/pages/recognised.aspx/title_ur,/resources,HEC recognised universities and campuses,HEC سے تسلیم شدہ یونیورسٹیاں اور کیمپس
+db:resources/https://www.hec.gov.pk/english/universities/pages/recognised.aspx/description_ur,/resources,Check that a university or campus is officially recognised before you apply.,اپلائی کرنے سے پہلے دیکھ لیں کہ یونیورسٹی یا کیمپس آفیشل طور پر تسلیم شدہ ہے۔
+db:guidance_articles/how-to-research-a-university/title_ur,/guidance/how-to-research-a-university,How do I research a university?,یونیورسٹی کے بارے میں معلومات کیسے حاصل کریں؟
+db:guidance_articles/how-to-research-a-university/summary_ur,/guidance/how-to-research-a-university,"Five steps to check a university properly, using official sources.",آفیشل ذرائع کی مدد سے کسی یونیورسٹی کو اچھی طرح جانچنے کے پانچ قدم۔
+db:guidance_articles/how-to-research-a-university/body_markdown_ur,/guidance/how-to-research-a-university,"
+## 1. Check recognition and choose a university
+In Pakistan, HEC keeps an official list of recognised universities and campuses. Use it to find universities in your area, and always check that the institution or campus is on the HEC website before applying.
+
+## 2. Search for the university online
+For example: ""NUST undergraduate admissions"" or ""University of the Punjab undergraduate"".
+
+## 3. Go to the university's official website
+Look for sections such as Undergraduate Programs, Scholarships / Financial Aid, Admissions, Fees and Eligibility.
+
+## 4. Find the programme you are interested in
+Read the page carefully. Look for:
+- What subjects or grades do I need?
+- What is the application deadline?
+- What tests or documents are needed?
+- How much does it cost?
+- Are any scholarships or financial aid available?
+
+## 5. Write down what you find
+Don't rely only on TikTok, Instagram, WhatsApp messages or random websites. Use the university's official website for the final answer.
+","
+## 1. تسلیم شدہ ہونا دیکھیں اور یونیورسٹی چنیں
+پاکستان میں HEC تسلیم شدہ یونیورسٹیوں اور کیمپسز کی ایک آفیشل فہرست رکھتا ہے۔ اسے استعمال کر کے اپنے علاقے کی یونیورسٹیاں تلاش کریں، اور اپلائی کرنے سے پہلے ہمیشہ دیکھ لیں کہ ادارہ یا کیمپس HEC کی ویب سائٹ پر موجود ہے۔
+
+## 2. یونیورسٹی کو آن لائن تلاش کریں
+مثال کے طور پر: ""NUST undergraduate admissions"" یا ""University of the Punjab undergraduate""۔
+
+## 3. یونیورسٹی کی آفیشل ویب سائٹ پر جائیں
+Undergraduate Programs، Scholarships / Financial Aid، Admissions، Fees اور Eligibility جیسے حصے تلاش کریں۔
+
+## 4. وہ پروگرام تلاش کریں جس میں آپ کی دلچسپی ہے
+صفحہ غور سے پڑھیں۔ یہ باتیں دیکھیں:
+- مجھے کون سے مضامین یا نمبر چاہییں؟
+- اپلائی کرنے کی آخری تاریخ کیا ہے؟
+- کون سے ٹیسٹ یا کاغذات ضروری ہیں؟
+- اس پر کتنا خرچ آئے گا؟
+- کیا کوئی اسکالرشپ یا مالی مدد مل سکتی ہے؟
+
+## 5. جو معلوم ہو، لکھ لیں
+صرف ٹک ٹاک، انسٹاگرام، واٹس ایپ پیغامات یا کسی بھی ویب سائٹ پر بھروسہ نہ کریں۔ آخری جواب کے لیے یونیورسٹی کی آفیشل ویب سائٹ دیکھیں۔
+"
+db:guidance_articles/finding-the-right-university/title_ur,/guidance/finding-the-right-university,Finding the Right University,صحیح یونیورسٹی کی تلاش
+db:guidance_articles/finding-the-right-university/summary_ur,/guidance/finding-the-right-university,"You do not need to know which university is right for you yet. Start by exploring the subjects you want to study, then find universities that offer programmes in those areas.",ابھی یہ جاننا ضروری نہیں کہ کون سی یونیورسٹی آپ کے لیے صحیح ہے۔ پہلے وہ مضامین دیکھیں جو آپ پڑھنا چاہتی ہیں، پھر وہ یونیورسٹیاں تلاش کریں جو ان شعبوں میں پروگرام پیش کرتی ہیں۔
+db:guidance_articles/finding-the-right-university/body_markdown_ur,/guidance/finding-the-right-university,"
+## Step 1: Start with the subject
+Think about the subjects you enjoy, the problems you like solving, and the kind of work you might want to do in the future. You do not need to have your whole career planned. Use Humraah's field categories to explore possible degree areas, then note the programmes that interest you.
+
+## Step 2: Make a shortlist of universities
+Search for universities that offer the programme you are interested in. Consider public and private institutions, location, travel or hostel needs, language of instruction, facilities and the overall cost. The examples on Humraah are starting points, not a ranking or a guarantee that a particular programme is currently offered.
+
+## Step 3: Check recognition
+Before applying or paying a fee, check the university and the specific campus on the Higher Education Commission (HEC) website. Some professional degrees also require approval or accreditation from a relevant professional council. For example, check the relevant council's current requirements for medical, dental or engineering programmes. Recognition of a university does not automatically mean every programme or campus has the approval you need.
+
+[HEC recognised campuses](https://www.hec.gov.pk/english/universities/Pages/DAIs/HEC-recognized-Campuses.aspx)
+
+## Step 4: Use official university sources
+Search for the university's official undergraduate admissions or programme page. Look for the programme title, eligibility criteria, required subjects and grades, entry test, application deadline, fee structure, scholarship or financial-aid options, and hostel information if you need accommodation. Social media posts and messages can help you discover an opportunity, but confirm the details on an official source.
+
+## Step 5: Compare the full cost
+Do not compare universities by tuition alone. Check admission and application fees, semester fees, transport, hostel and food costs, books, equipment and other likely expenses. If the full cost feels out of reach, look for merit scholarships, need-based aid, government schemes, external scholarships and university-specific financial support. Eligibility and availability vary.
+
+## Step 6: Keep a simple research record
+For every university, write down the official programme link, eligibility requirements, entry test, deadline, estimated cost, financial-aid link and the date you checked the information. If something is unclear, contact the university's admissions or financial-aid office. Requirements can change between admission cycles, so check again before applying.
+
+> Remember: these are examples to help you explore, not a ranking. The best option depends on your interests, eligibility, circumstances and the support available to you.
+","
+## قدم 1: مضمون سے شروع کریں
+سوچیں کہ آپ کو کون سے مضامین اچھے لگتے ہیں، کون سے مسئلے حل کرنا پسند ہے، اور آگے چل کر آپ کس طرح کا کام کرنا چاہیں گی۔ پورے کیریئر کا منصوبہ ابھی سے بنانا ضروری نہیں۔ ممکنہ ڈگریوں کے شعبے دیکھنے کے لیے ہمراہ کے شعبے استعمال کریں، اور جو پروگرام آپ کو دلچسپ لگیں انہیں نوٹ کر لیں۔
+
+## قدم 2: یونیورسٹیوں کی مختصر فہرست بنائیں
+وہ یونیورسٹیاں تلاش کریں جو آپ کی پسند کا پروگرام پیش کرتی ہیں۔ سرکاری اور نجی ادارے، جگہ، سفر یا ہاسٹل کی ضرورت، پڑھائی کی زبان، سہولیات اور کُل خرچ، سب پر غور کریں۔ ہمراہ پر دی گئی مثالیں صرف شروعات ہیں؛ یہ نہ کوئی درجہ بندی ہے اور نہ اس بات کی ضمانت کہ کوئی پروگرام اس وقت پیش کیا جا رہا ہے۔
+
+## قدم 3: تسلیم شدہ ہونا دیکھیں
+اپلائی کرنے یا کوئی فیس دینے سے پہلے ہائر ایجوکیشن کمیشن (HEC) کی ویب سائٹ پر یونیورسٹی اور اس کا خاص کیمپس ضرور دیکھیں۔ کچھ پیشہ ورانہ ڈگریوں کے لیے متعلقہ پروفیشنل کونسل کی منظوری بھی ضروری ہوتی ہے۔ مثلاً میڈیکل، ڈینٹل یا انجینئرنگ پروگراموں کے لیے متعلقہ کونسل کی موجودہ شرائط دیکھیں۔ یونیورسٹی کا تسلیم شدہ ہونا اس بات کی ضمانت نہیں کہ ہر پروگرام یا کیمپس کے پاس وہ منظوری ہے جو آپ کو چاہیے۔
+
+[HEC سے تسلیم شدہ کیمپس](https://www.hec.gov.pk/english/universities/Pages/DAIs/HEC-recognized-Campuses.aspx)
+
+## قدم 4: یونیورسٹی کے آفیشل ذرائع استعمال کریں
+یونیورسٹی کا آفیشل انڈرگریجویٹ داخلے یا پروگرام کا صفحہ تلاش کریں۔ اس میں پروگرام کا نام، اہلیت کی شرائط، ضروری مضامین اور نمبر، داخلہ ٹیسٹ، آخری تاریخ، فیس کا ڈھانچہ، اسکالرشپ یا مالی مدد کے طریقے، اور اگر رہائش چاہیے تو ہاسٹل کی معلومات دیکھیں۔ سوشل میڈیا کی پوسٹس اور پیغامات سے کسی موقع کا پتا چل سکتا ہے، لیکن تفصیلات کسی آفیشل ذریعے سے ہی تصدیق کریں۔
+
+## قدم 5: پورا خرچ ملا کر دیکھیں
+یونیورسٹیوں کا موازنہ صرف ٹیوشن فیس سے نہ کریں۔ داخلے اور درخواست کی فیس، سمسٹر فیس، آنے جانے کا خرچ، ہاسٹل اور کھانے کا خرچ، کتابیں، سامان اور دوسرے ممکنہ اخراجات بھی دیکھیں۔ اگر پورا خرچ پہنچ سے باہر لگے تو میرٹ اسکالرشپس، ضرورت کی بنیاد پر مدد، سرکاری اسکیمیں، بیرونی اسکالرشپس اور یونیورسٹی کی اپنی مالی مدد تلاش کریں۔ اہلیت اور دستیابی الگ الگ ہوتی ہے۔
+
+## قدم 6: اپنی تحقیق کا آسان ریکارڈ رکھیں
+ہر یونیورسٹی کے لیے آفیشل پروگرام کا لنک، اہلیت کی شرائط، داخلہ ٹیسٹ، آخری تاریخ، اندازاً خرچ، مالی مدد کا لنک اور وہ تاریخ لکھ لیں جب آپ نے یہ معلومات دیکھیں۔ اگر کوئی بات واضح نہ ہو تو یونیورسٹی کے داخلہ یا مالی مدد کے دفتر سے رابطہ کریں۔ شرائط ہر داخلے کے سال بدل سکتی ہیں، اس لیے اپلائی کرنے سے پہلے دوبارہ دیکھ لیں۔
+
+> یاد رکھیں: یہ مثالیں آپ کو راستے دکھانے کے لیے ہیں، کوئی درجہ بندی نہیں۔ آپ کے لیے بہترین راستہ آپ کی دلچسپیوں، اہلیت، حالات اور آپ کو ملنے والی مدد پر منحصر ہے۔
+"
+db:guidance_articles/admissions-and-application-guide/title_ur,/guidance/admissions-and-application-guide,Admissions and Application Guide for Pakistani Universities,پاکستانی یونیورسٹیوں میں داخلے اور درخواست کی گائیڈ
+db:guidance_articles/admissions-and-application-guide/summary_ur,/guidance/admissions-and-application-guide,"University applications can feel confusing, especially when every institution has its own deadlines and requirements. Use this checklist to organise your next steps. Always follow the current official instructions for the specific university and programme you are applying to.",یونیورسٹی میں اپلائی کرنا الجھا ہوا لگ سکتا ہے، خاص طور پر جب ہر ادارے کی اپنی آخری تاریخیں اور شرائط ہوں۔ اپنے اگلے قدم ترتیب دینے کے لیے یہ چیک لسٹ استعمال کریں۔ جس یونیورسٹی اور پروگرام میں آپ اپلائی کر رہی ہیں، ہمیشہ اس کی موجودہ آفیشل ہدایات پر عمل کریں۔
+db:guidance_articles/admissions-and-application-guide/body_markdown_ur,/guidance/admissions-and-application-guide,"
+## 1. Check the university and programme
+Confirm that the institution and campus are recognised by HEC, and check whether your chosen professional programme requires approval from a relevant council. Do this before paying an application fee.
+
+## 2. Check eligibility and entry tests
+Read the current admission criteria carefully. Universities may set different minimum marks, subject prerequisites, entry tests and selection methods. Depending on the field and institution, you may need a university-specific test or a recognised external test. Do not assume one test or eligibility rule applies everywhere.
+
+## 3. Understand how merit is calculated
+Many universities combine school or college marks with an entry-test score to calculate an aggregate or merit score. The weighting is institution- and programme-specific. Use the formula published in the current admission notice or prospectus; do not rely on a general formula shared online.
+
+## 4. Prepare your documents
+Commonly requested documents may include Matric/O-Level and Intermediate/A-Level results, certificates or detailed marks sheets, CNIC or B-Form, a parent or guardian's CNIC, a recent photograph, domicile where relevant, and equivalence documents for foreign qualifications. Requirements differ, so use the university's official checklist and prepare any attestations it requests.
+
+## 5. Submit the online application
+Use the university's official admission portal. Register with an email address and phone number you can access yourself, complete the form carefully, select the correct programme and test route, upload the required documents, and review the application before submitting. Keep a copy of your application and payment receipt. Pay only through the payment methods listed by the university.
+
+## 6. Track tests, emails and merit lists
+Check your email, spam folder and admission portal regularly for test dates, admit cards, document requests, results and merit lists. If selected, follow the offer letter's instructions and deadlines for document verification, fee payment and confirming your seat. Missing a deadline may affect your admission.
+
+## 7. Apply for financial support separately where required
+Scholarship or financial-aid forms may have a separate process and deadline. Check whether you must apply during the admission process, after receiving an offer, or through a separate provider. Prepare accurate financial information and supporting documents, and never assume that admission automatically means you will receive financial aid.
+
+## Before you submit: quick checklist
+- I checked the university, campus and programme recognition.
+- I meet the current eligibility criteria and subject prerequisites.
+- I know which entry test is required and its deadline.
+- I checked the current merit calculation method.
+- My documents and equivalence certificates, if required, are ready.
+- I used the official application portal and saved proof of submission and payment.
+- I checked the financial-aid process and its separate deadline.
+
+## Official starting points
+- [HEC recognised campuses](https://www.hec.gov.pk/english/universities/Pages/DAIs/HEC-recognized-Campuses.aspx)
+- [NUST undergraduate programmes](https://nust.edu.pk/admissions/undergraduates/list-of-ug-programmes-and-institutions/)
+","
+## 1. یونیورسٹی اور پروگرام کو جانچیں
+تصدیق کریں کہ ادارہ اور کیمپس HEC سے تسلیم شدہ ہیں، اور یہ بھی دیکھیں کہ آپ کے چنے ہوئے پیشہ ورانہ پروگرام کو کسی متعلقہ کونسل کی منظوری چاہیے یا نہیں۔ یہ کام درخواست کی فیس دینے سے پہلے کریں۔
+
+## 2. اہلیت اور داخلہ ٹیسٹ دیکھیں
+داخلے کی موجودہ شرائط غور سے پڑھیں۔ یونیورسٹیاں کم از کم نمبر، ضروری مضامین، داخلہ ٹیسٹ اور انتخاب کے طریقے الگ الگ رکھ سکتی ہیں۔ شعبے اور ادارے کے لحاظ سے آپ کو یونیورسٹی کا اپنا ٹیسٹ یا کوئی تسلیم شدہ بیرونی ٹیسٹ دینا پڑ سکتا ہے۔ یہ نہ سمجھیں کہ ایک ہی ٹیسٹ یا ایک ہی شرط ہر جگہ لاگو ہوتی ہے۔
+
+## 3. سمجھیں کہ میرٹ کیسے بنتا ہے
+بہت سی یونیورسٹیاں اسکول یا کالج کے نمبروں کو داخلہ ٹیسٹ کے اسکور کے ساتھ ملا کر ایگریگیٹ یا میرٹ اسکور بناتی ہیں۔ کس چیز کا کتنا وزن ہے، یہ ہر ادارے اور پروگرام کا الگ ہوتا ہے۔ موجودہ داخلہ نوٹس یا پراسپیکٹس میں دیا گیا فارمولا استعمال کریں؛ آن لائن شیئر کیے گئے کسی عام فارمولے پر بھروسہ نہ کریں۔
+
+## 4. اپنے کاغذات تیار کریں
+عام طور پر مانگے جانے والے کاغذات میں میٹرک/O-Level اور انٹرمیڈیٹ/A-Level کے رزلٹ، سرٹیفکیٹ یا تفصیلی مارک شیٹس، CNIC یا B-Form، والدین یا سرپرست کا CNIC، حالیہ تصویر، ضرورت ہو تو ڈومیسائل، اور غیر ملکی تعلیم کے لیے مساوی ہونے (equivalence) کے کاغذات شامل ہو سکتے ہیں۔ شرائط الگ الگ ہوتی ہیں، اس لیے یونیورسٹی کی آفیشل چیک لسٹ استعمال کریں اور جو تصدیقیں (attestation) مانگی جائیں وہ تیار رکھیں۔
+
+## 5. آن لائن درخواست جمع کروائیں
+یونیورسٹی کا آفیشل داخلہ پورٹل استعمال کریں۔ ایسے ای میل اور فون نمبر سے رجسٹر کریں جن تک آپ کی خود رسائی ہو، فارم احتیاط سے بھریں، صحیح پروگرام اور ٹیسٹ کا راستہ چنیں، ضروری کاغذات اپ لوڈ کریں، اور جمع کروانے سے پہلے درخواست ایک بار پھر دیکھ لیں۔ اپنی درخواست اور ادائیگی کی رسید کی کاپی رکھیں۔ ادائیگی صرف انہی طریقوں سے کریں جو یونیورسٹی نے بتائے ہوں۔
+
+## 6. ٹیسٹ، ای میلز اور میرٹ لسٹوں پر نظر رکھیں
+ٹیسٹ کی تاریخوں، ایڈمٹ کارڈ، کاغذات کی درخواستوں، رزلٹ اور میرٹ لسٹوں کے لیے اپنا ای میل، اسپیم فولڈر اور داخلہ پورٹل باقاعدگی سے دیکھتی رہیں۔ اگر آپ کا انتخاب ہو جائے تو کاغذات کی تصدیق، فیس کی ادائیگی اور سیٹ پکی کرنے کے لیے آفر لیٹر کی ہدایات اور آخری تاریخوں پر عمل کریں۔ کوئی آخری تاریخ گزر جائے تو آپ کا داخلہ متاثر ہو سکتا ہے۔
+
+## 7. جہاں ضروری ہو، مالی مدد کے لیے الگ سے اپلائی کریں
+اسکالرشپ یا مالی مدد کے فارم کا طریقہ اور آخری تاریخ الگ ہو سکتی ہے۔ دیکھیں کہ آپ کو داخلے کے دوران اپلائی کرنا ہے، آفر ملنے کے بعد، یا کسی الگ ادارے کے ذریعے۔ درست مالی معلومات اور ان کے ثبوت تیار رکھیں، اور یہ کبھی نہ سمجھیں کہ داخلہ ملنے کا مطلب ہے کہ مالی مدد بھی ضرور ملے گی۔
+
+## جمع کروانے سے پہلے: مختصر چیک لسٹ
+- میں نے یونیورسٹی، کیمپس اور پروگرام کا تسلیم شدہ ہونا دیکھ لیا ہے۔
+- میں اہلیت کی موجودہ شرائط اور ضروری مضامین پوری کرتی ہوں۔
+- مجھے معلوم ہے کہ کون سا داخلہ ٹیسٹ ضروری ہے اور اس کی آخری تاریخ کیا ہے۔
+- میں نے میرٹ بنانے کا موجودہ طریقہ دیکھ لیا ہے۔
+- میرے کاغذات، اور ضرورت ہو تو مساوی ہونے کے سرٹیفکیٹ، تیار ہیں۔
+- میں نے آفیشل درخواست پورٹل استعمال کیا اور جمع کروانے اور ادائیگی کا ثبوت محفوظ کر لیا۔
+- میں نے مالی مدد کا طریقہ اور اس کی الگ آخری تاریخ دیکھ لی ہے۔
+
+## آفیشل ذرائع سے شروعات
+- [HEC سے تسلیم شدہ کیمپس](https://www.hec.gov.pk/english/universities/Pages/DAIs/HEC-recognized-Campuses.aspx)
+- [NUST کے انڈرگریجویٹ پروگرام](https://nust.edu.pk/admissions/undergraduates/list-of-ug-programmes-and-institutions/)
+"

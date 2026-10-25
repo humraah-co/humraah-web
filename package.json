@@ -12,7 +12,9 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test:db": "node supabase/tests/access-rules.test.mjs && node supabase/tests/rerun-migrations.test.mjs",
-    "db:types": "supabase gen types typescript --linked > src/lib/database.types.ts"
+    "db:types": "supabase gen types typescript --linked > src/lib/database.types.ts",
+    "urdu:export": "node scripts/urdu-review.mjs export",
+    "urdu:apply": "node scripts/urdu-review.mjs apply"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",
