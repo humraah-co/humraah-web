@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { Container } from "@/components/layout/PageShell";
 import { contactPrivacy } from "@/content/contactPrivacy";
 import { contact } from "@/lib/nav";
 import { pageLocale, type LocaleParams } from "@/i18n/server";
 
-export const metadata: Metadata = {
-  title: "Privacy and disclaimer",
-  description:
-    "How Humraah's information should be used, and what happens to messages sent through the contact form.",
-};
+export async function generateMetadata({ params }: { params: LocaleParams }): Promise<Metadata> {
+  const t = await getTranslations({ locale: (await params).locale, namespace: "privacy" });
+  return { title: t("title"), description: t("metaDescription") };
+}
 
 /*
  * PRIVACY WORDING: AWAITING APPROVAL.
@@ -20,36 +20,30 @@ export const metadata: Metadata = {
  */
 export default async function PrivacyPage({ params }: { params: LocaleParams }) {
   await pageLocale(params);
+  const t = await getTranslations("privacy");
+  const notice = await getTranslations("privacyNotice");
   const link = "text-deep-rose underline underline-offset-2 hover:text-charcoal";
   return (
     <Container className="pt-6 pb-10 lg:pt-12 lg:pb-16">
       <div className="flex max-w-[720px] flex-col gap-8">
         <header className="flex flex-col gap-3">
-          <h1 className="text-h1 lg:text-[40px] lg:leading-[46px]">Privacy and disclaimer</h1>
+          <h1 className="text-h1 lg:text-[40px] lg:leading-[46px]">{t("title")}</h1>
         </header>
 
         <section aria-labelledby="disclaimer" className="flex flex-col gap-3">
           <h2 id="disclaimer" className="text-h2">
-            Disclaimer
+            {t("disclaimer")}
           </h2>
+          <p className="text-body-m">{t("disclaimerP1")}</p>
+          <p className="text-body-m">{t("disclaimerP2")}</p>
           <p className="text-body-m">
-            Humraah shares information to help you plan your higher education. We take care to check it
-            against official sources, but fees, dates, eligibility and requirements change, and some entries
-            have not been verified yet. Always confirm the details on the official website of the university,
-            scholarship provider or Higher Education Commission (HEC) before you apply or pay anything.
-          </p>
-          <p className="text-body-m">
-            Humraah is an independent, youth-led initiative. We are not part of HEC, any university or any
-            scholarship provider, and a listing on this site is not a ranking, a recommendation or a guarantee
-            of admission or funding. Links to other websites are provided for convenience; we are not
-            responsible for their content.
-          </p>
-          <p className="text-body-m">
-            Spotted something wrong or out of date? Email us at{" "}
-            <a href={`mailto:${contact.email}`} className={link}>
-              {contact.email}
-            </a>
-            .
+            {t.rich("disclaimerP3", {
+              email: () => (
+                <a href={`mailto:${contact.email}`} className={link}>
+                  {contact.email}
+                </a>
+              ),
+            })}
           </p>
         </section>
 
@@ -59,12 +53,12 @@ export default async function PrivacyPage({ params }: { params: LocaleParams }) 
           className="flex scroll-mt-28 flex-col gap-3"
         >
           <h2 id="contact-form-heading" className="text-h2">
-            Contact Form Privacy Notice
+            {t("noticeTitle")}
           </h2>
-          <h3 className="text-h3">{contactPrivacy.title}</h3>
+          <h3 className="text-h3">{notice("title")}</h3>
           {contactPrivacy.paragraphs.map((p) => (
-            <p key={p.slice(0, 24)} className="text-body-m">
-              {p}
+            <p key={p} className="text-body-m">
+              {notice(p)}
             </p>
           ))}
         </section>

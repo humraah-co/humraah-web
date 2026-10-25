@@ -1,1 +1,821 @@
-{}
+{
+  "layout": {
+    "skipToContent": "Skip to content",
+    "title": "Humraah – higher education guidance for girls in Pakistan",
+    "titleTemplate": "%s · Humraah",
+    "description": "Find out what you could study, which universities offer it and how to pay for it. Humraah walks alongside girls in Pakistan towards higher education."
+  },
+  "brand": {
+    "home": "Humraah home"
+  },
+  "nav": {
+    "main": "Main",
+    "primary": "Primary",
+    "home": "Home",
+    "explore": "Explore fields",
+    "exploreShort": "Explore",
+    "universities": "Universities",
+    "scholarships": "Scholarships",
+    "guidance": "Guidance",
+    "guide": "Guide",
+    "guideFull": "Higher Education Guide",
+    "resources": "Resources",
+    "about": "About",
+    "aboutContact": "About and contact",
+    "whereToStart": "Where do I start?",
+    "menu": "Menu",
+    "searchUniversities": "Search universities",
+    "backTo": "Back to {section}"
+  },
+  "language": {
+    "label": "Language",
+    "comingSoon": "Urdu version coming soon",
+    "comingSoonShort": "(coming soon)"
+  },
+  "footer": {
+    "tagline": "Walking alongside you, towards your dreams.",
+    "about": "A youth-led initiative giving girls the information, resources and support to pursue higher education and build their own paths forward.",
+    "disclaimer": "Humraah shares information to help you plan. Always confirm fees, dates and requirements on the official website before you apply.",
+    "explore": "Explore",
+    "help": "Help",
+    "contact": "Contact",
+    "instagram": "Instagram: {handle}",
+    "linkedin": "LinkedIn: {name}",
+    "motto": "WALKING ALONGSIDE. GROWING TOGETHER.",
+    "privacyLink": "Privacy and disclaimer"
+  },
+  "common": {
+    "seeAll": "See all",
+    "opensInNewTab": "(opens in a new tab)",
+    "selected": "(selected)",
+    "removeFilter": "Remove this filter",
+    "comingSoon": "Coming soon",
+    "toBeConfirmed": "To be confirmed.",
+    "readTime": "{count} min read"
+  },
+  "badges": {
+    "verified": "Verified",
+    "notYetVerified": "Not yet verified",
+    "hecRecognised": "HEC-recognised",
+    "source": "Source: {host}"
+  },
+  "blocks": {
+    "remember": "Remember…",
+    "helpTitle": "Need help? Humraah is here.",
+    "helpText": "You don’t have to figure everything out alone. Message us on Instagram <instagram></instagram> or email <email></email>.",
+    "nextSteps": "Your next steps",
+    "staleTitle": "This may be out of date",
+    "staleText": "We last checked these details on {date}, more than six months ago. Check the official website before you rely on them."
+  },
+  "filters": {
+    "filters": "Filters",
+    "applied": "applied",
+    "close": "Close filters",
+    "clearAll": "Clear all",
+    "fieldOfStudy": "Field of study",
+    "allFields": "All fields"
+  },
+  "share": {
+    "whatsapp": "Share on WhatsApp",
+    "copied": "Link copied",
+    "sharePage": "Share this page"
+  },
+  "cards": {
+    "youMightEnjoy": "You might enjoy this if you like {interests}.",
+    "public": "Public",
+    "private": "Private",
+    "womenOnly": "Women only",
+    "programmes": "{count, plural, one {# programme} other {# programmes}}",
+    "financialAid": "Financial aid",
+    "applications": "Applications: {window}",
+    "datesToBeConfirmed": "dates to be confirmed",
+    "needBased": "Need-based",
+    "covers": "Covers",
+    "humraah": "Humraah"
+  },
+  "deadline": {
+    "closed": "Closed {date}",
+    "closingSoon": "Closing soon: {date}",
+    "closes": "Closes {date}",
+    "toBeConfirmed": "Deadline to be confirmed"
+  },
+  "scholarshipKinds": {
+    "government": "Government",
+    "need": "Government",
+    "external": "External",
+    "university": "University aid",
+    "merit": "Merit"
+  },
+  "contact": {
+    "title": "Send us a message",
+    "name": "Your name",
+    "email": "Email address",
+    "message": "Message",
+    "messagePlaceholder": "Write your question here",
+    "privacyLink": "Privacy and disclaimer",
+    "send": "Send message",
+    "sending": "Sending…",
+    "replyByEmail": "We’ll reply by email.",
+    "sentTitle": "Thank you, your message is on its way",
+    "sentText": "We’ll reply by email. It can take a few days, so please check your spam folder too.",
+    "sendAnother": "Send another message",
+    "sendFailed": "Sorry, we couldn’t send your message just now. Please try again in a few minutes, or email us at <email></email>.",
+    "errors": {
+      "nameRequired": "Please tell us your name.",
+      "nameTooLong": "Please keep your name under {max} characters.",
+      "emailRequired": "Please add your email address so we can reply.",
+      "emailInvalid": "Please check your email address, for example name@example.com.",
+      "messageRequired": "Please write your message.",
+      "messageTooLong": "Please keep your message under {max} characters.",
+      "privacyRequired": "Please confirm you have read the Contact Form Privacy Notice."
+    }
+  },
+  "privacyNotice": {
+    "heading": "Contact Form Privacy Notice: {title}",
+    "title": "Contacting Humraah",
+    "p1": "If you contact Humraah through this form, we will use the information you submit to read and respond to your message and to follow up where needed. Please share only the information necessary for your enquiry. Do not include passwords, identity-document numbers, detailed financial records or other sensitive personal information in the message.",
+    "p2": "Your message may be accessible to the Humraah team members responsible for managing enquiries. Before this form goes live, Humraah will confirm who can access submissions, where they are stored, how long they are kept, and how a sender can request correction or deletion. We will update this notice to reflect those practices. If you are under 18, consider asking a trusted adult for help before sharing personal information online.",
+    "checkbox": "I have read the Contact Form Privacy Notice."
+  },
+  "quiz": {
+    "exit": "Exit quiz",
+    "exitLabel": "Exit the quiz",
+    "progress": "Quiz progress",
+    "questions": {
+      "q1": {
+        "title": "What do you enjoy?",
+        "clause": "you enjoy {things}",
+        "options": {
+          "science": "Science",
+          "maths": "Maths",
+          "languages": "Languages",
+          "art": "Art and creativity",
+          "technology": "Technology",
+          "business": "Business",
+          "helping": "Helping people",
+          "society": "People and society",
+          "nature": "Nature and environment",
+          "other": "Something else"
+        },
+        "phrases": {
+          "science": "science",
+          "maths": "maths",
+          "languages": "languages",
+          "art": "art and creativity",
+          "technology": "technology",
+          "business": "business",
+          "helping": "helping people",
+          "society": "people and society",
+          "nature": "nature and environment",
+          "other": "other things"
+        }
+      },
+      "q2": {
+        "title": "What are you good at?",
+        "clause": "you’re good at {things}",
+        "options": {
+          "problems": "Solving problems",
+          "explaining": "Explaining things",
+          "writing": "Writing",
+          "numbers": "Working with numbers",
+          "drawing": "Drawing and design",
+          "building": "Building and fixing things",
+          "organising": "Organising and planning",
+          "listening": "Listening to people",
+          "debating": "Debating and persuading",
+          "research": "Finding things out"
+        },
+        "phrases": {
+          "problems": "solving problems",
+          "explaining": "explaining things",
+          "writing": "writing",
+          "numbers": "working with numbers",
+          "drawing": "drawing and design",
+          "building": "building and fixing things",
+          "organising": "organising and planning",
+          "listening": "listening to people",
+          "debating": "debating and persuading",
+          "research": "finding things out"
+        }
+      },
+      "q3": {
+        "title": "Which subjects do you like most?",
+        "clause": "you like {things}",
+        "options": {
+          "biology": "Biology",
+          "chemistry": "Chemistry",
+          "physics": "Physics",
+          "maths": "Maths",
+          "computer": "Computer science",
+          "english-urdu": "English or Urdu",
+          "history": "History and Pakistan Studies",
+          "economics": "Economics or accounting",
+          "art": "Art",
+          "psychology": "Psychology or sociology"
+        },
+        "phrases": {
+          "biology": "biology",
+          "chemistry": "chemistry",
+          "physics": "physics",
+          "maths": "maths",
+          "computer": "computer science",
+          "english-urdu": "English or Urdu",
+          "history": "history and Pakistan Studies",
+          "economics": "economics or accounting",
+          "art": "art",
+          "psychology": "psychology or sociology"
+        }
+      },
+      "q4": {
+        "title": "Where can you picture yourself working?",
+        "clause": "you can picture yourself {things}",
+        "options": {
+          "hospital": "A hospital or clinic",
+          "office": "An office",
+          "lab": "A lab",
+          "classroom": "A classroom",
+          "court": "A courtroom",
+          "studio": "A studio",
+          "site": "On site or outdoors",
+          "online": "Online or from home",
+          "community": "In the community",
+          "unsure": "I’m not sure yet"
+        },
+        "phrases": {
+          "hospital": "in a hospital or clinic",
+          "office": "in an office",
+          "lab": "in a lab",
+          "classroom": "in a classroom",
+          "court": "in a courtroom",
+          "studio": "in a studio",
+          "site": "on site or outdoors",
+          "online": "working online",
+          "community": "in the community",
+          "unsure": "i’m not sure yet"
+        }
+      },
+      "q5": {
+        "title": "What matters most to you?",
+        "clause": "you care about {things}",
+        "options": {
+          "helping": "Helping others",
+          "creating": "Creating new things",
+          "fairness": "Fairness and justice",
+          "discovery": "Discovering how things work",
+          "earning": "Earning a good living",
+          "sharing": "Sharing what I know",
+          "ideas": "Big ideas and stories",
+          "future": "Building the future"
+        },
+        "phrases": {
+          "helping": "helping others",
+          "creating": "creating new things",
+          "fairness": "fairness and justice",
+          "discovery": "discovering how things work",
+          "earning": "earning a good living",
+          "sharing": "sharing what you know",
+          "ideas": "big ideas and stories",
+          "future": "building the future"
+        }
+      },
+      "q6": {
+        "title": "How do you like to learn?",
+        "clause": "you like learning by {things}",
+        "options": {
+          "hands-on": "Doing things hands-on",
+          "reading": "Reading",
+          "talking": "Talking it through",
+          "experiments": "Experiments",
+          "computers": "Using computers",
+          "visual": "Pictures and diagrams",
+          "projects": "Real-world projects"
+        },
+        "phrases": {
+          "hands-on": "doing things hands-on",
+          "reading": "reading",
+          "talking": "talking things through",
+          "experiments": "doing experiments",
+          "computers": "using computers",
+          "visual": "looking at pictures and diagrams",
+          "projects": "working on real projects"
+        }
+      }
+    },
+    "summary": {
+      "q1": "what you enjoy ({things})",
+      "q2": "what you’re good at ({things})"
+    },
+    "reason": "Because {clauses}.",
+    "title": "Where do I start?",
+    "metaDescription": "Six quick questions about what you enjoy and what you're good at, and fields of study to explore.",
+    "previousQuestion": "Previous question",
+    "backHome": "Back to home",
+    "questionOf": "Question {step} of {total}",
+    "duration": "About 2 minutes",
+    "noWrongAnswers": "There are no wrong answers",
+    "hint": "Pick as many as you like. You can change your answers later.",
+    "remember": "You don’t have to know what you want to become yet. This just gives you a place to start.",
+    "back": "Back",
+    "seeResults": "See my results",
+    "nextQuestion": "Next question",
+    "results": {
+      "metaTitle": "Your quiz results",
+      "metaDescription": "Fields of study you might enjoy, based on your answers to the Where do I start? quiz.",
+      "title": "Your results",
+      "backLabel": "Back to the last question",
+      "allAnswered": "All {total} questions answered",
+      "someAnswered": "{answered} of {total} questions answered",
+      "script": "Here’s what we found",
+      "heading": "You might enjoy…",
+      "basedOn": "Based on {summary}.",
+      "basedOnAnswers": "Based on your answers.",
+      "notConnected": "The database isn't connected yet. Add the Supabase environment variables to see your results.",
+      "needMore": "We need a few more answers to suggest fields.",
+      "needMoreHint": "Pick what you enjoy and what you’re good at, or <explore>browse every field</explore>.",
+      "remember": "These are starting points, not final answers. Your interests may change, and that’s part of the journey.",
+      "exploreAll": "Explore all {count} fields",
+      "explore": "Explore fields",
+      "shareTitle": "My Humraah quiz results",
+      "retake": "Retake the quiz"
+    }
+  },
+  "universities": {
+    "filterCity": "City",
+    "moreCities": "More cities",
+    "filterType": "Type of university",
+    "public": "Public",
+    "private": "Private",
+    "filterField": "Field of study",
+    "filterGoodToKnow": "Good to know",
+    "womenOnly": "Women-only universities",
+    "hostel": "Hostel available for women",
+    "aid": "Need-based financial aid",
+    "metaTitle": "Universities",
+    "metaDescription": "Find universities in Pakistan, then see their programmes, fees and how to apply.",
+    "title": "Find a university",
+    "intro": "Every university listed is recognised by HEC. Open one to see programmes, fees and how to apply.",
+    "search": "Search by name, city or subject",
+    "searchButton": "Search",
+    "count": "{count, plural, one {# university} other {# universities}}",
+    "show": "Show {count, plural, one {# university} other {# universities}}",
+    "filters": "Filters",
+    "clearAll": "Clear all",
+    "notConnected": "The database isn't connected yet. Add the Supabase environment variables to see universities.",
+    "noUniversities": "No universities are published yet. Check back soon.",
+    "noMatch": "No universities match these filters.",
+    "noMatchHint": "Try removing a filter or searching a different word.",
+    "showAll": "Show all universities",
+    "showMore": "Show more universities",
+    "campusTitle": "Check the exact campus",
+    "campusText": "Always check that the campus you’re applying to is on HEC’s recognised list before you apply.",
+    "chipWomen": "Women only",
+    "chipHostel": "Hostel for women",
+    "chipAid": "Need-based aid",
+    "chipQuery": "“{query}”",
+    "sortAz": "A to Z",
+    "sortZa": "Z to A",
+    "sort": "Sort: {order}"
+  },
+  "scholarships": {
+    "filterType": "Type of support",
+    "types": {
+      "government": "Government",
+      "university": "University aid",
+      "external": "External",
+      "merit": "Merit"
+    },
+    "filterField": "Field of study",
+    "anyFieldNote": "Includes scholarships open to any field.",
+    "filterGoodToKnow": "Good to know",
+    "forWomen": "For women",
+    "metaTitle": "Scholarships",
+    "metaDescription": "Find scholarships and financial aid for university in Pakistan and abroad: who they're for, what they cover and when they close.",
+    "title": "Find a scholarship",
+    "intro": "Don’t assume university is out of reach because of fees. Universities and organisations offer support for tuition, living costs, books and more.",
+    "search": "Search scholarships",
+    "scopeLabel": "Where you'll study",
+    "scope": {
+      "all": "All",
+      "pakistan": "Pakistan",
+      "international": "International"
+    },
+    "count": "{count, plural, one {# scholarship} other {# scholarships}}",
+    "show": "Show {count, plural, one {# scholarship} other {# scholarships}}",
+    "filters": "Filters",
+    "clearAll": "Clear all",
+    "notConnected": "The database isn't connected yet. Add the Supabase environment variables to see scholarships.",
+    "noScholarships": "No scholarships are published yet. Check back soon.",
+    "noMatch": "No scholarships match these filters.",
+    "noMatchHint": "Try removing a filter or searching a different word.",
+    "showAll": "Show all scholarships",
+    "importantTitle": "Important",
+    "importantText": "Scholarships, eligibility and deadlines change. Always check the provider’s official website before you apply.",
+    "chipQuery": "“{query}”",
+    "sortDeadline": "closing soon",
+    "sortAz": "A to Z",
+    "sort": "Sort: {order}"
+  },
+  "home": {
+    "fieldsPhrase": "{count, plural, =0 {the fields of study} other {{word} fields of study}}",
+    "heroScript": "For every girl who dreams, questions and hopes",
+    "heroTitle": "Your path to university starts here.",
+    "heroText": "Find out what you could study, which universities offer it, what it costs and where to start, one step at a time.",
+    "heroStart": "Where do I start?",
+    "heroUniversities": "Explore universities",
+    "pathTitle": "From “I don’t know” to “I’ve applied”",
+    "step": "Step {number}",
+    "steps": {
+      "discover": {
+        "title": "Discover what you enjoy",
+        "text": "Take a two-minute quiz or browse {fields}.",
+        "link": "Take the quiz"
+      },
+      "universities": {
+        "title": "Find universities",
+        "text": "See programmes, fees and how to apply, with the official source for every detail.",
+        "link": "Find a university"
+      },
+      "scholarships": {
+        "title": "Find support to pay",
+        "text": "Merit and need-based scholarships from Pakistan and abroad.",
+        "link": "Find scholarships"
+      },
+      "guide": {
+        "title": "Plan your next step",
+        "text": "Keep track with our free guide in English and Urdu.",
+        "link": "Get the guide"
+      }
+    },
+    "closingSoon": "Closing soon",
+    "closingSoonFull": "Scholarships closing soon",
+    "seeAll": "See all",
+    "seeAllScholarships": "See all scholarships",
+    "notConnected": "The database isn't connected yet. Add the Supabase environment variables to see scholarships.",
+    "noScholarships": "No scholarships are published yet. Check back soon.",
+    "guideCover": "Higher Education Guide",
+    "guideTitle": "Our free Higher Education Guide",
+    "guideTextShort": "Discover yourself, explore your options and find the right university.",
+    "guideTextLong": "Discover yourself, explore your options, find the right university and build your path, in English and Urdu.",
+    "guideChapters": {
+      "why": "Why higher education matters",
+      "discover": "Discover yourself",
+      "options": "Exploring your options",
+      "university": "Finding the right university",
+      "path": "Build your path"
+    },
+    "guideFree": "Free to download, in English and Urdu.",
+    "whyTitle": "Humraah means “companion”.",
+    "whyTextShort": "Many girls in Pakistan stop after FSc, not because they don’t want to continue, but because no one showed them how. We’re here to walk alongside you.",
+    "whyTextLong": "Many girls in Pakistan stop after FSc, not because they don’t want to continue, but because no one showed them how. We’re here to walk alongside you, with the information, resources and support to pursue higher education and build your own path forward.",
+    "aboutLink": "About Humraah",
+    "englishPdf": "English PDF",
+    "urduPdf": "Urdu PDF"
+  },
+  "explore": {
+    "metaTitle": "Explore fields of study",
+    "metaDescription": "Browse popular fields of study in Pakistan and what you might enjoy in each.",
+    "title": "What could you study?",
+    "intro": "There are so many fields to explore. Here are {word} popular areas and what you might enjoy in each.",
+    "introEmpty": "There are so many fields to explore. Check back soon for popular areas and what you might enjoy in each.",
+    "search": "Search fields or programmes",
+    "quizTitle": "Not sure where to begin?",
+    "quizTextShort": "Take a two-minute quiz and we’ll suggest a few fields.",
+    "quizTextLong": "Take a two-minute quiz and we’ll suggest a few fields to explore.",
+    "quizLink": "Take the quiz",
+    "notConnected": "The database isn't connected yet. Add the Supabase environment variables to see fields of study.",
+    "noFields": "No fields of study are published yet. Check back soon.",
+    "noMatch": "No fields match “{query}”.",
+    "noMatchHint": "Try a shorter word, like a subject you enjoy.",
+    "showAllFields": "Show all fields",
+    "matches": "{count, plural, one {# field matches} other {# fields match}} “{query}”.",
+    "showAll": "Show all",
+    "remember": "These are just starting points. There are many more programmes and combinations, and universities may name them differently."
+  },
+  "field": {
+    "metaTitle": "Field of study",
+    "notConnected": "The database isn't connected yet. Add the Supabase environment variables to see this field.",
+    "breadcrumb": "Explore fields",
+    "noSummary": "A description of this field is to be confirmed.",
+    "enjoyTitle": "You might enjoy this if you like",
+    "programmesTitle": "Programmes you could explore",
+    "toBeConfirmed": "To be confirmed.",
+    "remember": "Universities may name programmes differently. Check the programme page on the official website.",
+    "nextSteps": {
+      "compare": "Pick two universities to compare",
+      "requirements": "Check admission requirements",
+      "scholarship": "Look for a scholarship",
+      "action": "Find universities"
+    },
+    "universitiesTitle": "Universities offering this",
+    "seeAll": "See all",
+    "seeAllUniversities": "See all universities",
+    "universitiesNotConnected": "The database isn't connected yet, so universities can't be shown.",
+    "noUniversities": "We haven't listed universities for this field yet. Universities to be confirmed.",
+    "browseUniversities": "Browse all universities",
+    "scholarshipsTitle": "Scholarships to look at",
+    "seeAllScholarships": "See all scholarships",
+    "scholarshipsNotConnected": "The database isn't connected yet, so scholarships can't be shown.",
+    "noScholarships": "No scholarships are listed for this field yet. Scholarships to be confirmed.",
+    "browseScholarships": "Browse all scholarships"
+  },
+  "university": {
+    "metaTitle": "University",
+    "notConnected": "The database isn't connected yet. Add the Supabase environment variables to see this university.",
+    "feeRange": "{min} to {max}",
+    "toBeConfirmed": "To be confirmed",
+    "datesToBeConfirmed": "Dates to be confirmed",
+    "otherProgrammes": "Other programmes",
+    "breadcrumb": "Universities",
+    "public": "Public",
+    "private": "Private",
+    "womenOnly": "Women only",
+    "noOverview": "An overview of this university is to be confirmed.",
+    "visitWebsite": "Visit official website",
+    "noWebsite": "Official website to be confirmed.",
+    "shareTitle": "{name} on Humraah",
+    "factFees": "Fees",
+    "factTest": "Admission test",
+    "factApplications": "Applications",
+    "lastVerified": "Last verified {date}",
+    "applyTitle": "Everything you need to apply",
+    "programmes": "Programmes",
+    "noProgrammes": "Programmes to be confirmed. Check the official website for the full list.",
+    "programmesNote": "Programme names and seats change each year. Confirm them on the official website.",
+    "howToApply": "How to apply",
+    "confirmSteps": "Confirm each step on the official admissions page.",
+    "typicalStepsIntro": "Typical steps. Confirm each one on the official admissions page.",
+    "typicalSteps": {
+      "eligible": {
+        "title": "Check you’re eligible",
+        "text": "Read the subject and grade requirements for your programme."
+      },
+      "register": {
+        "title": "Register on the admissions portal",
+        "text": "Create an account on the university’s official portal only."
+      },
+      "form": {
+        "title": "Fill in the form and upload documents",
+        "text": "Keep scans of your CNIC or B-Form, results and photos ready."
+      },
+      "fee": {
+        "title": "Pay the application fee",
+        "text": "Use only the payment methods listed on the official website."
+      },
+      "test": {
+        "title": "Take the admission test, if there is one",
+        "text": "Check the test date and what it covers early."
+      }
+    },
+    "requirements": "Admission requirements",
+    "noRequirements": "Admission requirements to be confirmed.",
+    "fees": "Fees",
+    "noFees": "Fees to be confirmed.",
+    "aid": "Scholarships and financial aid",
+    "aidYes": "This university offers need-based financial aid.",
+    "aidNo": "No need-based financial aid is listed for this university.",
+    "aidUnknown": "Financial aid details to be confirmed.",
+    "browseScholarships": "Browse scholarships",
+    "dates": "Important dates",
+    "noDates": "Application dates to be confirmed.",
+    "testsDocuments": "Tests and documents",
+    "tests": "Admission tests",
+    "noTests": "Admission tests to be confirmed.",
+    "documents": "Documents to prepare",
+    "noDocuments": "Required documents to be confirmed.",
+    "international": "International and exchange",
+    "noInternational": "International and exchange details to be confirmed. Ask the university's admissions office.",
+    "links": "Official links",
+    "linkWebsite": "Official website",
+    "linkAdmissions": "Admissions page",
+    "linkSource": "Source we checked",
+    "noLinks": "Official links to be confirmed.",
+    "nextSteps": {
+      "dates": "Note the application dates",
+      "requirements": "Check the admission requirements",
+      "scholarship": "Look for a scholarship",
+      "action": "Find scholarships"
+    },
+    "beforeTitle": "Before you apply",
+    "beforeText": "Fees, eligibility and deadlines change. Always check the official website before you apply.",
+    "outdated": "Spotted something outdated?",
+    "tellUs": "Tell us"
+  },
+  "scholarship": {
+    "metaTitle": "Scholarship",
+    "notConnected": "The database isn't connected yet. Add the Supabase environment variables to see this scholarship.",
+    "breadcrumb": "Scholarships",
+    "needBased": "Need-based",
+    "forWomen": "For women",
+    "studyAbroad": "Study abroad",
+    "noSummary": "A summary of this scholarship is to be confirmed.",
+    "offeredBy": "Offered by {provider}",
+    "lastVerified": "Last verified {date}",
+    "checkWebsite": "Please check the official website",
+    "apply": "Apply on the official website",
+    "noWebsite": "Official website to be confirmed.",
+    "shareTitle": "{name} on Humraah",
+    "nextSteps": {
+      "eligibility": "Check you meet the eligibility",
+      "documents": "Get your documents ready",
+      "deadline": "Note the deadline",
+      "action": "See more scholarships"
+    },
+    "related": "You might also look at",
+    "seeAll": "See all",
+    "covers": "What it can cover",
+    "noCovers": "What it covers is to be confirmed.",
+    "eligible": "You may be eligible if…",
+    "noEligible": "Who can apply is to be confirmed.",
+    "areas": "Current eligible areas",
+    "noAreas": "Eligible areas to be confirmed.",
+    "howToApply": "How to apply",
+    "confirmSteps": "Confirm each step on the official website.",
+    "typicalStepsIntro": "Typical steps. Confirm each one on the official website.",
+    "typicalSteps": {
+      "rules": {
+        "title": "Read the rules",
+        "text": "Check eligibility and what you need on the official website."
+      },
+      "documents": {
+        "title": "Prepare your documents",
+        "text": "Keep your results and ID documents ready."
+      },
+      "deadline": {
+        "title": "Apply before the deadline",
+        "text": "Submit only through the official website."
+      },
+      "track": {
+        "title": "Keep track",
+        "text": "Note your application number and check for updates."
+      }
+    },
+    "importantTitle": "Important",
+    "importantText": "Fees, eligibility and deadlines change. Always check the official website before you apply.",
+    "outdated": "Spotted something outdated?",
+    "tellUs": "Tell us",
+    "deadline": {
+      "toBeConfirmed": "Deadline to be confirmed",
+      "closed": "Applications closed",
+      "closingSoon": "Closing soon",
+      "open": "Open",
+      "closedOn": "Closed on {date}",
+      "on": "Deadline: {date}",
+      "checkDates": "Check the official website for this year’s dates."
+    }
+  },
+  "guide": {
+    "title": "Higher Education Guide",
+    "metaDescription": "A free guide in English and Urdu to help you take your first step: discover yourself, explore your options and find the right university.",
+    "intro": "A free guide to help you take your first step: discover yourself, explore your options and find the right university.",
+    "inside": "What’s inside",
+    "chapters": {
+      "note": {
+        "title": "A note from Humraah",
+        "summary": "Why we made this guide, and who it’s for."
+      },
+      "why": {
+        "title": "Why higher education matters",
+        "summary": "What higher education is and how it can help you."
+      },
+      "discover": {
+        "title": "Discover yourself",
+        "summary": "What you enjoy, what you’re good at, and your top three."
+      },
+      "options": {
+        "title": "Exploring your options",
+        "summary": "Ten popular fields and what you might enjoy in each."
+      },
+      "university": {
+        "title": "Finding the right university",
+        "summary": "How to research universities and pay for your studies."
+      },
+      "path": {
+        "title": "Build your path",
+        "summary": "Your interest, your options and your next step."
+      }
+    },
+    "signOff": "With love, Humraah",
+    "languages": {
+      "en": "English",
+      "ur": "Urdu"
+    },
+    "pdf": "PDF",
+    "pdfSize": "PDF, {size}",
+    "pdfSoon": "PDF coming soon",
+    "download": "Download",
+    "downloadLabel": "Download the {language} guide (PDF)",
+    "downloadLabelSize": "Download the {language} guide (PDF, {size})",
+    "readOnline": "Read online",
+    "readOnlineNote": "(the {language} guide opens in a new tab)",
+    "comingSoon": "Coming soon"
+  },
+  "guidance": {
+    "title": "Guidance",
+    "intro": "Simple, step-by-step help for every stage, from choosing a field to paying for university.",
+    "notConnected": "The database isn't connected yet. Add the Supabase environment variables to see guidance.",
+    "noArticles": "No guidance is published yet. Check back soon.",
+    "articleNotConnected": "The database isn't connected yet. Add the Supabase environment variables to see this article.",
+    "noBody": "This article is to be confirmed. Check back soon.",
+    "officialTitle": "Use official sources",
+    "officialText": "Don’t rely only on TikTok, Instagram, WhatsApp messages or random websites. Use the university’s official website for the final answer.",
+    "sourceTitle": "Source we checked",
+    "sourceText": "The official page this guidance was checked against.",
+    "nextSteps": {
+      "subject": "Pick one subject you’re curious about",
+      "universities": "Find two universities that offer it",
+      "admissions": "Check their official admission pages",
+      "action": "Find a university"
+    }
+  },
+  "resources": {
+    "metaTitle": "Resources",
+    "metaDescription": "Official websites and tools we trust for university, scholarships and admission tests in Pakistan.",
+    "title": "Useful resources",
+    "intro": "Official websites and tools we trust. Each link opens the official source.",
+    "notConnected": "The database isn't connected yet. Add the Supabase environment variables to see resources.",
+    "noResources": "No resources are published yet. The research team is adding official links. Check back soon.",
+    "groups": {
+      "official": "HEC and official resources",
+      "scholarships": "Scholarships",
+      "tests": "Admission tests",
+      "guidance": "Career exploration"
+    },
+    "fromHumraah": "From Humraah",
+    "guideTitle": "Higher Education Guide",
+    "guideText": "Our free guide in English and Urdu."
+  },
+  "about": {
+    "metaTitle": "About and contact",
+    "metaDescription": "Humraah is a youth-led initiative giving girls in Pakistan the information, resources and support to pursue higher education.",
+    "tagline": "Har Raah Mein Humraah.",
+    "title": "Humraah means “companion”.",
+    "intro": "A youth-led initiative giving girls the information, resources and support to pursue higher education and build their own paths forward.",
+    "story": {
+      "name": {
+        "title": "The name",
+        "text": "Humraah means companion: someone who walks the journey with you."
+      },
+      "problem": {
+        "title": "The problem",
+        "text": "In Pakistan, many girls who get an education stop at FSc, even when they want to continue. Not always because they don’t want to. Often because no one showed them how."
+      },
+      "work": {
+        "title": "What we do",
+        "text": "We give girls the information, resources, guidance and support to explore their own path, no one else’s."
+      }
+    },
+    "promiseLabel": "Our promise",
+    "promise": "Walking alongside you, towards your dreams.",
+    "valuesTitle": "What we believe in",
+    "values": {
+      "knowledge": {
+        "title": "Empower with knowledge",
+        "text": "Clear, official information you can trust."
+      },
+      "access": {
+        "title": "Make opportunities accessible",
+        "text": "Free resources in English and Urdu."
+      },
+      "community": {
+        "title": "Build a supportive community",
+        "text": "Girls helping girls find their way."
+      },
+      "confidence": {
+        "title": "Encourage confidence",
+        "text": "Your path, your choices."
+      }
+    },
+    "contactTitle": "Get in touch",
+    "instagram": "Instagram: {handle}",
+    "linkedin": "LinkedIn: {name}"
+  },
+  "privacy": {
+    "title": "Privacy and disclaimer",
+    "metaDescription": "How Humraah's information should be used, and what happens to messages sent through the contact form.",
+    "disclaimer": "Disclaimer",
+    "disclaimerP1": "Humraah shares information to help you plan your higher education. We take care to check it against official sources, but fees, dates, eligibility and requirements change, and some entries have not been verified yet. Always confirm the details on the official website of the university, scholarship provider or Higher Education Commission (HEC) before you apply or pay anything.",
+    "disclaimerP2": "Humraah is an independent, youth-led initiative. We are not part of HEC, any university or any scholarship provider, and a listing on this site is not a ranking, a recommendation or a guarantee of admission or funding. Links to other websites are provided for convenience; we are not responsible for their content.",
+    "disclaimerP3": "Spotted something wrong or out of date? Email us at <email></email>.",
+    "noticeTitle": "Contact Form Privacy Notice"
+  },
+  "menu": {
+    "title": "Menu",
+    "close": "Close the menu",
+    "privacy": "Privacy and disclaimer",
+    "descriptions": {
+      "guidance": "Step-by-step help for every stage",
+      "guideFull": "Free in English and Urdu",
+      "resources": "Official websites and tools",
+      "aboutContact": "Who we are and how to reach us",
+      "whereToStart": "A two-minute quiz"
+    }
+  },
+  "notFound": {
+    "script": "This path doesn't lead anywhere yet.",
+    "title": "We couldn't find that page",
+    "text": "It may have moved, or the link may be wrong. Let's get you back on track.",
+    "home": "Go to the home page",
+    "popular": "Popular pages",
+    "orTry": "Or try"
+  }
+}

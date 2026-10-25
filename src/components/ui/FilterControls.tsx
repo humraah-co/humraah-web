@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { useRouter } from "@/i18n/navigation";
 import { ChevronDown, SlidersHorizontal } from "lucide-react";
 import { buttonStyles } from "./Button";
 
@@ -22,6 +23,7 @@ export function FilterSheet({
 }) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
+  const t = useTranslations("filters");
   const sheet = useRef<HTMLDivElement>(null);
   const opener = useRef<HTMLButtonElement>(null);
 
@@ -51,11 +53,11 @@ export function FilterSheet({
         className="inline-flex items-center gap-2 rounded-pill border-[1.25px] border-charcoal bg-card py-2.5 pr-3 pl-4 text-label-m text-charcoal"
       >
         <SlidersHorizontal className="size-[18px]" strokeWidth={1.75} aria-hidden="true" />
-        Filters
+        {t("filters")}
         {count > 0 && (
           <span className="flex size-[22px] items-center justify-center rounded-pill bg-coral text-label-xs">
             {count}
-            <span className="sr-only"> applied</span>
+            <span className="sr-only"> {t("applied")}</span>
           </span>
         )}
       </button>
@@ -64,7 +66,7 @@ export function FilterSheet({
         <div className="fixed inset-0 z-50 lg:hidden">
           <button
             type="button"
-            aria-label="Close filters"
+            aria-label={t("close")}
             onClick={() => setOpen(false)}
             className="absolute inset-0 bg-charcoal/45"
           />
@@ -79,14 +81,14 @@ export function FilterSheet({
             <span className="mx-auto h-1 w-10 shrink-0 rounded-[2px] bg-border-strong" aria-hidden="true" />
             <div className="flex items-center justify-between">
               <h2 id="filters-title" className="text-h2">
-                Filters
+                {t("filters")}
               </h2>
               <button
                 type="button"
                 onClick={() => router.push(clearHref, { scroll: false })}
                 className="py-2.5 text-label-m text-deep-rose underline underline-offset-2 hover:text-charcoal"
               >
-                Clear all
+                {t("clearAll")}
               </button>
             </div>
             {children}
@@ -111,10 +113,11 @@ export function FieldSelect({
   allHref: string;
 }) {
   const router = useRouter();
+  const t = useTranslations("filters");
   return (
     <span className="relative block">
       <select
-        aria-label="Field of study"
+        aria-label={t("fieldOfStudy")}
         value={value}
         onChange={(event) => {
           const option = options.find((o) => o.slug === event.target.value);
@@ -122,7 +125,7 @@ export function FieldSelect({
         }}
         className="h-12 w-full cursor-pointer appearance-none rounded-xl border border-border-strong bg-card pr-10 pl-3.5 text-body-m text-charcoal"
       >
-        <option value="">All fields</option>
+        <option value="">{t("allFields")}</option>
         {options.map((o) => (
           <option key={o.slug} value={o.slug}>
             {o.name}

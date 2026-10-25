@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { ChevronDown, Search } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { UniversityCard } from "@/components/content/Cards";
 import { Container } from "@/components/layout/PageShell";
 import { TwoColumns } from "@/components/layout/TwoColumns";
@@ -20,12 +21,14 @@ import {
   toggled,
   type UniversityFilters,
 } from "@/lib/universityFilters";
+import { localizedPath } from "@/i18n/config";
+import { Link } from "@/i18n/navigation";
 import { pageLocale, type LocaleParams } from "@/i18n/server";
 
-export const metadata: Metadata = {
-  title: "Universities",
-  description: "Find universities in Pakistan, then see their programmes, fees and how to apply.",
-};
+export async function generateMetadata({ params }: { params: LocaleParams }): Promise<Metadata> {
+  const t = await getTranslations({ locale: (await params).locale, namespace: "universities" });
+  return { title: t("metaTitle"), description: t("metaDescription") };
+}
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
 
@@ -36,7 +39,8 @@ export default async function UniversitiesPage({
   params: LocaleParams;
   searchParams: SearchParams;
 }) {
-  await pageLocale(params);
+  const locale = await pageLocale(params);
+  const t = await getTranslations("universities");
   const filters = parseFilters(await searchParams);
   const [cards, fields] = await Promise.all([listUniversityCards(), listFields()]);
   const fieldList = fields ?? [];
@@ -46,7 +50,7 @@ export default async function UniversitiesPage({
   const filterCount = activeFilterCount(filters);
   const fieldName = filters.field ? fieldList.find((f) => f.slug === filters.field)?.name : undefined;
   const fieldId = filters.field ? fieldList.find((f) => f.slug === filters.field)?.id : undefined;
-  const countLabel = `${results.length} ${results.length === 1 ? "university" : "universities"}`;
+  const countLabel = t("count", { count: results.length });
   const clearHref = hrefWith(filters, {
     cities: [],
     types: [],
@@ -56,7 +60,7 @@ export default async function UniversitiesPage({
     aid: false,
   });
 
-  const chips = activeChips(filters, fieldName);
+  const chips = activeChips(filters, fieldName, t);
   const filterGroups = (
     <FilterGroups filters={filters} cities={cards ? cityOptions(cards) : []} fields={fieldList} />
   );
@@ -64,12 +68,14 @@ export default async function UniversitiesPage({
   return (
     <>
       <Container className="flex flex-col gap-3.5 pt-6 pb-3 lg:pt-12 lg:pb-8">
-        <h1 className="text-h1 lg:text-[40px] lg:leading-[46px]">Find a university</h1>
-        <p className="text-body-m text-muted lg:max-w-[720px] lg:text-body-l">
-          Every university listed is recognised by HEC. Open one to see programmes, fees and how to apply.
-        </p>
+        <h1 className="text-h1 lg:text-[40px] lg:leading-[46px]">{t("title")}</h1>
+        <p className="text-body-m text-muted lg:max-w-[720px] lg:text-body-l">{t("intro")}</p>
 
-        <form role="search" action="/universities" className="flex items-center gap-3 lg:pt-2">
+        <form
+          role="search"
+          action={localizedPath("/universities", locale)}
+          className="flex items-center gap-3 lg:pt-2"
+        >
           {filters.cities.map((city) => (
             <input key={city} type="hidden" name="city" value={city} />
           ))}
@@ -82,7 +88,7 @@ export default async function UniversitiesPage({
           {filters.aid && <input type="hidden" name="aid" value="1" />}
           {filters.sort !== "az" && <input type="hidden" name="sort" value={filters.sort} />}
           <label htmlFor="university-search" className="sr-only">
-            Search by name, city or subject
+            {t("search")}
           </label>
           <span className="flex h-[52px] flex-1 items-center gap-2.5 rounded-pill border border-border-strong bg-card px-[18px] lg:max-w-[560px]">
             <Search className="size-5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
@@ -91,21 +97,25 @@ export default async function UniversitiesPage({
               name="q"
               type="search"
               defaultValue={filters.q}
-              placeholder="Search by name, city or subject"
+              placeholder={t("search")}
               autoComplete="off"
               className="min-w-0 flex-1 bg-transparent text-body-m text-charcoal outline-none placeholder:text-muted"
             />
           </span>
           <span className="hidden lg:block">
             <button type="submit" className={buttonStyles.primary}>
-              Search
+              {t("searchButton")}
             </button>
           </span>
         </form>
 
         {cards && (
           <div className="flex flex-wrap items-center gap-2 lg:hidden">
-            <FilterSheet count={filterCount} showLabel={`Show ${countLabel}`} clearHref={clearHref}>
+            <FilterSheet
+              count={filterCount}
+              showLabel={t("show", { count: results.length })}
+              clearHref={clearHref}
+            >
               <div className="flex flex-col gap-[22px]">{filterGroups}</div>
             </FilterSheet>
             {chips.map((chip) => (
@@ -120,17 +130,17 @@ export default async function UniversitiesPage({
       <Container className="pb-7 lg:flex lg:items-start lg:gap-8 lg:pb-16">
         {cards && (
           <aside
-            aria-label="Filters"
+            aria-label={t("filters")}
             className="hidden w-[300px] shrink-0 flex-col gap-[22px] rounded-3xl border border-border-soft bg-card p-6 lg:flex"
           >
             <div className="flex items-center justify-between">
-              <h2 className="text-h3">Filters</h2>
+              <h2 className="text-h3">{t("filters")}</h2>
               <Link
                 href={clearHref}
                 scroll={false}
                 className="py-2.5 text-label-m text-deep-rose underline underline-offset-2 hover:text-charcoal"
               >
-                Clear all
+                {t("clearAll")}
               </Link>
             </div>
             {filterGroups}
@@ -140,13 +150,10 @@ export default async function UniversitiesPage({
         <div className="flex min-w-0 flex-1 flex-col gap-3 lg:gap-4">
           {cards === null ? (
             <p className="rounded-2xl bg-tint-lavender p-5 text-body-m" role="status">
-              The database isn&apos;t connected yet. Add the Supabase environment variables to see
-              universities.
+              {t("notConnected")}
             </p>
           ) : cards.length === 0 ? (
-            <p className="rounded-2xl bg-blush p-5 text-body-m">
-              No universities are published yet. Check back soon.
-            </p>
+            <p className="rounded-2xl bg-blush p-5 text-body-m">{t("noUniversities")}</p>
           ) : (
             <>
               <div className="flex items-center justify-between">
@@ -168,9 +175,9 @@ export default async function UniversitiesPage({
 
               {results.length === 0 ? (
                 <div className="rounded-2xl bg-blush p-5">
-                  <p className="text-label-l">No universities match these filters.</p>
+                  <p className="text-label-l">{t("noMatch")}</p>
                   <p className="mt-1 text-body-s text-muted">
-                    Try removing a filter or searching a different word.{" "}
+                    {t("noMatchHint")}{" "}
                     <Link
                       href={hrefWith(filters, {
                         q: "",
@@ -183,7 +190,7 @@ export default async function UniversitiesPage({
                       })}
                       className="text-deep-rose underline underline-offset-2 hover:text-charcoal"
                     >
-                      Show all universities
+                      {t("showAll")}
                     </Link>
                   </p>
                 </div>
@@ -204,7 +211,7 @@ export default async function UniversitiesPage({
                     scroll={false}
                     className={`${buttonStyles.secondary} w-full lg:w-auto`}
                   >
-                    Show more universities
+                    {t("showMore")}
                   </Link>
                 </div>
               )}
@@ -221,15 +228,16 @@ export default async function UniversitiesPage({
 }
 
 function CampusNote() {
-  return (
-    <ImportantCallout title="Check the exact campus">
-      Always check that the campus you’re applying to is on HEC’s recognised list before you apply.
-    </ImportantCallout>
-  );
+  const t = useTranslations("universities");
+  return <ImportantCallout title={t("campusTitle")}>{t("campusText")}</ImportantCallout>;
 }
 
-/** One chip per applied filter, each linking to the list without it. */
-function activeChips(filters: UniversityFilters, fieldName: string | undefined) {
+/** One chip per applied filter, each linking to the list without it. `t` is the "universities" messages. */
+function activeChips(
+  filters: UniversityFilters,
+  fieldName: string | undefined,
+  t: Awaited<ReturnType<typeof getTranslations<"universities">>>,
+) {
   const chips: { key: string; label: string; href: string }[] = [];
   for (const city of filters.cities) {
     chips.push({
@@ -241,32 +249,33 @@ function activeChips(filters: UniversityFilters, fieldName: string | undefined) 
   for (const type of filters.types) {
     chips.push({
       key: `type-${type}`,
-      label: type === "public" ? "Public" : "Private",
+      label: t(type),
       href: hrefWith(filters, { types: toggled(filters.types, type) }),
     });
   }
   if (filters.field)
     chips.push({ key: "field", label: fieldName ?? filters.field, href: hrefWith(filters, { field: null }) });
   if (filters.women)
-    chips.push({ key: "women", label: "Women only", href: hrefWith(filters, { women: false }) });
+    chips.push({ key: "women", label: t("chipWomen"), href: hrefWith(filters, { women: false }) });
   if (filters.hostel)
-    chips.push({ key: "hostel", label: "Hostel for women", href: hrefWith(filters, { hostel: false }) });
-  if (filters.aid)
-    chips.push({ key: "aid", label: "Need-based aid", href: hrefWith(filters, { aid: false }) });
-  if (filters.q) chips.push({ key: "q", label: `“${filters.q}”`, href: hrefWith(filters, { q: "" }) });
+    chips.push({ key: "hostel", label: t("chipHostel"), href: hrefWith(filters, { hostel: false }) });
+  if (filters.aid) chips.push({ key: "aid", label: t("chipAid"), href: hrefWith(filters, { aid: false }) });
+  if (filters.q)
+    chips.push({ key: "q", label: t("chipQuery", { query: filters.q }), href: hrefWith(filters, { q: "" }) });
   return chips;
 }
 
 function SortMenu({ filters }: { filters: UniversityFilters }) {
+  const t = useTranslations("universities");
   const options = [
-    { sort: "az", label: "A to Z" },
-    { sort: "za", label: "Z to A" },
+    { sort: "az", label: t("sortAz") },
+    { sort: "za", label: t("sortZa") },
   ] as const;
   const current = options.find((o) => o.sort === filters.sort) ?? options[0];
   return (
     <details key={filters.sort} className="relative">
       <summary className="flex cursor-pointer list-none items-center gap-1 py-2.5 text-label-m text-deep-rose [&::-webkit-details-marker]:hidden">
-        Sort: {current.label}
+        {t("sort", { order: current.label })}
         <ChevronDown className="size-4" strokeWidth={1.75} aria-hidden="true" />
       </summary>
       <ul className="absolute right-0 z-10 mt-1 w-36 rounded-2xl border border-border-soft bg-card p-1.5 shadow-raised">

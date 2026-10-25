@@ -1,5 +1,6 @@
-import Link from "next/link";
 import { LogoHorizontal } from "@/components/brand/Logo";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { DesktopNavLinks } from "./DesktopNavLinks";
 import { LanguageSwitch, SearchButton } from "./HeaderActions";
 import { MobileTopBar } from "./MobileTopBar";
@@ -11,13 +12,14 @@ import { MobileTopBar } from "./MobileTopBar";
  * one line without the buttons running off the edge.
  */
 export function SiteHeader() {
+  const t = useTranslations("nav");
   return (
     <header className="sticky top-0 z-40 border-b border-border-soft bg-cream">
       <MobileTopBar />
 
       {/* Desktop nav */}
       <nav
-        aria-label="Main"
+        aria-label={t("main")}
         className="mx-auto hidden max-w-[1440px] items-center justify-between gap-4 px-6 py-4 lg:flex xl:gap-6 xl:px-20"
       >
         <LogoHorizontal fit="markOnlyBelowXl" />
@@ -29,7 +31,7 @@ export function SiteHeader() {
             href="/quiz"
             className="rounded-pill bg-coral px-4 py-2.5 text-label-m whitespace-nowrap text-charcoal transition-colors hover:bg-[#e2807f]"
           >
-            Where do I start?
+            {t("whereToStart")}
           </Link>
         </div>
       </nav>

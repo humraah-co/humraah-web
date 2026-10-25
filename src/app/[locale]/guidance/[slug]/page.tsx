@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronRight, Clock, Globe } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import { ResourceCard } from "@/components/content/Cards";
 import { Markdown } from "@/components/content/Markdown";
 import { Container } from "@/components/layout/PageShell";
 import { HelpCallout, ImportantCallout, NextSteps, StaleNotice } from "@/components/ui/Blocks";
 import { getGuidanceArticle, listGuidanceArticles } from "@/lib/data/public";
-import { hostOf, readTime } from "@/lib/format";
+import { hostOf, readMinutes } from "@/lib/format";
+import { Link } from "@/i18n/navigation";
 import { pageLocale, type LocaleParams } from "@/i18n/server";
 
 type Props = { params: LocaleParams<{ slug: string }> };
@@ -19,21 +20,24 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug, locale } = await params;
   const article = await getGuidanceArticle(slug);
-  if (!article) return { title: "Guidance" };
+  const t = await getTranslations({ locale, namespace: "guidance" });
+  if (!article) return { title: t("title") };
   return { title: article.title, description: article.summary ?? undefined };
 }
 
 export default async function GuidanceArticlePage({ params }: Props) {
   await pageLocale(params);
+  const t = await getTranslations("guidance");
+  const common = await getTranslations("common");
   const { slug } = await params;
   const article = await getGuidanceArticle(slug);
   if (article === null) {
     return (
       <Container className="py-12">
         <p className="rounded-2xl bg-tint-lavender p-5 text-body-m" role="status">
-          The database isn&apos;t connected yet. Add the Supabase environment variables to see this article.
+          {t("articleNotConnected")}
         </p>
       </Container>
     );
@@ -48,7 +52,7 @@ export default async function GuidanceArticlePage({ params }: Props) {
           href="/guidance"
           className="py-2.5 text-label-m text-deep-rose underline underline-offset-2 hover:text-charcoal"
         >
-          Guidance
+          {t("title")}
         </Link>
         <ChevronRight className="size-4" strokeWidth={1.75} aria-hidden="true" />
         <span aria-current="page" className="text-muted">
@@ -62,7 +66,7 @@ export default async function GuidanceArticlePage({ params }: Props) {
             <h1 className="text-h1 lg:text-[40px] lg:leading-[46px]">{a.title}</h1>
             <p className="flex items-center gap-1 text-caption text-muted">
               <Clock className="size-3.5" strokeWidth={1.75} aria-hidden="true" />
-              {readTime(a.body_markdown)}
+              {common("readTime", { count: readMinutes(a.body_markdown) })}
             </p>
             {a.summary && <p className="text-body-l">{a.summary}</p>}
             <StaleNotice verifiedAt={a.last_verified_at} />
@@ -71,20 +75,15 @@ export default async function GuidanceArticlePage({ params }: Props) {
           {a.body_markdown.trim() ? (
             <Markdown source={a.body_markdown} />
           ) : (
-            <p className="rounded-2xl bg-blush p-5 text-body-m">
-              This article is to be confirmed. Check back soon.
-            </p>
+            <p className="rounded-2xl bg-blush p-5 text-body-m">{t("noBody")}</p>
           )}
 
           <div className="flex flex-col gap-3">
-            <ImportantCallout title="Use official sources">
-              Don’t rely only on TikTok, Instagram, WhatsApp messages or random websites. Use the university’s
-              official website for the final answer.
-            </ImportantCallout>
+            <ImportantCallout title={t("officialTitle")}>{t("officialText")}</ImportantCallout>
             {a.source_url && (
               <ResourceCard
-                title="Source we checked"
-                description={`The official page this guidance was checked against.`}
+                title={t("sourceTitle")}
+                description={t("sourceText")}
                 href={a.source_url}
                 source={hostOf(a.source_url)}
                 icon={Globe}
@@ -95,12 +94,8 @@ export default async function GuidanceArticlePage({ params }: Props) {
 
         <aside className="flex flex-col gap-4 lg:sticky lg:top-28">
           <NextSteps
-            items={[
-              "Pick one subject you’re curious about",
-              "Find two universities that offer it",
-              "Check their official admission pages",
-            ]}
-            action={{ href: "/universities", label: "Find a university" }}
+            items={[t("nextSteps.subject"), t("nextSteps.universities"), t("nextSteps.admissions")]}
+            action={{ href: "/universities", label: t("nextSteps.action") }}
           />
           <HelpCallout className="hidden lg:block" />
         </aside>

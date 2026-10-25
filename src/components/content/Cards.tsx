@@ -1,5 +1,7 @@
-import Link from "next/link";
 import { ChevronRight, ExternalLink, MapPin, type LucideIcon } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+import type { Locale } from "@/i18n/config";
+import { Link } from "@/i18n/navigation";
 import { Chip, ChipList, DeadlineChip, VerificationBadge } from "@/components/ui/Chip";
 import type {
   FieldSummary,
@@ -18,6 +20,7 @@ const card =
 
 /** `reason` replaces the "You might enjoy this if…" line, e.g. on quiz results. */
 export function FieldCard({ field, reason }: { field: FieldSummary; reason?: string }) {
+  const t = useTranslations("cards");
   return (
     <Link href={`/explore/${field.slug}`} className={`${card} flex-row items-start gap-3.5`}>
       <FieldIcon slug={field.slug} />
@@ -28,7 +31,7 @@ export function FieldCard({ field, reason }: { field: FieldSummary; reason?: str
         ) : (
           field.you_might_enjoy && (
             <span className="text-body-s text-muted">
-              You might enjoy this if you like {field.you_might_enjoy}.
+              {t("youMightEnjoy", { interests: field.you_might_enjoy })}
             </span>
           )
         )}
@@ -88,6 +91,7 @@ export function UniversityCard({
   university: UniversityCardData;
   fieldId?: string;
 }) {
+  const t = useTranslations("cards");
   const programmeCount = fieldId
     ? u.programmes.filter((p) => p.fieldId === fieldId).length
     : u.programmes.length;
@@ -109,18 +113,16 @@ export function UniversityCard({
         />
       </span>
       <ChipList>
-        {u.type && <Chip tone="lavender">{u.type === "public" ? "Public" : "Private"}</Chip>}
-        {u.women_only && <Chip tone="coral">Women only</Chip>}
-        {programmeCount > 0 && (
-          <Chip>
-            {programmeCount} {programmeCount === 1 ? "programme" : "programmes"}
-          </Chip>
-        )}
-        {u.need_based_aid && <Chip>Financial aid</Chip>}
+        {u.type && <Chip tone="lavender">{t(u.type === "public" ? "public" : "private")}</Chip>}
+        {u.women_only && <Chip tone="coral">{t("womenOnly")}</Chip>}
+        {programmeCount > 0 && <Chip>{t("programmes", { count: programmeCount })}</Chip>}
+        {u.need_based_aid && <Chip>{t("financialAid")}</Chip>}
       </ChipList>
       <span className="h-px bg-border-soft" aria-hidden="true" />
       <span className="flex flex-wrap items-center justify-between gap-2">
-        <DeadlineChip>Applications: {u.admissions_window ?? "dates to be confirmed"}</DeadlineChip>
+        <DeadlineChip>
+          {t("applications", { window: u.admissions_window ?? t("datesToBeConfirmed") })}
+        </DeadlineChip>
         <VerificationBadge verifiedAt={u.last_verified_at} />
       </span>
     </Link>
@@ -131,41 +133,48 @@ export function UniversityCard({
 // Card/Scholarship
 // ---------------------------------------------------------------------------
 
-export const kindLabels: Record<ScholarshipCardData["kind"], string> = {
-  government: "Government",
-  external: "External",
-  university: "University aid",
-  need: "Government",
-  merit: "Merit",
-};
+/** The "deadline" messages, from useTranslations("deadline") or getTranslations("deadline"). */
+type DeadlineT = (
+  key: "closed" | "closingSoon" | "closes" | "toBeConfirmed",
+  values?: { date: string },
+) => string;
 
-/** "Closes 12 Mar", "Closing soon: 12 Mar" (within 30 days) or the deadline note. */
-export function deadlineLabel(s: Pick<ScholarshipCardData, "deadline" | "deadline_note">) {
+/**
+ * "Closes 12 Mar", "Closing soon: 12 Mar" (within 30 days) or the deadline note.
+ * `t` is the "deadline" translator; the date is written in `locale`.
+ */
+export function deadlineLabel(
+  s: Pick<ScholarshipCardData, "deadline" | "deadline_note">,
+  t: DeadlineT,
+  locale: Locale,
+) {
   if (s.deadline) {
     const days = daysUntil(s.deadline);
-    const date = formatShortDate(s.deadline);
-    if (days < 0) return { text: `Closed ${date}`, urgent: false };
-    if (days <= 30) return { text: `Closing soon: ${date}`, urgent: true };
-    return { text: `Closes ${date}`, urgent: false };
+    const date = formatShortDate(s.deadline, locale);
+    if (days < 0) return { text: t("closed", { date }), urgent: false };
+    if (days <= 30) return { text: t("closingSoon", { date }), urgent: true };
+    return { text: t("closes", { date }), urgent: false };
   }
-  return { text: s.deadline_note ?? "Deadline to be confirmed", urgent: false };
+  return { text: s.deadline_note ?? t("toBeConfirmed"), urgent: false };
 }
 
 export function ScholarshipCard({ scholarship: s }: { scholarship: ScholarshipCardData }) {
-  const deadline = deadlineLabel(s);
+  const t = useTranslations("cards");
+  const kinds = useTranslations("scholarshipKinds");
+  const deadline = deadlineLabel(s, useTranslations("deadline"), useLocale() as Locale);
   const needBased = s.kind === "need" || s.covers.some((c) => /need/i.test(c));
   return (
     <Link href={`/scholarships/${s.slug}`} className={`${card} gap-2.5`}>
       <ChipList>
-        <Chip tone="lavender">{kindLabels[s.kind]}</Chip>
-        {needBased && <Chip tone="sage">Need-based</Chip>}
+        <Chip tone="lavender">{kinds(s.kind)}</Chip>
+        {needBased && <Chip tone="sage">{t("needBased")}</Chip>}
         {s.audience_note && <Chip tone="coral">{s.audience_note}</Chip>}
       </ChipList>
       <span className="text-label-l">{s.name}</span>
       {s.summary && <span className="text-body-s text-muted">{s.summary}</span>}
       {s.covers.length > 0 && (
         <span className="flex flex-wrap items-center gap-1.5">
-          <span className="text-label-s text-muted">Covers</span>
+          <span className="text-label-s text-muted">{t("covers")}</span>
           {s.covers.map((c) => (
             <Chip key={c} tone="blush">
               {c}
@@ -205,6 +214,8 @@ export function ResourceCard({
   source?: string;
   icon: LucideIcon;
 }) {
+  const t = useTranslations("cards");
+  const common = useTranslations("common");
   const external = !!href && !href.startsWith("/");
   const body = (
     <>
@@ -215,7 +226,7 @@ export function ResourceCard({
         <span className="text-label-l">{title}</span>
         {description && <span className="text-body-s text-muted">{description}</span>}
         <span className="text-caption break-words text-deep-rose">
-          {href ? (source ?? (external ? hostOf(href) : "Humraah")) : "Coming soon"}
+          {href ? (source ?? (external ? hostOf(href) : t("humraah"))) : common("comingSoon")}
         </span>
       </span>
       {href &&
@@ -242,7 +253,7 @@ export function ResourceCard({
       className={`${classes} transition-shadow hover:shadow-raised`}
     >
       {body}
-      <span className="sr-only">(opens in a new tab)</span>
+      <span className="sr-only">{common("opensInNewTab")}</span>
     </a>
   );
 }

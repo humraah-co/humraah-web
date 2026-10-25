@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronRight } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import { ScholarshipCard, UniversityCard } from "@/components/content/Cards";
 import { FieldIcon } from "@/components/content/FieldIcon";
 import { Container } from "@/components/layout/PageShell";
 import { NextSteps, RememberCallout, SectionHeader, StaleNotice } from "@/components/ui/Blocks";
 import { Chip, ChipList } from "@/components/ui/Chip";
 import { getField, listFields, listScholarshipCards, listUniversityCards } from "@/lib/data/public";
+import { Link } from "@/i18n/navigation";
 import { pageLocale, type LocaleParams } from "@/i18n/server";
 
 type Props = { params: LocaleParams<{ slug: string }> };
@@ -20,21 +21,23 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug, locale } = await params;
   const field = await getField(slug);
-  if (!field) return { title: "Field of study" };
+  const t = await getTranslations({ locale, namespace: "field" });
+  if (!field) return { title: t("metaTitle") };
   return { title: field.name, description: field.summary ?? undefined };
 }
 
 export default async function FieldPage({ params }: Props) {
   await pageLocale(params);
+  const t = await getTranslations("field");
   const { slug } = await params;
   const field = await getField(slug);
   if (field === null) {
     return (
       <Container className="py-12">
         <p className="rounded-2xl bg-tint-lavender p-5 text-body-m" role="status">
-          The database isn&apos;t connected yet. Add the Supabase environment variables to see this field.
+          {t("notConnected")}
         </p>
       </Container>
     );
@@ -59,7 +62,7 @@ export default async function FieldPage({ params }: Props) {
           href="/explore"
           className="py-2.5 text-label-m text-deep-rose underline underline-offset-2 hover:text-charcoal"
         >
-          Explore fields
+          {t("breadcrumb")}
         </Link>
         <ChevronRight className="size-4" strokeWidth={1.75} aria-hidden="true" />
         <span aria-current="page" className="text-muted">
@@ -72,12 +75,12 @@ export default async function FieldPage({ params }: Props) {
           <FieldIcon slug={field.slug} size="lg" />
           <h1 className="text-h1 lg:text-[60px] lg:leading-[64px] lg:tracking-[-0.9px]">{field.name}</h1>
           <p className="text-body-m text-muted lg:max-w-[680px] lg:text-body-l">
-            {field.summary ?? "A description of this field is to be confirmed."}
+            {field.summary ?? t("noSummary")}
           </p>
           <StaleNotice verifiedAt={field.last_verified_at} className="lg:max-w-[680px]" />
 
           <div className="mt-2 flex flex-col gap-2.5 lg:mt-0">
-            <h2 className="text-label-l">You might enjoy this if you like</h2>
+            <h2 className="text-label-l">{t("enjoyTitle")}</h2>
             {field.interests.length > 0 ? (
               <ChipList className="gap-2">
                 {field.interests.map((interest) => (
@@ -87,12 +90,12 @@ export default async function FieldPage({ params }: Props) {
                 ))}
               </ChipList>
             ) : (
-              <p className="text-body-s text-muted">To be confirmed.</p>
+              <p className="text-body-s text-muted">{t("toBeConfirmed")}</p>
             )}
           </div>
 
           <div className="flex flex-col gap-2.5">
-            <h2 className="text-label-l">Programmes you could explore</h2>
+            <h2 className="text-label-l">{t("programmesTitle")}</h2>
             {field.example_programmes.length > 0 ? (
               <ChipList className="gap-2">
                 {field.example_programmes.map((programme) => (
@@ -100,23 +103,17 @@ export default async function FieldPage({ params }: Props) {
                 ))}
               </ChipList>
             ) : (
-              <p className="text-body-s text-muted">To be confirmed.</p>
+              <p className="text-body-s text-muted">{t("toBeConfirmed")}</p>
             )}
           </div>
         </header>
 
         <div className="contents lg:col-start-2 lg:row-start-1 lg:flex lg:flex-col lg:gap-4">
-          <RememberCallout className="order-1 mt-5 lg:order-2 lg:mt-0">
-            Universities may name programmes differently. Check the programme page on the official website.
-          </RememberCallout>
+          <RememberCallout className="order-1 mt-5 lg:order-2 lg:mt-0">{t("remember")}</RememberCallout>
           <NextSteps
             className="order-4 mt-7 lg:order-1 lg:mt-0"
-            items={[
-              "Pick two universities to compare",
-              "Check admission requirements",
-              "Look for a scholarship",
-            ]}
-            action={{ href: universitiesHref, label: "Find universities" }}
+            items={[t("nextSteps.compare"), t("nextSteps.requirements"), t("nextSteps.scholarship")]}
+            action={{ href: universitiesHref, label: t("nextSteps.action") }}
           />
         </div>
 
@@ -125,27 +122,27 @@ export default async function FieldPage({ params }: Props) {
           className="order-2 mt-7 flex flex-col gap-3 lg:col-span-2 lg:mt-0 lg:gap-4"
         >
           <SectionHeader
-            title={<span id="universities-heading">Universities offering this</span>}
+            title={<span id="universities-heading">{t("universitiesTitle")}</span>}
             href={universitiesHref}
             linkLabel={
               <>
-                <span className="lg:hidden">See all</span>
-                <span className="hidden lg:inline">See all universities</span>
+                <span className="lg:hidden">{t("seeAll")}</span>
+                <span className="hidden lg:inline">{t("seeAllUniversities")}</span>
               </>
             }
           />
           {universities === null ? (
             <p className="rounded-2xl bg-tint-lavender p-5 text-body-m" role="status">
-              The database isn&apos;t connected yet, so universities can&apos;t be shown.
+              {t("universitiesNotConnected")}
             </p>
           ) : offering.length === 0 ? (
             <p className="rounded-2xl bg-blush p-5 text-body-m">
-              We haven&apos;t listed universities for this field yet. Universities to be confirmed.{" "}
+              {t("noUniversities")}{" "}
               <Link
                 href="/universities"
                 className="text-deep-rose underline underline-offset-2 hover:text-charcoal"
               >
-                Browse all universities
+                {t("browseUniversities")}
               </Link>
             </p>
           ) : (
@@ -164,27 +161,27 @@ export default async function FieldPage({ params }: Props) {
           className="order-3 mt-7 flex flex-col gap-3 lg:col-span-2 lg:mt-12 lg:gap-4"
         >
           <SectionHeader
-            title={<span id="scholarships-heading">Scholarships to look at</span>}
+            title={<span id="scholarships-heading">{t("scholarshipsTitle")}</span>}
             href="/scholarships"
             linkLabel={
               <>
-                <span className="lg:hidden">See all</span>
-                <span className="hidden lg:inline">See all scholarships</span>
+                <span className="lg:hidden">{t("seeAll")}</span>
+                <span className="hidden lg:inline">{t("seeAllScholarships")}</span>
               </>
             }
           />
           {scholarships === null ? (
             <p className="rounded-2xl bg-tint-lavender p-5 text-body-m" role="status">
-              The database isn&apos;t connected yet, so scholarships can&apos;t be shown.
+              {t("scholarshipsNotConnected")}
             </p>
           ) : relevant.length === 0 ? (
             <p className="rounded-2xl bg-blush p-5 text-body-m">
-              No scholarships are listed for this field yet. Scholarships to be confirmed.{" "}
+              {t("noScholarships")}{" "}
               <Link
                 href="/scholarships"
                 className="text-deep-rose underline underline-offset-2 hover:text-charcoal"
               >
-                Browse all scholarships
+                {t("browseScholarships")}
               </Link>
             </p>
           ) : (

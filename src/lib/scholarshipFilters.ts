@@ -15,11 +15,11 @@ export type ScholarshipSort = "deadline" | "az";
  * Government, as they do on the cards.
  */
 export const supportTypes = [
-  { value: "government", label: "Government", kinds: ["government", "need"] },
-  { value: "university", label: "University aid", kinds: ["university"] },
-  { value: "external", label: "External", kinds: ["external"] },
-  { value: "merit", label: "Merit", kinds: ["merit"] },
-] as const satisfies readonly { value: string; label: string; kinds: readonly ScholarshipKind[] }[];
+  { value: "government", kinds: ["government", "need"] },
+  { value: "university", kinds: ["university"] },
+  { value: "external", kinds: ["external"] },
+  { value: "merit", kinds: ["merit"] },
+] as const satisfies readonly { value: string; kinds: readonly ScholarshipKind[] }[];
 
 export type SupportType = (typeof supportTypes)[number]["value"];
 

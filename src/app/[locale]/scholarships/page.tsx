@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { ChevronDown, Search } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { ScholarshipCard } from "@/components/content/Cards";
 import { Container } from "@/components/layout/PageShell";
 import { TwoColumns } from "@/components/layout/TwoColumns";
@@ -19,13 +20,14 @@ import {
   type ScholarshipFilters,
 } from "@/lib/scholarshipFilters";
 import { toggled } from "@/lib/universityFilters";
+import { localizedPath } from "@/i18n/config";
+import { Link } from "@/i18n/navigation";
 import { pageLocale, type LocaleParams } from "@/i18n/server";
 
-export const metadata: Metadata = {
-  title: "Scholarships",
-  description:
-    "Find scholarships and financial aid for university in Pakistan and abroad: who they're for, what they cover and when they close.",
-};
+export async function generateMetadata({ params }: { params: LocaleParams }): Promise<Metadata> {
+  const t = await getTranslations({ locale: (await params).locale, namespace: "scholarships" });
+  return { title: t("metaTitle"), description: t("metaDescription") };
+}
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
 
@@ -36,7 +38,8 @@ export default async function ScholarshipsPage({
   params: LocaleParams;
   searchParams: SearchParams;
 }) {
-  await pageLocale(params);
+  const locale = await pageLocale(params);
+  const t = await getTranslations("scholarships");
   const filters = parseScholarshipFilters(await searchParams);
   const [cards, fields] = await Promise.all([listScholarshipCards(), listFields()]);
   const fieldList = fields ?? [];
@@ -44,26 +47,23 @@ export default async function ScholarshipsPage({
   const results = cards ? applyScholarshipFilters(cards, filters, fieldList) : [];
   const filterCount = activeScholarshipFilterCount(filters);
   const fieldName = filters.field ? fieldList.find((f) => f.slug === filters.field)?.name : undefined;
-  const countLabel = `${results.length} ${results.length === 1 ? "scholarship" : "scholarships"}`;
+  const countLabel = t("count", { count: results.length });
   const clearHref = scholarshipsHref(filters, { types: [], field: null, women: false });
   const typesOnOffer = supportTypes
-    .filter((t) => cards?.some((s) => (t.kinds as readonly string[]).includes(s.kind)))
-    .map((t) => t.value);
+    .filter((type) => cards?.some((s) => (type.kinds as readonly string[]).includes(s.kind)))
+    .map((type) => type.value);
 
-  const chips = activeChips(filters, fieldName);
+  const chips = activeChips(filters, fieldName, t);
   const filterGroups = <ScholarshipFilterGroups filters={filters} types={typesOnOffer} fields={fieldList} />;
 
   return (
     <>
       <Container className="flex flex-col gap-3.5 pt-6 pb-3 lg:pt-12 lg:pb-8">
-        <h1 className="text-h1 lg:text-[40px] lg:leading-[46px]">Find a scholarship</h1>
-        <p className="text-body-m text-muted lg:max-w-[760px] lg:text-body-l">
-          Don’t assume university is out of reach because of fees. Universities and organisations offer
-          support for tuition, living costs, books and more.
-        </p>
+        <h1 className="text-h1 lg:text-[40px] lg:leading-[46px]">{t("title")}</h1>
+        <p className="text-body-m text-muted lg:max-w-[760px] lg:text-body-l">{t("intro")}</p>
 
         <div className="flex flex-col gap-3.5 lg:flex-row lg:items-center lg:gap-4 lg:pt-2">
-          <form role="search" action="/scholarships" className="lg:w-[560px]">
+          <form role="search" action={localizedPath("/scholarships", locale)} className="lg:w-[560px]">
             {filters.scope && <input type="hidden" name="scope" value={filters.scope} />}
             {filters.types.map((type) => (
               <input key={type} type="hidden" name="type" value={type} />
@@ -72,7 +72,7 @@ export default async function ScholarshipsPage({
             {filters.women && <input type="hidden" name="women" value="1" />}
             {filters.sort !== "deadline" && <input type="hidden" name="sort" value={filters.sort} />}
             <label htmlFor="scholarship-search" className="sr-only">
-              Search scholarships
+              {t("search")}
             </label>
             <span className="flex h-[52px] items-center gap-2.5 rounded-pill border border-border-strong bg-card px-[18px]">
               <Search className="size-5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
@@ -81,22 +81,22 @@ export default async function ScholarshipsPage({
                 name="q"
                 type="search"
                 defaultValue={filters.q}
-                placeholder="Search scholarships"
+                placeholder={t("search")}
                 autoComplete="off"
                 className="min-w-0 flex-1 bg-transparent text-body-m text-charcoal outline-none placeholder:text-muted"
               />
             </span>
           </form>
           <Segmented
-            label="Where you'll study"
+            label={t("scopeLabel")}
             className="lg:w-[420px]"
             options={[
-              { key: "all", label: "All", scope: null },
-              { key: "pakistan", label: "Pakistan", scope: "pakistan" as const },
-              { key: "international", label: "International", scope: "international" as const },
+              { key: "all", scope: null },
+              { key: "pakistan", scope: "pakistan" as const },
+              { key: "international", scope: "international" as const },
             ].map((o) => ({
               key: o.key,
-              label: o.label,
+              label: t(`scope.${o.key}`),
               href: scholarshipsHref(filters, { scope: o.scope }),
               selected: filters.scope === o.scope,
             }))}
@@ -105,7 +105,11 @@ export default async function ScholarshipsPage({
 
         {cards && (
           <div className="flex flex-wrap items-center gap-2 lg:hidden">
-            <FilterSheet count={filterCount} showLabel={`Show ${countLabel}`} clearHref={clearHref}>
+            <FilterSheet
+              count={filterCount}
+              showLabel={t("show", { count: results.length })}
+              clearHref={clearHref}
+            >
               <div className="flex flex-col gap-[22px]">{filterGroups}</div>
             </FilterSheet>
             {chips.map((chip) => (
@@ -120,17 +124,17 @@ export default async function ScholarshipsPage({
       <Container className="pb-7 lg:flex lg:items-start lg:gap-8 lg:pb-16">
         {cards && (
           <aside
-            aria-label="Filters"
+            aria-label={t("filters")}
             className="hidden w-[300px] shrink-0 flex-col gap-[22px] rounded-3xl border border-border-soft bg-card p-6 lg:flex"
           >
             <div className="flex items-center justify-between">
-              <h2 className="text-h3">Filters</h2>
+              <h2 className="text-h3">{t("filters")}</h2>
               <Link
                 href={clearHref}
                 scroll={false}
                 className="py-2.5 text-label-m text-deep-rose underline underline-offset-2 hover:text-charcoal"
               >
-                Clear all
+                {t("clearAll")}
               </Link>
             </div>
             {filterGroups}
@@ -140,13 +144,10 @@ export default async function ScholarshipsPage({
         <div className="flex min-w-0 flex-1 flex-col gap-3 lg:gap-4">
           {cards === null ? (
             <p className="rounded-2xl bg-tint-lavender p-5 text-body-m" role="status">
-              The database isn&apos;t connected yet. Add the Supabase environment variables to see
-              scholarships.
+              {t("notConnected")}
             </p>
           ) : cards.length === 0 ? (
-            <p className="rounded-2xl bg-blush p-5 text-body-m">
-              No scholarships are published yet. Check back soon.
-            </p>
+            <p className="rounded-2xl bg-blush p-5 text-body-m">{t("noScholarships")}</p>
           ) : (
             <>
               <div className="flex items-center justify-between">
@@ -168,9 +169,9 @@ export default async function ScholarshipsPage({
 
               {results.length === 0 ? (
                 <div className="rounded-2xl bg-blush p-5">
-                  <p className="text-label-l">No scholarships match these filters.</p>
+                  <p className="text-label-l">{t("noMatch")}</p>
                   <p className="mt-1 text-body-s text-muted">
-                    Try removing a filter or searching a different word.{" "}
+                    {t("noMatchHint")}{" "}
                     <Link
                       href={scholarshipsHref(filters, {
                         q: "",
@@ -181,7 +182,7 @@ export default async function ScholarshipsPage({
                       })}
                       className="text-deep-rose underline underline-offset-2 hover:text-charcoal"
                     >
-                      Show all scholarships
+                      {t("showAll")}
                     </Link>
                   </p>
                 </div>
@@ -191,10 +192,7 @@ export default async function ScholarshipsPage({
                 />
               )}
 
-              <ImportantCallout title="Important">
-                Scholarships, eligibility and deadlines change. Always check the provider’s official website
-                before you apply.
-              </ImportantCallout>
+              <ImportantCallout title={t("importantTitle")}>{t("importantText")}</ImportantCallout>
             </>
           )}
         </div>
@@ -203,15 +201,19 @@ export default async function ScholarshipsPage({
   );
 }
 
-/** One chip per applied filter, each linking to the list without it. */
-function activeChips(filters: ScholarshipFilters, fieldName: string | undefined) {
+/** One chip per applied filter, each linking to the list without it. `t` is the "scholarships" messages. */
+function activeChips(
+  filters: ScholarshipFilters,
+  fieldName: string | undefined,
+  t: Awaited<ReturnType<typeof getTranslations<"scholarships">>>,
+) {
   const chips: { key: string; label: string; href: string }[] = [];
-  for (const t of supportTypes) {
-    if (filters.types.includes(t.value)) {
+  for (const type of supportTypes) {
+    if (filters.types.includes(type.value)) {
       chips.push({
-        key: `type-${t.value}`,
-        label: t.label,
-        href: scholarshipsHref(filters, { types: toggled(filters.types, t.value) }),
+        key: `type-${type.value}`,
+        label: t(`types.${type.value}`),
+        href: scholarshipsHref(filters, { types: toggled(filters.types, type.value) }),
       });
     }
   }
@@ -222,22 +224,27 @@ function activeChips(filters: ScholarshipFilters, fieldName: string | undefined)
       href: scholarshipsHref(filters, { field: null }),
     });
   if (filters.women)
-    chips.push({ key: "women", label: "For women", href: scholarshipsHref(filters, { women: false }) });
+    chips.push({ key: "women", label: t("forWomen"), href: scholarshipsHref(filters, { women: false }) });
   if (filters.q)
-    chips.push({ key: "q", label: `“${filters.q}”`, href: scholarshipsHref(filters, { q: "" }) });
+    chips.push({
+      key: "q",
+      label: t("chipQuery", { query: filters.q }),
+      href: scholarshipsHref(filters, { q: "" }),
+    });
   return chips;
 }
 
 function SortMenu({ filters }: { filters: ScholarshipFilters }) {
+  const t = useTranslations("scholarships");
   const options = [
-    { sort: "deadline", label: "closing soon" },
-    { sort: "az", label: "A to Z" },
+    { sort: "deadline", label: t("sortDeadline") },
+    { sort: "az", label: t("sortAz") },
   ] as const;
   const current = options.find((o) => o.sort === filters.sort) ?? options[0];
   return (
     <details key={filters.sort} className="relative">
       <summary className="flex cursor-pointer list-none items-center gap-1 py-2.5 text-label-m text-deep-rose [&::-webkit-details-marker]:hidden">
-        Sort: {current.label}
+        {t("sort", { order: current.label })}
         <ChevronDown className="size-4" strokeWidth={1.75} aria-hidden="true" />
       </summary>
       <ul className="absolute right-0 z-10 mt-1 w-40 rounded-2xl border border-border-soft bg-card p-1.5 shadow-raised">

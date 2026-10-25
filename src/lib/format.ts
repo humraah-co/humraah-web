@@ -1,37 +1,52 @@
 /** Display helpers shared by cards and detail pages. */
 
-const shortDate = new Intl.DateTimeFormat("en-GB", {
-  day: "numeric",
-  month: "short",
-  timeZone: "Asia/Karachi",
-});
-const longDate = new Intl.DateTimeFormat("en-GB", {
-  day: "numeric",
-  month: "short",
-  year: "numeric",
-  timeZone: "Asia/Karachi",
-});
+import type { Locale } from "@/i18n/config";
 
-export function formatShortDate(iso: string) {
-  return shortDate.format(new Date(iso));
+// English dates read "12 Oct 2026". Urdu uses Urdu month names with the
+// everyday Latin digits Pakistani readers expect (25 اکتوبر 2026).
+const dateLocale = (locale: Locale) => (locale === "ur" ? "ur-PK-u-nu-latn" : "en-GB");
+const formats = new Map<string, Intl.DateTimeFormat>();
+function dateFormat(locale: Locale, withYear: boolean) {
+  const key = `${locale}-${withYear}`;
+  let format = formats.get(key);
+  if (!format) {
+    format = new Intl.DateTimeFormat(dateLocale(locale), {
+      day: "numeric",
+      month: "short",
+      ...(withYear ? { year: "numeric" } : {}),
+      timeZone: "Asia/Karachi",
+    });
+    formats.set(key, format);
+  }
+  return format;
 }
 
-export function formatLongDate(iso: string) {
-  return longDate.format(new Date(iso));
+export function formatShortDate(iso: string, locale: Locale = "en") {
+  return dateFormat(locale, false).format(new Date(iso));
 }
 
-/** "Rs 45,000" or "Rs 45,000 to Rs 60,000". */
-export function formatFeeRange(min: number | null, max: number | null) {
+export function formatLongDate(iso: string, locale: Locale = "en") {
+  return dateFormat(locale, true).format(new Date(iso));
+}
+
+/**
+ * "Rs 45,000" or "Rs 45,000 to Rs 60,000". `range` is the wording around
+ * the two amounts, with {min} and {max} (from the messages, so Urdu can
+ * read "Rs 45,000 سے Rs 60,000 تک").
+ */
+export function formatFeeRange(min: number | null, max: number | null, range = "{min} to {max}") {
   const rs = (n: number) => `Rs ${n.toLocaleString("en-PK")}`;
   if (min == null && max == null) return null;
-  if (min != null && max != null && min !== max) return `${rs(min)} to ${rs(max)}`;
+  if (min != null && max != null && min !== max)
+    return range.replace("{min}", rs(min)).replace("{max}", rs(max));
   return rs((min ?? max)!);
 }
 
-/** Joins a list as "a, b and c". */
-export function joinWithAnd(items: string[]) {
+/** Joins a list as "a, b and c" (in Urdu "a، b اور c"). */
+export function joinWithAnd(items: string[], locale: "en" | "ur" = "en") {
   if (items.length <= 1) return items.join("");
-  return `${items.slice(0, -1).join(", ")} and ${items.at(-1)}`;
+  const [comma, and] = locale === "ur" ? ["، ", "اور"] : [", ", "and"];
+  return `${items.slice(0, -1).join(comma)} ${and} ${items.at(-1)}`;
 }
 
 /** The 2–4 letter avatar label for a university card. */
@@ -89,10 +104,10 @@ export function isStale(verifiedAt: string | null, now = new Date()) {
   return limit.getTime() < now.getTime();
 }
 
-/** "4 min read" at about 200 words a minute, never less than one minute. */
-export function readTime(markdown: string) {
-  const words = markdown.split(/\s+/).filter((w) => /\w/.test(w)).length;
-  return `${Math.max(1, Math.ceil(words / 200))} min read`;
+/** Reading time in minutes at about 200 words a minute, never less than one. Counts Urdu words too. */
+export function readMinutes(markdown: string) {
+  const words = markdown.split(/\s+/).filter((w) => /[\p{L}\p{N}]/u.test(w)).length;
+  return Math.max(1, Math.ceil(words / 200));
 }
 
 /** "hec.gov.pk" from "https://www.hec.gov.pk/english"; the raw value if it isn't a URL. */

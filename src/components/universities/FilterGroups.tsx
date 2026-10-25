@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { OptionChip } from "@/components/ui/Chip";
 import type { FieldSummary } from "@/lib/data/public";
 import { hrefWith, toggled, type UniversityFilters } from "@/lib/universityFilters";
@@ -28,6 +29,7 @@ export function FilterGroups({
   cities: string[];
   fields: FieldSummary[];
 }) {
+  const t = useTranslations("universities");
   const lower = filters.cities.map((c) => c.toLowerCase());
   const isSelected = (city: string) => lower.includes(city.toLowerCase());
   const cityChip = (city: string) => (
@@ -51,11 +53,11 @@ export function FilterGroups({
   return (
     <>
       {cities.length > 0 && (
-        <Group title="City">
+        <Group title={t("filterCity")}>
           <div className="flex flex-wrap gap-2">
             {shown.map(cityChip)}
             {more.length > 0 && (
-              <MoreOptions label="More cities" startOpen={moreSelected}>
+              <MoreOptions label={t("moreCities")} startOpen={moreSelected}>
                 {more.map(cityChip)}
               </MoreOptions>
             )}
@@ -63,7 +65,7 @@ export function FilterGroups({
         </Group>
       )}
 
-      <Group title="Type of university">
+      <Group title={t("filterType")}>
         <div className="flex flex-wrap gap-2">
           {(["public", "private"] as const).map((type) => (
             <OptionChip
@@ -71,14 +73,14 @@ export function FilterGroups({
               href={hrefWith(filters, { types: toggled(filters.types, type) })}
               selected={filters.types.includes(type)}
             >
-              {type === "public" ? "Public" : "Private"}
+              {t(type)}
             </OptionChip>
           ))}
         </div>
       </Group>
 
       {fields.length > 0 && (
-        <Group title="Field of study">
+        <Group title={t("filterField")}>
           <FieldSelect
             value={filters.field ?? ""}
             allHref={hrefWith(filters, { field: null })}
@@ -91,19 +93,19 @@ export function FilterGroups({
         </Group>
       )}
 
-      <Group title="Good to know">
+      <Group title={t("filterGoodToKnow")}>
         <FilterCheckbox
-          label="Women-only universities"
+          label={t("womenOnly")}
           checked={filters.women}
           href={hrefWith(filters, { women: !filters.women })}
         />
         <FilterCheckbox
-          label="Hostel available for women"
+          label={t("hostel")}
           checked={filters.hostel}
           href={hrefWith(filters, { hostel: !filters.hostel })}
         />
         <FilterCheckbox
-          label="Need-based financial aid"
+          label={t("aid")}
           checked={filters.aid}
           href={hrefWith(filters, { aid: !filters.aid })}
         />

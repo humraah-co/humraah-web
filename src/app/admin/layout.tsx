@@ -1,4 +1,6 @@
 import type { Metadata, Viewport } from "next";
+import { NextIntlClientProvider } from "next-intl";
+import { clientMessages } from "@/i18n/messages";
 import { caveat, cormorant, dmSans, nastaliq } from "../fonts";
 import "../globals.css";
 
@@ -21,7 +23,7 @@ export const viewport: Viewport = {
 // never at build time and never from a shared cache.
 export const dynamic = "force-dynamic";
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"
@@ -35,7 +37,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           Skip to content
         </a>
         <main id="main" className="flex-1">
-          {children}
+          {/* The shared buttons, badges and logo read their English text from the messages. */}
+          <NextIntlClientProvider messages={await clientMessages(["brand", "common", "badges"])}>
+            {children}
+          </NextIntlClientProvider>
         </main>
       </body>
     </html>

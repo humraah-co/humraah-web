@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { OptionChip } from "@/components/ui/Chip";
 import { FieldSelect, FilterCheckbox } from "@/components/ui/FilterControls";
 import type { FieldSummary } from "@/lib/data/public";
@@ -33,26 +34,27 @@ export function ScholarshipFilterGroups({
   types: SupportType[];
   fields: FieldSummary[];
 }) {
+  const t = useTranslations("scholarships");
   return (
     <>
-      <Group title="Type of support">
+      <Group title={t("filterType")}>
         <div className="flex flex-wrap gap-2">
           {supportTypes
-            .filter((t) => types.includes(t.value) || filters.types.includes(t.value))
-            .map((t) => (
+            .filter((type) => types.includes(type.value) || filters.types.includes(type.value))
+            .map((type) => (
               <OptionChip
-                key={t.value}
-                href={scholarshipsHref(filters, { types: toggled(filters.types, t.value) })}
-                selected={filters.types.includes(t.value)}
+                key={type.value}
+                href={scholarshipsHref(filters, { types: toggled(filters.types, type.value) })}
+                selected={filters.types.includes(type.value)}
               >
-                {t.label}
+                {t(`types.${type.value}`)}
               </OptionChip>
             ))}
         </div>
       </Group>
 
       {fields.length > 0 && (
-        <Group title="Field of study">
+        <Group title={t("filterField")}>
           <FieldSelect
             value={filters.field ?? ""}
             allHref={scholarshipsHref(filters, { field: null })}
@@ -62,13 +64,13 @@ export function ScholarshipFilterGroups({
               href: scholarshipsHref(filters, { field: f.slug }),
             }))}
           />
-          <p className="text-caption text-muted">Includes scholarships open to any field.</p>
+          <p className="text-caption text-muted">{t("anyFieldNote")}</p>
         </Group>
       )}
 
-      <Group title="Good to know">
+      <Group title={t("filterGoodToKnow")}>
         <FilterCheckbox
-          label="For women"
+          label={t("forWomen")}
           checked={filters.women}
           href={scholarshipsHref(filters, { women: !filters.women })}
         />

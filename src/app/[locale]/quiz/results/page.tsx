@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { FieldCard } from "@/components/content/Cards";
 import { QuizHeader, QuizProgress } from "@/components/quiz/QuizHeader";
 import { RememberCallout } from "@/components/ui/Blocks";
@@ -13,13 +13,15 @@ import {
   questionHref,
   questions,
   scoreFields,
+  type QuizT,
 } from "@/lib/quiz";
+import { Link } from "@/i18n/navigation";
 import { pageLocale, type LocaleParams } from "@/i18n/server";
 
-export const metadata: Metadata = {
-  title: "Your quiz results",
-  description: "Fields of study you might enjoy, based on your answers to the Where do I start? quiz.",
-};
+export async function generateMetadata({ params }: { params: LocaleParams }): Promise<Metadata> {
+  const t = await getTranslations({ locale: (await params).locale, namespace: "quiz.results" });
+  return { title: t("metaTitle"), description: t("metaDescription") };
+}
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
 
@@ -31,19 +33,24 @@ export default async function QuizResultsPage({
   params: LocaleParams;
   searchParams: SearchParams;
 }) {
-  await pageLocale(params);
+  const locale = await pageLocale(params);
+  const quiz = await getTranslations("quiz");
+  const t = await getTranslations("quiz.results");
   const answers = parseAnswers(await searchParams);
   const fields = await listFields();
-  const matches = fields ? scoreFields(answers, fields) : [];
+  // The quiz helpers look up keys built from question and option names, so they take the
+  // translator loosely typed.
+  const quizT = quiz as unknown as QuizT;
+  const matches = fields ? scoreFields(answers, fields, quizT, locale) : [];
   const answered = questions.filter((q) => answers[q.key].length > 0).length;
-  const summary = answerSummary(answers);
+  const summary = answerSummary(answers, quizT, locale);
 
   return (
     <>
       <QuizHeader
-        title="Your results"
+        title={t("title")}
         backHref={questionHref(QUESTION_COUNT, answers)}
-        backLabel="Back to the last question"
+        backLabel={t("backLabel")}
         action="share"
       />
 
@@ -51,36 +58,38 @@ export default async function QuizResultsPage({
         <QuizProgress
           label={
             answered === QUESTION_COUNT
-              ? `All ${QUESTION_COUNT} questions answered`
-              : `${answered} of ${QUESTION_COUNT} questions answered`
+              ? t("allAnswered", { total: QUESTION_COUNT })
+              : t("someAnswered", { answered, total: QUESTION_COUNT })
           }
           value={1}
         />
 
         <header className="flex flex-col gap-2 pt-2 lg:pt-4">
-          <p className="text-script text-deep-rose">Here’s what we found</p>
-          <h1 className="text-h1 lg:text-[40px] lg:leading-[46px]">You might enjoy…</h1>
+          <p className="text-script text-deep-rose">{t("script")}</p>
+          <h1 className="text-h1 lg:text-[40px] lg:leading-[46px]">{t("heading")}</h1>
           <p className="text-body-m text-muted lg:text-body-l">
-            {summary ? `Based on ${summary}.` : "Based on your answers."}
+            {summary ? t("basedOn", { summary }) : t("basedOnAnswers")}
           </p>
         </header>
 
         {fields === null ? (
           <p className="rounded-2xl bg-tint-lavender p-5 text-body-m" role="status">
-            The database isn&apos;t connected yet. Add the Supabase environment variables to see your results.
+            {t("notConnected")}
           </p>
         ) : matches.length === 0 ? (
           <div className="rounded-2xl bg-blush p-5">
-            <p className="text-label-l">We need a few more answers to suggest fields.</p>
+            <p className="text-label-l">{t("needMore")}</p>
             <p className="mt-1 text-body-s text-muted">
-              Pick what you enjoy and what you’re good at, or{" "}
-              <Link
-                href="/explore"
-                className="text-deep-rose underline underline-offset-2 hover:text-charcoal"
-              >
-                browse every field
-              </Link>
-              .
+              {t.rich("needMoreHint", {
+                explore: (chunks) => (
+                  <Link
+                    href="/explore"
+                    className="text-deep-rose underline underline-offset-2 hover:text-charcoal"
+                  >
+                    {chunks}
+                  </Link>
+                ),
+              })}
             </p>
           </div>
         ) : (
@@ -93,18 +102,15 @@ export default async function QuizResultsPage({
           </ul>
         )}
 
-        <RememberCallout>
-          These are starting points, not final answers. Your interests may change, and that’s part of the
-          journey.
-        </RememberCallout>
+        <RememberCallout>{t("remember")}</RememberCallout>
 
         <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:gap-3">
           <ButtonLink href="/explore" className="w-full lg:w-auto">
-            {fields && fields.length > 0 ? `Explore all ${fields.length} fields` : "Explore fields"}
+            {fields && fields.length > 0 ? t("exploreAll", { count: fields.length }) : t("explore")}
           </ButtonLink>
-          <ShareButton variant="whatsapp" title="My Humraah quiz results" className="w-full lg:w-auto" />
+          <ShareButton variant="whatsapp" title={t("shareTitle")} className="w-full lg:w-auto" />
           <Link href="/quiz" className={`${buttonStyles.text} self-center lg:ml-1`}>
-            Retake the quiz
+            {t("retake")}
           </Link>
         </div>
       </div>

@@ -1,5 +1,7 @@
-import Link from "next/link";
 import { ChevronDown, CircleAlert, Heart, Lightbulb, Sprout, type LucideIcon } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+import type { Locale } from "@/i18n/config";
+import { Link } from "@/i18n/navigation";
 import { formatLongDate, isStale } from "@/lib/format";
 import { contact } from "@/lib/nav";
 import { ButtonLink } from "./Button";
@@ -8,7 +10,7 @@ import { ButtonLink } from "./Button";
 export function SectionHeader({
   title,
   href,
-  linkLabel = "See all",
+  linkLabel,
   as: Heading = "h2",
   className = "",
 }: {
@@ -18,6 +20,7 @@ export function SectionHeader({
   as?: "h2" | "h3";
   className?: string;
 }) {
+  const t = useTranslations("common");
   return (
     <div className={`flex items-center justify-between gap-4 ${className}`}>
       <Heading className="text-h2 lg:text-[40px] lg:leading-[46px]">{title}</Heading>
@@ -26,7 +29,7 @@ export function SectionHeader({
           href={href}
           className="shrink-0 py-2.5 text-label-m text-deep-rose underline underline-offset-2 hover:text-charcoal"
         >
-          {linkLabel}
+          {linkLabel ?? t("seeAll")}
         </Link>
       )}
     </div>
@@ -41,11 +44,12 @@ export function RememberCallout({
   children: React.ReactNode;
   className?: string;
 }) {
+  const t = useTranslations("blocks");
   return (
     <aside className={`rounded-[18px] bg-tint-sage p-4 ${className}`}>
       <p className="flex items-center gap-2 text-script">
         <Lightbulb className="size-5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
-        Remember…
+        {t("remember")}
       </p>
       <p className="mt-1.5 text-body-s">{children}</p>
     </aside>
@@ -75,23 +79,27 @@ export function ImportantCallout({
 
 /** Callout/Help: lavender panel pointing to Instagram and email. */
 export function HelpCallout({ className = "" }: { className?: string }) {
+  const t = useTranslations("blocks");
   const link = "text-deep-rose underline underline-offset-2 hover:text-charcoal";
   return (
     <aside className={`rounded-[18px] bg-tint-lavender p-4 ${className}`}>
       <p className="flex items-center gap-2 text-label-m">
         <Heart className="size-5 shrink-0 text-deep-rose" strokeWidth={1.75} aria-hidden="true" />
-        Need help? Humraah is here.
+        {t("helpTitle")}
       </p>
       <p className="mt-1.5 text-body-s">
-        You don’t have to figure everything out alone. Message us on Instagram{" "}
-        <a href={contact.instagramUrl} rel="noopener" className={link}>
-          {contact.instagramHandle}
-        </a>{" "}
-        or email{" "}
-        <a href={`mailto:${contact.email}`} className={link}>
-          {contact.email}
-        </a>
-        .
+        {t.rich("helpText", {
+          instagram: () => (
+            <a href={contact.instagramUrl} rel="noopener" className={link} dir="ltr">
+              {contact.instagramHandle}
+            </a>
+          ),
+          email: () => (
+            <a href={`mailto:${contact.email}`} className={link} dir="ltr">
+              {contact.email}
+            </a>
+          ),
+        })}
       </p>
     </aside>
   );
@@ -110,6 +118,7 @@ export function NextSteps({
   action: { href: string; label: string };
   className?: string;
 }) {
+  const t = useTranslations("blocks");
   return (
     <section
       aria-labelledby="next-steps"
@@ -119,7 +128,7 @@ export function NextSteps({
         <span className="flex size-9 items-center justify-center rounded-pill bg-card">
           <Sprout className="size-5" strokeWidth={1.75} aria-hidden="true" />
         </span>
-        Your next steps
+        {t("nextSteps")}
       </h2>
       <ul className="flex flex-col gap-3.5">
         {items.map((item) => (
@@ -234,11 +243,12 @@ export function StaleNotice({
   verifiedAt: string | null;
   className?: string;
 }) {
+  const t = useTranslations("blocks");
+  const locale = useLocale() as Locale;
   if (!verifiedAt || !isStale(verifiedAt)) return null;
   return (
-    <ImportantCallout title="This may be out of date" className={className}>
-      We last checked these details on {formatLongDate(verifiedAt)}, more than six months ago. Check the
-      official website before you rely on them.
+    <ImportantCallout title={t("staleTitle")} className={className}>
+      {t("staleText", { date: formatLongDate(verifiedAt, locale) })}
     </ImportantCallout>
   );
 }

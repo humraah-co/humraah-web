@@ -1,29 +1,30 @@
 import type { Metadata } from "next";
 import { Award, BookOpen, Compass, Landmark, Pencil, type LucideIcon } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import { ResourceCard } from "@/components/content/Cards";
 import { Container } from "@/components/layout/PageShell";
 import { listResources, type ResourceLink } from "@/lib/data/public";
 import type { ResourceCategory } from "@/lib/database.types";
 import { pageLocale, type LocaleParams } from "@/i18n/server";
 
-export const metadata: Metadata = {
-  title: "Resources",
-  description:
-    "Official websites and tools we trust for university, scholarships and admission tests in Pakistan.",
-};
+export async function generateMetadata({ params }: { params: LocaleParams }): Promise<Metadata> {
+  const t = await getTranslations({ locale: (await params).locale, namespace: "resources" });
+  return { title: t("metaTitle"), description: t("metaDescription") };
+}
 
 export const revalidate = 300;
 
-/** Groups in the Figma order (28:2422), each with its card icon. */
-const groups: { category: ResourceCategory; title: string; icon: LucideIcon }[] = [
-  { category: "official", title: "HEC and official resources", icon: Landmark },
-  { category: "scholarships", title: "Scholarships", icon: Award },
-  { category: "tests", title: "Admission tests", icon: Pencil },
-  { category: "guidance", title: "Career exploration", icon: Compass },
+/** Groups in the Figma order (28:2422), each with its card icon. Titles are in "resources.groups". */
+const groups: { category: ResourceCategory; icon: LucideIcon }[] = [
+  { category: "official", icon: Landmark },
+  { category: "scholarships", icon: Award },
+  { category: "tests", icon: Pencil },
+  { category: "guidance", icon: Compass },
 ];
 
 export default async function ResourcesPage({ params }: { params: LocaleParams }) {
   await pageLocale(params);
+  const t = await getTranslations("resources");
   const resources = await listResources();
   const byCategory = new Map<ResourceCategory, ResourceLink[]>();
   for (const r of resources ?? []) byCategory.set(r.category, [...(byCategory.get(r.category) ?? []), r]);
@@ -31,23 +32,19 @@ export default async function ResourcesPage({ params }: { params: LocaleParams }
 
   return (
     <Container className="pt-6 pb-7 lg:pt-12 lg:pb-16">
-      <h1 className="text-h1 lg:text-[40px] lg:leading-[46px]">Useful resources</h1>
-      <p className="mt-3 text-body-m text-muted lg:mt-3.5 lg:text-body-l">
-        Official websites and tools we trust. Each link opens the official source.
-      </p>
+      <h1 className="text-h1 lg:text-[40px] lg:leading-[46px]">{t("title")}</h1>
+      <p className="mt-3 text-body-m text-muted lg:mt-3.5 lg:text-body-l">{t("intro")}</p>
 
       <div className="mt-4 flex flex-col gap-4 lg:mt-8 lg:gap-8">
         {resources === null ? (
           <p className="rounded-2xl bg-tint-lavender p-5 text-body-m" role="status">
-            The database isn&apos;t connected yet. Add the Supabase environment variables to see resources.
+            {t("notConnected")}
           </p>
         ) : shown.length === 0 ? (
-          <p className="rounded-2xl bg-blush p-5 text-body-m">
-            No resources are published yet. The research team is adding official links. Check back soon.
-          </p>
+          <p className="rounded-2xl bg-blush p-5 text-body-m">{t("noResources")}</p>
         ) : (
           shown.map((g) => (
-            <Group key={g.category} title={g.title}>
+            <Group key={g.category} title={t(`groups.${g.category}`)}>
               {byCategory.get(g.category)!.map((r) => (
                 <li key={r.id} className="flex flex-col *:flex-1">
                   <ResourceCard title={r.title} description={r.description} href={r.url} icon={g.icon} />
@@ -57,11 +54,11 @@ export default async function ResourcesPage({ params }: { params: LocaleParams }
           ))
         )}
 
-        <Group title="From Humraah">
+        <Group title={t("fromHumraah")}>
           <li className="flex flex-col *:flex-1">
             <ResourceCard
-              title="Higher Education Guide"
-              description="Our free guide in English and Urdu."
+              title={t("guideTitle")}
+              description={t("guideText")}
               href="/guide"
               icon={BookOpen}
             />

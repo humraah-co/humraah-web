@@ -1,12 +1,14 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { desktopNav, isActive } from "@/lib/nav";
 
 /** Desktop/Nav links. Current page: text/deep-rose and underlined (Figma 14:284). */
 export function DesktopNavLinks() {
   const pathname = usePathname();
+  const t = useTranslations("nav");
   return (
     // Labels never wrap; the gaps shrink a little on narrower screens instead.
     <ul className="flex items-center gap-4 min-[1440px]:gap-7 xl:max-[1439px]:gap-5">
@@ -23,7 +25,7 @@ export function DesktopNavLinks() {
                   : "text-label-m whitespace-nowrap text-charcoal hover:text-deep-rose"
               }
             >
-              {item.label}
+              {t(item.key)}
             </Link>
           </li>
         );

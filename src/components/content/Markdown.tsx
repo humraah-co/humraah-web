@@ -1,5 +1,6 @@
-import Link from "next/link";
 import { ExternalLink } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { RememberCallout, Step } from "@/components/ui/Blocks";
 import { parseMarkdown, type Block, type Inline } from "@/lib/markdown";
 
@@ -91,6 +92,7 @@ function stripRemember(nodes: Inline[]): Inline[] {
 }
 
 function Inlines({ nodes }: { nodes: Inline[] }) {
+  const t = useTranslations("common");
   return nodes.map((n, i) => {
     switch (n.type) {
       case "text":
@@ -122,7 +124,7 @@ function Inlines({ nodes }: { nodes: Inline[] }) {
                   strokeWidth={2}
                   aria-hidden="true"
                 />
-                <span className="sr-only"> (opens in a new tab)</span>
+                <span className="sr-only"> {t("opensInNewTab")}</span>
               </>
             )}
           </a>

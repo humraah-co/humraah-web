@@ -11,8 +11,10 @@ import {
   listScholarshipCards,
   type ScholarshipCard as ScholarshipCardData,
 } from "@/lib/data/public";
-import { countWord, daysUntil } from "@/lib/format";
+import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { pageLocale, type LocaleParams } from "@/i18n/server";
+import { countWord, daysUntil } from "@/lib/format";
 
 export const revalidate = 300;
 
@@ -27,10 +29,11 @@ function closingSoon(all: ScholarshipCardData[]) {
 
 export default async function HomePage({ params }: { params: LocaleParams }) {
   await pageLocale(params);
+  const t = await getTranslations("home");
   const [fields, scholarships] = await Promise.all([listFields(), listScholarshipCards()]);
   const connected = fields !== null && scholarships !== null;
   const fieldCount = fields?.length ?? 0;
-  const fieldsPhrase = fieldCount > 0 ? `${countWord(fieldCount)} fields of study` : "the fields of study";
+  const fieldsPhrase = t("fieldsPhrase", { count: fieldCount, word: countWord(fieldCount) });
   const closing = scholarships ? closingSoon(scholarships) : [];
 
   const steps: {
@@ -44,34 +47,34 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
     {
       icon: Compass,
       tint: "bg-tint-coral",
-      title: "Discover what you enjoy",
-      text: `Take a two-minute quiz or browse ${fieldsPhrase}.`,
+      title: t("steps.discover.title"),
+      text: t("steps.discover.text", { fields: fieldsPhrase }),
       href: "/quiz",
-      link: "Take the quiz",
+      link: t("steps.discover.link"),
     },
     {
       icon: Landmark,
       tint: "bg-tint-lavender",
-      title: "Find universities",
-      text: "See programmes, fees and how to apply, with the official source for every detail.",
+      title: t("steps.universities.title"),
+      text: t("steps.universities.text"),
       href: "/universities",
-      link: "Find a university",
+      link: t("steps.universities.link"),
     },
     {
       icon: Award,
       tint: "bg-tint-sage",
-      title: "Find support to pay",
-      text: "Merit and need-based scholarships from Pakistan and abroad.",
+      title: t("steps.scholarships.title"),
+      text: t("steps.scholarships.text"),
       href: "/scholarships",
-      link: "Find scholarships",
+      link: t("steps.scholarships.link"),
     },
     {
       icon: BookOpen,
       tint: "bg-blush",
-      title: "Plan your next step",
-      text: "Keep track with our free guide in English and Urdu.",
+      title: t("steps.guide.title"),
+      text: t("steps.guide.text"),
       href: "/guide",
-      link: "Get the guide",
+      link: t("steps.guide.link"),
     },
   ];
 
@@ -83,21 +86,18 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
           <div className="flex flex-col gap-4 lg:flex-1 lg:gap-5">
             <div className="flex items-center gap-3">
               <p className="flex-1 text-script text-charcoal lg:text-[30px] lg:leading-8 lg:text-deep-rose">
-                For every girl who dreams, questions and hopes
+                {t("heroScript")}
               </p>
               <LogoMark className="h-[46.662px] w-[50.4px] lg:hidden" />
             </div>
-            <h1 className="text-display">Your path to university starts here.</h1>
-            <p className="text-body-l text-muted">
-              Find out what you could study, which universities offer it, what it costs and where to start,
-              one step at a time.
-            </p>
+            <h1 className="text-display">{t("heroTitle")}</h1>
+            <p className="text-body-l text-muted">{t("heroText")}</p>
             <div className="flex flex-col gap-2.5 lg:flex-row lg:gap-3 lg:pt-2">
               <ButtonLink href="/quiz" className="w-full lg:w-auto">
-                Where do I start?
+                {t("heroStart")}
               </ButtonLink>
               <ButtonLink href="/universities" variant="secondary" className="w-full lg:w-auto">
-                Explore universities
+                {t("heroUniversities")}
               </ButtonLink>
             </div>
           </div>
@@ -127,7 +127,7 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
 
       {/* Path */}
       <Container className="flex flex-col gap-5 pt-8 pb-2 lg:gap-8 lg:py-14">
-        <h2 className="text-h2 lg:text-[40px] lg:leading-[46px]">From “I don’t know” to “I’ve applied”</h2>
+        <h2 className="text-h2 lg:text-[40px] lg:leading-[46px]">{t("pathTitle")}</h2>
         <ol className="flex flex-col lg:flex-row lg:gap-6">
           {steps.map((step, i) => {
             const last = i === steps.length - 1;
@@ -154,7 +154,7 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
                 <div
                   className={`flex min-w-0 flex-1 flex-col gap-1 pt-0.5 lg:flex-none lg:pt-0 ${last ? "" : "pb-[22px] lg:pb-0"}`}
                 >
-                  <p className="text-label-s text-muted">Step {i + 1}</p>
+                  <p className="text-label-s text-muted">{t("step", { number: i + 1 })}</p>
                   <h3 className="text-h3">{step.title}</h3>
                   <p className="text-body-s text-muted lg:text-body-m">{step.text}</p>
                   <ButtonLink href={step.href} variant="text">
@@ -172,26 +172,24 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
         <SectionHeader
           title={
             <>
-              <span className="lg:hidden">Closing soon</span>
-              <span className="hidden lg:inline">Scholarships closing soon</span>
+              <span className="lg:hidden">{t("closingSoon")}</span>
+              <span className="hidden lg:inline">{t("closingSoonFull")}</span>
             </>
           }
           href="/scholarships"
           linkLabel={
             <>
-              <span className="lg:hidden">See all</span>
-              <span className="hidden lg:inline">See all scholarships</span>
+              <span className="lg:hidden">{t("seeAll")}</span>
+              <span className="hidden lg:inline">{t("seeAllScholarships")}</span>
             </>
           }
         />
         {!connected ? (
           <p className="rounded-2xl bg-tint-lavender p-5 text-body-m" role="status">
-            The database isn&apos;t connected yet. Add the Supabase environment variables to see scholarships.
+            {t("notConnected")}
           </p>
         ) : closing.length === 0 ? (
-          <p className="rounded-2xl bg-blush p-5 text-body-m">
-            No scholarships are published yet. Check back soon.
-          </p>
+          <p className="rounded-2xl bg-blush p-5 text-body-m">{t("noScholarships")}</p>
         ) : (
           <ul className="grid gap-3.5 lg:grid-cols-3 lg:gap-6">
             {closing.map((s, i) => (
@@ -213,7 +211,7 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
             <div className="flex h-[124px] w-[92px] shrink-0 flex-col items-center justify-center gap-2 rounded-[10px] border border-border-soft bg-cream p-2 lg:h-[224px] lg:w-[168px] lg:gap-3 lg:rounded-[14px] lg:p-4">
               <LogoMark className="h-[37.774px] w-[40.8px] lg:h-[77.77px] lg:w-[84px]" />
               <p className="w-[76px] text-center text-label-xs lg:w-[136px] lg:text-label-s">
-                Higher Education Guide
+                {t("guideCover")}
               </p>
             </div>
             <div className="flex min-w-0 flex-1 flex-col gap-1.5 lg:gap-3.5">
@@ -221,24 +219,15 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
                 id="guide-heading"
                 className="text-h3 lg:text-[40px] lg:leading-[46px] lg:font-semibold lg:tracking-[-0.2px]"
               >
-                Our free Higher Education Guide
+                {t("guideTitle")}
               </h2>
               <p className="text-body-s lg:text-body-l">
-                Discover yourself, explore your options
-                <span className="lg:hidden"> and find the right university.</span>
-                <span className="hidden lg:inline">
-                  , find the right university and build your path, in English and Urdu.
-                </span>
+                <span className="lg:hidden">{t("guideTextShort")}</span>
+                <span className="hidden lg:inline">{t("guideTextLong")}</span>
               </p>
               <ChipList className="hidden lg:flex lg:gap-2">
-                {[
-                  "Why higher education matters",
-                  "Discover yourself",
-                  "Exploring your options",
-                  "Finding the right university",
-                  "Build your path",
-                ].map((chapter) => (
-                  <Chip key={chapter}>{chapter}</Chip>
+                {(["why", "discover", "options", "university", "path"] as const).map((chapter) => (
+                  <Chip key={chapter}>{t(`guideChapters.${chapter}`)}</Chip>
                 ))}
               </ChipList>
               <div className="hidden gap-3 pt-1.5 lg:flex">
@@ -250,7 +239,7 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
           <div className="flex flex-wrap gap-2.5 lg:hidden">
             <GuideDownloads />
           </div>
-          <p className="text-caption text-muted lg:hidden">Free to download, in English and Urdu.</p>
+          <p className="text-caption text-muted lg:hidden">{t("guideFree")}</p>
         </section>
       </Container>
 
@@ -264,20 +253,15 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
             height={16}
             className="block h-4 w-60"
           />
-          <h2 className="text-h2 lg:text-[40px] lg:leading-[46px]">Humraah means “companion”.</h2>
+          <h2 className="text-h2 lg:text-[40px] lg:leading-[46px]">{t("whyTitle")}</h2>
         </div>
         <div className="flex flex-col items-start gap-3 lg:flex-1 lg:gap-4">
           <p className="text-body-m text-muted lg:text-body-l">
-            Many girls in Pakistan stop after FSc, not because they don’t want to continue, but because no one
-            showed them how. We’re here to walk alongside you
-            <span className="hidden lg:inline">
-              , with the information, resources and support to pursue higher education and build your own path
-              forward
-            </span>
-            .
+            <span className="lg:hidden">{t("whyTextShort")}</span>
+            <span className="hidden lg:inline">{t("whyTextLong")}</span>
           </p>
           <ButtonLink href="/about" variant="text">
-            About Humraah
+            {t("aboutLink")}
           </ButtonLink>
         </div>
       </Container>
@@ -286,6 +270,7 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
 }
 
 function GuideDownloads() {
+  const t = useTranslations("home");
   return (
     <>
       <ButtonLink
@@ -294,7 +279,7 @@ function GuideDownloads() {
         className="flex-1 px-3.5! whitespace-nowrap lg:flex-none lg:px-[22px]!"
       >
         <Download className="size-5" strokeWidth={1.75} aria-hidden="true" />
-        English PDF
+        {t("englishPdf")}
       </ButtonLink>
       <ButtonLink
         href="/guide"
@@ -302,7 +287,7 @@ function GuideDownloads() {
         className="flex-1 px-3.5! whitespace-nowrap lg:flex-none lg:px-[22px]!"
       >
         <Download className="size-5" strokeWidth={1.75} aria-hidden="true" />
-        Urdu PDF
+        {t("urduPdf")}
       </ButtonLink>
     </>
   );

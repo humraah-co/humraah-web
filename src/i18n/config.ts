@@ -34,10 +34,13 @@ export function isEnabledLocale(value: unknown, enabled = urduEnabled()): value 
 
 export const directionFor = (locale: Locale) => (locale === "ur" ? "rtl" : "ltr");
 
-/** "/ur/universities" → "/universities"; English paths are returned as they are. */
+/** "/ur/universities" (or the internal "/en/universities") → "/universities". */
 export function stripLocale(pathname: string) {
-  if (pathname === "/ur") return "/";
-  if (pathname.startsWith("/ur/")) return pathname.slice(3);
+  // "/en/…" is the internal address English pages render at, seen while they are built.
+  for (const prefix of ["/ur", "/en"]) {
+    if (pathname === prefix) return "/";
+    if (pathname.startsWith(`${prefix}/`)) return pathname.slice(prefix.length);
+  }
   return pathname;
 }
 
