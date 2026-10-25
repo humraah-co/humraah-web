@@ -45,7 +45,7 @@ export function BottomNav() {
             // Quiz results sit under Explore (Figma 12:1222).
             const active = isActive(pathname, href) || (href === "/explore" && isQuizPath(pathname));
             return (
-              <li key={href} className="flex-1">
+              <li key={href} className="min-w-0 flex-1">
                 <Link
                   href={href}
                   aria-current={active ? "page" : undefined}

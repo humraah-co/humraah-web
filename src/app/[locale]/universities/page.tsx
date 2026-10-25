@@ -96,7 +96,7 @@ export default async function UniversitiesPage({
           <label htmlFor="university-search" className="sr-only">
             {t("search")}
           </label>
-          <span className="flex h-[52px] flex-1 items-center gap-2.5 rounded-pill border border-border-strong bg-card px-[18px] lg:max-w-[560px]">
+          <span className="flex h-[52px] min-w-0 flex-1 items-center gap-2.5 rounded-pill border border-border-strong bg-card px-[18px] lg:max-w-[560px]">
             <Search className="size-5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
             <input
               id="university-search"
