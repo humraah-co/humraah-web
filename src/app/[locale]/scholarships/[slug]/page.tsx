@@ -3,17 +3,18 @@ import { notFound } from "next/navigation";
 import { Check, ChevronRight, CircleAlert, Clock } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
-import { deadlineLabel, ScholarshipCard } from "@/components/content/Cards";
+import { deadlineLabel, isNeedBased, ScholarshipCard } from "@/components/content/Cards";
 import { Container } from "@/components/layout/PageShell";
 import { ImportantCallout, NextSteps, StaleNotice, Step } from "@/components/ui/Blocks";
 import { ButtonLink } from "@/components/ui/Button";
 import { Chip, ChipList, SourceBadge, VerificationBadge } from "@/components/ui/Chip";
+import { EnglishNote, englishAttrs } from "@/components/ui/InEnglish";
 import { ShareButton } from "@/components/ui/ShareButton";
 import { getScholarship, listScholarshipCards, type ScholarshipCard as CardData } from "@/lib/data/public";
 import { daysUntil, formatLongDate, pointsFrom, stepsFrom } from "@/lib/format";
 import { contact } from "@/lib/nav";
 import { isForWomen } from "@/lib/scholarshipFilters";
-import type { Locale } from "@/i18n/config";
+import { toLocale, type Locale } from "@/i18n/config";
 import { Link } from "@/i18n/navigation";
 import { alternates } from "@/i18n/metadata";
 import { pageLocale, type LocaleParams } from "@/i18n/server";
@@ -28,7 +29,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug, locale } = await params;
-  const scholarship = await getScholarship(slug);
+  const scholarship = await getScholarship(slug, toLocale(locale));
   const t = await getTranslations({ locale, namespace: "scholarship" });
   if (!scholarship) return { title: t("metaTitle") };
   return {
@@ -47,7 +48,10 @@ export default async function ScholarshipPage({ params }: Props) {
   const common = await getTranslations("common");
   const kinds = await getTranslations("scholarshipKinds");
   const { slug } = await params;
-  const [scholarship, cards] = await Promise.all([getScholarship(slug), listScholarshipCards()]);
+  const [scholarship, cards] = await Promise.all([
+    getScholarship(slug, locale),
+    listScholarshipCards(locale),
+  ]);
   if (scholarship === null) {
     return (
       <Container className="py-12">
@@ -60,7 +64,7 @@ export default async function ScholarshipPage({ params }: Props) {
   if (!scholarship) notFound();
   const s = scholarship;
 
-  const needBased = s.kind === "need" || s.covers.some((c) => /need/i.test(c));
+  const needBased = isNeedBased(s);
   const eligibility = pointsFrom(s.who_its_for);
   const ownSteps = stepsFrom(s.how_to_apply);
   const related = relatedTo(s, cards ?? []);
@@ -88,23 +92,32 @@ export default async function ScholarshipPage({ params }: Props) {
           <Chip tone="lavender">{kinds(s.kind)}</Chip>
           {needBased && <Chip tone="sage">{t("needBased")}</Chip>}
           {s.audience_note ? (
-            <Chip tone="coral">{s.audience_note}</Chip>
+            <Chip tone="coral" {...englishAttrs(s, "audience_note")}>
+              {s.audience_note}
+            </Chip>
           ) : (
             isForWomen(s) && <Chip tone="coral">{t("forWomen")}</Chip>
           )}
           {s.scope === "international" && <Chip>{t("studyAbroad")}</Chip>}
         </ChipList>
-        <h1 className="text-h1 lg:text-[48px] lg:leading-[52px] lg:tracking-[-0.7px]">{s.name}</h1>
-        <p className="text-body-m text-muted lg:max-w-[680px] lg:text-body-l">
+        <h1 className="text-h1 lg:text-[48px] lg:leading-[52px] lg:tracking-[-0.7px]" lang="en">
+          {s.name}
+        </h1>
+        <p className="text-body-m text-muted lg:max-w-[680px] lg:text-body-l" {...englishAttrs(s, "summary")}>
           {s.summary ?? t("noSummary")}
         </p>
+        <EnglishNote row={s} fields={["summary"]} />
         <p className="text-body-s text-muted">{t("offeredBy", { provider: s.provider })}</p>
       </header>
 
       {/* Mobile: right after the header. Desktop: the right-hand column. */}
       <div className="contents lg:col-start-2 lg:row-span-2 lg:row-start-2 lg:flex lg:flex-col lg:gap-6">
         <div className="order-2 flex flex-col gap-3 pt-3 lg:order-1 lg:rounded-3xl lg:border lg:border-border-soft lg:bg-card lg:p-5 lg:pt-5">
-          <DeadlinePanel deadline={s.deadline} note={s.deadline_note} />
+          <DeadlinePanel
+            deadline={s.deadline}
+            note={s.deadline_note}
+            noteLang={englishAttrs(s, "deadline_note").lang}
+          />
           <div className="flex flex-wrap items-center gap-2">
             <VerificationBadge verifiedAt={s.last_verified_at} />
             <p className="text-caption text-muted">
@@ -165,24 +178,28 @@ export default async function ScholarshipPage({ params }: Props) {
           {s.covers.length > 0 && (
             <ChipList className="gap-2">
               {s.covers.map((c) => (
-                <Chip key={c} tone="blush">
+                <Chip key={c} tone="blush" {...englishAttrs(s, "covers")}>
                   {c}
                 </Chip>
               ))}
             </ChipList>
           )}
           {s.what_it_covers ? (
-            <p className={s.covers.length > 0 ? "text-caption text-muted" : "text-body-m"}>
+            <p
+              className={s.covers.length > 0 ? "text-caption text-muted" : "text-body-m"}
+              {...englishAttrs(s, "what_it_covers")}
+            >
               {s.what_it_covers}
             </p>
           ) : (
             s.covers.length === 0 && <p className="text-body-s text-muted">{t("noCovers")}</p>
           )}
+          <EnglishNote row={s} fields={["what_it_covers"]} />
         </Section>
 
         <Section title={t("eligible")}>
           {eligibility.length > 0 ? (
-            <ul className="flex flex-col gap-2.5">
+            <ul className="flex flex-col gap-2.5" {...englishAttrs(s, "who_its_for")}>
               {eligibility.map((point) => (
                 <li key={point} className="flex items-start gap-2.5 text-body-m">
                   <Check
@@ -197,13 +214,14 @@ export default async function ScholarshipPage({ params }: Props) {
           ) : (
             <p className="text-body-s text-muted">{t("noEligible")}</p>
           )}
+          <EnglishNote row={s} fields={["who_its_for"]} />
         </Section>
 
         <Section title={t("areas")}>
           {s.eligible_areas.length > 0 ? (
             <ChipList className="gap-2">
               {s.eligible_areas.map((area) => (
-                <Chip key={area} tone="sage">
+                <Chip key={area} tone="sage" {...englishAttrs(s, "eligible_areas")}>
                   {area}
                 </Chip>
               ))}
@@ -217,14 +235,17 @@ export default async function ScholarshipPage({ params }: Props) {
           {ownSteps.length >= 2 ? (
             <>
               <p className="text-body-s text-muted">{t("confirmSteps")}</p>
-              <ol>
+              <ol {...englishAttrs(s, "how_to_apply")}>
                 {ownSteps.map((text, i) => (
                   <Step key={text} number={i + 1} title={text} last={i === ownSteps.length - 1} />
                 ))}
               </ol>
+              <EnglishNote row={s} fields={["how_to_apply"]} />
             </>
           ) : ownSteps.length === 1 ? (
-            <p className="text-body-m">{ownSteps[0]}</p>
+            <p className="text-body-m" {...englishAttrs(s, "how_to_apply")}>
+              {ownSteps[0]}
+            </p>
           ) : (
             <>
               <p className="text-body-s text-muted">{t("typicalStepsIntro")}</p>
@@ -271,7 +292,16 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 }
 
 /** The deadline box: coral while closing soon, blush otherwise. */
-function DeadlinePanel({ deadline, note }: { deadline: string | null; note: string | null }) {
+function DeadlinePanel({
+  deadline,
+  note,
+  noteLang,
+}: {
+  deadline: string | null;
+  note: string | null;
+  /** "en" when the note has no Urdu yet. */
+  noteLang?: string;
+}) {
   const t = useTranslations("scholarship.deadline");
   const deadlineT = useTranslations("deadline");
   const locale = useLocale() as Locale;
@@ -292,8 +322,14 @@ function DeadlinePanel({ deadline, note }: { deadline: string | null; note: stri
       </span>
       <div className="min-w-0 flex-1 text-charcoal">
         <p className="text-label-m">{heading}</p>
-        <p className="text-body-s">{detail}</p>
-        {deadline && note && <p className="text-caption text-muted">{note}</p>}
+        <p className="text-body-s" lang={deadline ? undefined : noteLang}>
+          {detail}
+        </p>
+        {deadline && note && (
+          <p className="text-caption text-muted" lang={noteLang}>
+            {note}
+          </p>
+        )}
       </div>
     </div>
   );

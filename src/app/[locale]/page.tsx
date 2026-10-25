@@ -35,9 +35,9 @@ function closingSoon(all: ScholarshipCardData[]) {
 }
 
 export default async function HomePage({ params }: { params: LocaleParams }) {
-  await pageLocale(params);
+  const locale = await pageLocale(params);
   const t = await getTranslations("home");
-  const [fields, scholarships] = await Promise.all([listFields(), listScholarshipCards()]);
+  const [fields, scholarships] = await Promise.all([listFields(locale), listScholarshipCards(locale)]);
   const connected = fields !== null && scholarships !== null;
   const fieldCount = fields?.length ?? 0;
   const fieldsPhrase = t("fieldsPhrase", { count: fieldCount, word: countWord(fieldCount) });

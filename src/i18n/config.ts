@@ -32,6 +32,11 @@ export function isEnabledLocale(value: unknown, enabled = urduEnabled()): value 
   return (enabledLocales(enabled) as string[]).includes(value as string);
 }
 
+/** A route's [locale] value as a Locale; anything not switched on reads as English. */
+export function toLocale(value: string): Locale {
+  return isEnabledLocale(value) ? value : DEFAULT_LOCALE;
+}
+
 export const directionFor = (locale: Locale) => (locale === "ur" ? "rtl" : "ltr");
 
 /** "/ur/universities" (or the internal "/en/universities") → "/universities". */

@@ -48,12 +48,12 @@ export default async function ExplorePage({
   params: LocaleParams;
   searchParams: Promise<{ q?: string | string[] }>;
 }) {
-  await pageLocale(params);
+  const locale = await pageLocale(params);
   const t = await getTranslations("explore");
   const { q } = await searchParams;
   const query = (Array.isArray(q) ? q[0] : q)?.trim() ?? "";
 
-  const fields = await listFields();
+  const fields = await listFields(locale);
   const shown = fields && query ? fields.filter((f) => matches(f, query)) : fields;
 
   return (

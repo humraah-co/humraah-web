@@ -3,6 +3,7 @@ import { useLocale, useTranslations } from "next-intl";
 import type { Locale } from "@/i18n/config";
 import { Link } from "@/i18n/navigation";
 import { Chip, ChipList, DeadlineChip, VerificationBadge } from "@/components/ui/Chip";
+import { englishAttrs } from "@/components/ui/InEnglish";
 import { Ltr } from "@/components/ui/Ltr";
 import type {
   FieldSummary,
@@ -26,18 +27,28 @@ export function FieldCard({ field, reason }: { field: FieldSummary; reason?: str
     <Link href={`/explore/${field.slug}`} className={`${card} flex-row items-start gap-3.5`}>
       <FieldIcon slug={field.slug} />
       <span className="flex min-w-0 flex-1 flex-col gap-1">
-        <span className="text-label-l">{field.name}</span>
+        <span className="text-label-l" {...englishAttrs(field, "name")}>
+          {field.name}
+        </span>
         {reason ? (
           <span className="text-body-s text-muted">{reason}</span>
         ) : (
           field.you_might_enjoy && (
             <span className="text-body-s text-muted">
-              {t("youMightEnjoy", { interests: field.you_might_enjoy })}
+              {englishAttrs(field, "you_might_enjoy").lang ? (
+                <span lang="en" dir="ltr">
+                  {field.you_might_enjoy}
+                </span>
+              ) : (
+                t("youMightEnjoy", { interests: field.you_might_enjoy })
+              )}
             </span>
           )
         )}
         {field.example_programmes.length > 0 && (
-          <span className="text-label-s text-deep-sage">{field.example_programmes.join(", ")}</span>
+          <span className="text-label-s text-deep-sage" {...englishAttrs(field, "example_programmes")}>
+            {field.example_programmes.join(", ")}
+          </span>
         )}
       </span>
       <ChevronRight
@@ -101,10 +112,17 @@ export function UniversityCard({
       <span className="flex items-center gap-3">
         <UniversityAvatar slug={u.slug} name={u.name} shortName={u.short_name} />
         <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-          <span className="text-label-l">{u.name}</span>
+          {/* Names stay in English; lang tells screen readers, the text still lines up with the card. */}
+          <span className="text-label-l" lang="en">
+            {u.name}
+          </span>
           <span className="flex items-center gap-1 text-body-s text-muted">
             <MapPin className="size-3.5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
-            {u.campuses_note ?? u.city}
+            {u.campuses_note ? (
+              <span {...englishAttrs(u, "campuses_note")}>{u.campuses_note}</span>
+            ) : (
+              <span lang="en">{u.city}</span>
+            )}
           </span>
         </span>
         <ChevronRight
@@ -122,7 +140,13 @@ export function UniversityCard({
       <span className="h-px bg-border-soft" aria-hidden="true" />
       <span className="flex flex-wrap items-center justify-between gap-2">
         <DeadlineChip>
-          {t("applications", { window: u.admissions_window ?? t("datesToBeConfirmed") })}
+          {u.admissions_window && englishAttrs(u, "admissions_window").lang ? (
+            <span lang="en" dir="ltr">
+              {u.admissions_window}
+            </span>
+          ) : (
+            t("applications", { window: u.admissions_window ?? t("datesToBeConfirmed") })
+          )}
         </DeadlineChip>
         <VerificationBadge verifiedAt={u.last_verified_at} />
       </span>
@@ -159,25 +183,40 @@ export function deadlineLabel(
   return { text: s.deadline_note ?? t("toBeConfirmed"), urgent: false };
 }
 
+/** Need-based by type, or by what it covers (in English or Urdu). */
+export function isNeedBased(s: Pick<ScholarshipCardData, "kind" | "covers">) {
+  return s.kind === "need" || s.covers.some((c) => /need|ضرورت/i.test(c));
+}
+
 export function ScholarshipCard({ scholarship: s }: { scholarship: ScholarshipCardData }) {
   const t = useTranslations("cards");
   const kinds = useTranslations("scholarshipKinds");
   const deadline = deadlineLabel(s, useTranslations("deadline"), useLocale() as Locale);
-  const needBased = s.kind === "need" || s.covers.some((c) => /need/i.test(c));
+  const needBased = isNeedBased(s);
   return (
     <Link href={`/scholarships/${s.slug}`} className={`${card} gap-2.5`}>
       <ChipList>
         <Chip tone="lavender">{kinds(s.kind)}</Chip>
         {needBased && <Chip tone="sage">{t("needBased")}</Chip>}
-        {s.audience_note && <Chip tone="coral">{s.audience_note}</Chip>}
+        {s.audience_note && (
+          <Chip tone="coral" {...englishAttrs(s, "audience_note")}>
+            {s.audience_note}
+          </Chip>
+        )}
       </ChipList>
-      <span className="text-label-l">{s.name}</span>
-      {s.summary && <span className="text-body-s text-muted">{s.summary}</span>}
+      <span className="text-label-l" lang="en">
+        {s.name}
+      </span>
+      {s.summary && (
+        <span className="text-body-s text-muted" {...englishAttrs(s, "summary")}>
+          {s.summary}
+        </span>
+      )}
       {s.covers.length > 0 && (
         <span className="flex flex-wrap items-center gap-1.5">
           <span className="text-label-s text-muted">{t("covers")}</span>
           {s.covers.map((c) => (
-            <Chip key={c} tone="blush">
+            <Chip key={c} tone="blush" {...englishAttrs(s, "covers")}>
               {c}
             </Chip>
           ))}
@@ -206,9 +245,12 @@ export function ResourceCard({
   href,
   source,
   icon: Icon,
+  english = [],
 }: {
   title: string;
   description: string | null;
+  /** Of "title" and "description", those shown in English on an Urdu page. */
+  english?: string[];
   /** null shows the card as "Coming soon" with no link. */
   href: string | null;
   /** Small deep-rose line, e.g. "hec.gov.pk". Defaults to the link's site. */
@@ -224,8 +266,14 @@ export function ResourceCard({
         <Icon className="size-5" strokeWidth={1.75} aria-hidden="true" />
       </span>
       <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-        <span className="text-label-l">{title}</span>
-        {description && <span className="text-body-s text-muted">{description}</span>}
+        <span className="text-label-l" {...englishAttrs({ english }, "title")}>
+          {title}
+        </span>
+        {description && (
+          <span className="text-body-s text-muted" {...englishAttrs({ english }, "description")}>
+            {description}
+          </span>
+        )}
         <span className="text-caption break-words text-deep-rose">
           {href ? (source ?? (external ? <Ltr>{hostOf(href)}</Ltr> : t("humraah"))) : common("comingSoon")}
         </span>

@@ -5,10 +5,12 @@ import { getTranslations } from "next-intl/server";
 import { ScholarshipCard, UniversityCard } from "@/components/content/Cards";
 import { FieldIcon } from "@/components/content/FieldIcon";
 import { Container } from "@/components/layout/PageShell";
+import { EnglishNote, englishAttrs } from "@/components/ui/InEnglish";
 import { NextSteps, RememberCallout, SectionHeader, StaleNotice } from "@/components/ui/Blocks";
 import { Chip, ChipList } from "@/components/ui/Chip";
 import { getField, listFields, listScholarshipCards, listUniversityCards } from "@/lib/data/public";
 import { Link } from "@/i18n/navigation";
+import { toLocale } from "@/i18n/config";
 import { alternates } from "@/i18n/metadata";
 import { pageLocale, type LocaleParams } from "@/i18n/server";
 
@@ -23,7 +25,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug, locale } = await params;
-  const field = await getField(slug);
+  const field = await getField(slug, toLocale(locale));
   const t = await getTranslations({ locale, namespace: "field" });
   if (!field) return { title: t("metaTitle") };
   return {
@@ -34,11 +36,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function FieldPage({ params }: Props) {
-  await pageLocale(params);
+  const locale = await pageLocale(params);
   const t = await getTranslations("field");
   const common = await getTranslations("common");
   const { slug } = await params;
-  const field = await getField(slug);
+  const field = await getField(slug, locale);
   if (field === null) {
     return (
       <Container className="py-12">
@@ -50,7 +52,10 @@ export default async function FieldPage({ params }: Props) {
   }
   if (!field) notFound();
 
-  const [universities, scholarships] = await Promise.all([listUniversityCards(), listScholarshipCards()]);
+  const [universities, scholarships] = await Promise.all([
+    listUniversityCards(locale),
+    listScholarshipCards(locale),
+  ]);
 
   const offering = (universities ?? []).filter((u) => u.fieldIds.includes(field.id));
   // Scholarships tied to this field first, then ones open to any field.
@@ -79,10 +84,19 @@ export default async function FieldPage({ params }: Props) {
       <div className="flex flex-col lg:grid lg:grid-cols-[minmax(0,1fr)_380px] lg:gap-x-12 lg:gap-y-0 lg:pt-1">
         <header className="flex flex-col gap-3 lg:col-start-1 lg:row-start-1 lg:gap-4 lg:pb-10">
           <FieldIcon slug={field.slug} size="lg" />
-          <h1 className="text-h1 lg:text-[60px] lg:leading-[64px] lg:tracking-[-0.9px]">{field.name}</h1>
-          <p className="text-body-m text-muted lg:max-w-[680px] lg:text-body-l">
+          <h1
+            className="text-h1 lg:text-[60px] lg:leading-[64px] lg:tracking-[-0.9px]"
+            {...englishAttrs(field, "name")}
+          >
+            {field.name}
+          </h1>
+          <p
+            className="text-body-m text-muted lg:max-w-[680px] lg:text-body-l"
+            {...englishAttrs(field, "summary")}
+          >
             {field.summary ?? t("noSummary")}
           </p>
+          <EnglishNote row={field} fields={["summary"]} />
           <StaleNotice verifiedAt={field.last_verified_at} className="lg:max-w-[680px]" />
 
           <div className="mt-2 flex flex-col gap-2.5 lg:mt-0">
@@ -90,7 +104,7 @@ export default async function FieldPage({ params }: Props) {
             {field.interests.length > 0 ? (
               <ChipList className="gap-2">
                 {field.interests.map((interest) => (
-                  <Chip key={interest} tone="sage">
+                  <Chip key={interest} tone="sage" {...englishAttrs(field, "interests")}>
                     {interest}
                   </Chip>
                 ))}
@@ -105,7 +119,9 @@ export default async function FieldPage({ params }: Props) {
             {field.example_programmes.length > 0 ? (
               <ChipList className="gap-2">
                 {field.example_programmes.map((programme) => (
-                  <Chip key={programme}>{programme}</Chip>
+                  <Chip key={programme} lang="en">
+                    {programme}
+                  </Chip>
                 ))}
               </ChipList>
             ) : (

@@ -6,9 +6,11 @@ import { ResourceCard } from "@/components/content/Cards";
 import { Markdown } from "@/components/content/Markdown";
 import { Container } from "@/components/layout/PageShell";
 import { HelpCallout, ImportantCallout, NextSteps, StaleNotice } from "@/components/ui/Blocks";
+import { EnglishNote, englishAttrs } from "@/components/ui/InEnglish";
 import { getGuidanceArticle, listGuidanceArticles } from "@/lib/data/public";
 import { hostOf, readMinutes } from "@/lib/format";
 import { Link } from "@/i18n/navigation";
+import { toLocale } from "@/i18n/config";
 import { alternates } from "@/i18n/metadata";
 import { pageLocale, type LocaleParams } from "@/i18n/server";
 
@@ -22,7 +24,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug, locale } = await params;
-  const article = await getGuidanceArticle(slug);
+  const article = await getGuidanceArticle(slug, toLocale(locale));
   const t = await getTranslations({ locale, namespace: "guidance" });
   if (!article) return { title: t("title") };
   return {
@@ -33,11 +35,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function GuidanceArticlePage({ params }: Props) {
-  await pageLocale(params);
+  const locale = await pageLocale(params);
   const t = await getTranslations("guidance");
   const common = await getTranslations("common");
   const { slug } = await params;
-  const article = await getGuidanceArticle(slug);
+  const article = await getGuidanceArticle(slug, locale);
   if (article === null) {
     return (
       <Container className="py-12">
@@ -68,17 +70,26 @@ export default async function GuidanceArticlePage({ params }: Props) {
       <div className="flex flex-col gap-7 lg:grid lg:grid-cols-[minmax(0,1fr)_370px] lg:items-start lg:gap-x-16 lg:pt-6">
         <article className="flex min-w-0 flex-col gap-6 lg:max-w-[740px]">
           <header className="flex flex-col gap-2.5 lg:gap-3">
-            <h1 className="text-h1 lg:text-[40px] lg:leading-[46px]">{a.title}</h1>
+            <h1 className="text-h1 lg:text-[40px] lg:leading-[46px]" {...englishAttrs(a, "title")}>
+              {a.title}
+            </h1>
             <p className="flex items-center gap-1 text-caption text-muted">
               <Clock className="size-3.5" strokeWidth={1.75} aria-hidden="true" />
               {common("readTime", { count: readMinutes(a.body_markdown) })}
             </p>
-            {a.summary && <p className="text-body-l">{a.summary}</p>}
+            {a.summary && (
+              <p className="text-body-l" {...englishAttrs(a, "summary")}>
+                {a.summary}
+              </p>
+            )}
+            <EnglishNote row={a} fields={["title", "summary", "body_markdown"]} />
             <StaleNotice verifiedAt={a.last_verified_at} />
           </header>
 
           {a.body_markdown.trim() ? (
-            <Markdown source={a.body_markdown} />
+            <div {...englishAttrs(a, "body_markdown")}>
+              <Markdown source={a.body_markdown} />
+            </div>
           ) : (
             <p className="rounded-2xl bg-blush p-5 text-body-m">{t("noBody")}</p>
           )}

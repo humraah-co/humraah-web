@@ -87,10 +87,13 @@ export function stepsFrom(text: string | null) {
 export function pointsFrom(text: string | null) {
   const lines = stepsFrom(text);
   if (lines.length !== 1) return lines;
-  return lines[0]
-    .split(/(?<=[.!?])\s+(?=[A-Z0-9])/)
-    .map((s) => s.replace(/\.$/, "").trim())
-    .filter(Boolean);
+  return (
+    lines[0]
+      // English sentences end in . ! ? before a capital or digit; Urdu ones in ۔ or ؟ before anything.
+      .split(/(?<=[.!?])\s+(?=[A-Z0-9])|(?<=[۔؟])\s+/)
+      .map((s) => s.replace(/[.۔]$/, "").trim())
+      .filter(Boolean)
+  );
 }
 
 /** Six months: after this a verified entry may be out of date. */

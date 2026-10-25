@@ -29,9 +29,9 @@ const groups: { category: ResourceCategory; icon: LucideIcon }[] = [
 ];
 
 export default async function ResourcesPage({ params }: { params: LocaleParams }) {
-  await pageLocale(params);
+  const locale = await pageLocale(params);
   const t = await getTranslations("resources");
-  const resources = await listResources();
+  const resources = await listResources(locale);
   const byCategory = new Map<ResourceCategory, ResourceLink[]>();
   for (const r of resources ?? []) byCategory.set(r.category, [...(byCategory.get(r.category) ?? []), r]);
   const shown = groups.filter((g) => byCategory.has(g.category));
@@ -53,7 +53,13 @@ export default async function ResourcesPage({ params }: { params: LocaleParams }
             <Group key={g.category} title={t(`groups.${g.category}`)}>
               {byCategory.get(g.category)!.map((r) => (
                 <li key={r.id} className="flex flex-col *:flex-1">
-                  <ResourceCard title={r.title} description={r.description} href={r.url} icon={g.icon} />
+                  <ResourceCard
+                    title={r.title}
+                    description={r.description}
+                    href={r.url}
+                    icon={g.icon}
+                    english={r.english}
+                  />
                 </li>
               ))}
             </Group>

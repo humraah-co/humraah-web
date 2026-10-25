@@ -22,11 +22,13 @@ import { Container } from "@/components/layout/PageShell";
 import { Accordion, ImportantCallout, NextSteps, StaleNotice, Step } from "@/components/ui/Blocks";
 import { ButtonLink } from "@/components/ui/Button";
 import { Chip, HecBadge, SourceBadge, VerificationBadge } from "@/components/ui/Chip";
+import { EnglishNote, englishAttrs } from "@/components/ui/InEnglish";
 import { ShareButton } from "@/components/ui/ShareButton";
 import { getUniversity, listFields, listUniversitySlugs, type ProgrammeSummary } from "@/lib/data/public";
 import { formatFeeRange, formatLongDate, stepsFrom } from "@/lib/format";
 import { contact } from "@/lib/nav";
 import { Link } from "@/i18n/navigation";
+import { toLocale } from "@/i18n/config";
 import { alternates } from "@/i18n/metadata";
 import { pageLocale, type LocaleParams } from "@/i18n/server";
 
@@ -40,7 +42,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug, locale } = await params;
-  const university = await getUniversity(slug);
+  const university = await getUniversity(slug, toLocale(locale));
   const t = await getTranslations({ locale, namespace: "university" });
   if (!university) return { title: t("metaTitle") };
   return {
@@ -58,7 +60,7 @@ export default async function UniversityPage({ params }: Props) {
   const t = await getTranslations("university");
   const common = await getTranslations("common");
   const { slug } = await params;
-  const [university, fields] = await Promise.all([getUniversity(slug), listFields()]);
+  const [university, fields] = await Promise.all([getUniversity(slug, locale), listFields(locale)]);
   if (university === null) {
     return (
       <Container className="py-12">
@@ -123,18 +125,29 @@ export default async function UniversityPage({ params }: Props) {
               <UniversityAvatar slug={u.slug} name={u.name} shortName={u.short_name} size="lg" />
               {u.hec_recognised && <HecBadge />}
             </div>
-            <h1 className="text-h1 lg:text-[60px] lg:leading-[64px] lg:tracking-[-0.9px]">{u.name}</h1>
+            <h1
+              className="text-h1 lg:text-[60px] lg:leading-[64px] lg:tracking-[-0.9px]"
+              lang={u.name_ur ? undefined : "en"}
+            >
+              {u.name}
+            </h1>
             <div className="flex flex-wrap items-center gap-x-2.5 gap-y-2">
               <span className="flex items-center gap-1 text-body-s text-muted lg:text-body-m">
                 <MapPin className="size-4" strokeWidth={1.75} aria-hidden="true" />
-                {location}
+                <span {...(u.campuses_note ? englishAttrs(u, "campuses_note") : { lang: "en" })}>
+                  {location}
+                </span>
               </span>
               {u.type && <Chip tone="lavender">{t(u.type)}</Chip>}
               {u.women_only && <Chip tone="coral">{t("womenOnly")}</Chip>}
             </div>
-            <p className="text-body-m text-muted lg:max-w-[680px] lg:text-body-l">
+            <p
+              className="text-body-m text-muted lg:max-w-[680px] lg:text-body-l"
+              {...englishAttrs(u, "overview")}
+            >
               {u.overview ?? t("noOverview")}
             </p>
+            <EnglishNote row={u} fields={["overview"]} />
           </div>
 
           <div className="order-1 flex flex-col gap-2.5 pt-1 lg:order-none lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:gap-3 lg:rounded-3xl lg:border lg:border-border-soft lg:bg-card lg:p-6 lg:pt-6">
@@ -198,14 +211,20 @@ export default async function UniversityPage({ params }: Props) {
             {ownSteps.length >= 2 ? (
               <>
                 <p className="text-body-s text-muted">{t("confirmSteps")}</p>
-                <ol>
+                <ol {...englishAttrs(u, "how_to_apply")}>
                   {ownSteps.map((text, i) => (
                     <Step key={text} number={i + 1} title={text} last={i === ownSteps.length - 1} />
                   ))}
                 </ol>
+                <EnglishNote row={u} fields={["how_to_apply"]} />
               </>
             ) : ownSteps.length === 1 ? (
-              <p className="text-body-m">{ownSteps[0]}</p>
+              <>
+                <p className="text-body-m" {...englishAttrs(u, "how_to_apply")}>
+                  {ownSteps[0]}
+                </p>
+                <EnglishNote row={u} fields={["how_to_apply"]} />
+              </>
             ) : (
               <>
                 <p className="text-body-s text-muted">{t("typicalStepsIntro")}</p>
@@ -241,7 +260,11 @@ export default async function UniversityPage({ params }: Props) {
             {fee || u.fee_note ? (
               <>
                 {fee && <p className="text-body-m">{fee}</p>}
-                {u.fee_note && <p className="text-body-s text-muted">{u.fee_note}</p>}
+                {u.fee_note && (
+                  <p className="text-body-s text-muted" {...englishAttrs(u, "fee_note")}>
+                    {u.fee_note}
+                  </p>
+                )}
               </>
             ) : (
               <p className="text-body-s text-muted">{t("noFees")}</p>
@@ -265,14 +288,22 @@ export default async function UniversityPage({ params }: Props) {
           </Accordion>
 
           <Accordion icon={Calendar} title={t("dates")}>
-            <p className="text-body-m">{u.admissions_window ?? t("noDates")}</p>
+            <p className="text-body-m" {...englishAttrs(u, "admissions_window")}>
+              {u.admissions_window ?? t("noDates")}
+            </p>
           </Accordion>
 
           <Accordion icon={Pencil} title={t("testsDocuments")}>
             <div className="flex flex-col gap-1.5">
               <h3 className="text-label-m">{t("tests")}</h3>
               {tests.length > 0 ? (
-                <ul className="list-disc ps-5 text-body-m marker:text-muted">
+                <ul
+                  className="list-disc ps-5 text-body-m marker:text-muted"
+                  lang={
+                    englishAttrs(u, "admission_test").lang ??
+                    (u.programmes.some((p) => p.english.includes("entryTest")) ? "en" : undefined)
+                  }
+                >
                   {tests.map((test) => (
                     <li key={test}>{test}</li>
                   ))}
@@ -284,7 +315,10 @@ export default async function UniversityPage({ params }: Props) {
             <div className="flex flex-col gap-1.5">
               <h3 className="text-label-m">{t("documents")}</h3>
               {u.required_documents.length > 0 ? (
-                <ul className="list-disc ps-5 text-body-m marker:text-muted">
+                <ul
+                  className="list-disc ps-5 text-body-m marker:text-muted"
+                  {...englishAttrs(u, "required_documents")}
+                >
                   {u.required_documents.map((d) => (
                     <li key={d}>{d}</li>
                   ))}
@@ -404,8 +438,15 @@ function GroupRow({ name, slug, items }: { name: string; slug: string | null; it
 function RequirementRow({ programme: p }: { programme: ProgrammeSummary }) {
   return (
     <li className="flex flex-col gap-0.5 border-t border-border-soft pt-2.5 first:border-0 first:pt-0">
-      <span className="text-label-m">{p.name}</span>
-      <span className="text-body-s text-muted">{p.entryRequirements}</span>
+      <span className="text-label-m" lang="en">
+        {p.name}
+      </span>
+      <span
+        className="text-body-s text-muted"
+        {...(p.english.includes("entryRequirements") ? { lang: "en", dir: "ltr" as const } : {})}
+      >
+        {p.entryRequirements}
+      </span>
     </li>
   );
 }

@@ -18,9 +18,22 @@ const tones = {
 
 export type ChipTone = keyof typeof tones;
 
-export function Chip({ tone = "outline", children }: { tone?: ChipTone; children: React.ReactNode }) {
+/** `lang` and `dir` mark a chip whose text is English on an Urdu page (see englishAttrs). */
+export function Chip({
+  tone = "outline",
+  children,
+  lang,
+  dir,
+}: {
+  tone?: ChipTone;
+  children: React.ReactNode;
+  lang?: string;
+  dir?: "ltr" | "rtl";
+}) {
   return (
     <span
+      lang={lang}
+      dir={dir}
       className={`inline-flex items-center rounded-pill px-3 py-1.5 text-label-s whitespace-nowrap text-charcoal ${tones[tone]}`}
     >
       {children}

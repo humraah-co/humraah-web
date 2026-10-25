@@ -48,7 +48,7 @@ export default async function UniversitiesPage({
   const locale = await pageLocale(params);
   const t = await getTranslations("universities");
   const filters = parseFilters(await searchParams);
-  const [cards, fields] = await Promise.all([listUniversityCards(), listFields()]);
+  const [cards, fields] = await Promise.all([listUniversityCards(locale), listFields(locale)]);
   const fieldList = fields ?? [];
 
   const results = cards ? applyFilters(cards, filters, fieldList) : [];

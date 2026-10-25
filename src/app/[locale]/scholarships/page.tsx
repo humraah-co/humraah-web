@@ -47,7 +47,7 @@ export default async function ScholarshipsPage({
   const locale = await pageLocale(params);
   const t = await getTranslations("scholarships");
   const filters = parseScholarshipFilters(await searchParams);
-  const [cards, fields] = await Promise.all([listScholarshipCards(), listFields()]);
+  const [cards, fields] = await Promise.all([listScholarshipCards(locale), listFields(locale)]);
   const fieldList = fields ?? [];
 
   const results = cards ? applyScholarshipFilters(cards, filters, fieldList) : [];

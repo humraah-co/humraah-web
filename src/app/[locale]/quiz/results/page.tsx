@@ -43,7 +43,7 @@ export default async function QuizResultsPage({
   const quiz = await getTranslations("quiz");
   const t = await getTranslations("quiz.results");
   const answers = parseAnswers(await searchParams);
-  const fields = await listFields();
+  const fields = await listFields(locale);
   // The quiz helpers look up keys built from question and option names, so they take the
   // translator loosely typed.
   const quizT = quiz as unknown as QuizT;

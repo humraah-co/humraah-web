@@ -4,6 +4,7 @@ import { getTranslations } from "next-intl/server";
 import { ArticleIcon } from "@/components/guidance/ArticleIcon";
 import { Container } from "@/components/layout/PageShell";
 import { HelpCallout } from "@/components/ui/Blocks";
+import { englishAttrs } from "@/components/ui/InEnglish";
 import { listGuidanceArticles } from "@/lib/data/public";
 import { readMinutes } from "@/lib/format";
 import { Link } from "@/i18n/navigation";
@@ -19,10 +20,10 @@ export async function generateMetadata({ params }: { params: LocaleParams }): Pr
 export const revalidate = 300;
 
 export default async function GuidancePage({ params }: { params: LocaleParams }) {
-  await pageLocale(params);
+  const locale = await pageLocale(params);
   const t = await getTranslations("guidance");
   const common = await getTranslations("common");
-  const articles = await listGuidanceArticles();
+  const articles = await listGuidanceArticles(locale);
 
   return (
     <Container className="pt-6 pb-7 lg:pt-12 lg:pb-16">
@@ -47,8 +48,14 @@ export default async function GuidancePage({ params }: { params: LocaleParams })
             >
               <ArticleIcon slug={a.slug} index={i} />
               <span className="flex min-w-0 flex-1 flex-col gap-1 self-stretch">
-                <span className="text-label-l">{a.title}</span>
-                {a.summary && <span className="line-clamp-2 text-body-s text-muted">{a.summary}</span>}
+                <span className="text-label-l" {...englishAttrs(a, "title")}>
+                  {a.title}
+                </span>
+                {a.summary && (
+                  <span className="line-clamp-2 text-body-s text-muted" {...englishAttrs(a, "summary")}>
+                    {a.summary}
+                  </span>
+                )}
                 <span className="mt-auto flex items-center gap-1 text-caption text-muted">
                   <Clock className="size-3.5" strokeWidth={1.75} aria-hidden="true" />
                   {common("readTime", { count: readMinutes(a.body_markdown) })}

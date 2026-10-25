@@ -53,7 +53,8 @@
     "comingSoon": "Coming soon",
     "toBeConfirmed": "To be confirmed.",
     "readTime": "{count} min read",
-    "breadcrumb": "Breadcrumb"
+    "breadcrumb": "Breadcrumb",
+    "availableInEnglish": "Available in English"
   },
   "badges": {
     "verified": "Verified",
