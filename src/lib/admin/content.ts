@@ -113,9 +113,37 @@ export type ProgrammeValues = {
   level: string;
   entry_requirements: string;
   entry_test: string;
+  entry_requirements_ur: string;
+  entry_test_ur: string;
 };
 
-export type UniversityValues = {
+/**
+ * Urdu versions, all optional. An empty box means "not translated yet": the
+ * Urdu page shows the English there, with a note. Names stay in English.
+ */
+export const universityUrduKeys = [
+  "campuses_note_ur",
+  "overview_ur",
+  "admission_test_ur",
+  "admissions_window_ur",
+  "fee_note_ur",
+  "how_to_apply_ur",
+  "required_documents_ur",
+] as const;
+export const scholarshipUrduKeys = [
+  "audience_note_ur",
+  "summary_ur",
+  "who_its_for_ur",
+  "what_it_covers_ur",
+  "covers_ur",
+  "eligible_areas_ur",
+  "deadline_note_ur",
+  "how_to_apply_ur",
+] as const;
+
+type UrduOf<K extends readonly string[]> = Record<K[number], string>;
+
+export type UniversityValues = UrduOf<typeof universityUrduKeys> & {
   name: string;
   short_name: string;
   slug: string;
@@ -141,7 +169,7 @@ export type UniversityValues = {
   programmes: ProgrammeValues[];
 };
 
-export type ScholarshipValues = {
+export type ScholarshipValues = UrduOf<typeof scholarshipUrduKeys> & {
   name: string;
   slug: string;
   provider: string;
@@ -190,6 +218,7 @@ export const emptyUniversity: UniversityValues = {
   required_documents: "",
   source_url: "",
   programmes: [],
+  ...(Object.fromEntries(universityUrduKeys.map((k) => [k, ""])) as UrduOf<typeof universityUrduKeys>),
 };
 
 export const emptyScholarship: ScholarshipValues = {
@@ -211,6 +240,7 @@ export const emptyScholarship: ScholarshipValues = {
   how_to_apply: "",
   official_url: "",
   source_url: "",
+  ...(Object.fromEntries(scholarshipUrduKeys.map((k) => [k, ""])) as UrduOf<typeof scholarshipUrduKeys>),
 };
 
 const yesNo = (value: boolean | null): YesNo => (value == null ? "" : value ? "yes" : "no");
@@ -218,7 +248,17 @@ const lines = (items: string[]) => items.join("\n");
 
 export function universityToValues(
   u: University,
-  programmes: Pick<Programme, "id" | "field_id" | "name" | "level" | "entry_requirements" | "entry_test">[],
+  programmes: Pick<
+    Programme,
+    | "id"
+    | "field_id"
+    | "name"
+    | "level"
+    | "entry_requirements"
+    | "entry_test"
+    | "entry_requirements_ur"
+    | "entry_test_ur"
+  >[],
 ): UniversityValues {
   return {
     name: u.name,
@@ -243,6 +283,13 @@ export function universityToValues(
     how_to_apply: u.how_to_apply ?? "",
     required_documents: lines(u.required_documents),
     source_url: u.source_url ?? "",
+    campuses_note_ur: u.campuses_note_ur ?? "",
+    overview_ur: u.overview_ur ?? "",
+    admission_test_ur: u.admission_test_ur ?? "",
+    admissions_window_ur: u.admissions_window_ur ?? "",
+    fee_note_ur: u.fee_note_ur ?? "",
+    how_to_apply_ur: u.how_to_apply_ur ?? "",
+    required_documents_ur: lines(u.required_documents_ur ?? []),
     programmes: programmes.map((p) => ({
       key: p.id,
       field_id: p.field_id ?? "",
@@ -250,6 +297,8 @@ export function universityToValues(
       level: p.level,
       entry_requirements: p.entry_requirements ?? "",
       entry_test: p.entry_test ?? "",
+      entry_requirements_ur: p.entry_requirements_ur ?? "",
+      entry_test_ur: p.entry_test_ur ?? "",
     })),
   };
 }
@@ -274,6 +323,14 @@ export function scholarshipToValues(s: Scholarship, fieldIds: string[]): Scholar
     how_to_apply: s.how_to_apply ?? "",
     official_url: s.official_url ?? "",
     source_url: s.source_url ?? "",
+    audience_note_ur: s.audience_note_ur ?? "",
+    summary_ur: s.summary_ur ?? "",
+    who_its_for_ur: s.who_its_for_ur ?? "",
+    what_it_covers_ur: s.what_it_covers_ur ?? "",
+    covers_ur: lines(s.covers_ur ?? []),
+    eligible_areas_ur: lines(s.eligible_areas_ur ?? []),
+    deadline_note_ur: s.deadline_note_ur ?? "",
+    how_to_apply_ur: s.how_to_apply_ur ?? "",
   };
 }
 
@@ -287,6 +344,8 @@ const bool = (value: unknown) => value === true;
 const oneOf = <T extends string>(value: unknown, options: readonly T[], fallback: T): T =>
   options.includes(value as T) ? (value as T) : fallback;
 const yesNoOptions = ["", "yes", "no"] as const;
+const urduFrom = <K extends string>(r: Record<string, unknown>, keys: readonly K[]) =>
+  Object.fromEntries(keys.map((k) => [k, str(r[k])])) as Record<K, string>;
 // Plenty for any real entry; stops a runaway form.
 const MAX_ROWS = 100;
 
@@ -316,6 +375,7 @@ export function parseUniversity(raw: unknown): UniversityValues {
     how_to_apply: str(r.how_to_apply),
     required_documents: str(r.required_documents),
     source_url: link(r.source_url),
+    ...urduFrom(r, universityUrduKeys),
     programmes: programmes.map((p, i) => {
       const row = (p && typeof p === "object" ? p : {}) as Record<string, unknown>;
       return {
@@ -325,6 +385,8 @@ export function parseUniversity(raw: unknown): UniversityValues {
         level: str(row.level),
         entry_requirements: str(row.entry_requirements),
         entry_test: str(row.entry_test),
+        entry_requirements_ur: str(row.entry_requirements_ur),
+        entry_test_ur: str(row.entry_test_ur),
       };
     }),
   };
@@ -354,6 +416,7 @@ export function parseScholarship(raw: unknown): ScholarshipValues {
     how_to_apply: str(r.how_to_apply),
     official_url: link(r.official_url),
     source_url: link(r.source_url),
+    ...urduFrom(r, scholarshipUrduKeys),
   };
 }
 
@@ -464,11 +527,24 @@ export function validateUniversity(v: UniversityValues, intent: SaveIntent, stat
   }
   if (v.short_name.trim().length > 20) errors.short_name = "Please keep the short name under 20 characters.";
   const { programmes, ...rest } = v;
-  lengthErrors(errors, rest, ["overview", "how_to_apply", "required_documents"]);
+  lengthErrors(errors, rest, [
+    "overview",
+    "how_to_apply",
+    "required_documents",
+    "overview_ur",
+    "how_to_apply_ur",
+    "required_documents_ur",
+  ]);
   programmes.forEach((p, i) => {
     if (!t(p.name)) errors[`programmes.${i}.name`] = "Please enter the programme’s name, or remove this row.";
     else if (t(p.name).length > SHORT_MAX)
       errors[`programmes.${i}.name`] = "Please keep this under 200 characters.";
+    for (const key of ["entry_requirements_ur", "entry_test_ur"] as const) {
+      const max = key === "entry_test_ur" ? SHORT_MAX : 1000;
+      if (t(p[key]).length > max)
+        errors[`programmes.${i}.${key}`] =
+          `Please keep this under ${max.toLocaleString("en-GB")} characters.`;
+    }
   });
   return errors;
 }
@@ -487,7 +563,18 @@ export function validateScholarship(v: ScholarshipValues, intent: SaveIntent, st
   if (t(v.deadline) && (!datePattern.test(t(v.deadline)) || Number.isNaN(Date.parse(t(v.deadline))))) {
     errors.deadline = "Please enter a real date, for example 31/03/2027.";
   }
-  lengthErrors(errors, v, ["summary", "who_its_for", "what_it_covers", "how_to_apply", "eligible_areas"]);
+  lengthErrors(errors, v, [
+    "summary",
+    "who_its_for",
+    "what_it_covers",
+    "how_to_apply",
+    "eligible_areas",
+    "summary_ur",
+    "who_its_for_ur",
+    "what_it_covers_ur",
+    "how_to_apply_ur",
+    "eligible_areas_ur",
+  ]);
   return errors;
 }
 
@@ -510,6 +597,13 @@ export const universityLabels: Record<string, string> = {
   how_to_apply: "How to apply",
   required_documents: "Documents needed",
   source_url: "Official source link",
+  campuses_note_ur: "Campuses (Urdu)",
+  overview_ur: "Overview (Urdu)",
+  admission_test_ur: "Admission test (Urdu)",
+  admissions_window_ur: "Application window (Urdu)",
+  fee_note_ur: "Fee note (Urdu)",
+  how_to_apply_ur: "How to apply (Urdu)",
+  required_documents_ur: "Documents needed (Urdu)",
 };
 
 export const scholarshipLabels: Record<string, string> = {
@@ -528,6 +622,14 @@ export const scholarshipLabels: Record<string, string> = {
   how_to_apply: "How to apply",
   official_url: "Official link",
   source_url: "Official source link",
+  audience_note_ur: "Who it’s mainly for (Urdu)",
+  summary_ur: "Summary (Urdu)",
+  who_its_for_ur: "Eligibility (Urdu)",
+  what_it_covers_ur: "What it covers (Urdu)",
+  covers_ur: "Covers (Urdu)",
+  eligible_areas_ur: "Eligible subjects or areas (Urdu)",
+  deadline_note_ur: "Deadline note (Urdu)",
+  how_to_apply_ur: "How to apply (Urdu)",
 };
 
 /** Error summary entries, in form order: [field key, label, message]. */
@@ -558,6 +660,11 @@ const list = (value: string) =>
     .map((item) => item.trim())
     .filter(Boolean);
 const yesNoValue = (value: YesNo) => (value === "" ? null : value === "yes");
+/** An Urdu list: null when empty, which means "not translated" (an English list is never null). */
+const urduList = (value: string) => {
+  const items = list(value);
+  return items.length ? items : null;
+};
 
 export function universityRow(v: UniversityValues, status: ContentStatus) {
   return {
@@ -585,6 +692,13 @@ export function universityRow(v: UniversityValues, status: ContentStatus) {
       required_documents: list(v.required_documents),
       source_url: orNull(v.source_url),
       status,
+      campuses_note_ur: orNull(v.campuses_note_ur),
+      overview_ur: orNull(v.overview_ur),
+      admission_test_ur: orNull(v.admission_test_ur),
+      admissions_window_ur: orNull(v.admissions_window_ur),
+      fee_note_ur: orNull(v.fee_note_ur),
+      how_to_apply_ur: orNull(v.how_to_apply_ur),
+      required_documents_ur: urduList(v.required_documents_ur),
     },
     programmes: v.programmes.map((p) => ({
       field_id: p.field_id || null,
@@ -592,6 +706,8 @@ export function universityRow(v: UniversityValues, status: ContentStatus) {
       level: t(p.level) || "Undergraduate",
       entry_requirements: orNull(p.entry_requirements),
       entry_test: orNull(p.entry_test),
+      entry_requirements_ur: orNull(p.entry_requirements_ur),
+      entry_test_ur: orNull(p.entry_test_ur),
     })),
   };
 }
@@ -617,6 +733,14 @@ export function scholarshipRow(v: ScholarshipValues, status: ContentStatus) {
       official_url: orNull(v.official_url),
       source_url: orNull(v.source_url),
       status,
+      audience_note_ur: orNull(v.audience_note_ur),
+      summary_ur: orNull(v.summary_ur),
+      who_its_for_ur: orNull(v.who_its_for_ur),
+      what_it_covers_ur: orNull(v.what_it_covers_ur),
+      covers_ur: urduList(v.covers_ur),
+      eligible_areas_ur: urduList(v.eligible_areas_ur),
+      deadline_note_ur: orNull(v.deadline_note_ur),
+      how_to_apply_ur: orNull(v.how_to_apply_ur),
     },
     fieldIds: v.field_ids,
   };

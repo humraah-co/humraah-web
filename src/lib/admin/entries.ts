@@ -72,7 +72,8 @@ export async function getUniversityForEdit(supabase: SessionClient, id: string) 
     supabase.from("universities").select("*").eq("id", id).maybeSingle(),
     supabase
       .from("programmes")
-      .select("id, field_id, name, level, entry_requirements, entry_test")
+      // Every column, Urdu included; works the same before and after the Urdu migration.
+      .select("*")
       .eq("university_id", id)
       .order("sort_order")
       .order("created_at"),

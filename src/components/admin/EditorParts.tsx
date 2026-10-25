@@ -19,7 +19,12 @@ type Common = {
   error?: string;
   hint?: string;
   required?: boolean;
+  /** An Urdu field: typed right to left, in the Nastaliq font. */
+  urdu?: boolean;
 };
+
+const urduInput = { dir: "rtl", lang: "ur" } as const;
+const urduClass = "font-urdu text-[16px] leading-[2.2]";
 
 const labelFor = (label: string, required?: boolean) => (required ? `${label} (required)` : label);
 
@@ -35,6 +40,7 @@ export function TextInput({
   inputMode,
   placeholder,
   maxLength = 200,
+  urdu,
 }: Common & {
   value: string;
   onChange: (value: string) => void;
@@ -57,7 +63,8 @@ export function TextInput({
         aria-required={required || undefined}
         aria-invalid={!!error}
         aria-describedby={describedBy(id, error, hint)}
-        className={`${fieldClass} h-12`}
+        {...(urdu ? urduInput : {})}
+        className={`${fieldClass} ${urdu ? `${urduClass} min-h-12` : "h-12"}`}
       />
     </Field>
   );
@@ -74,6 +81,7 @@ export function TextArea({
   rows = 4,
   placeholder,
   maxLength = 5000,
+  urdu,
 }: Common & {
   value: string;
   onChange: (value: string) => void;
@@ -94,7 +102,8 @@ export function TextArea({
         aria-required={required || undefined}
         aria-invalid={!!error}
         aria-describedby={describedBy(id, error, hint)}
-        className={`${fieldClass} resize-y py-3`}
+        {...(urdu ? urduInput : {})}
+        className={`${fieldClass} resize-y py-3 ${urdu ? urduClass : ""}`}
       />
     </Field>
   );
@@ -256,4 +265,51 @@ export function SectionCard({
 /** Two fields side by side from tablet width up. */
 export function FieldRow({ children }: { children: React.ReactNode }) {
   return <div className="grid gap-4 sm:grid-cols-2">{children}</div>;
+}
+
+/**
+ * The Urdu versions of a section's text, collapsed until someone needs them.
+ * It opens by itself when one of its fields has an error, so the error
+ * summary's links land on a visible field.
+ */
+export function UrduSection({
+  id,
+  hasErrors,
+  filled,
+  children,
+}: {
+  id: string;
+  hasErrors: boolean;
+  /** How many of its fields have Urdu, shown on the closed section. */
+  filled: number;
+  children: React.ReactNode;
+}) {
+  return (
+    <details
+      id={id}
+      open={hasErrors || undefined}
+      className="group rounded-[20px] border border-border-soft bg-card p-5 lg:p-6"
+    >
+      <summary className="flex cursor-pointer list-none items-center justify-between gap-3 [&::-webkit-details-marker]:hidden">
+        <span className="flex flex-col gap-1">
+          <span className="text-h3">
+            Urdu{" "}
+            <span lang="ur" dir="rtl" className="font-urdu text-[16px] font-normal">
+              اردو
+            </span>
+          </span>
+          <span className="text-body-s text-muted">
+            Optional. {filled > 0 ? `${filled} filled in.` : "Nothing filled in yet."} Leave a box empty and
+            the Urdu page shows the English, with a note. Names stay in English.
+          </span>
+        </span>
+        <ChevronDown
+          className="size-5 shrink-0 transition-transform group-open:rotate-180"
+          strokeWidth={1.75}
+          aria-hidden="true"
+        />
+      </summary>
+      <div className="flex flex-col gap-4 pt-4">{children}</div>
+    </details>
+  );
 }

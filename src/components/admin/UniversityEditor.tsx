@@ -12,12 +12,14 @@ import {
   SelectInput,
   TextArea,
   TextInput,
+  UrduSection,
   fieldId,
 } from "@/components/admin/EditorParts";
 import { buttonStyles } from "@/components/ui/Button";
 import {
   provinces,
   slugify,
+  universityUrduKeys,
   universityLabels,
   type FieldErrors,
   type ProgrammeValues,
@@ -286,6 +288,76 @@ export function UniversityEditor({
               error={errors.admissions_url}
             />
           </SectionCard>
+
+          <UrduSection
+            id="urdu"
+            hasErrors={universityUrduKeys.some((k) => errors[k])}
+            filled={universityUrduKeys.filter((k) => values[k].trim()).length}
+          >
+            <TextInput
+              urdu
+              name="campuses_note_ur"
+              label="Campuses (Urdu)"
+              value={values.campuses_note_ur}
+              onChange={set("campuses_note_ur")}
+              error={errors.campuses_note_ur}
+              hint={values.campuses_note ? `English: ${values.campuses_note}` : undefined}
+            />
+            <TextArea
+              urdu
+              name="overview_ur"
+              label="Overview (Urdu)"
+              rows={3}
+              value={values.overview_ur}
+              onChange={set("overview_ur")}
+              error={errors.overview_ur}
+            />
+            <FieldRow>
+              <TextInput
+                urdu
+                name="admission_test_ur"
+                label="Admission test (Urdu)"
+                value={values.admission_test_ur}
+                onChange={set("admission_test_ur")}
+                error={errors.admission_test_ur}
+              />
+              <TextInput
+                urdu
+                name="admissions_window_ur"
+                label="Application window (Urdu)"
+                value={values.admissions_window_ur}
+                onChange={set("admissions_window_ur")}
+                error={errors.admissions_window_ur}
+              />
+            </FieldRow>
+            <TextInput
+              urdu
+              name="fee_note_ur"
+              label="Fee note (Urdu)"
+              value={values.fee_note_ur}
+              onChange={set("fee_note_ur")}
+              error={errors.fee_note_ur}
+            />
+            <TextArea
+              urdu
+              name="how_to_apply_ur"
+              label="How to apply (Urdu)"
+              value={values.how_to_apply_ur}
+              onChange={set("how_to_apply_ur")}
+              error={errors.how_to_apply_ur}
+              hint="One step per line, in the same order as the English."
+            />
+            <TextArea
+              urdu
+              name="required_documents_ur"
+              label="Documents needed (Urdu)"
+              rows={3}
+              value={values.required_documents_ur}
+              onChange={set("required_documents_ur")}
+              error={errors.required_documents_ur}
+              hint="One per line."
+            />
+          </UrduSection>
         </>
       )}
     </EditorFrame>
@@ -323,7 +395,16 @@ function Programmes({
     const key = typeof crypto.randomUUID === "function" ? crypto.randomUUID() : String(Date.now());
     onChange([
       ...programmes,
-      { key, field_id: "", name: "", level: "Undergraduate", entry_requirements: "", entry_test: "" },
+      {
+        key,
+        field_id: "",
+        name: "",
+        level: "Undergraduate",
+        entry_requirements: "",
+        entry_test: "",
+        entry_requirements_ur: "",
+        entry_test_ur: "",
+      },
     ]);
     const index = programmes.length;
     requestAnimationFrame(() => document.getElementById(fieldId(`programmes.${index}.field_id`))?.focus());
@@ -378,10 +459,20 @@ function Programmes({
                     </button>
                   </div>
                   <MoreDetails
-                    startOpen={!!(p.entry_requirements || p.entry_test || p.level !== "Undergraduate")}
+                    startOpen={
+                      !!(
+                        p.entry_requirements ||
+                        p.entry_test ||
+                        p.entry_requirements_ur ||
+                        p.entry_test_ur ||
+                        p.level !== "Undergraduate" ||
+                        errors[at("entry_requirements_ur")] ||
+                        errors[at("entry_test_ur")]
+                      )
+                    }
                   >
                     <summary className="cursor-pointer py-1 text-label-m text-deep-rose underline underline-offset-2">
-                      Level, entry test and requirements
+                      Level, entry test and requirements (also in Urdu)
                     </summary>
                     <div className="flex flex-col gap-3 pt-3">
                       <FieldRow>
@@ -408,6 +499,26 @@ function Programmes({
                         onChange={(entry_requirements) => update(i, { entry_requirements })}
                         hint="In simple language, for example “FSc Pre-Engineering with at least 60%”."
                       />
+                      <FieldRow>
+                        <TextInput
+                          urdu
+                          name={at("entry_test_ur")}
+                          label="Entry test (Urdu)"
+                          value={p.entry_test_ur}
+                          onChange={(entry_test_ur) => update(i, { entry_test_ur })}
+                          error={errors[at("entry_test_ur")]}
+                        />
+                        <TextArea
+                          urdu
+                          name={at("entry_requirements_ur")}
+                          label="Entry requirements (Urdu)"
+                          rows={2}
+                          maxLength={1000}
+                          value={p.entry_requirements_ur}
+                          onChange={(entry_requirements_ur) => update(i, { entry_requirements_ur })}
+                          error={errors[at("entry_requirements_ur")]}
+                        />
+                      </FieldRow>
                     </div>
                   </MoreDetails>
                 </fieldset>

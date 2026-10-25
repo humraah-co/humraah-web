@@ -11,12 +11,14 @@ import {
   SelectInput,
   TextArea,
   TextInput,
+  UrduSection,
 } from "@/components/admin/EditorParts";
 import { checkboxClass } from "@/components/ui/Field";
 import {
   scholarshipKindLabels,
   scholarshipLabels,
   scholarshipScopeLabels,
+  scholarshipUrduKeys,
   slugify,
   type ScholarshipValues,
 } from "@/lib/admin/content";
@@ -261,6 +263,88 @@ export function ScholarshipEditor({
               hint="Where students apply or read the full details."
             />
           </SectionCard>
+
+          <UrduSection
+            id="urdu"
+            hasErrors={scholarshipUrduKeys.some((k) => errors[k])}
+            filled={scholarshipUrduKeys.filter((k) => values[k].trim()).length}
+          >
+            <TextInput
+              urdu
+              name="audience_note_ur"
+              label="Who it’s mainly for (Urdu)"
+              value={values.audience_note_ur}
+              onChange={set("audience_note_ur")}
+              error={errors.audience_note_ur}
+              hint={values.audience_note ? `English: ${values.audience_note}` : undefined}
+            />
+            <TextArea
+              urdu
+              name="summary_ur"
+              label="Summary (Urdu)"
+              rows={3}
+              value={values.summary_ur}
+              onChange={set("summary_ur")}
+              error={errors.summary_ur}
+            />
+            <TextArea
+              urdu
+              name="who_its_for_ur"
+              label="Eligibility (Urdu)"
+              value={values.who_its_for_ur}
+              onChange={set("who_its_for_ur")}
+              error={errors.who_its_for_ur}
+              hint="One point per line, or sentences ending in ۔"
+            />
+            <TextArea
+              urdu
+              name="what_it_covers_ur"
+              label="What it covers (Urdu)"
+              rows={3}
+              value={values.what_it_covers_ur}
+              onChange={set("what_it_covers_ur")}
+              error={errors.what_it_covers_ur}
+            />
+            <FieldRow>
+              <TextArea
+                urdu
+                name="covers_ur"
+                label="Covers (Urdu)"
+                rows={3}
+                value={values.covers_ur}
+                onChange={set("covers_ur")}
+                error={errors.covers_ur}
+                hint="One short label per line, like the English."
+              />
+              <TextArea
+                urdu
+                name="eligible_areas_ur"
+                label="Eligible subjects or areas (Urdu)"
+                rows={3}
+                value={values.eligible_areas_ur}
+                onChange={set("eligible_areas_ur")}
+                error={errors.eligible_areas_ur}
+                hint="One per line."
+              />
+            </FieldRow>
+            <TextInput
+              urdu
+              name="deadline_note_ur"
+              label="Deadline note (Urdu)"
+              value={values.deadline_note_ur}
+              onChange={set("deadline_note_ur")}
+              error={errors.deadline_note_ur}
+            />
+            <TextArea
+              urdu
+              name="how_to_apply_ur"
+              label="How to apply (Urdu)"
+              value={values.how_to_apply_ur}
+              onChange={set("how_to_apply_ur")}
+              error={errors.how_to_apply_ur}
+              hint="One step per line, in the same order as the English."
+            />
+          </UrduSection>
         </>
       )}
     </EditorFrame>
