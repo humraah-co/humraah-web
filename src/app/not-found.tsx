@@ -1,40 +1,40 @@
-import Link from "next/link";
-import { Container } from "@/components/layout/PageShell";
-import { ButtonLink } from "@/components/ui/Button";
+import { BottomNav } from "@/components/layout/BottomNav";
+import { SiteFooter } from "@/components/layout/SiteFooter";
+import { SiteHeader } from "@/components/layout/SiteHeader";
+import LocaleNotFound from "./[locale]/not-found";
+import { caveat, cormorant, dmSans, nastaliq } from "./fonts";
+import "./globals.css";
 
-const places = [
-  { href: "/explore", label: "Explore fields" },
-  { href: "/universities", label: "Universities" },
-  { href: "/scholarships", label: "Scholarships" },
-  { href: "/guidance", label: "Guidance" },
-];
-
-export default function NotFound() {
+/**
+ * The 404 for any address that isn't a page at all (e.g. /no-such-page).
+ * Next builds it once as a static page, so it arrives complete, with the
+ * site header and footer. A missing entry inside a section (an unknown
+ * university, say) uses [locale]/not-found.tsx instead, in the page's language.
+ *
+ * The top-level layout only passes children through, so this page renders
+ * its own document, like the two real root layouts.
+ */
+export default function GlobalNotFound() {
   return (
-    <Container className="py-16 text-center lg:py-24">
-      <p className="text-script text-deep-rose">This path doesn&apos;t lead anywhere yet.</p>
-      <h1 className="mt-3 text-h1">We couldn&apos;t find that page</h1>
-      <p className="mx-auto mt-3 max-w-md text-body-m text-muted">
-        It may have moved, or the link may be wrong. Let&apos;s get you back on track.
-      </p>
-      <ButtonLink href="/" className="mt-6">
-        Go to the home page
-      </ButtonLink>
-      <nav aria-label="Popular pages" className="mt-6">
-        <p className="text-label-s text-muted">Or try</p>
-        <ul className="mt-1 flex flex-wrap justify-center gap-x-5">
-          {places.map((p) => (
-            <li key={p.href}>
-              <Link
-                href={p.href}
-                className="inline-block py-2.5 text-label-m text-deep-rose underline underline-offset-2 hover:text-charcoal"
-              >
-                {p.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
-    </Container>
+    <html
+      lang="en"
+      dir="ltr"
+      className={`${dmSans.variable} ${cormorant.variable} ${caveat.variable} ${nastaliq.variable}`}
+    >
+      <body className="flex min-h-dvh flex-col antialiased">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-pill focus:bg-card focus:px-4 focus:py-2"
+        >
+          Skip to content
+        </a>
+        <SiteHeader />
+        <main id="main" className="flex-1">
+          <LocaleNotFound />
+        </main>
+        <SiteFooter />
+        <BottomNav />
+      </body>
+    </html>
   );
 }

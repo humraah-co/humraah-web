@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { stripLocale } from "@/i18n/config";
 import { ArrowLeft } from "lucide-react";
 import { LogoHorizontal } from "@/components/brand/Logo";
 import { ShareButton } from "@/components/ui/ShareButton";
@@ -21,7 +22,7 @@ const detailParents: Record<string, string> = {
  */
 export function MobileTopBar() {
   const pathname = usePathname();
-  const [section, slug, ...rest] = pathname.split("/").filter(Boolean);
+  const [section, slug, ...rest] = stripLocale(pathname).split("/").filter(Boolean);
   const parentLabel = section ? detailParents[section] : undefined;
 
   if (parentLabel && slug && rest.length === 0) {

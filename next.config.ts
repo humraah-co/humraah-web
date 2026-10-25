@@ -1,4 +1,8 @@
 import type { NextConfig } from "next";
+import createNextIntlPlugin from "next-intl/plugin";
+
+// Loads src/i18n/request.ts, which picks each request's messages (English or Urdu).
+const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 // Baseline security headers. A full Content-Security-Policy is added on Day 6
 // once every third-party origin the site needs is known.
@@ -20,4 +24,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

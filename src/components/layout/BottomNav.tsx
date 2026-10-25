@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { stripLocale } from "@/i18n/config";
 import { Award, BookOpen, Compass, House, Landmark, type LucideIcon } from "lucide-react";
 import { isAdminPath } from "@/lib/admin/paths";
 import { isActive, isQuizPath } from "@/lib/nav";
@@ -23,7 +24,7 @@ const tabs: { href: string; label: string; icon: LucideIcon }[] = [
  * never touch; every label stays in full.
  */
 export function BottomNav() {
-  const pathname = usePathname();
+  const pathname = stripLocale(usePathname());
   if (pathname === "/quiz" || pathname === "/menu" || isAdminPath(pathname)) return null;
   return (
     <>

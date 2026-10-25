@@ -10,6 +10,49 @@ import {
 } from "@/lib/admin/paths";
 import { KEEP_SIGNED_IN_COOKIE, sessionCookieOptions } from "@/lib/supabase/cookies";
 import { getSupabaseEnv } from "@/lib/supabase/env";
+import { LOCALE_COOKIE, LOCALE_COOKIE_MAX_AGE, urduEnabled } from "@/i18n/config";
+import { decideLocaleRoute } from "@/i18n/decide";
+
+/**
+ * Two jobs: the admin area's sign-in guard (adminMiddleware, below), and
+ * the public site's languages. English pages keep their addresses and are
+ * served from the app's /en/… pages; Urdu lives under /ur. The rules are
+ * in src/i18n/decide.ts.
+ */
+export async function middleware(request: NextRequest) {
+  const { pathname, search } = request.nextUrl;
+  const route = decideLocaleRoute({
+    pathname,
+    search,
+    cookie: request.cookies.get(LOCALE_COOKIE)?.value,
+    userAgent: request.headers.get("user-agent") ?? undefined,
+    enabled: urduEnabled(),
+  });
+  if (route.kind === "admin") return adminMiddleware(request);
+
+  // Built from nextUrl so a rewrite stays on this server (a different host would be fetched as an outside URL).
+  const target = (to: string) => {
+    const url = request.nextUrl.clone();
+    const [path, query = ""] = to.split("?");
+    url.pathname = path;
+    url.search = query ? `?${query}` : "";
+    return url;
+  };
+  const response =
+    route.kind === "rewrite"
+      ? NextResponse.rewrite(target(route.to))
+      : route.kind === "redirect"
+        ? NextResponse.redirect(target(route.to))
+        : NextResponse.next();
+  if ("setCookie" in route && route.setCookie) {
+    response.cookies.set(LOCALE_COOKIE, route.setCookie, {
+      path: "/",
+      sameSite: "lax",
+      maxAge: LOCALE_COOKIE_MAX_AGE,
+    });
+  }
+  return response;
+}
 
 /**
  * Guards the admin area (/admin/*) and keeps the session fresh. Signed out
@@ -25,7 +68,7 @@ import { getSupabaseEnv } from "@/lib/supabase/env";
  *   active on No access     → /admin
  *   invited on No access    → /admin/accept-invite
  */
-export async function middleware(request: NextRequest) {
+async function adminMiddleware(request: NextRequest) {
   const response = await guard(request);
   // Admin responses, redirects included, are for one person: never stored by a browser or shared cache.
   response.headers.set("Cache-Control", "private, no-store");
@@ -97,5 +140,6 @@ async function guard(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  // Every page address; not Next's own files or anything with a file extension (icons, images).
+  matcher: ["/((?!_next/|.*\\.[^/]*$).*)"],
 };

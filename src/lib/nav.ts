@@ -1,5 +1,6 @@
 /** Site navigation, in the order used by the Figma headers and footers. */
 
+import { stripLocale } from "@/i18n/config";
 import { isAdminPath } from "@/lib/admin/paths";
 
 export type NavItem = { href: string; label: string };
@@ -44,14 +45,19 @@ export const contact = {
   email: "humraah.contact@gmail.com",
 };
 
-/** True when `pathname` is `href` or a page inside it (e.g. /universities/qau). */
-export function isActive(pathname: string, href: string) {
+/**
+ * True when `pathname` is `href` or a page inside it (e.g. /universities/qau).
+ * Works for Urdu addresses too: /ur/universities is active for "/universities".
+ */
+export function isActive(fullPathname: string, href: string) {
+  const pathname = stripLocale(fullPathname);
   if (href === "/") return pathname === "/";
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
 /** The quiz has its own header and no site footer (Figma 25:1365, 31:1363). */
-export function isQuizPath(pathname: string) {
+export function isQuizPath(fullPathname: string) {
+  const pathname = stripLocale(fullPathname);
   // Exact paths, so a mistyped /quiz/… link gets the normal 404 page with the site header.
   return pathname === "/quiz" || pathname === "/quiz/results";
 }
@@ -60,6 +66,7 @@ export function isQuizPath(pathname: string) {
  * Pages with their own header instead of the site header and footer: the
  * quiz, the menu (30:2638) and the admin area, which has its own layout.
  */
-export function isFocusedPath(pathname: string) {
+export function isFocusedPath(fullPathname: string) {
+  const pathname = stripLocale(fullPathname);
   return isQuizPath(pathname) || pathname === "/menu" || isAdminPath(pathname);
 }

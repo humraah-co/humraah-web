@@ -3,7 +3,7 @@
 import { useActionState, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { CircleCheck } from "lucide-react";
-import { sendContactMessage } from "@/app/about/actions";
+import { sendContactMessage } from "@/app/[locale]/about/actions";
 import { buttonStyles } from "@/components/ui/Button";
 import { checkboxClass, ErrorText, Field, FormAlert, fieldClass } from "@/components/ui/Field";
 import { contactPrivacy } from "@/content/contactPrivacy";
