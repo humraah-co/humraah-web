@@ -147,7 +147,7 @@ export default async function FieldPage({ params }: Props) {
               </Link>
             </p>
           ) : (
-            <ul className="grid gap-3.5 lg:grid-cols-3 lg:gap-6">
+            <ul className="grid grid-cols-1 gap-3.5 lg:grid-cols-3 lg:gap-6">
               {offering.slice(0, 3).map((u, i) => (
                 <li key={u.id} className={`flex-col *:flex-1 ${i === 2 ? "hidden lg:flex" : "flex"}`}>
                   <UniversityCard university={u} fieldId={field.id} />
@@ -186,7 +186,7 @@ export default async function FieldPage({ params }: Props) {
               </Link>
             </p>
           ) : (
-            <ul className="grid gap-3.5 lg:grid-cols-3 lg:gap-6">
+            <ul className="grid grid-cols-1 gap-3.5 lg:grid-cols-3 lg:gap-6">
               {relevant.slice(0, 3).map((s, i) => (
                 <li key={s.id} className={`flex-col *:flex-1 ${i === 2 ? "hidden lg:flex" : "flex"}`}>
                   <ScholarshipCard scholarship={s} />

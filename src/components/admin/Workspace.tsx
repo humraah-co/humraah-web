@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { Settings, type LucideIcon } from "lucide-react";
+import { buttonStyles } from "@/components/ui/Button";
 import { personInitials } from "@/lib/format";
 
 /** Building blocks shared by the admin pages (Figma Admin/* components). */
@@ -90,12 +92,15 @@ export function ActivityItem({
   actorId,
   text,
   when,
+  extra,
 }: {
   actor: string;
   /** Null for changes made by the system (seeding, the service-role key): shown with a gear. */
   actorId: string | null;
   text: string;
   when: string;
+  /** Shown after the time, e.g. a link to the entry. */
+  extra?: React.ReactNode;
 }) {
   return (
     <li className="flex items-start gap-3">
@@ -111,9 +116,54 @@ export function ActivityItem({
       )}
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
         <p className="text-body-s break-words">{text}</p>
-        <p className="text-caption text-muted">{when}</p>
+        <p className="text-caption text-muted">
+          {when}
+          {extra}
+        </p>
       </div>
     </li>
+  );
+}
+
+/**
+ * "Showing 51–100 of 240" with Previous and Next (Figma list footer). Links,
+ * so the page number lives in the address. `hrefFor` builds a page's URL.
+ */
+export function Pager({
+  page,
+  pageSize,
+  total,
+  hrefFor,
+  noun,
+}: {
+  page: number;
+  pageSize: number;
+  total: number;
+  hrefFor: (page: number) => string;
+  noun: string;
+}) {
+  const pages = Math.max(1, Math.ceil(total / pageSize));
+  const first = total ? (page - 1) * pageSize + 1 : 0;
+  const last = Math.min(page * pageSize, total);
+  return (
+    <nav
+      aria-label={`Pages of ${noun}`}
+      className="flex flex-wrap items-center gap-x-5 gap-y-1 border-t border-border-soft px-5 py-3 lg:px-6"
+    >
+      <p className="flex-1 text-caption text-muted">
+        {total <= pageSize ? `Showing ${total} of ${total}` : `Showing ${first}–${last} of ${total}`}
+      </p>
+      {page > 1 && (
+        <Link href={hrefFor(page - 1)} className={buttonStyles.text}>
+          Previous<span className="sr-only"> page</span>
+        </Link>
+      )}
+      {page < pages && (
+        <Link href={hrefFor(page + 1)} className={buttonStyles.text}>
+          Next<span className="sr-only"> page</span>
+        </Link>
+      )}
+    </nav>
   );
 }
 

@@ -6,7 +6,8 @@ import { Avatar, PageHeader } from "@/components/admin/Workspace";
 import { ButtonLink, buttonStyles } from "@/components/ui/Button";
 import { Chip, type ChipTone } from "@/components/ui/Chip";
 import { FormAlert, FormNotice } from "@/components/ui/Field";
-import { requireActiveMember, type Member } from "@/lib/admin/session";
+import { SubmitButton } from "@/components/ui/SubmitButton";
+import { getSessionClient, requireActiveMember, type Member } from "@/lib/admin/session";
 import { canManage, invitableRoles, isAdminRole, roleLabels, statusLabels } from "@/lib/admin/team";
 import type { MemberStatus, TeamRole } from "@/lib/database.types";
 import { dayLabel, timeAgo } from "@/lib/format";
@@ -82,8 +83,10 @@ type Search = {
  * the team can see the list; admins and the owner can manage it.
  */
 export default async function TeamPage({ searchParams }: { searchParams: Promise<Search> }) {
-  const { supabase, member: me } = await requireActiveMember();
-  const [params, membersResult, signIns] = await Promise.all([
+  const supabase = await getSessionClient();
+  // Loaded alongside the membership check; nothing renders until it passes.
+  const [{ member: me }, params, membersResult, signIns] = await Promise.all([
+    requireActiveMember(),
     searchParams,
     supabase.from("team_members").select("user_id, email, full_name, role, status, created_at"),
     lastSignIns(),
@@ -184,7 +187,7 @@ function lastActive(member: TeamRow, lastSignIn: string | null | undefined) {
   return lastSignIn ? dayLabel(lastSignIn) : "Never";
 }
 
-const textButton = `${buttonStyles.text} cursor-pointer`;
+const textButton = buttonStyles.text;
 
 /** Admin/Member row (26:413). On a phone the columns stack. */
 function MemberRow({
@@ -232,9 +235,9 @@ function MemberRow({
               <>
                 <form action={resendInvite}>
                   {hidden}
-                  <button type="submit" className={textButton}>
+                  <SubmitButton pendingLabel="Sending…" className={textButton}>
                     Resend<span className="sr-only"> the invite to {name}</span>
-                  </button>
+                  </SubmitButton>
                 </form>
                 <ButtonLink href={`${TEAM_PATH}?confirm=revoke&id=${member.user_id}`} variant="text">
                   Revoke<span className="sr-only"> the invite for {name}</span>
@@ -249,9 +252,9 @@ function MemberRow({
             {member.status === "suspended" && (
               <form action={reactivateMember}>
                 {hidden}
-                <button type="submit" className={textButton}>
+                <SubmitButton pendingLabel="Reactivating…" className={textButton}>
                   Reactivate<span className="sr-only"> {name}</span>
-                </button>
+                </SubmitButton>
               </form>
             )}
           </div>
@@ -270,12 +273,14 @@ function ConfirmModal({ kind, member }: { kind: "suspend" | "revoke"; member: Te
           body: "They’ll be signed out straight away and can’t use the workspace until an admin reactivates them. Their entries stay as they are.",
           action: suspendMember,
           button: "Suspend",
+          pending: "Suspending…",
         }
       : {
           title: `Withdraw the invite for ${name}?`,
           body: `The link sent to ${member.email} will stop working. You can invite them again later.`,
           action: revokeInvite,
           button: "Revoke invite",
+          pending: "Revoking…",
         };
   return (
     <Modal title={copy.title} closeHref={TEAM_PATH}>
@@ -285,9 +290,9 @@ function ConfirmModal({ kind, member }: { kind: "suspend" | "revoke"; member: Te
         <ButtonLink href={TEAM_PATH} variant="secondary">
           Cancel
         </ButtonLink>
-        <button type="submit" className={buttonStyles.primary}>
+        <SubmitButton pendingLabel={copy.pending} className={buttonStyles.primary}>
           {copy.button}
-        </button>
+        </SubmitButton>
       </form>
     </Modal>
   );

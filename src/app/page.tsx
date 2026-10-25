@@ -244,7 +244,8 @@ export default async function HomePage() {
               </div>
             </div>
           </div>
-          <div className="flex gap-2.5 lg:hidden">
+          {/* Side by side; on the narrowest phones they stack rather than run off the screen. */}
+          <div className="flex flex-wrap gap-2.5 lg:hidden">
             <GuideDownloads />
           </div>
           <p className="text-caption text-muted lg:hidden">Free to download, in English and Urdu.</p>

@@ -13,7 +13,9 @@ const disclaimer =
 export function SiteFooter() {
   return (
     <footer className="bg-blush">
-      <div className="mx-auto flex max-w-[1440px] flex-col gap-[22px] px-6 pt-8 pb-7 lg:grid lg:grid-cols-[380px_1fr_1fr_1fr] lg:gap-16 lg:px-20 lg:pt-14 lg:pb-8">
+      {/* From 1024 to 1279 px the link columns take the width they need and the first column the rest, so the
+          email address never pushes the page wider than the screen. The Figma grid applies from 1280 px. */}
+      <div className="mx-auto flex max-w-[1440px] flex-col gap-[22px] px-6 pt-8 pb-7 lg:grid lg:grid-cols-[minmax(0,1fr)_auto_auto_auto] lg:gap-10 lg:px-20 lg:pt-14 lg:pb-8 xl:grid-cols-[380px_1fr_1fr_1fr] xl:gap-16">
         <div className="flex flex-col gap-[22px] lg:gap-3.5">
           <LogoHorizontal />
           <p className="text-script text-charcoal">{tagline}</p>
