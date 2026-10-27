@@ -4,11 +4,12 @@ import { Link } from "@/i18n/navigation";
 
 /** Button/Primary, Button/Secondary and Button/Text link from Figma. */
 
+// `base` sets no text colour: text-ink belongs only on a coral fill, so each variant picks its own.
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-pill px-[22px] py-3.5 text-[16px] leading-5 font-semibold text-ink transition-colors";
+  "inline-flex items-center justify-center gap-2 rounded-pill px-[22px] py-3.5 text-[16px] leading-5 font-semibold transition-colors";
 
 export const buttonStyles = {
-  primary: `${base} bg-coral hover:bg-coral-hover`,
+  primary: `${base} bg-coral text-ink hover:bg-coral-hover`,
   secondary: `${base} border-[1.5px] border-charcoal text-charcoal hover:bg-card`,
   small:
     "inline-flex items-center justify-center rounded-pill bg-coral px-4 py-2.5 text-label-m whitespace-nowrap text-ink transition-colors hover:bg-coral-hover",

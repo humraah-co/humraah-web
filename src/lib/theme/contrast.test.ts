@@ -4,41 +4,8 @@
 // checked here. Fails if any pair drops below AA.
 // Run with: npm run test:theme
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
 import { test } from "node:test";
-
-const css = readFileSync(new URL("../../app/globals.css", import.meta.url), "utf8");
-
-/** The `{ … }` body that follows the first occurrence of `opener`. */
-function block(opener: string) {
-  const start = css.indexOf(opener);
-  assert.notEqual(start, -1, `${opener} not found in globals.css`);
-  const open = css.indexOf("{", start);
-  const close = css.indexOf("\n}", open);
-  return css.slice(open + 1, close);
-}
-
-function colours(body: string) {
-  const out: Record<string, string> = {};
-  for (const m of body.matchAll(/--color-([a-z-]+):\s*(#[0-9a-fA-F]{6})\b/g)) out[m[1]] = m[2].toLowerCase();
-  return out;
-}
-
-const light = colours(block("@theme"));
-const dark = { ...light, ...colours(block(':root[data-theme="dark"]')) };
-const themes = { light, dark } as const;
-
-function luminance(hex: string) {
-  const [r, g, b] = [1, 3, 5]
-    .map((i) => parseInt(hex.slice(i, i + 2), 16) / 255)
-    .map((v) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
-  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
-}
-
-function contrast(a: string, b: string) {
-  const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x);
-  return (hi + 0.05) / (lo + 0.05);
-}
+import { contrast, dark, darkOverrides, light, luminance, themes } from "./tokens.ts";
 
 const surfaces = ["cream", "card", "blush", "tint-coral", "tint-sage", "tint-lavender"];
 const fills = ["coral", "sage", "lavender", "coral-hover", "sage-hover"];
@@ -73,7 +40,7 @@ for (const [theme, tokens] of Object.entries(themes)) {
 }
 
 test("the dark theme defines every colour the light theme does", () => {
-  const darkOnly = colours(block(':root[data-theme="dark"]'));
+  const darkOnly = darkOverrides;
   assert.deepEqual(
     Object.keys(light).filter((name) => !(name in darkOnly)),
     [],
@@ -83,9 +50,7 @@ test("the dark theme defines every colour the light theme does", () => {
 
 test("the dark theme has no pure black surface or pure white text", () => {
   const forbidden = new Set(["#000000", "#ffffff"]);
-  const used = Object.entries(colours(block(':root[data-theme="dark"]'))).filter(([, hex]) =>
-    forbidden.has(hex),
-  );
+  const used = Object.entries(darkOverrides).filter(([, hex]) => forbidden.has(hex));
   assert.deepEqual(used, []);
 });
 
