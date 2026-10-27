@@ -11,6 +11,7 @@ import {
   LayoutGrid,
   Lightbulb,
   LogOut,
+  Mail,
   Menu,
   Users,
   type LucideIcon,
@@ -20,17 +21,19 @@ import { LogoHorizontal } from "@/components/brand/Logo";
 import { Avatar } from "@/components/admin/Workspace";
 import { SubmitButton } from "@/components/ui/SubmitButton";
 import { ADMIN_HOME } from "@/lib/admin/paths";
-import { roleLabels } from "@/lib/admin/team";
+import { isAdminRole, roleLabels } from "@/lib/admin/team";
 import type { TeamRole } from "@/lib/database.types";
 import { isActive } from "@/lib/nav";
 
-const items: { href: string; label: string; icon: LucideIcon }[] = [
+const items: { href: string; label: string; icon: LucideIcon; adminOnly?: boolean }[] = [
   { href: ADMIN_HOME, label: "Dashboard", icon: LayoutGrid },
   { href: "/admin/universities", label: "Universities", icon: Landmark },
   { href: "/admin/scholarships", label: "Scholarships", icon: Award },
   { href: "/admin/fields", label: "Fields of study", icon: Compass },
   { href: "/admin/resources", label: "Resources", icon: Globe },
   { href: "/admin/guidance", label: "Guidance articles", icon: Lightbulb },
+  // Contact messages hold visitors' personal details: admins and the owner only.
+  { href: "/admin/messages", label: "Messages", icon: Mail, adminOnly: true },
   { href: "/admin/team", label: "Team", icon: Users },
   { href: "/admin/activity", label: "Activity log", icon: Activity },
 ];
@@ -61,28 +64,30 @@ export function AdminNav({ me }: { me: Me }) {
   const pathname = usePathname();
   const links = (
     <ul className="flex flex-col gap-1">
-      {items.map(({ href, label, icon: Icon }) => {
-        const active = href === ADMIN_HOME ? pathname === ADMIN_HOME : isActive(pathname, href);
-        return (
-          <li key={href}>
-            <Link
-              href={href}
-              aria-current={active ? "page" : undefined}
-              className={`relative isolate flex items-center gap-3 rounded-xl px-3 py-2.5 text-label-m transition-colors ${
-                active ? "bg-tint-coral text-charcoal" : "text-muted hover:bg-cream hover:text-charcoal"
-              }`}
-            >
-              <Icon
-                className={`size-5 shrink-0 ${active ? "text-deep-rose" : ""}`}
-                strokeWidth={1.75}
-                aria-hidden="true"
-              />
-              {label}
-              <PendingHighlight />
-            </Link>
-          </li>
-        );
-      })}
+      {items
+        .filter((item) => !item.adminOnly || isAdminRole(me.role))
+        .map(({ href, label, icon: Icon }) => {
+          const active = href === ADMIN_HOME ? pathname === ADMIN_HOME : isActive(pathname, href);
+          return (
+            <li key={href}>
+              <Link
+                href={href}
+                aria-current={active ? "page" : undefined}
+                className={`relative isolate flex items-center gap-3 rounded-xl px-3 py-2.5 text-label-m transition-colors ${
+                  active ? "bg-tint-coral text-charcoal" : "text-muted hover:bg-cream hover:text-charcoal"
+                }`}
+              >
+                <Icon
+                  className={`size-5 shrink-0 ${active ? "text-deep-rose" : ""}`}
+                  strokeWidth={1.75}
+                  aria-hidden="true"
+                />
+                {label}
+                <PendingHighlight />
+              </Link>
+            </li>
+          );
+        })}
     </ul>
   );
   const user = (

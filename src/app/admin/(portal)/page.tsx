@@ -71,6 +71,7 @@ export default async function DashboardPage({
           icon={Landmark}
           tone="bg-tint-lavender"
           label="Universities"
+          href="/admin/universities"
           value={total(counts.universities)}
           caption={caption(counts.universities)}
         />
@@ -78,6 +79,7 @@ export default async function DashboardPage({
           icon={Award}
           tone="bg-tint-sage"
           label="Scholarships"
+          href="/admin/scholarships"
           value={total(counts.scholarships)}
           caption={caption(counts.scholarships)}
         />
@@ -85,6 +87,7 @@ export default async function DashboardPage({
           icon={Globe}
           tone="bg-blush"
           label="Resources"
+          href="/admin/resources"
           value={total(counts.resources)}
           caption={caption(counts.resources)}
         />
@@ -99,6 +102,7 @@ export default async function DashboardPage({
           icon={Compass}
           tone="bg-tint-sage"
           label="Fields of study"
+          href="/admin/fields"
           value={total(counts.fields)}
           caption={caption(counts.fields)}
         />
@@ -106,6 +110,7 @@ export default async function DashboardPage({
           icon={Lightbulb}
           tone="bg-tint-lavender"
           label="Guidance articles"
+          href="/admin/guidance"
           value={total(counts.guidance_articles)}
           caption={caption(counts.guidance_articles)}
         />
@@ -113,9 +118,10 @@ export default async function DashboardPage({
           <StatCard
             icon={Mail}
             tone="bg-tint-coral"
-            label="Contact messages"
+            label="Messages"
+            href="/admin/messages"
             value={data.openMessages}
-            caption="Waiting for a reply"
+            caption="Unread contact messages"
           />
         )}
       </div>

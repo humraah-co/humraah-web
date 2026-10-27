@@ -14,6 +14,10 @@ const contentVerbs: Record<string, (label: string) => string> = {
   archived: (l) => `archived ${l}`,
   restored: (l) => `restored ${l} to drafts`,
   deleted: (l) => `deleted ${l}`,
+  // Contact messages (the label is "a contact message", never the sender).
+  read: (l) => `marked ${l} as read`,
+  unread: (l) => `marked ${l} as unread`,
+  unarchived: (l) => `took ${l} out of the archive`,
 };
 
 const teamVerbs: Record<string, (label: string) => string> = {
@@ -35,6 +39,7 @@ const nouns: Record<string, string> = {
   resources: "a resource",
   fields: "a field of study",
   guidance_articles: "a guidance article",
+  contact_messages: "a contact message",
   team_members: "a team member",
 };
 

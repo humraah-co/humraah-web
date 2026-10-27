@@ -177,8 +177,13 @@ export type ContactMessage = {
   name: string;
   email: string;
   message: string;
+  /** No longer used: read_at and archived_at say where a message stands (20261026000002). */
   handled: boolean;
   created_at: string;
+  read_at: string | null;
+  read_by: string | null;
+  archived_at: string | null;
+  archived_by: string | null;
 };
 
 export type Database = {

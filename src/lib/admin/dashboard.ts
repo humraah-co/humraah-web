@@ -95,7 +95,11 @@ export async function getDashboard(supabase: SessionClient, { withMessages }: { 
       supabase.from("fields").select(`${common}, name`).neq("status", "archived"),
       supabase.from("guidance_articles").select(`${common}, name:title`).neq("status", "archived"),
       withMessages
-        ? supabase.from("contact_messages").select("id", { count: "exact", head: true }).eq("handled", false)
+        ? supabase
+            .from("contact_messages")
+            .select("id", { count: "exact", head: true })
+            .is("read_at", null)
+            .is("archived_at", null)
         : null,
       supabase.from("activity_log").select("*").order("created_at", { ascending: false }).limit(5),
       supabase.from("team_members").select("user_id, full_name, email"),
