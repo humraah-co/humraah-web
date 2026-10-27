@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
+import { noindexHeaders } from "./src/lib/indexing";
 import { securityHeaders } from "./src/lib/securityHeaders";
 
 // Loads src/i18n/request.ts, which picks each request's messages (English or Urdu).
@@ -23,7 +24,8 @@ const nextConfig: NextConfig = {
   experimental: { globalNotFound: true },
   async headers() {
     return [
-      { source: "/:path*", headers: headersForEveryPage },
+      // Preview deployments say noindex on every response (see src/lib/indexing.ts).
+      { source: "/:path*", headers: [...headersForEveryPage, ...noindexHeaders()] },
       // The team workspace stays out of search results.
       { source: "/admin/:path*", headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }] },
     ];

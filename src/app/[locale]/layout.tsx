@@ -8,6 +8,8 @@ import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { directionFor, urduEnabled } from "@/i18n/config";
 import { openGraphLocale } from "@/i18n/metadata";
+import { SHARE_IMAGE } from "@/i18n/share";
+import { isProductionDeployment } from "@/lib/indexing";
 import { clientMessages } from "@/i18n/messages";
 import { routing } from "@/i18n/routing";
 import { ThemeScript } from "@/components/ui/ThemeScript";
@@ -34,7 +36,11 @@ export async function generateMetadata({
       locale: openGraphLocale[locale],
       alternateLocale: urduEnabled() ? openGraphLocale[locale === "en" ? "ur" : "en"] : undefined,
       type: "website",
+      images: [{ ...SHARE_IMAGE, alt: t("siteName") }],
     },
+    twitter: { card: "summary_large_image", images: [SHARE_IMAGE.url] },
+    // Previews are kept out of search (see src/lib/indexing.ts).
+    robots: isProductionDeployment() ? undefined : { index: false, follow: false },
   };
 }
 

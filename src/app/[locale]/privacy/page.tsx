@@ -4,12 +4,16 @@ import { Container } from "@/components/layout/PageShell";
 import { contactPrivacy } from "@/content/contactPrivacy";
 import { contact } from "@/lib/nav";
 import { alternates } from "@/i18n/metadata";
+import { withShare } from "@/i18n/share";
 import { pageLocale, type LocaleParams } from "@/i18n/server";
 
 export async function generateMetadata({ params }: { params: LocaleParams }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "privacy" });
-  return { title: t("title"), description: t("metaDescription"), alternates: alternates("/privacy", locale) };
+  return withShare(
+    { title: t("title"), description: t("metaDescription"), alternates: alternates("/privacy", locale) },
+    locale,
+  );
 }
 
 /*

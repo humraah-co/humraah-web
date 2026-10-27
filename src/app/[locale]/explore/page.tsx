@@ -10,16 +10,20 @@ import { listFields, type FieldSummary } from "@/lib/data/public";
 import { countWord } from "@/lib/format";
 import { Link } from "@/i18n/navigation";
 import { alternates } from "@/i18n/metadata";
+import { withShare } from "@/i18n/share";
 import { pageLocale, type LocaleParams } from "@/i18n/server";
 
 export async function generateMetadata({ params }: { params: LocaleParams }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "explore" });
-  return {
-    title: t("metaTitle"),
-    description: t("metaDescription"),
-    alternates: alternates("/explore", locale),
-  };
+  return withShare(
+    {
+      title: t("metaTitle"),
+      description: t("metaDescription"),
+      alternates: alternates("/explore", locale),
+    },
+    locale,
+  );
 }
 
 /** Case-insensitive match on the field name, summary, interests and example programmes. */

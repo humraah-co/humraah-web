@@ -15,6 +15,7 @@ import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 import { alternates } from "@/i18n/metadata";
+import { withShare } from "@/i18n/share";
 import { pageLocale, type LocaleParams } from "@/i18n/server";
 import { countWord, daysUntil } from "@/lib/format";
 
@@ -22,7 +23,7 @@ export const revalidate = 300;
 
 /** Title and description come from the layout. */
 export async function generateMetadata({ params }: { params: LocaleParams }): Promise<Metadata> {
-  return { alternates: alternates("/", (await params).locale) };
+  return withShare({ alternates: alternates("/", (await params).locale) }, (await params).locale);
 }
 
 /** Up to three scholarships: the ones closing next, then any without a confirmed date. */
