@@ -55,7 +55,7 @@ export function FilterSheet({
         <SlidersHorizontal className="size-[18px]" strokeWidth={1.75} aria-hidden="true" />
         {t("filters")}
         {count > 0 && (
-          <span className="flex size-[22px] items-center justify-center rounded-pill bg-coral text-label-xs">
+          <span className="flex size-[22px] items-center justify-center rounded-pill bg-coral text-label-xs text-ink">
             {count}
             <span className="sr-only"> {t("applied")}</span>
           </span>
@@ -68,7 +68,7 @@ export function FilterSheet({
             type="button"
             aria-label={t("close")}
             onClick={() => setOpen(false)}
-            className="absolute inset-0 bg-charcoal/45"
+            className="absolute inset-0 bg-scrim"
           />
           <div
             ref={sheet}
@@ -150,7 +150,7 @@ export function FilterCheckbox({ label, checked, href }: { label: string; checke
         type="checkbox"
         checked={checked}
         onChange={() => router.push(href, { scroll: false })}
-        className="mt-0.5 size-6 shrink-0 cursor-pointer appearance-none rounded-[7px] border-[1.5px] border-muted bg-card bg-center bg-no-repeat checked:border-deep-rose checked:bg-tint-coral checked:bg-[url('/brand/check.svg')]"
+        className="mt-0.5 size-6 shrink-0 cursor-pointer appearance-none rounded-[7px] border-[1.5px] border-muted bg-card bg-center bg-no-repeat checked:border-deep-rose checked:bg-tint-coral checked:bg-[url('/brand/check.svg')] dark:checked:bg-[url('/brand/check-dark.svg')]"
       />
       {label}
     </label>

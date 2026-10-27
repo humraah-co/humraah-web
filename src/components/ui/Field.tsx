@@ -6,7 +6,7 @@ export const fieldClass =
 
 /** Checkbox/Box from Figma: coral tint with a tick when checked. Add the size and radius (22 or 24 px). */
 export const checkboxClass =
-  "shrink-0 cursor-pointer appearance-none border-[1.5px] border-muted bg-card bg-center bg-no-repeat checked:border-deep-rose checked:bg-tint-coral checked:bg-[url('/brand/check.svg')] aria-[invalid=true]:border-deep-rose";
+  "shrink-0 cursor-pointer appearance-none border-[1.5px] border-muted bg-card bg-center bg-no-repeat checked:border-deep-rose checked:bg-tint-coral checked:bg-[url('/brand/check.svg')] dark:checked:bg-[url('/brand/check-dark.svg')] aria-[invalid=true]:border-deep-rose";
 
 /** A label, its control and (when there is one) the error under it. */
 export function Field({

@@ -59,7 +59,7 @@ export default async function GuidePage({ params }: { params: LocaleParams }) {
               key={chapter}
               className="flex gap-3.5 border-t border-border-soft py-3 first:border-0 lg:flex-col lg:gap-3 lg:rounded-[20px] lg:border lg:border-border-soft lg:bg-card lg:p-5 lg:first:border"
             >
-              <span className="flex size-8 shrink-0 items-center justify-center rounded-pill bg-coral text-label-s">
+              <span className="flex size-8 shrink-0 items-center justify-center rounded-pill bg-coral text-label-s text-ink">
                 {i + 1}
               </span>
               <span className="flex min-w-0 flex-col gap-0.5 lg:gap-2">

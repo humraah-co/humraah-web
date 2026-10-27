@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* `dark:` utilities follow the theme attribute on <html> (see src/lib/theme). */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 /*
  * Humraah design tokens — copied from the Figma variables in
  * "Humraah – Website Design (v0.1)". Use the Tailwind classes these create
@@ -18,10 +21,14 @@
   --color-tint-lavender: #f0e6f2;
   --color-charcoal: #383838; /* text/charcoal – all body text */
   --color-muted: #5f5853; /* text/muted */
-  --color-deep-rose: #a84e4c; /* text/deep-rose – links, 4.9:1 on cream */
-  --color-deep-sage: #5e6e3a; /* text/deep-sage – verified accents */
+  --color-deep-rose: #9f4644; /* text/deep-rose – links; 4.5:1 or more on every surface */
+  --color-deep-sage: #566535; /* text/deep-sage – verified accents */
   --color-border-soft: #e6d9cf;
   --color-border-strong: #bfaea2;
+  --color-ink: #383838; /* text/ink – text on the coral, sage and lavender fills; stays dark in both themes */
+  --color-coral-hover: #eca09f;
+  --color-sage-hover: #a5b778;
+  --color-scrim: rgb(56 56 56 / 0.45); /* behind modals and drawers */
 
   /* Type families */
   --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
@@ -36,6 +43,60 @@
   --shadow-bottom-bar: 0 -4px 18px 0 rgb(56 51 46 / 0.06);
 
   --radius-pill: 999px;
+}
+
+/*
+ * Dark theme: the same token names with warm dark values, switched by
+ * data-theme="dark" on <html> (set before first paint by the script in
+ * src/lib/theme/script.ts, so there is no flash). Components keep using
+ * bg-cream, text-charcoal … and follow along. No pure black or white: the
+ * page is a warm near-black and text a soft cream. Every text and surface
+ * pair stays at WCAG AA or better (src/lib/theme/contrast.test.ts).
+ * Keep these in step with the light values above: the contrast test reads
+ * both blocks from this file.
+ */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-cream: #1f1b18;
+  --color-card: #2a2521;
+  --color-blush: #352d28;
+  --color-coral: #d98a88;
+  --color-sage: #9fb072;
+  --color-lavender: #a58fab;
+  --color-tint-coral: #40292a;
+  --color-tint-sage: #2c3123;
+  --color-tint-lavender: #352c3a;
+  --color-charcoal: #ece4dc;
+  --color-muted: #bcb0a6;
+  --color-deep-rose: #eaa9a6;
+  --color-deep-sage: #b9c98f;
+  --color-border-soft: #40372f;
+  --color-border-strong: #7d6f64;
+  --color-ink: #2a2420;
+  --color-coral-hover: #e49b99;
+  --color-sage-hover: #adbd80;
+  --color-scrim: rgb(18 15 13 / 0.65);
+
+  /* A shadow has to be darker than the dark page to show at all. */
+  --shadow-soft: 0 2px 10px 0 rgb(0 0 0 / 0.3);
+  --shadow-raised: 0 8px 24px 0 rgb(0 0 0 / 0.4);
+  --shadow-bottom-bar: 0 -4px 18px 0 rgb(0 0 0 / 0.3);
+}
+
+/* Colour changes fade for a moment when someone switches theme; never for people who ask for less motion. */
+@media (prefers-reduced-motion: no-preference) {
+  html.theme-fade,
+  html.theme-fade *,
+  html.theme-fade *::before,
+  html.theme-fade *::after {
+    transition:
+      background-color 150ms ease,
+      border-color 150ms ease,
+      color 150ms ease,
+      fill 150ms ease,
+      stroke 150ms ease !important;
+  }
 }
 
 /* Figma text styles as utilities */
@@ -143,6 +204,21 @@
   [lang="ur"],
   .font-urdu {
     font-family: var(--font-urdu);
+  }
+  /*
+   * Light Nastaliq on a dark page looks thin and flickers: its hairline
+   * strokes lose weight next to the dark. Subpixel smoothing and a hairline
+   * stroke in the text's own colour put some of it back. If this looks
+   * heavy on a real phone, lower or remove the stroke here.
+   */
+  :root[data-theme="dark"]:lang(ur) body {
+    -webkit-font-smoothing: auto;
+    -moz-osx-font-smoothing: auto;
+    -webkit-text-stroke: 0.2px currentColor;
+  }
+  /* Decorative line art is drawn in light-mode pastels; soften it on the dark page. */
+  :root[data-theme="dark"] img[src^="/brand/deco-"] {
+    opacity: 0.6;
   }
 }
 

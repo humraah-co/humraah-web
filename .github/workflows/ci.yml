@@ -31,5 +31,7 @@ jobs:
         run: npm run test:db
       - name: Language tests (routing, the Urdu flag, fallback, message files)
         run: npm run test:i18n
+      - name: Theme tests (colour contrast in light and dark, the before-paint script)
+        run: npm run test:theme
       - name: Build (no Supabase settings, Urdu on; admin pages must not be prerendered)
         run: npm run build:ci
