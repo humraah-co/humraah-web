@@ -26,6 +26,21 @@ function Form({ onReset }: { onReset: () => void }) {
   const notice = useTranslations("privacyNotice");
   const formRef = useRef<HTMLFormElement>(null);
   const doneRef = useRef<HTMLDivElement>(null);
+  const elapsedRef = useRef<HTMLInputElement>(null);
+
+  // Writes how long the form has been open into the hidden "elapsed" field as
+  // Send is pressed; the server turns away anything sent faster than a person
+  // could. A native listener runs before the form's data is collected.
+  useEffect(() => {
+    const form = formRef.current;
+    if (!form) return;
+    const opened = performance.now();
+    const stamp = () => {
+      if (elapsedRef.current) elapsedRef.current.value = String(Math.round(performance.now() - opened));
+    };
+    form.addEventListener("submit", stamp);
+    return () => form.removeEventListener("submit", stamp);
+  }, []);
 
   // Move focus to the first problem, or to the thank-you message.
   useEffect(() => {
@@ -57,7 +72,10 @@ function Form({ onReset }: { onReset: () => void }) {
       t(`errors.${code}`, { max: max[code as keyof typeof max] ?? "" }),
     ]),
   ) as Partial<Record<ContactField, string>>;
-  const values = state.status === "invalid" || state.status === "error" ? state.values : undefined;
+  const values =
+    state.status === "invalid" || state.status === "error" || state.status === "limited"
+      ? state.values
+      : undefined;
   const describedBy = (field: ContactField) => (errors[field] ? `${field}-error` : undefined);
 
   return (
@@ -67,6 +85,23 @@ function Form({ onReset }: { onReset: () => void }) {
       {state.status === "error" && (
         <FormAlert>
           {t.rich("sendFailed", {
+            email: () => (
+              <a
+                href={`mailto:${contact.email}`}
+                className="text-deep-rose underline underline-offset-2"
+                lang="en"
+                dir="ltr"
+              >
+                {contact.email}
+              </a>
+            ),
+          })}
+        </FormAlert>
+      )}
+
+      {state.status === "limited" && (
+        <FormAlert>
+          {t.rich("rateLimited", {
             email: () => (
               <a
                 href={`mailto:${contact.email}`}
@@ -127,12 +162,13 @@ function Form({ onReset }: { onReset: () => void }) {
         />
       </Field>
 
-      {/* Not shown to people; see the server action. */}
+      {/* Not shown to people; see the server action (src/lib/contactGuard.ts). */}
       <div className="hidden" aria-hidden="true">
         <label>
           Website
           <input type="text" name="website" tabIndex={-1} autoComplete="off" />
         </label>
+        <input ref={elapsedRef} type="hidden" name="elapsed" defaultValue="" />
       </div>
 
       <section aria-labelledby="privacy-notice" className="rounded-2xl bg-cream p-3.5">

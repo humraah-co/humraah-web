@@ -126,6 +126,7 @@
     "sentText": "We’ll reply by email. It can take a few days, so please check your spam folder too.",
     "sendAnother": "Send another message",
     "sendFailed": "Sorry, we couldn’t send your message just now. Please try again in a few minutes, or email us at <email></email>.",
+    "rateLimited": "You’ve sent a few messages in a short time. Please try again in about an hour, or email us at <email></email>.",
     "errors": {
       "nameRequired": "Please tell us your name.",
       "nameTooLong": "Please keep your name under {max} characters.",

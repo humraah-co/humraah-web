@@ -27,6 +27,7 @@ export type ContactState =
       values: Omit<ContactInput, "privacy">;
     }
   | { status: "error"; values: Omit<ContactInput, "privacy"> }
+  | { status: "limited"; values: Omit<ContactInput, "privacy"> }
   | { status: "sent" };
 
 // Deliberately simple: something@something.something with no spaces.

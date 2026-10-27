@@ -33,5 +33,7 @@ jobs:
         run: npm run test:i18n
       - name: Theme tests (colour contrast in light and dark, the before-paint script)
         run: npm run test:theme
+      - name: Unit tests (contact form bot checks, security headers, sitemap)
+        run: npm run test:unit
       - name: Build (no Supabase settings, Urdu on; admin pages must not be prerendered)
         run: npm run build:ci
