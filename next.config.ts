@@ -15,6 +15,9 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // The page-render test (src/i18n/intl-errors.test.ts) runs its own dev
+  // server in another folder, so it never disturbs a running `npm run dev`.
+  distDir: process.env.NEXT_DIST_DIR || ".next",
   // app/global-not-found.tsx: the 404 for addresses that match no page. The
   // site's real root layouts are per area (public and admin).
   experimental: { globalNotFound: true },

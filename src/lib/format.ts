@@ -30,15 +30,19 @@ export function formatLongDate(iso: string, locale: Locale = "en") {
 }
 
 /**
- * "Rs 45,000" or "Rs 45,000 to Rs 60,000". `range` is the wording around
- * the two amounts, with {min} and {max} (from the messages, so Urdu can
- * read "Rs 45,000 سے Rs 60,000 تک").
+ * "Rs 45,000" or "Rs 45,000 to Rs 60,000". `range` words the two formatted
+ * amounts; pages pass the "university.feeRange" message,
+ * `(min, max) => t("feeRange", { min, max })`, so Urdu reads
+ * "Rs 45,000 سے Rs 60,000".
  */
-export function formatFeeRange(min: number | null, max: number | null, range = "{min} to {max}") {
+export function formatFeeRange(
+  min: number | null,
+  max: number | null,
+  range: (min: string, max: string) => string = (from, to) => `${from} to ${to}`,
+) {
   const rs = (n: number) => `Rs ${n.toLocaleString("en-PK")}`;
   if (min == null && max == null) return null;
-  if (min != null && max != null && min !== max)
-    return range.replace("{min}", rs(min)).replace("{max}", rs(max));
+  if (min != null && max != null && min !== max) return range(rs(min), rs(max));
   return rs((min ?? max)!);
 }
 

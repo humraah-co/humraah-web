@@ -73,7 +73,7 @@ export default async function UniversityPage({ params }: Props) {
   if (!university) notFound();
   const u = university;
 
-  const fee = formatFeeRange(u.fee_min_pkr, u.fee_max_pkr, t("feeRange"));
+  const fee = formatFeeRange(u.fee_min_pkr, u.fee_max_pkr, (min, max) => t("feeRange", { min, max }));
   const TBC = t("toBeConfirmed");
   const location = u.campuses_note ?? u.city;
   const ownSteps = stepsFrom(u.how_to_apply);
