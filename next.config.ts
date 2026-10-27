@@ -1,17 +1,17 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
+import { securityHeaders } from "./src/lib/securityHeaders";
 
 // Loads src/i18n/request.ts, which picks each request's messages (English or Urdu).
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
-// Baseline security headers. A full Content-Security-Policy is added on Day 6
-// once every third-party origin the site needs is known.
-const securityHeaders = [
-  { key: "X-Content-Type-Options", value: "nosniff" },
-  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-  { key: "X-Frame-Options", value: "DENY" },
-  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
-];
+// Security headers, including the Content-Security-Policy, are built in
+// src/lib/securityHeaders.ts. The CSP is report-only until CSP_MODE=enforce.
+const headersForEveryPage = securityHeaders({
+  production: process.env.NODE_ENV === "production",
+  supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL,
+  cspMode: process.env.CSP_MODE,
+});
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
@@ -23,7 +23,7 @@ const nextConfig: NextConfig = {
   experimental: { globalNotFound: true },
   async headers() {
     return [
-      { source: "/:path*", headers: securityHeaders },
+      { source: "/:path*", headers: headersForEveryPage },
       // The team workspace stays out of search results.
       { source: "/admin/:path*", headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }] },
     ];
