@@ -12,6 +12,7 @@ export const CLIENT_NAMESPACES = [
   "privacyNotice",
   "filters",
   "share",
+  "serverError",
 ] as const;
 
 /** Only the given namespaces of this request's messages, for a NextIntlClientProvider. */

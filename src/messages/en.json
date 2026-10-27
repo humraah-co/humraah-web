@@ -825,5 +825,12 @@
     "popular": "Popular pages",
     "orTry": "Or try",
     "metaTitle": "Page not found · Humraah"
+  },
+  "serverError": {
+    "script": "Something went wrong on our side.",
+    "title": "Sorry, this page isn’t working",
+    "text": "It’s not you. Please try again in a moment, or go back to the home page.",
+    "tryAgain": "Try again",
+    "home": "Go to the home page"
   }
 }
