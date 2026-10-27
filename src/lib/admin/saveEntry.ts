@@ -20,12 +20,24 @@ import {
   type SaveIntent,
   type SaveState,
 } from "./content";
+import {
+  fieldRow,
+  guidanceRow,
+  parseField,
+  parseGuidance,
+  parseResource,
+  resourceRow,
+  validateField,
+  validateGuidance,
+  validateResource,
+} from "./siteContent";
 import { slugTaken } from "./entries";
 import { formText } from "./forms";
 import { requireActiveMember } from "./session";
 
 /*
- * Saving from the university and scholarship editors. The caller's
+ * Saving from the editors (universities, scholarships, fields of study,
+ * resources and guidance articles). The caller's
  * membership is re-read on the server and every value is checked again
  * here, whatever the browser already checked. The save itself is one
  * database call as the signed-in member (save_university /
@@ -40,7 +52,7 @@ export const ENTRY_ARCHIVED =
 
 /** The public pages showing this kind of entry, plus the home page counts. */
 export function revalidateEntries(table: EntryTable) {
-  revalidateTag(table);
+  revalidateTag(entryTypes[table].cacheTag);
   revalidatePath("/");
 }
 
@@ -71,6 +83,20 @@ function explain(error: PostgrestError, table: EntryTable, intent: SaveIntent): 
   }
   if (error.code === "23514" && error.message.includes("HEC-recognised")) {
     return { status: "invalid", at, errors: { hec_recognised: HEC_REQUIRED } };
+  }
+  if (error.code === "23514" && error.message.includes("used by the quiz")) {
+    return {
+      status: "invalid",
+      at,
+      errors: { slug: "This field’s web address is used by the quiz, so it can’t be changed." },
+    };
+  }
+  if (error.code === "23514" && error.message.includes("resources_url_is_web_link")) {
+    return {
+      status: "invalid",
+      at,
+      errors: { url: "Please enter a web link starting with http:// or https://." },
+    };
   }
   if (error.code === "P0002") return { status: "invalid", at, errors: {}, form: ENTRY_GONE };
   if (error.message.includes("Restore it first"))
@@ -116,7 +142,7 @@ export async function saveEntry(table: EntryTable, form: FormData): Promise<Save
 
   let errors: FieldErrors;
   let save: () => PromiseLike<{ data: string | null; error: PostgrestError | null }>;
-  let slug: string;
+  let slug: string | null = null;
   if (table === "universities") {
     const values = parseUniversity(raw);
     errors = validateUniversity(values, intent, status);
@@ -124,15 +150,32 @@ export async function saveEntry(table: EntryTable, form: FormData): Promise<Save
     slug = row.values.slug;
     save = () =>
       supabase.rpc("save_university", { p_id: id, p_values: row.values, p_programmes: row.programmes });
-  } else {
+  } else if (table === "scholarships") {
     const values = parseScholarship(raw);
     errors = validateScholarship(values, intent, status);
     const row = scholarshipRow(values, status);
     slug = row.values.slug;
     save = () =>
       supabase.rpc("save_scholarship", { p_id: id, p_values: row.values, p_field_ids: row.fieldIds });
+  } else if (table === "fields") {
+    const values = parseField(raw);
+    errors = validateField(values, intent, status);
+    const row = fieldRow(values, status);
+    slug = row.values.slug;
+    save = () => supabase.rpc("save_field", { p_id: id, p_values: row.values });
+  } else if (table === "resources") {
+    const values = parseResource(raw);
+    errors = validateResource(values, intent, status);
+    const row = resourceRow(values, status);
+    save = () => supabase.rpc("save_resource", { p_id: id, p_values: row.values });
+  } else {
+    const values = parseGuidance(raw);
+    errors = validateGuidance(values, intent, status);
+    const row = guidanceRow(values, status);
+    slug = row.values.slug;
+    save = () => supabase.rpc("save_guidance_article", { p_id: id, p_values: row.values });
   }
-  if (!errors.slug && (await slugTaken(supabase, table, slug, id))) {
+  if (slug && !errors.slug && (await slugTaken(supabase, table, slug, id))) {
     errors.slug = slugTakenMessage(entryTypes[table].one);
   }
   if (Object.keys(errors).length) return { status: "invalid", errors, at: Date.now() };

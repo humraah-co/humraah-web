@@ -41,9 +41,12 @@ export function TextInput({
   placeholder,
   maxLength = 200,
   urdu,
+  readOnly,
 }: Common & {
   value: string;
   onChange: (value: string) => void;
+  /** Shown but not editable (the hint says why). */
+  readOnly?: boolean;
   type?: "text" | "url" | "date";
   inputMode?: "numeric" | "url";
   placeholder?: string;
@@ -60,11 +63,12 @@ export function TextInput({
         inputMode={inputMode}
         placeholder={placeholder}
         maxLength={type === "date" ? undefined : maxLength}
+        readOnly={readOnly}
         aria-required={required || undefined}
         aria-invalid={!!error}
         aria-describedby={describedBy(id, error, hint)}
         {...(urdu ? urduInput : {})}
-        className={`${fieldClass} ${urdu ? `${urduClass} min-h-12` : "h-12"}`}
+        className={`${fieldClass} ${urdu ? `${urduClass} min-h-12` : "h-12"} read-only:bg-cream read-only:text-muted`}
       />
     </Field>
   );

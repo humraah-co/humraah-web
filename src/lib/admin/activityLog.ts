@@ -1,7 +1,7 @@
 import "server-only";
 import type { ActivityLogEntry } from "@/lib/database.types";
 import type { createSessionClient } from "@/lib/supabase/server";
-import { isUuid } from "./content";
+import { entryTypes, isUuid, type EntryTable } from "./content";
 
 type SessionClient = Awaited<ReturnType<typeof createSessionClient>>;
 
@@ -104,10 +104,7 @@ export async function getActivityPage(supabase: SessionClient, filters: Activity
   return { entries: (data ?? []) as ActivityLogEntry[], total: count ?? 0 };
 }
 
-/**
- * Which universities and scholarships on this page still exist, so each
- * line can link to its editor or say it was deleted.
- */
+/** Which entries on this page still exist, so each line can link to its editor or say it was deleted. */
 export async function existingEntries(supabase: SessionClient, entries: ActivityLogEntry[]) {
   const ids = (table: string) => [
     ...new Set(
@@ -116,7 +113,7 @@ export async function existingEntries(supabase: SessionClient, entries: Activity
         .map((e) => e.entity_id!),
     ),
   ];
-  const lookup = async (table: "universities" | "scholarships") => {
+  const lookup = async (table: EntryTable) => {
     const wanted = ids(table);
     if (!wanted.length) return [];
     const { data, error } = await supabase.from(table).select("id").in("id", wanted);
@@ -124,6 +121,6 @@ export async function existingEntries(supabase: SessionClient, entries: Activity
     if (error) return wanted;
     return data.map((r) => r.id);
   };
-  const [universities, scholarships] = await Promise.all([lookup("universities"), lookup("scholarships")]);
-  return new Set([...universities, ...scholarships]);
+  const tables = Object.keys(entryTypes) as EntryTable[];
+  return new Set((await Promise.all(tables.map(lookup))).flat());
 }

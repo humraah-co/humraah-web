@@ -205,7 +205,7 @@ export function ActivitySkeleton() {
   );
 }
 
-/** Pages whose title isn't known until they load (the "coming soon" sections). */
+/** Pages whose title is known but whose content is a small card (Add an entry). */
 export function PlainSkeleton({ title }: { title?: string }) {
   return (
     <Loading label="the page">

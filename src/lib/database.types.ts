@@ -215,6 +215,12 @@ export type Database = {
         Args: { p_id: string | null; p_values: Record<string, unknown>; p_field_ids: string[] };
         Returns: string;
       };
+      save_field: { Args: { p_id: string | null; p_values: Record<string, unknown> }; Returns: string };
+      save_resource: { Args: { p_id: string | null; p_values: Record<string, unknown> }; Returns: string };
+      save_guidance_article: {
+        Args: { p_id: string | null; p_values: Record<string, unknown> };
+        Returns: string;
+      };
     };
     Enums: {
       content_status: ContentStatus;

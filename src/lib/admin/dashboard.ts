@@ -5,13 +5,13 @@ import type { createSessionClient } from "@/lib/supabase/server";
 
 type SessionClient = Awaited<ReturnType<typeof createSessionClient>>;
 
-/** The content tables, as the dashboard and the Day 5 editors name them. */
+/** The content tables, as the dashboard names them. Each has an editor at its adminPath (lib/admin/content). */
 export const contentSections = {
-  universities: { label: "Universities", kind: "University", section: "universities" },
-  scholarships: { label: "Scholarships", kind: "Scholarship", section: "scholarships" },
-  resources: { label: "Resources", kind: "Resource", section: "resources" },
-  fields: { label: "Fields of study", kind: "Field of study", section: "fields" },
-  guidance_articles: { label: "Guidance articles", kind: "Guidance article", section: "guidance" },
+  universities: { label: "Universities", kind: "University" },
+  scholarships: { label: "Scholarships", kind: "Scholarship" },
+  resources: { label: "Resources", kind: "Resource" },
+  fields: { label: "Fields of study", kind: "Field of study" },
+  guidance_articles: { label: "Guidance articles", kind: "Guidance article" },
 } as const;
 
 export type ContentTable = keyof typeof contentSections;

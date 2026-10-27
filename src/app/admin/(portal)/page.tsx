@@ -52,11 +52,11 @@ export default async function DashboardPage({
         <NavForm action="/admin/search" role="search" className="lg:w-[350px]">
           <label className="flex h-[52px] items-center gap-2.5 rounded-pill border border-border-strong bg-card px-[18px] has-[input:focus-visible]:outline-3 has-[input:focus-visible]:outline-offset-2 has-[input:focus-visible]:outline-deep-rose">
             <Search className="size-5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
-            <span className="sr-only">Search universities and scholarships</span>
+            <span className="sr-only">Search all entries</span>
             <input
               type="search"
               name="q"
-              placeholder="Search universities and scholarships"
+              placeholder="Search all entries"
               className="min-w-0 flex-1 bg-transparent text-body-m text-ellipsis outline-none placeholder:text-muted"
             />
           </label>

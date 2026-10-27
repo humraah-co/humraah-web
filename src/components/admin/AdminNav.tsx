@@ -9,6 +9,7 @@ import {
   Globe,
   Landmark,
   LayoutGrid,
+  Lightbulb,
   LogOut,
   Menu,
   Users,
@@ -27,8 +28,9 @@ const items: { href: string; label: string; icon: LucideIcon }[] = [
   { href: ADMIN_HOME, label: "Dashboard", icon: LayoutGrid },
   { href: "/admin/universities", label: "Universities", icon: Landmark },
   { href: "/admin/scholarships", label: "Scholarships", icon: Award },
-  { href: "/admin/resources", label: "Resources", icon: Globe },
   { href: "/admin/fields", label: "Fields of study", icon: Compass },
+  { href: "/admin/resources", label: "Resources", icon: Globe },
+  { href: "/admin/guidance", label: "Guidance articles", icon: Lightbulb },
   { href: "/admin/team", label: "Team", icon: Users },
   { href: "/admin/activity", label: "Activity log", icon: Activity },
 ];
