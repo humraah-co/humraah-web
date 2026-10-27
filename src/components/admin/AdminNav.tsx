@@ -21,7 +21,7 @@ import { LogoHorizontal } from "@/components/brand/Logo";
 import { Avatar } from "@/components/admin/Workspace";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { SubmitButton } from "@/components/ui/SubmitButton";
-import { ADMIN_HOME } from "@/lib/admin/paths";
+import { ACCOUNT_PATH, ADMIN_HOME } from "@/lib/admin/paths";
 import { isAdminRole, roleLabels } from "@/lib/admin/team";
 import type { TeamRole } from "@/lib/database.types";
 import { isActive } from "@/lib/nav";
@@ -95,11 +95,19 @@ export function AdminNav({ me }: { me: Me }) {
     <div className="flex flex-col gap-2">
       <ThemeToggle variant="row" />
       <div className="flex items-center gap-2.5 rounded-[14px] bg-cream p-3">
-        <Avatar name={me.name} toneKey={me.userId} tone="bg-tint-lavender" />
-        <div className="flex min-w-0 flex-1 flex-col">
-          <p className="truncate text-label-m">{me.name}</p>
-          <p className="text-caption text-muted">{roleLabels[me.role]}</p>
-        </div>
+        {/* Opens "Your account": details, change password, sign out. */}
+        <Link
+          href={ACCOUNT_PATH}
+          aria-label={`Your account (${me.name})`}
+          aria-current={pathname === ACCOUNT_PATH ? "page" : undefined}
+          className="flex min-w-0 flex-1 items-center gap-2.5 rounded-xl hover:bg-blush"
+        >
+          <Avatar name={me.name} toneKey={me.userId} tone="bg-tint-lavender" />
+          <div className="flex min-w-0 flex-1 flex-col">
+            <p className="truncate text-label-m">{me.name}</p>
+            <p className="text-caption text-muted">{roleLabels[me.role]}</p>
+          </div>
+        </Link>
         <form action={signOut}>
           <SubmitButton
             label="Sign out"

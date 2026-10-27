@@ -1,6 +1,7 @@
 /** Admin URLs, shared by the middleware, the pages and the site layout. */
 
 export const ADMIN_HOME = "/admin";
+export const ACCOUNT_PATH = "/admin/account";
 export const LOGIN_PATH = "/admin/login";
 export const NO_ACCESS_PATH = "/admin/no-access";
 export const ACCEPT_INVITE_PATH = "/admin/accept-invite";
