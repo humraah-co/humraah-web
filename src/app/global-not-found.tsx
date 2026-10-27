@@ -6,6 +6,7 @@ import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { clientMessages } from "@/i18n/messages";
 import LocaleNotFound from "./[locale]/not-found";
+import { ThemeScript } from "@/components/ui/ThemeScript";
 import { caveat, cormorant, dmSans, nastaliq } from "./fonts";
 import "./globals.css";
 
@@ -35,8 +36,12 @@ export default async function GlobalNotFound() {
     <html
       lang="en"
       dir="ltr"
+      suppressHydrationWarning
       className={`${dmSans.variable} ${cormorant.variable} ${caveat.variable} ${nastaliq.variable}`}
     >
+      <head>
+        <ThemeScript />
+      </head>
       <body className="flex min-h-dvh flex-col antialiased">
         <a
           href="#main"

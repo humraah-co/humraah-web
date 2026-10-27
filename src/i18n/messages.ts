@@ -4,6 +4,7 @@ import { getMessages } from "next-intl/server";
 export const CLIENT_NAMESPACES = [
   "nav",
   "language",
+  "theme",
   "brand",
   "common",
   "badges",

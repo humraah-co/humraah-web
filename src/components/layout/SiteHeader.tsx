@@ -4,6 +4,7 @@ import { Link } from "@/i18n/navigation";
 import { DesktopNavLinks } from "./DesktopNavLinks";
 import { SearchButton } from "./HeaderActions";
 import { LanguageSwitch } from "./LanguageSwitch";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { MobileTopBar } from "./MobileTopBar";
 
 /**
@@ -27,10 +28,11 @@ export function SiteHeader() {
         <DesktopNavLinks />
         <div className="flex items-center gap-2.5">
           <LanguageSwitch />
+          <ThemeToggle />
           <SearchButton />
           <Link
             href="/quiz"
-            className="rounded-pill bg-coral px-4 py-2.5 text-label-m whitespace-nowrap text-charcoal transition-colors hover:bg-[#e2807f]"
+            className="rounded-pill bg-coral px-4 py-2.5 text-label-m whitespace-nowrap text-ink transition-colors hover:bg-coral-hover"
           >
             {t("whereToStart")}
           </Link>

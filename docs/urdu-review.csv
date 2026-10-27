@@ -25,6 +25,7 @@ ui:nav.backTo,every page (menus),Back to {section},واپس: {section}
 ui:language.label,every page (language switch),Language,زبان
 ui:language.comingSoon,every page (language switch),Urdu version coming soon,اردو ورژن جلد آ رہا ہے
 ui:language.comingSoonShort,every page (language switch),(coming soon),(جلد آ رہا ہے)
+ui:theme.darkMode,every page (header and Menu),Dark mode,ڈارک موڈ
 ui:footer.tagline,every page (footer),"Walking alongside you, towards your dreams.",آپ کے خوابوں کی طرف، آپ کے ساتھ ساتھ۔
 ui:footer.about,every page (footer),"A youth-led initiative giving girls the information, resources and support to pursue higher education and build their own paths forward.",نوجوانوں کی ایک کوشش، جو لڑکیوں کو اعلیٰ تعلیم حاصل کرنے اور اپنا راستہ خود بنانے کے لیے معلومات، وسائل اور ساتھ دیتی ہے۔
 ui:footer.disclaimer,every page (footer),"Humraah shares information to help you plan. Always confirm fees, dates and requirements on the official website before you apply.",ہمراہ آپ کی منصوبہ بندی میں مدد کے لیے معلومات دیتا ہے۔ اپلائی کرنے سے پہلے فیس، تاریخیں اور شرائط ہمیشہ آفیشل ویب سائٹ پر دیکھ لیں۔

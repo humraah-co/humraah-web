@@ -28,6 +28,9 @@
     "searchUniversities": "یونیورسٹیاں تلاش کریں",
     "backTo": "واپس: {section}"
   },
+  "theme": {
+    "darkMode": "ڈارک موڈ"
+  },
   "language": {
     "label": "زبان",
     "comingSoon": "اردو ورژن جلد آ رہا ہے",

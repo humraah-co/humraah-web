@@ -4,6 +4,7 @@ import { getTranslations } from "next-intl/server";
 import { LogoHorizontal } from "@/components/brand/Logo";
 import { LanguageSwitch } from "@/components/layout/LanguageSwitch";
 import { HelpCallout } from "@/components/ui/Blocks";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { menuNav } from "@/lib/nav";
 import { Link } from "@/i18n/navigation";
 import { alternates } from "@/i18n/metadata";
@@ -87,6 +88,10 @@ export default async function MenuPage({
           {language("label")}
         </p>
         <LanguageSwitch variant="menu" />
+      </div>
+
+      <div className="px-5 pt-4 pb-2">
+        <ThemeToggle variant="row" />
       </div>
 
       <div className="flex-1" />

@@ -28,9 +28,16 @@ Without `.env.local` the site still runs and shows a "database isn't connected" 
 | `npm run typecheck`    | TypeScript                                                           |
 | `npm run format`       | Prettier (also sorts Tailwind classes)                               |
 | `npm run test:db`      | Applies every migration + seed to an in-memory Postgres and checks the access rules for each role |
+| `npm run test:theme`   | Checks WCAG AA contrast of every colour pair in both themes, and that the theme script sets the theme before first paint |
 | `npm run db:types`     | Regenerates `src/lib/database.types.ts` from the linked Supabase project |
 
 CI runs lint, type-check, format check, the access-rule tests and the build on every pull request.
+
+## Light and dark theme
+
+Colours are tokens in `src/app/globals.css`; the dark values are one block (`:root[data-theme="dark"]`) that overrides the same names, so components don't change. `data-theme` on `<html>` is set before first paint by a fixed inline script (`src/lib/theme/script.ts`), from the saved choice (localStorage `humraah-theme`) or else the device setting. Text on the coral, sage and lavender fills uses `text-ink`, which stays dark in both themes.
+
+**For the Content-Security-Policy (Day 6):** the theme script is inline. Allow it by hash, not a nonce (a nonce would make every page render per request): add `THEME_SCRIPT_CSP_SOURCE` from `src/lib/theme/hash.ts` to `script-src`.
 
 ## Database
 
