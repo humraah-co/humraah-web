@@ -48,8 +48,13 @@ security enforces this, not the app code.
 | Role       | Can                                                                    |
 | ---------- | ---------------------------------------------------------------------- |
 | Researcher | Create, edit, mark verified, publish, unpublish, archive               |
-| Admin      | All of the above + restore archived entries, delete permanently, manage researchers |
+| Admin      | All of the above + restore archived entries, delete permanently (archived entries only), manage researchers, read and manage contact messages |
 | Owner      | All of the above + add or remove admins                                |
+
+The team workspace edits universities, scholarships, fields of study, resources and guidance articles
+the same way (a source link is needed to publish or verify; each has optional Urdu text). The messages
+inbox at `/admin/messages` is for admins and the owner only, because contact messages hold visitors'
+personal details; researchers can't read them, and nobody can edit or delete one.
 
 Every change to content or the team is written to `activity_log` by a database trigger.
 

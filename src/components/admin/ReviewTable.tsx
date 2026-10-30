@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { buttonStyles } from "@/components/ui/Button";
 import { Chip, DeadlineChip } from "@/components/ui/Chip";
-import { entryTypes, isEntryTable } from "@/lib/admin/content";
+import { entryTypes } from "@/lib/admin/content";
 import { contentSections, type ReviewItem } from "@/lib/admin/dashboard";
 import { formatLongDate } from "@/lib/format";
 
@@ -24,11 +24,8 @@ function ReasonChip({ reason }: { reason: ReviewItem["reason"] }) {
   }
 }
 
-/** Universities and scholarships open in their editor; the rest go to their section for now. */
-function reviewHref(item: ReviewItem) {
-  if (isEntryTable(item.table)) return `${entryTypes[item.table].adminPath}/${item.id}`;
-  return `/admin/${contentSections[item.table].section}`;
-}
+/** Every kind of entry opens in its editor. */
+const reviewHref = (item: ReviewItem) => `${entryTypes[item.table].adminPath}/${item.id}`;
 
 /** The Needs review table; on a phone each row stacks. */
 export function ReviewTable({ items, failed }: { items: ReviewItem[]; failed: boolean }) {

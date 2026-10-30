@@ -8,6 +8,8 @@ import type { ContentStatus } from "@/lib/database.types";
 
 type Entry = { id: string; name: string; status: ContentStatus };
 
+const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? "" : "s"}`;
+
 /**
  * The confirm boxes for archiving, restoring and deleting, opened by the
  * address (e.g. ?confirm=archive) like the Team page's, so they work
@@ -20,12 +22,15 @@ export function EntryConfirm({
   confirm,
   error,
   isAdmin,
+  usage,
 }: {
   table: EntryTable;
   entry: Entry;
   confirm: unknown;
   error: unknown;
   isAdmin: boolean;
+  /** For a field of study: what still points at it, so the delete box can say what comes loose. */
+  usage?: { programmes: number; scholarships: number };
 }) {
   const type = entryTypes[table];
   const closeHref = `${type.adminPath}/${entry.id}`;
@@ -85,6 +90,14 @@ export function EntryConfirm({
           {table === "universities" ? " Its programmes are deleted too." : ""} The activity log keeps a record
           that it was deleted.
         </p>
+        {table === "fields" && (
+          <p className="rounded-2xl bg-tint-coral p-4 text-body-s">
+            {usage
+              ? `${plural(usage.programmes, "programme")} and ${plural(usage.scholarships, "scholarship")} use this field. They stay on the site but lose the link to it.`
+              : "Programmes and scholarships that use this field stay on the site but lose the link to it."}{" "}
+            If the quiz uses it, the quiz will no longer suggest it.
+          </p>
+        )}
         <form action={deleteEntry} noValidate className="flex flex-col gap-4">
           {hidden}
           <Field

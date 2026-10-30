@@ -64,15 +64,18 @@ export function StatCard({
   label,
   value,
   caption,
+  href,
 }: {
   icon: LucideIcon;
   tone: string;
   label: string;
   value: number | null;
   caption: string;
+  /** Where the card leads, if anywhere: the whole card is the link. */
+  href?: string;
 }) {
-  return (
-    <div className="flex min-w-0 flex-col gap-2 rounded-[20px] border border-border-soft bg-card p-4 sm:p-5">
+  const body = (
+    <>
       <span className={`flex size-10 items-center justify-center rounded-xl ${tone}`}>
         <Icon className="size-5" strokeWidth={1.75} aria-hidden="true" />
       </span>
@@ -82,7 +85,15 @@ export function StatCard({
         {value == null && <span className="sr-only">Not available</span>}
       </p>
       <p className="text-caption text-muted">{caption}</p>
-    </div>
+    </>
+  );
+  const box = "flex min-w-0 flex-col gap-2 rounded-[20px] border border-border-soft bg-card p-4 sm:p-5";
+  return href ? (
+    <Link href={href} className={`${box} hover:bg-cream`}>
+      {body}
+    </Link>
+  ) : (
+    <div className={box}>{body}</div>
   );
 }
 

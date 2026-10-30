@@ -14,7 +14,7 @@ import type {
   UniversityType,
 } from "@/lib/database.types";
 
-export type EntryTable = "universities" | "scholarships";
+export type EntryTable = "universities" | "scholarships" | "fields" | "resources" | "guidance_articles";
 
 export const entryTypes = {
   universities: {
@@ -22,17 +22,64 @@ export const entryTypes = {
     one: "university",
     adminPath: "/admin/universities",
     publicPath: "/universities",
+    nameColumn: "name",
+    hasSlug: true,
+    cacheTag: "universities",
   },
   scholarships: {
     label: "Scholarships",
     one: "scholarship",
     adminPath: "/admin/scholarships",
     publicPath: "/scholarships",
+    nameColumn: "name",
+    hasSlug: true,
+    cacheTag: "scholarships",
   },
-} as const satisfies Record<EntryTable, unknown>;
+  fields: {
+    label: "Fields of study",
+    one: "field of study",
+    adminPath: "/admin/fields",
+    publicPath: "/explore",
+    nameColumn: "name",
+    hasSlug: true,
+    cacheTag: "fields",
+  },
+  resources: {
+    label: "Resources",
+    one: "resource",
+    adminPath: "/admin/resources",
+    publicPath: "/resources",
+    nameColumn: "title",
+    hasSlug: false,
+    cacheTag: "resources",
+  },
+  guidance_articles: {
+    label: "Guidance articles",
+    one: "guidance article",
+    adminPath: "/admin/guidance",
+    publicPath: "/guidance",
+    nameColumn: "title",
+    hasSlug: true,
+    cacheTag: "guidance",
+  },
+} as const satisfies Record<
+  EntryTable,
+  {
+    label: string;
+    one: string;
+    adminPath: string;
+    publicPath: string;
+    /** The column holding the entry's name (a resource or article has a title). */
+    nameColumn: "name" | "title";
+    /** Whether the entry has a web address of its own (a resource is just a link). */
+    hasSlug: boolean;
+    /** The tag the public pages' cached data carries (lib/data/public). */
+    cacheTag: string;
+  }
+>;
 
 export const isEntryTable = (value: unknown): value is EntryTable =>
-  value === "universities" || value === "scholarships";
+  typeof value === "string" && Object.hasOwn(entryTypes, value);
 
 export const contentStatusLabels: Record<ContentStatus, string> = {
   draft: "Draft",
@@ -69,7 +116,7 @@ export const provinces = [
 // ---------------------------------------------------------------------------
 
 export const SLUG_MAX = 80;
-const slugPattern = /^[a-z0-9]+(-[a-z0-9]+)*$/;
+export const slugPattern = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 
 /** Lower case without accents, so "quaid" finds "Quaid-i-Azam" and "Lahore" finds "LAHORE". */
 export const fold = (text: string) => text.normalize("NFKD").replace(/\p{M}/gu, "").toLowerCase();
@@ -338,16 +385,16 @@ export function scholarshipToValues(s: Scholarship, fieldIds: string[]): Scholar
 // Reading what the browser sent (never trusted: every value is re-shaped)
 // ---------------------------------------------------------------------------
 
-const str = (value: unknown) => (typeof value === "string" ? value : "");
-const link = (value: unknown) => normaliseUrl(str(value));
-const bool = (value: unknown) => value === true;
-const oneOf = <T extends string>(value: unknown, options: readonly T[], fallback: T): T =>
+export const str = (value: unknown) => (typeof value === "string" ? value : "");
+export const link = (value: unknown) => normaliseUrl(str(value));
+export const bool = (value: unknown) => value === true;
+export const oneOf = <T extends string>(value: unknown, options: readonly T[], fallback: T): T =>
   options.includes(value as T) ? (value as T) : fallback;
 const yesNoOptions = ["", "yes", "no"] as const;
-const urduFrom = <K extends string>(r: Record<string, unknown>, keys: readonly K[]) =>
+export const urduFrom = <K extends string>(r: Record<string, unknown>, keys: readonly K[]) =>
   Object.fromEntries(keys.map((k) => [k, str(r[k])])) as Record<K, string>;
 // Plenty for any real entry; stops a runaway form.
-const MAX_ROWS = 100;
+export const MAX_ROWS = 100;
 
 export function parseUniversity(raw: unknown): UniversityValues {
   const r = (raw && typeof raw === "object" ? raw : {}) as Record<string, unknown>;
@@ -454,13 +501,13 @@ export type SaveState =
 const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 export const isUuid = (value: string) => uuidPattern.test(value);
 
-const SHORT_MAX = 200;
-const LONG_MAX = 5000;
+export const SHORT_MAX = 200;
+export const LONG_MAX = 5000;
 const urlPattern = /^https?:\/\/[^\s/$.?#][^\s]*\.[^\s]+$/i;
 const datePattern = /^\d{4}-\d{2}-\d{2}$/;
-const t = (value: string) => value.trim();
+export const t = (value: string) => value.trim();
 
-function sourceError(intent: SaveIntent, status: ContentStatus, source: string) {
+export function sourceError(intent: SaveIntent, status: ContentStatus, source: string) {
   if (t(source)) return;
   if (intent === "verify") return "Add the official source link before marking this as verified.";
   if (intent === "publish") return "Add the official source link before publishing.";
@@ -469,22 +516,31 @@ function sourceError(intent: SaveIntent, status: ContentStatus, source: string) 
   }
 }
 
-function urlError(value: string) {
+export function urlError(value: string) {
   if (t(value) && !urlPattern.test(t(value))) {
     return "That doesn’t look like a web address. Check it, for example hec.gov.pk or https://hec.gov.pk.";
   }
 }
 
-function lengthErrors(errors: FieldErrors, values: Record<string, unknown>, long: string[]) {
+/**
+ * Too-long text, by field: `long` fields may hold LONG_MAX characters, the
+ * rest SHORT_MAX, and `limits` sets a different maximum for named fields.
+ */
+export function lengthErrors(
+  errors: FieldErrors,
+  values: Record<string, unknown>,
+  long: string[],
+  limits: Record<string, number> = {},
+) {
   for (const [key, value] of Object.entries(values)) {
     if (typeof value !== "string" || errors[key]) continue;
-    const max = long.includes(key) ? LONG_MAX : SHORT_MAX;
+    const max = limits[key] ?? (long.includes(key) ? LONG_MAX : SHORT_MAX);
     if (t(value).length > max)
       errors[key] = `Please keep this under ${max.toLocaleString("en-GB")} characters.`;
   }
 }
 
-function slugError(slug: string) {
+export function slugError(slug: string) {
   if (!t(slug)) return "Please enter a web address for this page.";
   if (t(slug).length > SLUG_MAX) return `Please keep the web address under ${SLUG_MAX} characters.`;
   if (!slugPattern.test(t(slug))) {
@@ -652,16 +708,16 @@ export function errorList(errors: FieldErrors, labels: Record<string, string>) {
 // Database rows
 // ---------------------------------------------------------------------------
 
-const orNull = (value: string) => t(value) || null;
+export const orNull = (value: string) => t(value) || null;
 // One item per line: items can contain commas.
-const list = (value: string) =>
+export const list = (value: string) =>
   value
     .split(/\r?\n/)
     .map((item) => item.trim())
     .filter(Boolean);
 const yesNoValue = (value: YesNo) => (value === "" ? null : value === "yes");
 /** An Urdu list: null when empty, which means "not translated" (an English list is never null). */
-const urduList = (value: string) => {
+export const urduList = (value: string) => {
   const items = list(value);
   return items.length ? items : null;
 };

@@ -2,12 +2,15 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { Award, ChevronDown, Landmark, Plus } from "lucide-react";
+import { Award, ChevronDown, Compass, Globe, Landmark, Lightbulb, Plus } from "lucide-react";
 import { buttonStyles } from "@/components/ui/Button";
 
 const choices = [
   { href: "/admin/universities/new", label: "University", icon: Landmark },
   { href: "/admin/scholarships/new", label: "Scholarship", icon: Award },
+  { href: "/admin/fields/new", label: "Field of study", icon: Compass },
+  { href: "/admin/resources/new", label: "Resource", icon: Globe },
+  { href: "/admin/guidance/new", label: "Guidance article", icon: Lightbulb },
 ];
 
 /**

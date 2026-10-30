@@ -7,9 +7,10 @@ import { ADMIN_HOME } from "@/lib/admin/paths";
 import { revalidateEntries } from "@/lib/admin/saveEntry";
 import { requireActiveMember } from "@/lib/admin/session";
 import { isAdminRole } from "@/lib/admin/team";
+import type { ContentStatus } from "@/lib/database.types";
 
 /*
- * Archive, restore and delete for universities and scholarships. Each
+ * Archive, restore and delete for every kind of entry. Each
  * action re-reads the caller's membership and checks their role here; the
  * database checks again (only admins can restore or delete). Changes go
  * through the caller's own session, so the activity log records who did it.
@@ -27,8 +28,12 @@ async function callerAndEntry(form: FormData) {
   const table = formText(form, "table");
   const id = formText(form, "id");
   if (!isEntryTable(table) || !isUuid(id)) redirect(ADMIN_HOME);
-  const { data: entry } = await supabase.from(table).select("id, name, status").eq("id", id).maybeSingle();
-  if (!entry) redirect(entryTypes[table].adminPath);
+  // A resource or article has a title where the others have a name.
+  const nameColumn = entryTypes[table].nameColumn;
+  const { data } = await supabase.from(table).select(`id, status, ${nameColumn}`).eq("id", id).maybeSingle();
+  if (!data) redirect(entryTypes[table].adminPath);
+  const row = data as unknown as Record<string, string>;
+  const entry = { id: row.id, name: row[nameColumn], status: row.status as ContentStatus };
   return { supabase, member, table, entry };
 }
 
@@ -69,7 +74,8 @@ const sameName = (a: string, b: string) =>
 
 /**
  * Admins and the owner, archived entries only, after typing the entry's
- * name. Programmes and field-of-study links go with it.
+ * name. A university's programmes and a scholarship's field-of-study links
+ * go with it; a field of study's programmes and scholarships stay, unlinked.
  */
 export async function deleteEntry(form: FormData) {
   const { supabase, member, table, entry } = await callerAndEntry(form);

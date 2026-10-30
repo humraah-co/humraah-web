@@ -12,9 +12,17 @@ import { getSessionClient, requireActiveMember } from "@/lib/admin/session";
 
 export const metadata: Metadata = { title: "Search" };
 
+const searchTables: EntryTable[] = [
+  "universities",
+  "scholarships",
+  "fields",
+  "resources",
+  "guidance_articles",
+];
+
 /**
- * The dashboard's search: universities and scholarships in every status,
- * by name, short name, provider or web address. One match opens its
+ * The dashboard's search: every kind of entry in every status, by name,
+ * short name, provider, link or web address. One match opens its
  * editor straight away.
  */
 export default async function SearchPage({
@@ -27,15 +35,14 @@ export default async function SearchPage({
   const q = typeof raw === "string" ? raw.trim().slice(0, 100) : "";
 
   // Loaded alongside the membership check; nothing renders until it passes.
-  const [, universities, scholarships] = await Promise.all([
+  const [, ...lists] = await Promise.all([
     requireActiveMember(),
-    q ? listEntries(supabase, "universities") : [],
-    q ? listEntries(supabase, "scholarships") : [],
+    ...searchTables.map((table) => (q ? listEntries(supabase, table) : [])),
   ]);
-  const groups: { table: EntryTable; rows: EntryRow[] | null }[] = [
-    { table: "universities", rows: universities && searchEntries(universities, q) },
-    { table: "scholarships", rows: scholarships && searchEntries(scholarships, q) },
-  ];
+  const groups: { table: EntryTable; rows: EntryRow[] | null }[] = searchTables.map((table, i) => ({
+    table,
+    rows: lists[i] && searchEntries(lists[i], q),
+  }));
   const matches = groups.flatMap((g) => (g.rows ?? []).map((row) => ({ table: g.table, row })));
   const failed = groups.some((g) => g.rows === null);
   if (q && !failed && matches.length === 1) {
@@ -45,16 +52,16 @@ export default async function SearchPage({
 
   return (
     <>
-      <PageHeader title="Search" description="Find a university or scholarship to edit, in any status." />
+      <PageHeader title="Search" description="Find an entry to edit, in any status." />
       <NavForm action="/admin/search" role="search" className="max-w-[560px]">
         <label className="flex h-[52px] items-center gap-2.5 rounded-pill border border-border-strong bg-card px-[18px] has-[input:focus-visible]:outline-3 has-[input:focus-visible]:outline-offset-2 has-[input:focus-visible]:outline-deep-rose">
           <Search className="size-5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
-          <span className="sr-only">Search universities and scholarships</span>
+          <span className="sr-only">Search all entries</span>
           <input
             type="search"
             name="q"
             defaultValue={q}
-            placeholder="Search universities and scholarships"
+            placeholder="Search all entries"
             className="min-w-0 flex-1 bg-transparent text-body-m outline-none placeholder:text-muted"
           />
         </label>

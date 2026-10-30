@@ -52,11 +52,11 @@ export default async function DashboardPage({
         <NavForm action="/admin/search" role="search" className="lg:w-[350px]">
           <label className="flex h-[52px] items-center gap-2.5 rounded-pill border border-border-strong bg-card px-[18px] has-[input:focus-visible]:outline-3 has-[input:focus-visible]:outline-offset-2 has-[input:focus-visible]:outline-deep-rose">
             <Search className="size-5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
-            <span className="sr-only">Search universities and scholarships</span>
+            <span className="sr-only">Search all entries</span>
             <input
               type="search"
               name="q"
-              placeholder="Search universities and scholarships"
+              placeholder="Search all entries"
               className="min-w-0 flex-1 bg-transparent text-body-m text-ellipsis outline-none placeholder:text-muted"
             />
           </label>
@@ -71,6 +71,7 @@ export default async function DashboardPage({
           icon={Landmark}
           tone="bg-tint-lavender"
           label="Universities"
+          href="/admin/universities"
           value={total(counts.universities)}
           caption={caption(counts.universities)}
         />
@@ -78,6 +79,7 @@ export default async function DashboardPage({
           icon={Award}
           tone="bg-tint-sage"
           label="Scholarships"
+          href="/admin/scholarships"
           value={total(counts.scholarships)}
           caption={caption(counts.scholarships)}
         />
@@ -85,6 +87,7 @@ export default async function DashboardPage({
           icon={Globe}
           tone="bg-blush"
           label="Resources"
+          href="/admin/resources"
           value={total(counts.resources)}
           caption={caption(counts.resources)}
         />
@@ -99,6 +102,7 @@ export default async function DashboardPage({
           icon={Compass}
           tone="bg-tint-sage"
           label="Fields of study"
+          href="/admin/fields"
           value={total(counts.fields)}
           caption={caption(counts.fields)}
         />
@@ -106,6 +110,7 @@ export default async function DashboardPage({
           icon={Lightbulb}
           tone="bg-tint-lavender"
           label="Guidance articles"
+          href="/admin/guidance"
           value={total(counts.guidance_articles)}
           caption={caption(counts.guidance_articles)}
         />
@@ -113,9 +118,10 @@ export default async function DashboardPage({
           <StatCard
             icon={Mail}
             tone="bg-tint-coral"
-            label="Contact messages"
+            label="Messages"
+            href="/admin/messages"
             value={data.openMessages}
-            caption="Waiting for a reply"
+            caption="Unread contact messages"
           />
         )}
       </div>

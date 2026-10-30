@@ -44,7 +44,7 @@ function listHref(base: string, params: Partial<ListParams>) {
   return s ? `${base}?${s}` : base;
 }
 
-const copy = {
+const copy: Record<EntryTable, { description: string; add: string }> = {
   universities: {
     description: "Add and update university profiles. Every entry needs an official source.",
     add: "Add university",
@@ -54,11 +54,25 @@ const copy = {
       "Keep eligibility, coverage and deadlines current. Mark each one verified after checking the provider’s site.",
     add: "Add scholarship",
   },
+  fields: {
+    description:
+      "The areas of study on Explore. The quiz and the field pages use these, so edit with care and keep each one’s source current.",
+    add: "Add field of study",
+  },
+  resources: {
+    description: "The official links on the Resources page. Every link needs a source you checked.",
+    add: "Add resource",
+  },
+  guidance_articles: {
+    description:
+      "The step-by-step guidance articles. Write in plain language and check each claim at its source.",
+    add: "Add article",
+  },
 };
 
 /**
- * Admin – Universities (Figma 35:3144) and Admin – Scholarships (35:3417):
- * status tabs with counts, a search box and the table. Tabs, search and
+ * Admin – Universities (Figma 35:3144), Scholarships (35:3417) and the other
+ * content lists in the same layout: status tabs with counts, a search box and the table. Tabs, search and
  * page live in the address, so Back and shared links keep them.
  */
 export function EntryList({
@@ -96,7 +110,7 @@ export function EntryList({
           {params.status !== "all" && <input type="hidden" name="status" value={params.status} />}
           <label className="flex h-[52px] items-center gap-2.5 rounded-pill border border-border-strong bg-card px-[18px] has-[input:focus-visible]:outline-3 has-[input:focus-visible]:outline-offset-2 has-[input:focus-visible]:outline-deep-rose">
             <Search className="size-5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
-            <span className="sr-only">Search {type.label.toLowerCase()} by name</span>
+            <span className="sr-only">Search {type.label.toLowerCase()}</span>
             <input
               type="search"
               name="q"

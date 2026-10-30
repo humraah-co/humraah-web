@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Award, ChevronRight, Landmark } from "lucide-react";
+import { Award, ChevronRight, Compass, Globe, Landmark, Lightbulb } from "lucide-react";
 import { PageHeader } from "@/components/admin/Workspace";
 import { requireActiveMember } from "@/lib/admin/session";
 
@@ -20,6 +20,27 @@ const choices = [
     text: "A scholarship with its eligibility and deadline.",
     icon: Award,
     tone: "bg-tint-sage",
+  },
+  {
+    href: "/admin/fields/new",
+    label: "Field of study",
+    text: "An area of study on Explore, with its interests and programmes.",
+    icon: Compass,
+    tone: "bg-tint-coral",
+  },
+  {
+    href: "/admin/resources/new",
+    label: "Resource",
+    text: "An official link for the Resources page.",
+    icon: Globe,
+    tone: "bg-blush",
+  },
+  {
+    href: "/admin/guidance/new",
+    label: "Guidance article",
+    text: "A step-by-step article in plain language.",
+    icon: Lightbulb,
+    tone: "bg-tint-lavender",
   },
 ];
 
