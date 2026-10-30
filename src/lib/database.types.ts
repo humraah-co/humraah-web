@@ -207,6 +207,10 @@ export type Database = {
       is_admin: { Args: Record<string, never>; Returns: boolean };
       is_owner: { Args: Record<string, never>; Returns: boolean };
       accept_invite: { Args: { p_full_name: string }; Returns: TeamMember };
+      check_contact_rate: {
+        Args: { p_ip_hash: string; p_limit?: number; p_window?: string };
+        Returns: boolean;
+      };
       record_invite_resent: { Args: { p_user_id: string }; Returns: undefined };
       save_university: {
         Args: {

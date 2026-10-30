@@ -17,6 +17,7 @@ import { isForWomen } from "@/lib/scholarshipFilters";
 import { toLocale, type Locale } from "@/i18n/config";
 import { Link } from "@/i18n/navigation";
 import { alternates } from "@/i18n/metadata";
+import { withShare } from "@/i18n/share";
 import { pageLocale, type LocaleParams } from "@/i18n/server";
 
 type Props = { params: LocaleParams<{ slug: string }> };
@@ -32,11 +33,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const scholarship = await getScholarship(slug, toLocale(locale));
   const t = await getTranslations({ locale, namespace: "scholarship" });
   if (!scholarship) return { title: t("metaTitle") };
-  return {
-    title: scholarship.name,
-    description: scholarship.summary ?? undefined,
-    alternates: alternates(`/scholarships/${slug}`, locale),
-  };
+  return withShare(
+    {
+      title: scholarship.name,
+      description: scholarship.summary ?? undefined,
+      alternates: alternates(`/scholarships/${slug}`, locale),
+    },
+    locale,
+  );
 }
 
 /** Typical steps from Figma, shown until a researcher writes this scholarship's own ("scholarship.typicalSteps"). */

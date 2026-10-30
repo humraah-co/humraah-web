@@ -7,12 +7,16 @@ import { Container } from "@/components/layout/PageShell";
 import { buttonStyles } from "@/components/ui/Button";
 import { guideChapters, guidePdfs, type GuidePdf } from "@/config/guide";
 import { alternates } from "@/i18n/metadata";
+import { withShare } from "@/i18n/share";
 import { pageLocale, type LocaleParams } from "@/i18n/server";
 
 export async function generateMetadata({ params }: { params: LocaleParams }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "guide" });
-  return { title: t("title"), description: t("metaDescription"), alternates: alternates("/guide", locale) };
+  return withShare(
+    { title: t("title"), description: t("metaDescription"), alternates: alternates("/guide", locale) },
+    locale,
+  );
 }
 
 export default async function GuidePage({ params }: { params: LocaleParams }) {

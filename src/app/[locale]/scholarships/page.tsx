@@ -23,16 +23,20 @@ import { toggled } from "@/lib/universityFilters";
 import { localizedPath } from "@/i18n/config";
 import { Link } from "@/i18n/navigation";
 import { alternates } from "@/i18n/metadata";
+import { withShare } from "@/i18n/share";
 import { pageLocale, type LocaleParams } from "@/i18n/server";
 
 export async function generateMetadata({ params }: { params: LocaleParams }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "scholarships" });
-  return {
-    title: t("metaTitle"),
-    description: t("metaDescription"),
-    alternates: alternates("/scholarships", locale),
-  };
+  return withShare(
+    {
+      title: t("metaTitle"),
+      description: t("metaDescription"),
+      alternates: alternates("/scholarships", locale),
+    },
+    locale,
+  );
 }
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;

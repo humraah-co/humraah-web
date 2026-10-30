@@ -8,16 +8,20 @@ import { HelpCallout } from "@/components/ui/Blocks";
 import { Ltr } from "@/components/ui/Ltr";
 import { contact } from "@/lib/nav";
 import { alternates } from "@/i18n/metadata";
+import { withShare } from "@/i18n/share";
 import { pageLocale, type LocaleParams } from "@/i18n/server";
 
 export async function generateMetadata({ params }: { params: LocaleParams }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "about" });
-  return {
-    title: t("metaTitle"),
-    description: t("metaDescription"),
-    alternates: alternates("/about", locale),
-  };
+  return withShare(
+    {
+      title: t("metaTitle"),
+      description: t("metaDescription"),
+      alternates: alternates("/about", locale),
+    },
+    locale,
+  );
 }
 
 /** Text for each is in "about.story" and "about.values". */

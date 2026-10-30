@@ -30,6 +30,7 @@ import { contact } from "@/lib/nav";
 import { Link } from "@/i18n/navigation";
 import { toLocale } from "@/i18n/config";
 import { alternates } from "@/i18n/metadata";
+import { withShare } from "@/i18n/share";
 import { pageLocale, type LocaleParams } from "@/i18n/server";
 
 type Props = { params: LocaleParams<{ slug: string }> };
@@ -45,11 +46,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const university = await getUniversity(slug, toLocale(locale));
   const t = await getTranslations({ locale, namespace: "university" });
   if (!university) return { title: t("metaTitle") };
-  return {
-    title: university.name,
-    description: university.overview ?? undefined,
-    alternates: alternates(`/universities/${slug}`, locale),
-  };
+  return withShare(
+    {
+      title: university.name,
+      description: university.overview ?? undefined,
+      alternates: alternates(`/universities/${slug}`, locale),
+    },
+    locale,
+  );
 }
 
 /** Typical steps from Figma, shown until a researcher writes this university's own ("university.typicalSteps"). */

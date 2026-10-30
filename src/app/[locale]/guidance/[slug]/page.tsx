@@ -12,6 +12,7 @@ import { hostOf, readMinutes } from "@/lib/format";
 import { Link } from "@/i18n/navigation";
 import { toLocale } from "@/i18n/config";
 import { alternates } from "@/i18n/metadata";
+import { withShare } from "@/i18n/share";
 import { pageLocale, type LocaleParams } from "@/i18n/server";
 
 type Props = { params: LocaleParams<{ slug: string }> };
@@ -27,11 +28,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const article = await getGuidanceArticle(slug, toLocale(locale));
   const t = await getTranslations({ locale, namespace: "guidance" });
   if (!article) return { title: t("title") };
-  return {
-    title: article.title,
-    description: article.summary ?? undefined,
-    alternates: alternates(`/guidance/${slug}`, locale),
-  };
+  return withShare(
+    {
+      title: article.title,
+      description: article.summary ?? undefined,
+      alternates: alternates(`/guidance/${slug}`, locale),
+    },
+    locale,
+  );
 }
 
 export default async function GuidanceArticlePage({ params }: Props) {

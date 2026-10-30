@@ -9,12 +9,16 @@ import { listGuidanceArticles } from "@/lib/data/public";
 import { readMinutes } from "@/lib/format";
 import { Link } from "@/i18n/navigation";
 import { alternates } from "@/i18n/metadata";
+import { withShare } from "@/i18n/share";
 import { pageLocale, type LocaleParams } from "@/i18n/server";
 
 export async function generateMetadata({ params }: { params: LocaleParams }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "guidance" });
-  return { title: t("title"), description: t("intro"), alternates: alternates("/guidance", locale) };
+  return withShare(
+    { title: t("title"), description: t("intro"), alternates: alternates("/guidance", locale) },
+    locale,
+  );
 }
 
 export const revalidate = 300;

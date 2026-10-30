@@ -12,6 +12,7 @@ import { getField, listFields, listScholarshipCards, listUniversityCards } from 
 import { Link } from "@/i18n/navigation";
 import { toLocale } from "@/i18n/config";
 import { alternates } from "@/i18n/metadata";
+import { withShare } from "@/i18n/share";
 import { pageLocale, type LocaleParams } from "@/i18n/server";
 
 type Props = { params: LocaleParams<{ slug: string }> };
@@ -28,11 +29,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const field = await getField(slug, toLocale(locale));
   const t = await getTranslations({ locale, namespace: "field" });
   if (!field) return { title: t("metaTitle") };
-  return {
-    title: field.name,
-    description: field.summary ?? undefined,
-    alternates: alternates(`/explore/${slug}`, locale),
-  };
+  return withShare(
+    {
+      title: field.name,
+      description: field.summary ?? undefined,
+      alternates: alternates(`/explore/${slug}`, locale),
+    },
+    locale,
+  );
 }
 
 export default async function FieldPage({ params }: Props) {

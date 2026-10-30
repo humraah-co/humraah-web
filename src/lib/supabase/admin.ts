@@ -6,7 +6,8 @@ import { getSupabaseEnv } from "./env";
 /**
  * Service-role client for the few things only Supabase Auth's admin API can
  * do: sending invites, deleting a revoked invitee's account and reading
- * when people last signed in. It bypasses row-level security, so callers
+ * when people last signed in, and the contact form's rate limit
+ * (check_contact_rate, which only this role may run). It bypasses row-level security, so callers
  * must check the signed-in member's role first, and table changes still go
  * through the session client so the access rules and activity log apply.
  *
