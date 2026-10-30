@@ -815,6 +815,145 @@ check("the refused saves left nothing in the log; every real change is there", a
   "archived",
 ]);
 
+// ---------------------------------------------------------------------------
+// Urdu content (Day 6): the _ur columns follow the same rules as their rows
+// ---------------------------------------------------------------------------
+await db.exec(`update guidance_articles set title_ur = 'یونیورسٹی کے بارے میں کیسے معلوم کریں؟' where slug = 'how-to-research-a-university';
+ update fields set name_ur = 'انجینئرنگ' where slug = 'engineering';`);
+check(
+  "anon reads Urdu on published rows",
+  await as(
+    "anon",
+    null,
+    `select (select title_ur from guidance_articles where slug='how-to-research-a-university') g, (select name_ur from fields where slug='engineering') f`,
+  ),
+  [{ g: "یونیورسٹی کے بارے میں کیسے معلوم کریں؟", f: "انجینئرنگ" }],
+);
+const urDraft = (await saveUni(RES2, null, { ...uni, slug: "urdu-draft", overview_ur: "مسودہ" }))[0]?.id;
+check(
+  "a draft's Urdu is saved",
+  await as("authenticated", RES2, `select overview_ur from universities where id='${urDraft}'`),
+  [{ overview_ur: "مسودہ" }],
+);
+check(
+  "anon cannot see a draft's Urdu",
+  await as("anon", null, `select overview_ur from universities where slug='urdu-draft'`),
+  [],
+);
+await saveUni(
+  RES2,
+  urDraft,
+  {
+    ...uni,
+    slug: "urdu-draft",
+    overview_ur: "نیا تعارف",
+    required_documents_ur: ["شناختی کارڈ", "رزلٹ"],
+    source_url: "https://x.pk",
+    status: "published",
+  },
+  `jsonb_build_array(jsonb_build_object('field_id', ${fieldId("law")}, 'name', 'LLB', 'entry_test_ur', 'داخلہ ٹیسٹ'))`,
+);
+check(
+  "the editor's save stores Urdu, including lists and programme rows",
+  await as(
+    "anon",
+    null,
+    `select u.overview_ur, u.required_documents_ur, p.entry_test_ur from universities u join programmes p on p.university_id=u.id where u.slug='urdu-draft'`,
+  ),
+  [{ overview_ur: "نیا تعارف", required_documents_ur: ["شناختی کارڈ", "رزلٹ"], entry_test_ur: "داخلہ ٹیسٹ" }],
+);
+await saveUni(
+  RES2,
+  urDraft,
+  {
+    ...uni,
+    slug: "urdu-draft",
+    overview_ur: "نیا تعارف، دوبارہ",
+    required_documents_ur: ["شناختی کارڈ", "رزلٹ"],
+    source_url: "https://x.pk",
+  },
+  `jsonb_build_array(jsonb_build_object('field_id', ${fieldId("law")}, 'name', 'LLB', 'entry_test_ur', 'داخلہ ٹیسٹ'))`,
+);
+check("an Urdu-only change is logged like any other edit", await entryLog(urDraft), [
+  "created",
+  "updated",
+  "published",
+  "updated",
+]);
+const urSchol = (
+  await saveSchol(RES2, null, {
+    ...schol,
+    slug: "urdu-scholarship",
+    summary_ur: "خلاصہ",
+    covers_ur: ["ٹیوشن"],
+  })
+)[0]?.id;
+check(
+  "the scholarship save stores Urdu",
+  await as("authenticated", RES2, `select summary_ur, covers_ur from scholarships where id='${urSchol}'`),
+  [{ summary_ur: "خلاصہ", covers_ur: ["ٹیوشن"] }],
+);
+check(
+  "Urdu passed to save is limited to known columns",
+  await as(
+    "authenticated",
+    RES2,
+    `select save_scholarship('${urSchol}', ${json({ ...schol, slug: "urdu-scholarship", created_by_ur: "x", status_ur: "y" })}, '{}'::uuid[]) is not null as ok`,
+  ),
+  [{ ok: true }],
+);
+check(
+  "anon cannot write Urdu",
+  typeof (await as("anon", null, `update fields set summary_ur='x' where slug='law' returning id`)),
+  "string",
+);
+check(
+  "anon cannot save Urdu through the editor's function",
+  String(
+    await as(
+      "anon",
+      null,
+      `select save_university(null, ${json({ ...uni, slug: "anon-urdu" })}, '[]'::jsonb)`,
+    ),
+  ).includes("permission denied"),
+  true,
+);
+check(
+  "a suspended researcher cannot save Urdu",
+  String(await saveUni(SUS2, urDraft, { ...uni, slug: "urdu-draft", overview_ur: "x" })).includes(
+    "Only team members can edit entries",
+  ),
+  true,
+);
+
+// The translations migration, applied to the seeded content as it is in production.
+const translations = fs.readFileSync(`${repo}/migrations/20261025000002_urdu_translations.sql`, "utf8");
+await db.exec(translations);
+check(
+  "the translations fill today's content",
+  await as(
+    "anon",
+    null,
+    `select (select count(*)::int from fields where name_ur is not null and summary_ur is not null) fields,
+       (select count(*)::int from scholarships where summary_ur is not null) scholarships,
+       (select count(*)::int from guidance_articles where body_markdown_ur like '%##%') guidance,
+       (select count(*)::int from resources where title_ur is not null) resources`,
+  ),
+  [{ fields: 10, scholarships: 6, guidance: 3, resources: 2 }],
+);
+check(
+  "names stay in English",
+  await as("anon", null, `select count(*)::int n from universities where name_ur is not null`),
+  [{ n: 0 }],
+);
+await db.exec(`update scholarships set summary_ur = 'درست کیا گیا خلاصہ' where slug = 'peef';`);
+await db.exec(translations);
+check(
+  "running the translations again keeps a later correction",
+  await as("anon", null, `select summary_ur from scholarships where slug='peef'`),
+  [{ summary_ur: "درست کیا گیا خلاصہ" }],
+);
+
 if (failed) {
   console.error(`${failed} check(s) failed`);
   process.exit(1);

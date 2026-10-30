@@ -1,5 +1,6 @@
-import Link from "next/link";
 import { ExternalLink } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { RememberCallout, Step } from "@/components/ui/Blocks";
 import { parseMarkdown, type Block, type Inline } from "@/lib/markdown";
 
@@ -42,7 +43,7 @@ function BlockView({ block }: { block: Block }) {
       const List = block.ordered ? "ol" : "ul";
       return (
         <List
-          className={`flex flex-col gap-1.5 pl-5 text-body-m marker:text-muted ${block.ordered ? "list-decimal" : "list-disc"}`}
+          className={`flex flex-col gap-1.5 ps-5 text-body-m marker:text-muted ${block.ordered ? "list-decimal" : "list-disc"}`}
         >
           {block.items.map((item, i) => (
             <li key={i}>
@@ -91,6 +92,7 @@ function stripRemember(nodes: Inline[]): Inline[] {
 }
 
 function Inlines({ nodes }: { nodes: Inline[] }) {
+  const t = useTranslations("common");
   return nodes.map((n, i) => {
     switch (n.type) {
       case "text":
@@ -118,11 +120,11 @@ function Inlines({ nodes }: { nodes: Inline[] }) {
             {!n.href.startsWith("mailto:") && (
               <>
                 <ExternalLink
-                  className="ml-0.5 inline size-3.5 align-[-2px]"
+                  className="ms-0.5 inline size-3.5 align-[-2px]"
                   strokeWidth={2}
                   aria-hidden="true"
                 />
-                <span className="sr-only"> (opens in a new tab)</span>
+                <span className="sr-only"> {t("opensInNewTab")}</span>
               </>
             )}
           </a>

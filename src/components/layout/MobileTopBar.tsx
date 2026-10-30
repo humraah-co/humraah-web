@@ -1,18 +1,21 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
+import { stripLocale } from "@/i18n/config";
 import { ArrowLeft } from "lucide-react";
 import { LogoHorizontal } from "@/components/brand/Logo";
 import { ShareButton } from "@/components/ui/ShareButton";
-import { LanguageSwitch, MenuButton, SearchButton } from "./HeaderActions";
+import { MenuButton, SearchButton } from "./HeaderActions";
+import { LanguageSwitch } from "./LanguageSwitch";
 
-/** Sections whose detail pages (/section/slug) use "App bar/Back" on mobile. */
-const detailParents: Record<string, string> = {
-  explore: "Explore fields",
-  universities: "Universities",
-  scholarships: "Scholarships",
-  guidance: "Guidance",
+/** Sections whose detail pages (/section/slug) use "App bar/Back" on mobile; values are "nav" labels. */
+const detailParents: Record<string, "explore" | "universities" | "scholarships" | "guidance"> = {
+  explore: "explore",
+  universities: "universities",
+  scholarships: "scholarships",
+  guidance: "guidance",
 };
 
 /**
@@ -21,8 +24,10 @@ const detailParents: Record<string, string> = {
  */
 export function MobileTopBar() {
   const pathname = usePathname();
-  const [section, slug, ...rest] = pathname.split("/").filter(Boolean);
-  const parentLabel = section ? detailParents[section] : undefined;
+  const t = useTranslations("nav");
+  const [section, slug, ...rest] = stripLocale(pathname).split("/").filter(Boolean);
+  const parentKey = section ? detailParents[section] : undefined;
+  const parentLabel = parentKey ? t(parentKey) : undefined;
 
   if (parentLabel && slug && rest.length === 0) {
     return (
@@ -30,7 +35,7 @@ export function MobileTopBar() {
         <Link
           href={`/${section}`}
           className="flex size-11 shrink-0 items-center justify-center rounded-pill border border-border-soft bg-card hover:bg-blush"
-          aria-label={`Back to ${parentLabel}`}
+          aria-label={t("backTo", { section: parentLabel })}
         >
           <ArrowLeft className="size-5" strokeWidth={1.75} aria-hidden="true" />
         </Link>
@@ -47,7 +52,7 @@ export function MobileTopBar() {
       <div className="flex items-center gap-1 sm:gap-1.5">
         <LanguageSwitch />
         <SearchButton />
-        <MenuButton from={pathname} />
+        <MenuButton from={stripLocale(pathname)} />
       </div>
     </div>
   );

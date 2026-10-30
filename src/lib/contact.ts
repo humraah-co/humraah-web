@@ -7,13 +7,23 @@ export const LIMITS = { name: 120, email: 254, message: 4000 } as const;
 
 export type ContactField = "name" | "email" | "message" | "privacy";
 
+/** What's wrong with a field; the form shows the matching message in the page's language ("contact.errors"). */
+export type ContactError =
+  | "nameRequired"
+  | "nameTooLong"
+  | "emailRequired"
+  | "emailInvalid"
+  | "messageRequired"
+  | "messageTooLong"
+  | "privacyRequired";
+
 export type ContactInput = { name: string; email: string; message: string; privacy: boolean };
 
 export type ContactState =
   | { status: "idle" }
   | {
       status: "invalid";
-      errors: Partial<Record<ContactField, string>>;
+      errors: Partial<Record<ContactField, ContactError>>;
       values: Omit<ContactInput, "privacy">;
     }
   | { status: "error"; values: Omit<ContactInput, "privacy"> }
@@ -36,19 +46,17 @@ export function readContactForm(form: FormData): ContactInput {
 }
 
 export function validateContact(input: ContactInput) {
-  const errors: Partial<Record<ContactField, string>> = {};
-  if (!input.name) errors.name = "Please tell us your name.";
-  else if (input.name.length > LIMITS.name)
-    errors.name = `Please keep your name under ${LIMITS.name} characters.`;
+  const errors: Partial<Record<ContactField, ContactError>> = {};
+  if (!input.name) errors.name = "nameRequired";
+  else if (input.name.length > LIMITS.name) errors.name = "nameTooLong";
 
-  if (!input.email) errors.email = "Please add your email address so we can reply.";
+  if (!input.email) errors.email = "emailRequired";
   else if (input.email.length > LIMITS.email || !emailPattern.test(input.email))
-    errors.email = "Please check your email address, for example name@example.com.";
+    errors.email = "emailInvalid";
 
-  if (!input.message) errors.message = "Please write your message.";
-  else if (input.message.length > LIMITS.message)
-    errors.message = `Please keep your message under ${LIMITS.message.toLocaleString("en")} characters.`;
+  if (!input.message) errors.message = "messageRequired";
+  else if (input.message.length > LIMITS.message) errors.message = "messageTooLong";
 
-  if (!input.privacy) errors.privacy = "Please confirm you have read the Contact Form Privacy Notice.";
+  if (!input.privacy) errors.privacy = "privacyRequired";
   return errors;
 }

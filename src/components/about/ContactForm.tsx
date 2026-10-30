@@ -1,12 +1,13 @@
 "use client";
 
 import { useActionState, useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import { CircleCheck } from "lucide-react";
-import { sendContactMessage } from "@/app/about/actions";
+import { useTranslations } from "next-intl";
+import { sendContactMessage } from "@/app/[locale]/about/actions";
 import { buttonStyles } from "@/components/ui/Button";
 import { checkboxClass, ErrorText, Field, FormAlert, fieldClass } from "@/components/ui/Field";
 import { contactPrivacy } from "@/content/contactPrivacy";
+import { Link } from "@/i18n/navigation";
 import { LIMITS, type ContactField, type ContactState } from "@/lib/contact";
 import { contact } from "@/lib/nav";
 
@@ -21,6 +22,8 @@ function Form({ onReset }: { onReset: () => void }) {
   const [state, action, pending] = useActionState<ContactState, FormData>(sendContactMessage, {
     status: "idle",
   });
+  const t = useTranslations("contact");
+  const notice = useTranslations("privacyNotice");
   const formRef = useRef<HTMLFormElement>(null);
   const doneRef = useRef<HTMLDivElement>(null);
 
@@ -36,37 +39,49 @@ function Form({ onReset }: { onReset: () => void }) {
       <div ref={doneRef} tabIndex={-1} role="status" className="flex flex-col gap-3 outline-none">
         <p className="flex items-center gap-2 text-h3">
           <CircleCheck className="size-6 text-deep-sage" strokeWidth={1.75} aria-hidden="true" />
-          Thank you, your message is on its way
+          {t("sentTitle")}
         </p>
-        <p className="text-body-m text-muted">
-          We’ll reply by email. It can take a few days, so please check your spam folder too.
-        </p>
+        <p className="text-body-m text-muted">{t("sentText")}</p>
         <button type="button" onClick={onReset} className={`${buttonStyles.secondary} self-start`}>
-          Send another message
+          {t("sendAnother")}
         </button>
       </div>
     );
   }
 
-  const errors = state.status === "invalid" ? state.errors : {};
+  const codes = state.status === "invalid" ? state.errors : {};
+  const max = { nameTooLong: LIMITS.name, messageTooLong: LIMITS.message.toLocaleString("en") };
+  const errors = Object.fromEntries(
+    Object.entries(codes).map(([field, code]) => [
+      field,
+      t(`errors.${code}`, { max: max[code as keyof typeof max] ?? "" }),
+    ]),
+  ) as Partial<Record<ContactField, string>>;
   const values = state.status === "invalid" || state.status === "error" ? state.values : undefined;
   const describedBy = (field: ContactField) => (errors[field] ? `${field}-error` : undefined);
 
   return (
     <form ref={formRef} action={action} noValidate className="flex flex-col gap-3.5">
-      <h3 className="text-h3">Send us a message</h3>
+      <h3 className="text-h3">{t("title")}</h3>
 
       {state.status === "error" && (
         <FormAlert>
-          Sorry, we couldn’t send your message just now. Please try again in a few minutes, or email us at{" "}
-          <a href={`mailto:${contact.email}`} className="text-deep-rose underline underline-offset-2">
-            {contact.email}
-          </a>
-          .
+          {t.rich("sendFailed", {
+            email: () => (
+              <a
+                href={`mailto:${contact.email}`}
+                className="text-deep-rose underline underline-offset-2"
+                lang="en"
+                dir="ltr"
+              >
+                {contact.email}
+              </a>
+            ),
+          })}
         </FormAlert>
       )}
 
-      <Field id="name" label="Your name" error={errors.name}>
+      <Field id="name" label={t("name")} error={errors.name}>
         <input
           id="name"
           name="name"
@@ -75,13 +90,13 @@ function Form({ onReset }: { onReset: () => void }) {
           required
           maxLength={LIMITS.name}
           defaultValue={values?.name}
-          placeholder="Your name"
+          placeholder={t("name")}
           aria-invalid={!!errors.name}
           aria-describedby={describedBy("name")}
           className={`${fieldClass} h-12`}
         />
       </Field>
-      <Field id="email" label="Email address" error={errors.email}>
+      <Field id="email" label={t("email")} error={errors.email}>
         <input
           id="email"
           name="email"
@@ -97,7 +112,7 @@ function Form({ onReset }: { onReset: () => void }) {
           className={`${fieldClass} h-12`}
         />
       </Field>
-      <Field id="message" label="Message" error={errors.message}>
+      <Field id="message" label={t("message")} error={errors.message}>
         <textarea
           id="message"
           name="message"
@@ -105,7 +120,7 @@ function Form({ onReset }: { onReset: () => void }) {
           rows={4}
           maxLength={LIMITS.message}
           defaultValue={values?.message}
-          placeholder="Write your question here"
+          placeholder={t("messagePlaceholder")}
           aria-invalid={!!errors.message}
           aria-describedby={describedBy("message")}
           className={`${fieldClass} min-h-28 py-3`}
@@ -122,18 +137,18 @@ function Form({ onReset }: { onReset: () => void }) {
 
       <section aria-labelledby="privacy-notice" className="rounded-2xl bg-cream p-3.5">
         <h4 id="privacy-notice" className="text-label-m">
-          Contact Form Privacy Notice: {contactPrivacy.title}
+          {notice("heading", { title: notice("title") })}
         </h4>
         {contactPrivacy.paragraphs.map((p) => (
-          <p key={p.slice(0, 24)} className="mt-1.5 text-caption text-muted">
-            {p}
+          <p key={p} className="mt-1.5 text-caption text-muted">
+            {notice(p)}
           </p>
         ))}
         <Link
           href="/privacy#contact-form"
           className="mt-1.5 inline-block text-caption text-deep-rose underline underline-offset-2"
         >
-          Privacy and disclaimer
+          {t("privacyLink")}
         </Link>
       </section>
 
@@ -147,7 +162,7 @@ function Form({ onReset }: { onReset: () => void }) {
             aria-describedby={describedBy("privacy")}
             className={`mt-0.5 size-6 rounded-[7px] ${checkboxClass}`}
           />
-          {contactPrivacy.checkboxLabel}
+          {notice("checkbox")}
         </label>
         {errors.privacy && <ErrorText id="privacy-error">{errors.privacy}</ErrorText>}
       </div>
@@ -157,9 +172,9 @@ function Form({ onReset }: { onReset: () => void }) {
         disabled={pending}
         className={`${buttonStyles.primary} w-full disabled:opacity-70`}
       >
-        {pending ? "Sending…" : "Send message"}
+        {pending ? t("sending") : t("send")}
       </button>
-      <p className="text-caption text-muted">We’ll reply by email.</p>
+      <p className="text-caption text-muted">{t("replyByEmail")}</p>
     </form>
   );
 }

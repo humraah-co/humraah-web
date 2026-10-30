@@ -23,14 +23,14 @@ export function PasswordInput({ className = "", ...props }: Props) {
 
   return (
     <div className="relative">
-      <input ref={ref} {...props} type={visible ? "text" : "password"} className={`${className} pr-12`} />
+      <input ref={ref} {...props} type={visible ? "text" : "password"} className={`${className} pe-12`} />
       <button
         type="button"
         onClick={() => setVisible((v) => !v)}
         aria-label={visible ? "Hide password" : "Show password"}
         aria-pressed={visible}
         aria-controls={props.id}
-        className="absolute inset-y-0 right-0 flex w-12 items-center justify-center rounded-r-xl text-muted transition-colors hover:text-deep-rose focus-visible:text-deep-rose"
+        className="absolute inset-y-0 end-0 flex w-12 items-center justify-center rounded-e-xl text-muted transition-colors hover:text-deep-rose focus-visible:text-deep-rose"
       >
         {visible ? <EyeOffIcon /> : <EyeIcon />}
       </button>

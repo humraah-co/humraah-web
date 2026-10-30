@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 /**
  * Segmented (Figma 4:176): one choice from a few. Each segment is a link, so

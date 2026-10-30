@@ -1,17 +1,24 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
+import { stripLocale } from "@/i18n/config";
 import { Award, BookOpen, Compass, House, Landmark, type LucideIcon } from "lucide-react";
 import { isAdminPath } from "@/lib/admin/paths";
 import { isActive, isQuizPath } from "@/lib/nav";
 
-const tabs: { href: string; label: string; icon: LucideIcon }[] = [
-  { href: "/", label: "Home", icon: House },
-  { href: "/explore", label: "Explore", icon: Compass },
-  { href: "/universities", label: "Universities", icon: Landmark },
-  { href: "/scholarships", label: "Scholarships", icon: Award },
-  { href: "/guide", label: "Guide", icon: BookOpen },
+/** `label` names the tab's text in the "nav" messages. */
+const tabs: {
+  href: string;
+  label: "home" | "exploreShort" | "universities" | "scholarships" | "guide";
+  icon: LucideIcon;
+}[] = [
+  { href: "/", label: "home", icon: House },
+  { href: "/explore", label: "exploreShort", icon: Compass },
+  { href: "/universities", label: "universities", icon: Landmark },
+  { href: "/scholarships", label: "scholarships", icon: Award },
+  { href: "/guide", label: "guide", icon: BookOpen },
 ];
 
 /**
@@ -23,13 +30,14 @@ const tabs: { href: string; label: string; icon: LucideIcon }[] = [
  * never touch; every label stays in full.
  */
 export function BottomNav() {
-  const pathname = usePathname();
+  const pathname = stripLocale(usePathname());
+  const t = useTranslations("nav");
   if (pathname === "/quiz" || pathname === "/menu" || isAdminPath(pathname)) return null;
   return (
     <>
       <div aria-hidden="true" className="h-[83px] shrink-0 lg:hidden" />
       <nav
-        aria-label="Primary"
+        aria-label={t("primary")}
         className="fixed inset-x-0 bottom-0 z-40 border-t border-border-soft bg-card px-1.5 pt-2 pb-[max(22px,env(safe-area-inset-bottom))] shadow-bottom-bar max-[399px]:px-1 lg:hidden"
       >
         <ul className="flex">
@@ -37,7 +45,7 @@ export function BottomNav() {
             // Quiz results sit under Explore (Figma 12:1222).
             const active = isActive(pathname, href) || (href === "/explore" && isQuizPath(pathname));
             return (
-              <li key={href} className="flex-1">
+              <li key={href} className="min-w-0 flex-1">
                 <Link
                   href={href}
                   aria-current={active ? "page" : undefined}
@@ -55,7 +63,7 @@ export function BottomNav() {
                       active ? "text-charcoal" : "text-muted"
                     }`}
                   >
-                    {label}
+                    {t(label)}
                   </span>
                 </Link>
               </li>

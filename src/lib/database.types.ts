@@ -39,6 +39,12 @@ export type Field = Audited & {
   interests: string[];
   example_programmes: string[];
   sort_order: number;
+  // Urdu (20261025000001_urdu_content.sql); null until translated.
+  name_ur: string | null;
+  summary_ur: string | null;
+  you_might_enjoy_ur: string | null;
+  interests_ur: string[] | null;
+  example_programmes_ur: string[] | null;
 };
 
 export type University = Audited & {
@@ -64,6 +70,15 @@ export type University = Audited & {
   admissions_window: string | null;
   need_based_aid: boolean | null;
   admission_test: string | null;
+  // Urdu; null until translated. Most university names stay in English.
+  name_ur: string | null;
+  campuses_note_ur: string | null;
+  overview_ur: string | null;
+  how_to_apply_ur: string | null;
+  required_documents_ur: string[] | null;
+  fee_note_ur: string | null;
+  admissions_window_ur: string | null;
+  admission_test_ur: string | null;
 };
 
 export type Programme = {
@@ -75,6 +90,8 @@ export type Programme = {
   duration_years: number | null;
   entry_requirements: string | null;
   entry_test: string | null;
+  entry_requirements_ur: string | null;
+  entry_test_ur: string | null;
   sort_order: number;
   created_at: string;
   updated_at: string;
@@ -98,6 +115,15 @@ export type Scholarship = Audited & {
   official_url: string | null;
   covers: string[];
   audience_note: string | null;
+  // Urdu; null until translated. Names and providers stay in English.
+  summary_ur: string | null;
+  who_its_for_ur: string | null;
+  what_it_covers_ur: string | null;
+  how_to_apply_ur: string | null;
+  audience_note_ur: string | null;
+  deadline_note_ur: string | null;
+  covers_ur: string[] | null;
+  eligible_areas_ur: string[] | null;
 };
 
 export type ScholarshipField = { scholarship_id: string; field_id: string };
@@ -109,6 +135,8 @@ export type Resource = Audited & {
   url: string;
   category: ResourceCategory;
   sort_order: number;
+  title_ur: string | null;
+  description_ur: string | null;
 };
 
 export type GuidanceArticle = Audited & {
@@ -118,6 +146,9 @@ export type GuidanceArticle = Audited & {
   summary: string | null;
   body_markdown: string;
   sort_order: number;
+  title_ur: string | null;
+  summary_ur: string | null;
+  body_markdown_ur: string | null;
 };
 
 export type TeamMember = {

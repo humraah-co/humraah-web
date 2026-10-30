@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { MessageCircle, Share2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { buttonStyles } from "./Button";
 
 /**
@@ -19,6 +20,7 @@ export function ShareButton({
   className?: string;
 }) {
   const [copied, setCopied] = useState(false);
+  const t = useTranslations("share");
 
   if (variant === "whatsapp") {
     const onClick = () => {
@@ -28,7 +30,7 @@ export function ShareButton({
     return (
       <button type="button" onClick={onClick} className={`${buttonStyles.secondary} ${className}`}>
         <MessageCircle className="size-5" strokeWidth={1.75} aria-hidden="true" />
-        Share on WhatsApp
+        {t("whatsapp")}
       </button>
     );
   }
@@ -53,11 +55,11 @@ export function ShareButton({
       type="button"
       onClick={onShare}
       className="flex size-11 shrink-0 items-center justify-center rounded-pill border border-border-soft bg-card hover:bg-blush"
-      aria-label={copied ? "Link copied" : "Share this page"}
+      aria-label={copied ? t("copied") : t("sharePage")}
     >
       <Share2 className="size-5" strokeWidth={1.75} aria-hidden="true" />
       <span className="sr-only" role="status">
-        {copied ? "Link copied" : ""}
+        {copied ? t("copied") : ""}
       </span>
     </button>
   );

@@ -1,5 +1,6 @@
-import Link from "next/link";
 import { ExternalLink } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 /** Button/Primary, Button/Secondary and Button/Text link from Figma. */
 
@@ -31,12 +32,13 @@ export function ButtonLink({
   children: React.ReactNode;
 }) {
   const classes = `${buttonStyles[variant]} ${className}`;
+  const t = useTranslations("common");
   if (external) {
     return (
       <a href={href} target="_blank" rel="noopener noreferrer" className={classes}>
         {children}
         {variant !== "text" && <ExternalLink className="size-5" strokeWidth={1.75} aria-hidden="true" />}
-        <span className="sr-only">(opens in a new tab)</span>
+        <span className="sr-only">{t("opensInNewTab")}</span>
       </a>
     );
   }

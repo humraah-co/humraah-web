@@ -1,4 +1,8 @@
 import type { NextConfig } from "next";
+import createNextIntlPlugin from "next-intl/plugin";
+
+// Loads src/i18n/request.ts, which picks each request's messages (English or Urdu).
+const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 // Baseline security headers. A full Content-Security-Policy is added on Day 6
 // once every third-party origin the site needs is known.
@@ -11,6 +15,12 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // The page-render test (src/i18n/intl-errors.test.ts) runs its own dev
+  // server in another folder, so it never disturbs a running `npm run dev`.
+  distDir: process.env.NEXT_DIST_DIR || ".next",
+  // app/global-not-found.tsx: the 404 for addresses that match no page. The
+  // site's real root layouts are per area (public and admin).
+  experimental: { globalNotFound: true },
   async headers() {
     return [
       { source: "/:path*", headers: securityHeaders },
@@ -20,4 +30,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

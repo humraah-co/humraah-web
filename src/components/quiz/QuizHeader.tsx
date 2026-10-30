@@ -1,5 +1,6 @@
-import Link from "next/link";
 import { ArrowLeft, X } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { LogoHorizontal } from "@/components/brand/Logo";
 import { buttonStyles } from "@/components/ui/Button";
 import { ShareButton } from "@/components/ui/ShareButton";
@@ -23,6 +24,7 @@ export function QuizHeader({
   backLabel: string;
   action: "exit" | "share";
 }) {
+  const t = useTranslations("quiz");
   return (
     <header className="sticky top-0 z-40 border-b border-border-soft bg-cream">
       <div className="flex items-center gap-1.5 px-3 py-2 lg:hidden">
@@ -31,7 +33,7 @@ export function QuizHeader({
         </Link>
         <p className="flex-1 text-label-l">{title}</p>
         {action === "exit" ? (
-          <Link href="/" className={iconButton} aria-label="Exit the quiz">
+          <Link href="/" className={iconButton} aria-label={t("exitLabel")}>
             <X className="size-5" strokeWidth={1.75} aria-hidden="true" />
           </Link>
         ) : (
@@ -43,7 +45,7 @@ export function QuizHeader({
         <LogoHorizontal />
         <Link href="/" className={buttonStyles.secondary}>
           <X className="size-5" strokeWidth={1.75} aria-hidden="true" />
-          Exit quiz
+          {t("exit")}
         </Link>
       </div>
     </header>
@@ -52,6 +54,7 @@ export function QuizHeader({
 
 /** "Question 1 of 6 · About 2 minutes" and the coral progress bar. */
 export function QuizProgress({ label, aside, value }: { label: string; aside?: string; value: number }) {
+  const t = useTranslations("quiz");
   return (
     <div className="flex flex-col gap-2.5 lg:gap-5">
       <div className="flex items-center justify-between text-label-s text-muted">
@@ -60,7 +63,7 @@ export function QuizProgress({ label, aside, value }: { label: string; aside?: s
       </div>
       <div
         role="progressbar"
-        aria-label="Quiz progress"
+        aria-label={t("progress")}
         aria-valuemin={0}
         aria-valuemax={100}
         aria-valuenow={Math.round(value * 100)}

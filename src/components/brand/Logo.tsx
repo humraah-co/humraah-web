@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element -- tiny static SVGs; next/image adds nothing here */
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 /**
  * Logo/Horizontal from Figma (node 3:216): the H mark beside the HUMRAAH
@@ -14,8 +15,9 @@ export function LogoHorizontal({
   fit?: keyof typeof horizontalFits;
 }) {
   const f = horizontalFits[fit];
+  const t = useTranslations("brand");
   return (
-    <Link href={href} aria-label="Humraah home" className={`flex shrink-0 items-center ${f.link}`}>
+    <Link href={href} aria-label={t("home")} className={`flex shrink-0 items-center ${f.link}`}>
       <LogoMark className={f.mark} />
       <span className={`flex-col items-center ${f.words}`}>
         <img
