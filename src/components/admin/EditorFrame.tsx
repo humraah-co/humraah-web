@@ -307,7 +307,7 @@ export function EditorFrame<V>({
                   name="intent"
                   value="verify"
                   disabled={pending}
-                  className={`inline-flex w-full items-center justify-center gap-2 rounded-pill bg-sage px-[22px] py-3.5 text-[16px] leading-5 font-semibold text-charcoal transition-colors hover:bg-[#a5b778] ${disabledStyle}`}
+                  className={`inline-flex w-full items-center justify-center gap-2 rounded-pill bg-sage px-[22px] py-3.5 text-[16px] leading-5 font-semibold text-ink transition-colors hover:bg-sage-hover ${disabledStyle}`}
                 >
                   <Check className="size-5" strokeWidth={1.75} aria-hidden="true" />
                   {pending && intent === "verify" ? "Saving…" : "Mark as verified today"}

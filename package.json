@@ -13,6 +13,7 @@
     "format:check": "prettier --check .",
     "test:db": "node supabase/tests/access-rules.test.mjs && node supabase/tests/content-editors.test.mjs && node supabase/tests/messages.test.mjs && node supabase/tests/rerun-migrations.test.mjs",
     "test:i18n": "node --test \"src/i18n/*.test.ts\"",
+    "test:theme": "node --test \"src/lib/theme/*.test.ts\"",
     "db:types": "supabase gen types typescript --linked > src/lib/database.types.ts",
     "urdu:export": "node scripts/urdu-review.mjs export",
     "urdu:apply": "node scripts/urdu-review.mjs apply"

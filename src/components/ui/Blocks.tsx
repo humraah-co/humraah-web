@@ -136,7 +136,7 @@ export function NextSteps({
             <label className="flex cursor-pointer items-start gap-3 text-body-m">
               <input
                 type="checkbox"
-                className="mt-0.5 size-6 shrink-0 cursor-pointer appearance-none rounded-[7px] border-[1.5px] border-muted bg-card bg-center bg-no-repeat checked:border-deep-rose checked:bg-tint-coral checked:bg-[url('/brand/check.svg')]"
+                className="mt-0.5 size-6 shrink-0 cursor-pointer appearance-none rounded-[7px] border-[1.5px] border-muted bg-card bg-center bg-no-repeat checked:border-deep-rose checked:bg-tint-coral checked:bg-[url('/brand/check.svg')] dark:checked:bg-[url('/brand/check-dark.svg')]"
               />
               {item}
             </label>
@@ -214,7 +214,7 @@ export function Step({
   return (
     <li className="flex gap-3.5">
       <div className="flex w-9 shrink-0 flex-col items-center gap-1.5">
-        <span className="flex size-9 items-center justify-center rounded-pill bg-coral text-label-m">
+        <span className="flex size-9 items-center justify-center rounded-pill bg-coral text-label-m text-ink">
           {number}
         </span>
         {!last && (

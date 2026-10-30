@@ -56,7 +56,7 @@ export function AddEntryMenu() {
           aria-hidden="true"
         />
       </summary>
-      <ul className="absolute right-0 z-20 mt-2 flex w-full min-w-[220px] flex-col gap-1 rounded-2xl border border-border-soft bg-card p-2 shadow-[0_8px_28px_0_rgb(56_51_46/0.1)] sm:w-auto">
+      <ul className="absolute right-0 z-20 mt-2 flex w-full min-w-[220px] flex-col gap-1 rounded-2xl border border-border-soft bg-card p-2 shadow-raised sm:w-auto">
         {choices.map(({ href, label, icon: Icon }) => (
           <li key={href}>
             <Link

@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { clientMessages } from "@/i18n/messages";
+import { ThemeScript } from "@/components/ui/ThemeScript";
+import { THEME_COLORS } from "@/lib/theme/script";
 import { caveat, cormorant, dmSans, nastaliq } from "../fonts";
 import "../globals.css";
 
@@ -16,7 +18,10 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f7f1ec",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: THEME_COLORS.light },
+    { media: "(prefers-color-scheme: dark)", color: THEME_COLORS.dark },
+  ],
 };
 
 // Every /admin page is for one signed-in person: render it per request,
@@ -27,8 +32,12 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${dmSans.variable} ${cormorant.variable} ${caveat.variable} ${nastaliq.variable}`}
     >
+      <head>
+        <ThemeScript />
+      </head>
       <body className="flex min-h-dvh flex-col antialiased">
         <a
           href="#main"
@@ -38,7 +47,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         </a>
         <main id="main" className="flex-1">
           {/* The shared buttons, badges and logo read their English text from the messages. */}
-          <NextIntlClientProvider messages={await clientMessages(["brand", "common", "badges"])}>
+          <NextIntlClientProvider messages={await clientMessages(["brand", "common", "badges", "theme"])}>
             {children}
           </NextIntlClientProvider>
         </main>

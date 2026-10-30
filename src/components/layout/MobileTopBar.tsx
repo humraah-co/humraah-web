@@ -6,6 +6,7 @@ import { Link } from "@/i18n/navigation";
 import { stripLocale } from "@/i18n/config";
 import { ArrowLeft } from "lucide-react";
 import { LogoHorizontal } from "@/components/brand/Logo";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { ShareButton } from "@/components/ui/ShareButton";
 import { MenuButton, SearchButton } from "./HeaderActions";
 import { LanguageSwitch } from "./LanguageSwitch";
@@ -51,6 +52,10 @@ export function MobileTopBar() {
       <LogoHorizontal fit="smallerOnPhones" />
       <div className="flex items-center gap-1 sm:gap-1.5">
         <LanguageSwitch />
+        {/* Below 640 px there is no room beside the logo; the Menu screen has the switch. */}
+        <span className="hidden sm:contents">
+          <ThemeToggle />
+        </span>
         <SearchButton />
         <MenuButton from={stripLocale(pathname)} />
       </div>

@@ -86,7 +86,7 @@ export default async function ExplorePage({
           </form>
         </div>
 
-        <aside className="flex items-center gap-3 rounded-[20px] bg-lavender p-4 lg:gap-6 lg:rounded-3xl lg:p-6 xl:w-[420px] xl:shrink-0 xl:flex-col xl:items-start xl:gap-2.5">
+        <aside className="flex items-center gap-3 rounded-[20px] bg-lavender p-4 text-ink lg:gap-6 lg:rounded-3xl lg:p-6 xl:w-[420px] xl:shrink-0 xl:flex-col xl:items-start xl:gap-2.5">
           <div className="flex min-w-0 flex-1 flex-col gap-0.5 lg:gap-1.5 xl:flex-none xl:gap-2.5">
             <p className="text-script">{t("quizTitle")}</p>
             <p className="text-body-s lg:text-body-m">

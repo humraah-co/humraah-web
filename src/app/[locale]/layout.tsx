@@ -10,6 +10,8 @@ import { directionFor, urduEnabled } from "@/i18n/config";
 import { openGraphLocale } from "@/i18n/metadata";
 import { clientMessages } from "@/i18n/messages";
 import { routing } from "@/i18n/routing";
+import { ThemeScript } from "@/components/ui/ThemeScript";
+import { THEME_COLORS } from "@/lib/theme/script";
 import { caveat, cormorant, dmSans, nastaliq } from "../fonts";
 import "../globals.css";
 
@@ -37,7 +39,10 @@ export async function generateMetadata({
 }
 
 export const viewport: Viewport = {
-  themeColor: "#f7f1ec",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: THEME_COLORS.light },
+    { media: "(prefers-color-scheme: dark)", color: THEME_COLORS.dark },
+  ],
 };
 
 /** Every page is built for each language that's switched on (English, plus Urdu behind the flag). */
@@ -58,8 +63,12 @@ export default async function LocaleLayout({
     <html
       lang={locale}
       dir={directionFor(locale)}
+      suppressHydrationWarning
       className={`${dmSans.variable} ${cormorant.variable} ${caveat.variable} ${nastaliq.variable}`}
     >
+      <head>
+        <ThemeScript />
+      </head>
       <body className="flex min-h-dvh flex-col antialiased">
         <a
           href="#main"

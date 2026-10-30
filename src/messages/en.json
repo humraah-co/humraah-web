@@ -28,6 +28,9 @@
     "searchUniversities": "Search universities",
     "backTo": "Back to {section}"
   },
+  "theme": {
+    "darkMode": "Dark mode"
+  },
   "language": {
     "label": "Language",
     "comingSoon": "Urdu version coming soon",

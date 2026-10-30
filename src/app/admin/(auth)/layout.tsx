@@ -1,4 +1,5 @@
 import { LogoStacked } from "@/components/brand/Logo";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 /**
  * Admin – Login (Figma 35:3104): the blush brand panel beside a centred
@@ -19,8 +20,13 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         </p>
       </section>
       <div className="flex flex-1 justify-center px-4 py-8 lg:items-center lg:px-10">
-        <div className="flex w-full max-w-[440px] flex-col gap-[18px] self-start rounded-[28px] border border-border-soft bg-card p-6 sm:p-10 lg:self-center">
-          {children}
+        <div className="flex w-full max-w-[440px] flex-col gap-3 self-start lg:self-center">
+          <div className="flex justify-end">
+            <ThemeToggle />
+          </div>
+          <div className="flex flex-col gap-[18px] rounded-[28px] border border-border-soft bg-card p-6 sm:p-10">
+            {children}
+          </div>
         </div>
       </div>
     </div>

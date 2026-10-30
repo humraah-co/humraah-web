@@ -20,16 +20,32 @@ export function LogoHorizontal({
     <Link href={href} aria-label={t("home")} className={`flex shrink-0 items-center ${f.link}`}>
       <LogoMark className={f.mark} />
       <span className={`flex-col items-center ${f.words}`}>
-        <img
-          src="/brand/logo-wordmark.svg"
-          alt=""
-          width={116}
-          height={12.876}
-          className={`block ${f.wordmark}`}
-        />
+        <Wordmark width={116} height={12.876} className={f.wordmark} />
         <img src="/brand/logo-urdu.svg" alt="" width={23.04} height={12.528} className={`block ${f.urdu}`} />
       </span>
     </Link>
+  );
+}
+
+/** The HUMRAAH wordmark is drawn in charcoal; on the dark page the cream version takes its place. */
+function Wordmark({ width, height, className }: { width: number; height: number; className: string }) {
+  return (
+    <>
+      <img
+        src="/brand/logo-wordmark.svg"
+        alt=""
+        width={width}
+        height={height}
+        className={`block dark:hidden ${className}`}
+      />
+      <img
+        src="/brand/logo-wordmark-dark.svg"
+        alt=""
+        width={width}
+        height={height}
+        className={`hidden dark:block ${className}`}
+      />
+    </>
   );
 }
 
@@ -78,13 +94,7 @@ export function LogoStacked({ size = "hero" }: { size?: keyof typeof stackedSize
   return (
     <span className={`flex flex-col items-center ${s.gap}`} role="img" aria-label="Humraah, ہمراہ">
       <LogoMark className={s.mark} />
-      <img
-        src="/brand/logo-wordmark.svg"
-        alt=""
-        width={240}
-        height={26.64}
-        className={`block ${s.wordmark}`}
-      />
+      <Wordmark width={240} height={26.64} className={s.wordmark} />
       <img src="/brand/logo-urdu.svg" alt="" width={69.12} height={37.584} className={`block ${s.urdu}`} />
     </span>
   );

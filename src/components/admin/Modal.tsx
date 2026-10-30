@@ -46,14 +46,14 @@ export function Modal({
         scroll={false}
         tabIndex={-1}
         aria-hidden="true"
-        className="absolute inset-0 bg-charcoal/45"
+        className="absolute inset-0 bg-scrim"
       />
       <div
         ref={ref}
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"
-        className="relative flex max-h-[92dvh] w-full flex-col gap-4 overflow-y-auto rounded-t-3xl bg-card p-6 shadow-[0_8px_28px_0_rgb(56_51_46/0.1)] sm:max-w-[480px] sm:rounded-3xl sm:p-8"
+        className="relative flex max-h-[92dvh] w-full flex-col gap-4 overflow-y-auto rounded-t-3xl bg-card p-6 shadow-raised sm:max-w-[480px] sm:rounded-3xl sm:p-8"
       >
         <div className="flex items-center gap-3">
           <h2 id="modal-title" className="flex-1 text-h3">
