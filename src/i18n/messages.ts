@@ -11,6 +11,7 @@ export const CLIENT_NAMESPACES = [
   "contact",
   "privacyNotice",
   "filters",
+  "notifications",
   "share",
   "serverError",
 ] as const;
