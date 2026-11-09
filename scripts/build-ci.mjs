@@ -45,8 +45,8 @@ const expected = [
   "/ur",
   "/en/about",
   "/ur/about",
-  "/en/guide",
-  "/ur/guide",
+  "/en/guidance",
+  "/ur/guidance",
   "/en/privacy",
   "/ur/privacy",
 ];
