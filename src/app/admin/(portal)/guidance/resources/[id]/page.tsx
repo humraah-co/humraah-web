@@ -59,7 +59,7 @@ export default async function EditResourcesPage({ params, searchParams }: Props)
           savedLine: savedLine(e.updated_at, editor),
           verifiedAt: e.last_verified_at,
           verifiedBy: verifier ? names.get(verifier) : undefined,
-          viewHref: e.status === "published" ? "/resources" : undefined,
+          viewHref: e.status === "published" ? "/guidance#resources" : undefined,
           isAdmin,
         }}
         initial={resourceToValues(e)}

@@ -47,8 +47,8 @@ export const entryTypes = {
   resources: {
     label: "Resources",
     one: "resource",
-    adminPath: "/admin/resources",
-    publicPath: "/resources",
+    adminPath: "/admin/guidance/resources",
+    publicPath: "/guidance#resources",
     nameColumn: "title",
     hasSlug: false,
     cacheTag: "resources",

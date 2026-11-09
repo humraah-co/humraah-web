@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { saveResource } from "@/app/admin/(portal)/resources/actions";
+import { saveResource } from "@/app/admin/(portal)/guidance/resources/actions";
 import { EditorFrame, type EditorMeta } from "@/components/admin/EditorFrame";
 import { SectionCard, SelectInput, TextArea, TextInput, UrduSection } from "@/components/admin/EditorParts";
 import {
