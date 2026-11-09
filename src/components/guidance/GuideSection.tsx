@@ -1,7 +1,9 @@
 import { Clock, Download } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { buttonStyles } from "@/components/ui/Button";
-import { guideChapters, guidePdfs, type GuidePdf } from "@/config/guide";
+import { guideChapters, guideLanguages } from "@/config/guide";
+import type { PublicGuide, PublicGuides } from "@/lib/data/public";
+import { formatFileSize, guideDownloadUrl, type GuideLanguage } from "@/lib/guideFiles";
 
 /**
  * The Higher Education Guide part of the Guidance page: the two PDF
@@ -9,7 +11,7 @@ import { guideChapters, guidePdfs, type GuidePdf } from "@/config/guide";
  * page's language only; the "English" and "Urdu" names come from the
  * message files, never from a fixed Urdu label.
  */
-export function GuideSection() {
+export function GuideSection({ guides }: { guides: PublicGuides }) {
   const t = useTranslations("guide");
   return (
     <section id="guide" aria-labelledby="guide-heading" className="scroll-mt-24 lg:scroll-mt-28">
@@ -19,9 +21,9 @@ export function GuideSection() {
       <p className="mt-2 text-body-m text-muted lg:mt-3 lg:max-w-[720px] lg:text-body-l">{t("intro")}</p>
 
       <ul className="mt-5 grid gap-3 lg:mt-6 lg:grid-cols-2 lg:gap-6">
-        {guidePdfs.map((pdf) => (
-          <li key={pdf.language} className="flex">
-            <DownloadCard pdf={pdf} />
+        {guideLanguages.map((language) => (
+          <li key={language} className="flex">
+            <DownloadCard language={language} file={guides[language]} />
           </li>
         ))}
       </ul>
@@ -50,35 +52,35 @@ export function GuideSection() {
 }
 
 /** Download/English and Download/Urdu. Without a file yet it says "Coming soon" instead of linking anywhere. */
-function DownloadCard({ pdf }: { pdf: GuidePdf }) {
+function DownloadCard({ language: code, file }: { language: GuideLanguage; file: PublicGuide | null }) {
   const t = useTranslations("guide");
-  const ready = !!pdf.url;
-  const language = t(`languages.${pdf.language}`);
+  const language = t(`languages.${code}`);
+  const size = file ? formatFileSize(file.sizeBytes) : null;
   return (
     <div className="flex w-full flex-col gap-3 rounded-[20px] border border-border-soft bg-card p-4 lg:p-5">
       <div className="min-w-0">
         <p className="text-label-l">{language}</p>
-        <p className="text-caption text-muted">
-          {ready ? (pdf.size ? t("pdfSize", { size: pdf.size }) : t("pdf")) : t("pdfSoon")}
-        </p>
+        <p className="text-caption text-muted">{file ? t("pdfSize", { size: size! }) : t("pdfSoon")}</p>
+        {file && (
+          // The file's own name, as uploaded; it may be in either script.
+          <p dir="auto" className="mt-0.5 text-caption break-words text-muted">
+            {file.fileName}
+          </p>
+        )}
       </div>
-      {ready ? (
+      {file ? (
         <div className="mt-auto flex flex-wrap gap-2.5">
           <a
-            href={pdf.url!}
-            download
+            href={guideDownloadUrl(file.url, file.fileName)}
+            download={file.fileName}
             className={`${buttonStyles.primary} min-w-0 flex-1 px-4`}
-            aria-label={
-              pdf.size
-                ? t("downloadLabelSize", { language, size: pdf.size })
-                : t("downloadLabel", { language })
-            }
+            aria-label={t("downloadLabelSize", { language, size: size! })}
           >
             <Download className="size-5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
             {t("download")}
           </a>
           <a
-            href={pdf.url!}
+            href={file.url}
             target="_blank"
             rel="noopener noreferrer"
             className={`${buttonStyles.secondary} min-w-0 flex-1 px-4`}
