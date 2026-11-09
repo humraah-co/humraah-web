@@ -9,7 +9,7 @@ const choices = [
   { href: "/admin/universities/new", label: "University", icon: Landmark },
   { href: "/admin/scholarships/new", label: "Scholarship", icon: Award },
   { href: "/admin/fields/new", label: "Field of study", icon: Compass },
-  { href: "/admin/resources/new", label: "Resource", icon: Globe },
+  { href: "/admin/guidance/resources/new", label: "Resource", icon: Globe },
   { href: "/admin/guidance/new", label: "Guidance article", icon: Lightbulb },
 ];
 
