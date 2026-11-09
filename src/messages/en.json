@@ -799,11 +799,14 @@
     "close": "Close the menu",
     "privacy": "Privacy and disclaimer",
     "descriptions": {
-      "guidance": "Step-by-step help for every stage",
-      "guideFull": "Free in English and Urdu",
-      "resources": "Official websites and tools",
+      "guidance": "The guide, articles and official resources",
       "aboutContact": "Who we are and how to reach us",
-      "whereToStart": "A two-minute quiz"
+      "whereToStart": "A two-minute quiz",
+      "home": "Start here",
+      "explore": "Browse fields of study",
+      "universities": "Programmes, fees and how to apply",
+      "scholarships": "Merit and need-based support",
+      "search": "Find a university by name or city"
     }
   },
   "notFound": {
