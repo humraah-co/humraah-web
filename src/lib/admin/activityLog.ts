@@ -9,14 +9,17 @@ type SessionClient = Awaited<ReturnType<typeof createSessionClient>>;
 
 export const ACTIVITY_PAGE_SIZE = 50;
 
+/** Each choice covers these entity types in the log; Guidance and resources covers two tables. */
 export const entityFilters = [
-  { value: "universities", label: "Universities" },
-  { value: "scholarships", label: "Scholarships" },
-  { value: "resources", label: "Resources" },
-  { value: "fields", label: "Fields of study" },
-  { value: "guidance_articles", label: "Guidance" },
-  { value: "team_members", label: "Team" },
+  { value: "universities", label: "Universities", entities: ["universities"] },
+  { value: "scholarships", label: "Scholarships", entities: ["scholarships"] },
+  { value: "fields", label: "Fields of study", entities: ["fields"] },
+  { value: "guidance", label: "Guidance and resources", entities: ["guidance_articles", "resources"] },
+  { value: "team_members", label: "Team", entities: ["team_members"] },
 ] as const;
+
+/** Links saved before Guidance and resources became one page. */
+const oldEntityFilters: Record<string, string> = { resources: "guidance", guidance_articles: "guidance" };
 
 /** Each choice covers the matching content and team actions in the log. */
 export const actionFilters = [
@@ -45,7 +48,7 @@ const validDate = (value: string) => datePattern.test(value) && !Number.isNaN(Da
 
 /** Reads the filters from the address, dropping anything that isn't a real choice. */
 export function readActivityFilters(raw: Record<string, string | string[] | undefined>): ActivityFilters {
-  const type = one(raw.type);
+  const type = oldEntityFilters[one(raw.type)] ?? one(raw.type);
   const person = one(raw.person);
   const action = one(raw.action);
   const from = one(raw.from);
@@ -89,7 +92,8 @@ export async function getActivityPage(supabase: SessionClient, filters: Activity
     .select("*", { count: "exact" })
     .order("created_at", { ascending: false })
     .order("id", { ascending: false });
-  if (filters.type) query = query.eq("entity_type", filters.type);
+  const entity = entityFilters.find((f) => f.value === filters.type);
+  if (entity) query = query.in("entity_type", [...entity.entities]);
   if (filters.person === "system") query = query.is("actor_id", null);
   else if (filters.person) query = query.eq("actor_id", filters.person);
   const action = actionFilters.find((a) => a.value === filters.action);
