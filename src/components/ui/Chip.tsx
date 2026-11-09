@@ -166,7 +166,7 @@ export function OptionChip({
       className={`inline-flex items-center gap-1.5 rounded-pill py-[9px] text-label-m whitespace-nowrap text-charcoal transition-colors ${
         selected
           ? "border-[1.5px] border-deep-rose bg-tint-coral ps-3 pe-4"
-          : "border border-border-strong bg-card px-4 hover:bg-blush"
+          : "border-[1.5px] border-border-strong bg-card px-4 hover:bg-blush"
       }`}
     >
       {selected && <Check className="size-3.5" strokeWidth={2} aria-hidden="true" />}
