@@ -536,7 +536,6 @@ const pages: { path: string; status?: number; contains?: Record<"en" | "ur", str
   { path: "/about" },
   { path: "/privacy" },
   { path: "/menu" },
-  { path: "/guide" },
   { path: "/explore" },
   { path: "/explore?q=engineer" },
   { path: "/explore?q=zzz" },
@@ -567,9 +566,12 @@ const pages: { path: string; status?: number; contains?: Record<"en" | "ur", str
   { path: "/scholarships/closing-soon" },
   { path: "/scholarships/closed" },
   { path: "/scholarships/no-deadline" },
-  { path: "/guidance" },
+  {
+    // The Guide, the articles and the resources are one page now.
+    path: "/guidance",
+    contains: { en: en.get("guide.title")!, ur: ur.get("guide.title")! },
+  },
   { path: "/guidance/choosing-a-field" },
-  { path: "/resources" },
 ];
 
 /** What next-intl logs: "IntlError: FORMATTING_ERROR: …" and the other codes. */
