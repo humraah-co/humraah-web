@@ -65,7 +65,6 @@ export type ValidUpload = { language: GuideLanguage; fileName: string; size: num
 export function cleanFileName(value: unknown): string | null {
   if (typeof value !== "string") return null;
   const last = value.split(/[\\/]/).pop() ?? "";
-  // eslint-disable-next-line no-control-regex
   const name = last.replace(/[\u0000-\u001f\u007f]/g, "").trim();
   if (!name || name.length > MAX_GUIDE_NAME || !/\.pdf$/i.test(name) || name.length <= 4) return null;
   return name;
