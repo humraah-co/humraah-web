@@ -129,9 +129,9 @@ const pageOfNamespace = {
   field: "/explore/[field]",
   university: "/universities/[university]",
   scholarship: "/scholarships/[scholarship]",
-  guide: "/guide",
+  guide: "/guidance#guide",
   guidance: "/guidance",
-  resources: "/resources",
+  resources: "/guidance#resources",
   about: "/about",
   privacy: "/privacy",
   menu: "/menu",
@@ -153,7 +153,7 @@ const PAGE = {
   fields: (k) => `/explore/${k}`,
   universities: (k) => `/universities/${k}`,
   scholarships: (k) => `/scholarships/${k}`,
-  resources: () => "/resources",
+  resources: () => "/guidance#resources",
   guidance_articles: (k) => `/guidance/${k}`,
 };
 
