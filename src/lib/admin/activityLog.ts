@@ -14,7 +14,11 @@ export const entityFilters = [
   { value: "universities", label: "Universities", entities: ["universities"] },
   { value: "scholarships", label: "Scholarships", entities: ["scholarships"] },
   { value: "fields", label: "Fields of study", entities: ["fields"] },
-  { value: "guidance", label: "Guidance and resources", entities: ["guidance_articles", "resources"] },
+  {
+    value: "guidance",
+    label: "Guidance and resources",
+    entities: ["guidance_articles", "resources", "guide_files"],
+  },
   { value: "team_members", label: "Team", entities: ["team_members"] },
 ] as const;
 
@@ -23,8 +27,8 @@ const oldEntityFilters: Record<string, string> = { resources: "guidance", guidan
 
 /** Each choice covers the matching content and team actions in the log. */
 export const actionFilters = [
-  { value: "added", label: "Added", actions: ["created", "added"] },
-  { value: "updated", label: "Updated", actions: ["updated", "role_changed"] },
+  { value: "added", label: "Added", actions: ["created", "added", "uploaded"] },
+  { value: "updated", label: "Updated", actions: ["updated", "role_changed", "replaced"] },
   { value: "verified", label: "Verified", actions: ["verified"] },
   { value: "published", label: "Published", actions: ["published"] },
   { value: "unpublished", label: "Moved to drafts", actions: ["draft"] },
