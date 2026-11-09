@@ -453,30 +453,10 @@
         "link": "Get the guide"
       }
     },
-    "closingSoon": "Closing soon",
-    "closingSoonFull": "Scholarships closing soon",
-    "seeAll": "See all",
-    "seeAllScholarships": "See all scholarships",
-    "notConnected": "The database isn't connected yet. Add the Supabase environment variables to see scholarships.",
-    "noScholarships": "No scholarships are published yet. Check back soon.",
-    "guideCover": "Higher Education Guide",
-    "guideTitle": "Our free Higher Education Guide",
-    "guideTextShort": "Discover yourself, explore your options and find the right university.",
-    "guideTextLong": "Discover yourself, explore your options, find the right university and build your path, in English and Urdu.",
-    "guideChapters": {
-      "why": "Why higher education matters",
-      "discover": "Discover yourself",
-      "options": "Exploring your options",
-      "university": "Finding the right university",
-      "path": "Build your path"
-    },
-    "guideFree": "Free to download, in English and Urdu.",
     "whyTitle": "Humraah means “companion”.",
     "whyTextShort": "Many girls in Pakistan stop after FSc, not because they don’t want to continue, but because no one showed them how. We’re here to walk alongside you.",
     "whyTextLong": "Many girls in Pakistan stop after FSc, not because they don’t want to continue, but because no one showed them how. We’re here to walk alongside you, with the information, resources and support to pursue higher education and build your own path forward.",
-    "aboutLink": "About Humraah",
-    "englishPdf": "English PDF",
-    "urduPdf": "Urdu PDF"
+    "aboutLink": "About Humraah"
   },
   "explore": {
     "metaTitle": "Explore fields of study",
