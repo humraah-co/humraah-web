@@ -1,20 +1,12 @@
 /**
- * The Higher Education Guide PDFs. Set `url` (a path under /public or a full
- * https:// link) and `size` (e.g. "3.2 MB") when a file is ready. While `url`
- * is null the Guidance page shows "Coming soon" instead of a download button,
- * so there is never a broken link.
+ * The Higher Education Guide PDFs are uploaded from the admin portal
+ * (Guidance and resources, Guide PDFs) and read from the guide_files table,
+ * so there is nothing to edit here for a new file. A language with no file
+ * shows "Coming soon" on the Guidance page.
  */
-export type GuidePdf = {
-  /** The guide's language; its name comes from the "guide.languages" messages. */
-  language: "en" | "ur";
-  url: string | null;
-  size: string | null;
-};
 
-export const guidePdfs: GuidePdf[] = [
-  { language: "en", url: null, size: null },
-  { language: "ur", url: null, size: null },
-];
+/** The guide's languages, in the order the cards appear; names come from the "guide.languages" messages. */
+export { GUIDE_LANGUAGES as guideLanguages } from "@/lib/guideFiles";
 
 /** "What's inside", in the order of the printed guide. Titles and summaries are in "guide.chapters". */
 export const guideChapters = ["note", "why", "discover", "options", "university", "path"] as const;

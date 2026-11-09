@@ -5,7 +5,7 @@ import { GuideSection } from "@/components/guidance/GuideSection";
 import { ResourcesSection } from "@/components/guidance/ResourcesSection";
 import { SectionLinks } from "@/components/guidance/SectionLinks";
 import { Container } from "@/components/layout/PageShell";
-import { listGuidanceArticles, listResources } from "@/lib/data/public";
+import { getGuideFiles, listGuidanceArticles, listResources } from "@/lib/data/public";
 import { alternates } from "@/i18n/metadata";
 import { withShare } from "@/i18n/share";
 import { pageLocale, type LocaleParams } from "@/i18n/server";
@@ -30,7 +30,11 @@ export const revalidate = 300;
 export default async function GuidancePage({ params }: { params: LocaleParams }) {
   const locale = await pageLocale(params);
   const t = await getTranslations("guidance");
-  const [articles, resources] = await Promise.all([listGuidanceArticles(locale), listResources(locale)]);
+  const [articles, resources, guides] = await Promise.all([
+    listGuidanceArticles(locale),
+    listResources(locale),
+    getGuideFiles(),
+  ]);
 
   return (
     <Container className="pt-6 pb-10 lg:pt-12 lg:pb-16">
@@ -39,7 +43,7 @@ export default async function GuidancePage({ params }: { params: LocaleParams })
       <SectionLinks />
 
       <div className="mt-8 flex flex-col gap-12 lg:mt-12 lg:gap-16">
-        <GuideSection />
+        <GuideSection guides={guides} />
         <ArticlesSection articles={articles} />
         <ResourcesSection resources={resources} />
       </div>
