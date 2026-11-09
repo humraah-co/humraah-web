@@ -63,6 +63,13 @@ the same way (a source link is needed to publish or verify; each has optional Ur
 inbox at `/admin/messages` is for admins and the owner only, because contact messages hold visitors'
 personal details; researchers can't read them, and nobody can edit or delete one.
 
+**Guide PDFs.** The two Higher Education Guide PDFs (English and Urdu) are uploaded under *Guidance and
+resources → Guide PDFs*. Every active team member can upload or replace one; only admins and the owner can
+remove one. The file goes from the browser straight to the public `guides` Storage bucket with a signed URL
+(Vercel limits request bodies to about 4.5 MB), so the server needs `SUPABASE_SERVICE_ROLE_KEY` (server-only,
+never `NEXT_PUBLIC_`) to sign that URL and tidy old files. Run the migration *before* deploying the page that
+reads `guide_files`; until it has been run the Guidance page shows "Coming soon" for both.
+
 Every change to content or the team is written to `activity_log` by a database trigger.
 
 Seed content comes from Humraah's Higher Education Guide and is **unverified**: researchers must check each
