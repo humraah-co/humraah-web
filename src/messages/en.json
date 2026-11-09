@@ -52,7 +52,8 @@
     "toBeConfirmed": "To be confirmed.",
     "readTime": "{count} min read",
     "breadcrumb": "Breadcrumb",
-    "availableInEnglish": "Available in English"
+    "availableInEnglish": "Available in English",
+    "linkedinLabel": "Humraah on LinkedIn (opens in a new tab)"
   },
   "badges": {
     "verified": "Verified",
