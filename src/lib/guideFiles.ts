@@ -130,3 +130,6 @@ export function guidePublicUrl(supabaseUrl: string, path: string) {
  */
 export const guideDownloadUrl = (url: string, fileName: string) =>
   `${url}?download=${encodeURIComponent(fileName)}`;
+
+/** The cache tag of the Guidance page's guide data; cleared after an upload or removal. */
+export const GUIDE_CACHE_TAG = "guide_files";
