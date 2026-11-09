@@ -139,7 +139,7 @@ export function DeadlineChip({ children, urgent = false }: { children: React.Rea
       }`}
     >
       <Clock className="size-4 shrink-0" strokeWidth={1.75} aria-hidden="true" />
-      {children}
+      <span className="line-clamp-2 min-w-0">{children}</span>
     </span>
   );
 }
