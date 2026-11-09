@@ -8,6 +8,7 @@ import { contact, footerExplore, footerHelp, type NavItem } from "@/lib/nav";
 /** Mobile "Footer" (Figma 4:556) and "Desktop/Footer" (14:339), with the palette band. */
 export function SiteFooter() {
   const t = useTranslations("footer");
+  const common = useTranslations("common");
   return (
     <footer className="bg-blush">
       {/* From 1024 to 1279 px the link columns take the width they need and the first column the rest, so the
@@ -33,7 +34,15 @@ export function SiteFooter() {
             </a>
           </ContactRow>
           <ContactRow icon={<Users className="size-[18px]" strokeWidth={1.75} />}>
-            <span>{t.rich("linkedin", { name: () => <Ltr>{contact.linkedinLabel}</Ltr> })}</span>
+            <a
+              href={contact.linkedinUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={common("linkedinLabel")}
+              className="hover:text-deep-rose"
+            >
+              {t.rich("linkedin", { name: () => <Ltr>{contact.linkedinLabel}</Ltr> })}
+            </a>
           </ContactRow>
           <ContactRow icon={<Mail className="size-[18px]" strokeWidth={1.75} />}>
             <a href={`mailto:${contact.email}`} className="hover:text-deep-rose" lang="en" dir="ltr">
