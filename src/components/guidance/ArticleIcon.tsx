@@ -20,7 +20,7 @@ export function ArticleIcon({ slug, index }: { slug: string; index: number }) {
     tint: fallbackTints[index % fallbackTints.length],
   };
   return (
-    <span className={`flex size-11 shrink-0 items-center justify-center rounded-pill ${tint}`}>
+    <span className={`flex size-12 shrink-0 items-center justify-center rounded-pill ${tint}`}>
       <Icon className="size-[22px]" strokeWidth={1.75} aria-hidden="true" />
     </span>
   );

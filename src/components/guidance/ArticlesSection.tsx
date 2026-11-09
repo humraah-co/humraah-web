@@ -36,7 +36,7 @@ export function ArticlesSection({ articles }: { articles: GuidanceSummary[] | nu
             <li key={a.id} className="flex">
               <Link
                 href={`/guidance/${a.slug}`}
-                className="group flex w-full items-start gap-3.5 rounded-[20px] border border-border-soft bg-card p-4 transition-colors hover:border-border-strong focus-visible:border-border-strong"
+                className="group flex w-full items-start gap-3.5 rounded-[20px] border border-border-soft bg-card p-4 transition-colors hover:border-border-strong focus-visible:border-border-strong lg:p-5"
               >
                 <ArticleIcon slug={a.slug} index={i} />
                 <span className="flex min-w-0 flex-1 flex-col gap-1 self-stretch">
@@ -53,7 +53,7 @@ export function ArticlesSection({ articles }: { articles: GuidanceSummary[] | nu
                     {common("readTime", { count: readMinutes(a.body_markdown) })}
                   </span>
                 </span>
-                <ChevronRight className="mt-2.5 size-5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
+                <ChevronRight className="mt-3 size-5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
               </Link>
             </li>
           ))}
