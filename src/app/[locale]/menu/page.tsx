@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { BookOpen, ChevronRight, Compass, Globe, Heart, Lightbulb, X, type LucideIcon } from "lucide-react";
+import { ChevronRight, Compass, Heart, Lightbulb, X, type LucideIcon } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { LogoHorizontal } from "@/components/brand/Logo";
 import { LanguageSwitch } from "@/components/layout/LanguageSwitch";
@@ -19,8 +19,6 @@ export async function generateMetadata({ params }: { params: LocaleParams }): Pr
 
 const icons: Record<string, LucideIcon> = {
   "/guidance": Lightbulb,
-  "/guide": BookOpen,
-  "/resources": Globe,
   "/about": Heart,
   "/quiz": Compass,
 };
