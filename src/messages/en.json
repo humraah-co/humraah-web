@@ -698,7 +698,7 @@
   },
   "guidance": {
     "title": "Guidance",
-    "intro": "Simple, step-by-step help for every stage, from choosing a field to paying for university.",
+    "intro": "Everything to help you plan your next step: our free guide, step-by-step articles and official resources.",
     "notConnected": "The database isn't connected yet. Add the Supabase environment variables to see guidance.",
     "noArticles": "No guidance is published yet. Check back soon.",
     "articleNotConnected": "The database isn't connected yet. Add the Supabase environment variables to see this article.",
@@ -712,7 +712,16 @@
       "universities": "Find two universities that offer it",
       "admissions": "Check their official admission pages",
       "action": "Find a university"
-    }
+    },
+    "metaDescription": "Step-by-step guidance, our free Higher Education Guide and official resources for university and scholarships in Pakistan.",
+    "jumpTo": "Jump to a section",
+    "jump": {
+      "guide": "The Guide",
+      "articles": "Articles",
+      "resources": "Resources"
+    },
+    "articlesTitle": "Guidance articles",
+    "articlesIntro": "Simple, step-by-step help for every stage, from choosing a field to paying for university."
   },
   "resources": {
     "metaTitle": "Resources",
