@@ -50,6 +50,7 @@ export const menuNav: NavItem[] = [
 export const contact = {
   instagramHandle: "@humraahco",
   instagramUrl: "https://www.instagram.com/humraahco/",
+  linkedinUrl: "https://www.linkedin.com/company/humraahco/",
   linkedinLabel: "Humraah",
   email: "humraah.contact@gmail.com",
 };
