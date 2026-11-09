@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 import { noindexHeaders } from "./src/lib/indexing";
+import { redirects } from "./src/lib/redirects";
 import { securityHeaders } from "./src/lib/securityHeaders";
 
 // Loads src/i18n/request.ts, which picks each request's messages (English or Urdu).
@@ -22,6 +23,10 @@ const nextConfig: NextConfig = {
   // app/global-not-found.tsx: the 404 for addresses that match no page. The
   // site's real root layouts are per area (public and admin).
   experimental: { globalNotFound: true },
+  // Pages that were merged into others (src/lib/redirects.ts).
+  async redirects() {
+    return redirects();
+  },
   async headers() {
     return [
       // Preview deployments say noindex on every response (see src/lib/indexing.ts).
