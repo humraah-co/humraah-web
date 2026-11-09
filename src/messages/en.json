@@ -11,16 +11,11 @@
   },
   "nav": {
     "main": "Main",
-    "primary": "Primary",
     "home": "Home",
     "explore": "Explore fields",
-    "exploreShort": "Explore",
     "universities": "Universities",
     "scholarships": "Scholarships",
     "guidance": "Guidance",
-    "guide": "Guide",
-    "guideFull": "Higher Education Guide",
-    "resources": "Resources",
     "about": "About",
     "aboutContact": "About and contact",
     "whereToStart": "Where do I start?",
@@ -652,7 +647,6 @@
   },
   "guide": {
     "title": "Higher Education Guide",
-    "metaDescription": "A free guide in English and Urdu to help you take your first step: discover yourself, explore your options and find the right university.",
     "intro": "A free guide to help you take your first step: discover yourself, explore your options and find the right university.",
     "inside": "What’s inside",
     "chapters": {
@@ -724,8 +718,6 @@
     "articlesIntro": "Simple, step-by-step help for every stage, from choosing a field to paying for university."
   },
   "resources": {
-    "metaTitle": "Resources",
-    "metaDescription": "Official websites and tools we trust for university, scholarships and admission tests in Pakistan.",
     "title": "Useful resources",
     "intro": "Official websites and tools we trust. Each link opens the official source.",
     "notConnected": "The database isn't connected yet. Add the Supabase environment variables to see resources.",
@@ -735,10 +727,7 @@
       "scholarships": "Scholarships",
       "tests": "Admission tests",
       "guidance": "Career exploration"
-    },
-    "fromHumraah": "From Humraah",
-    "guideTitle": "Higher Education Guide",
-    "guideText": "Our free guide in English and Urdu."
+    }
   },
   "about": {
     "metaTitle": "About and contact",
