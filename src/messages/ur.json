@@ -52,7 +52,8 @@
     "toBeConfirmed": "ابھی طے نہیں۔",
     "readTime": "پڑھنے میں {count} منٹ",
     "breadcrumb": "آپ یہاں ہیں",
-    "availableInEnglish": "انگریزی میں دستیاب"
+    "availableInEnglish": "انگریزی میں دستیاب",
+    "linkedinLabel": "لنکڈ اِن پر ہمراہ (نئے ٹیب میں کھلے گا)"
   },
   "badges": {
     "verified": "تصدیق شدہ",
