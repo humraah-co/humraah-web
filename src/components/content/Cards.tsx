@@ -28,6 +28,16 @@ const card =
 const cardTitle = "line-clamp-2 min-h-[2lh] text-label-l";
 const cardText = "line-clamp-3 text-body-s text-muted";
 
+/** A divider and a footer row, the last thing in the bottom group. */
+function CardFooter({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <span className="h-px bg-border-soft" aria-hidden="true" />
+      <span className="flex flex-wrap items-center justify-between gap-2">{children}</span>
+    </>
+  );
+}
+
 /** The group pinned to the bottom of the card. */
 function CardBottom({ children }: { children: React.ReactNode }) {
   return <span className="mt-auto flex flex-col gap-3">{children}</span>;
@@ -128,48 +138,51 @@ export function UniversityCard({
     ? u.programmes.filter((p) => p.fieldId === fieldId).length
     : u.programmes.length;
   return (
-    <Link href={`/universities/${u.slug}`} className={`${card} gap-3`}>
-      <span className="flex items-center gap-3">
-        <UniversityAvatar slug={u.slug} name={u.name} shortName={u.short_name} />
-        <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-          {/* Names stay in English; lang tells screen readers, the text still lines up with the card. */}
-          <span className="text-label-l" lang="en">
-            {u.name}
-          </span>
-          <span className="flex items-center gap-1 text-body-s text-muted">
-            <MapPin className="size-3.5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
-            {u.campuses_note ? (
-              <span {...englishAttrs(u, "campuses_note")}>{u.campuses_note}</span>
-            ) : (
-              <span lang="en">{u.city}</span>
-            )}
-          </span>
-        </span>
-        <ChevronRight
-          className="size-5 shrink-0 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5"
-          strokeWidth={1.75}
-          aria-hidden="true"
-        />
-      </span>
-      <ChipList>
+    <Link href={`/universities/${u.slug}`} className={card}>
+      <ChipList lines={1} reserve>
         {u.type && <Chip tone="lavender">{t(u.type === "public" ? "public" : "private")}</Chip>}
         {u.women_only && <Chip tone="coral">{t("womenOnly")}</Chip>}
-        {programmeCount > 0 && <Chip>{t("programmes", { count: programmeCount })}</Chip>}
-        {u.need_based_aid && <Chip>{t("financialAid")}</Chip>}
       </ChipList>
-      <span className="h-px bg-border-soft" aria-hidden="true" />
-      <span className="flex flex-wrap items-center justify-between gap-2">
-        <DeadlineChip>
-          {u.admissions_window && englishAttrs(u, "admissions_window").lang ? (
-            <span lang="en" dir="ltr">
-              {u.admissions_window}
-            </span>
-          ) : (
-            t("applications", { window: u.admissions_window ?? t("datesToBeConfirmed") })
-          )}
-        </DeadlineChip>
-        <VerificationBadge verifiedAt={u.last_verified_at} />
+      <span className="flex items-center gap-3.5">
+        <UniversityAvatar slug={u.slug} name={u.name} shortName={u.short_name} />
+        {/* Names stay in English; lang tells screen readers, the text still lines up with the card. */}
+        <span className={`${cardTitle} min-w-0 flex-1`} lang="en">
+          {u.name}
+        </span>
+        <ChevronRight className={cardArrow} strokeWidth={1.75} aria-hidden="true" />
       </span>
+      <span className="flex items-start gap-1.5 text-body-s text-muted">
+        <MapPin className="mt-[3px] size-3.5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
+        {u.campuses_note ? (
+          <span className="line-clamp-2" {...englishAttrs(u, "campuses_note")}>
+            {u.campuses_note}
+          </span>
+        ) : (
+          <span className="line-clamp-2" lang="en">
+            {u.city}
+          </span>
+        )}
+      </span>
+      <CardBottom>
+        {(programmeCount > 0 || u.need_based_aid) && (
+          <ChipList lines={2}>
+            {programmeCount > 0 && <Chip>{t("programmes", { count: programmeCount })}</Chip>}
+            {u.need_based_aid && <Chip>{t("financialAid")}</Chip>}
+          </ChipList>
+        )}
+        <CardFooter>
+          <DeadlineChip>
+            {u.admissions_window && englishAttrs(u, "admissions_window").lang ? (
+              <span lang="en" dir="ltr">
+                {u.admissions_window}
+              </span>
+            ) : (
+              t("applications", { window: u.admissions_window ?? t("datesToBeConfirmed") })
+            )}
+          </DeadlineChip>
+          <VerificationBadge verifiedAt={u.last_verified_at} />
+        </CardFooter>
+      </CardBottom>
     </Link>
   );
 }
