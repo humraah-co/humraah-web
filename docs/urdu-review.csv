@@ -6,26 +6,21 @@ ui:layout.description,every page,"Find out what you could study, which universit
 ui:layout.siteName,every page,Humraah,ہمراہ
 ui:brand.home,every page,Humraah home,ہمراہ کا ہوم پیج
 ui:nav.main,every page (menus),Main,مرکزی
-ui:nav.primary,every page (menus),Primary,بنیادی
 ui:nav.home,every page (menus),Home,ہوم
 ui:nav.explore,every page (menus),Explore fields,شعبے دیکھیں
-ui:nav.exploreShort,every page (menus),Explore,شعبے
 ui:nav.universities,every page (menus),Universities,یونیورسٹیاں
 ui:nav.scholarships,every page (menus),Scholarships,اسکالرشپس
 ui:nav.guidance,every page (menus),Guidance,رہنمائی
-ui:nav.guide,every page (menus),Guide,گائیڈ
-ui:nav.guideFull,every page (menus),Higher Education Guide,اعلیٰ تعلیم گائیڈ
-ui:nav.resources,every page (menus),Resources,وسائل
 ui:nav.about,every page (menus),About,ہمارے بارے میں
 ui:nav.aboutContact,every page (menus),About and contact,تعارف اور رابطہ
 ui:nav.whereToStart,every page (menus),Where do I start?,کہاں سے شروع کروں؟
 ui:nav.menu,every page (menus),Menu,مینو
 ui:nav.searchUniversities,every page (menus),Search universities,یونیورسٹیاں تلاش کریں
 ui:nav.backTo,every page (menus),Back to {section},واپس: {section}
+ui:theme.darkMode,,Dark mode,ڈارک موڈ
 ui:language.label,every page (language switch),Language,زبان
 ui:language.comingSoon,every page (language switch),Urdu version coming soon,اردو ورژن جلد آ رہا ہے
 ui:language.comingSoonShort,every page (language switch),(coming soon),(جلد آ رہا ہے)
-ui:theme.darkMode,every page (header and Menu),Dark mode,ڈارک موڈ
 ui:footer.tagline,every page (footer),"Walking alongside you, towards your dreams.",آپ کے خوابوں کی طرف، آپ کے ساتھ ساتھ۔
 ui:footer.about,every page (footer),"A youth-led initiative giving girls the information, resources and support to pursue higher education and build their own paths forward.",نوجوانوں کی ایک کوشش، جو لڑکیوں کو اعلیٰ تعلیم حاصل کرنے اور اپنا راستہ خود بنانے کے لیے معلومات، وسائل اور ساتھ دیتی ہے۔
 ui:footer.disclaimer,every page (footer),"Humraah shares information to help you plan. Always confirm fees, dates and requirements on the official website before you apply.",ہمراہ آپ کی منصوبہ بندی میں مدد کے لیے معلومات دیتا ہے۔ اپلائی کرنے سے پہلے فیس، تاریخیں اور شرائط ہمیشہ آفیشل ویب سائٹ پر دیکھ لیں۔
@@ -97,6 +92,7 @@ ui:contact.sentTitle,/about (contact form),"Thank you, your message is on its wa
 ui:contact.sentText,/about (contact form),"We’ll reply by email. It can take a few days, so please check your spam folder too.",ہم ای میل پر جواب دیں گے۔ اس میں چند دن لگ سکتے ہیں، اس لیے اپنا اسپیم فولڈر بھی دیکھتی رہیں۔
 ui:contact.sendAnother,/about (contact form),Send another message,ایک اور پیغام بھیجیں
 ui:contact.sendFailed,/about (contact form),"Sorry, we couldn’t send your message just now. Please try again in a few minutes, or email us at <email></email>.",معذرت، ابھی آپ کا پیغام نہیں جا سکا۔ چند منٹ بعد دوبارہ کوشش کریں، یا ہمیں <email></email> پر ای میل کریں۔
+ui:contact.rateLimited,/about (contact form),"You’ve sent a few messages in a short time. Please try again in about an hour, or email us at <email></email>.",آپ نے کم وقت میں کئی پیغام بھیج دیے ہیں۔ براہِ کرم تقریباً ایک گھنٹے بعد دوبارہ کوشش کریں، یا ہمیں <email></email> پر ای میل کریں۔
 ui:contact.errors.nameRequired,/about (contact form),Please tell us your name.,براہِ کرم اپنا نام لکھیں۔
 ui:contact.errors.nameTooLong,/about (contact form),Please keep your name under {max} characters.,براہِ کرم نام {max} حروف سے کم رکھیں۔
 ui:contact.errors.emailRequired,/about (contact form),Please add your email address so we can reply.,براہِ کرم اپنا ای میل ایڈریس لکھیں تاکہ ہم جواب دے سکیں۔
@@ -355,28 +351,10 @@ ui:home.steps.scholarships.link,/,Find scholarships,اسکالرشپس تلاش 
 ui:home.steps.guide.title,/,Plan your next step,اپنا اگلا قدم طے کریں
 ui:home.steps.guide.text,/,Keep track with our free guide in English and Urdu.,ہماری مفت گائیڈ کے ساتھ اپنی تیاری پر نظر رکھیں، انگریزی اور اردو میں۔
 ui:home.steps.guide.link,/,Get the guide,گائیڈ حاصل کریں
-ui:home.closingSoon,/,Closing soon,جلد بند ہو رہی ہیں
-ui:home.closingSoonFull,/,Scholarships closing soon,جلد بند ہونے والی اسکالرشپس
-ui:home.seeAll,/,See all,سب دیکھیں
-ui:home.seeAllScholarships,/,See all scholarships,تمام اسکالرشپس دیکھیں
-ui:home.notConnected,/,The database isn't connected yet. Add the Supabase environment variables to see scholarships.,ڈیٹا بیس ابھی منسلک نہیں ہے۔ اسکالرشپس دیکھنے کے لیے Supabase کے environment variables شامل کریں۔
-ui:home.noScholarships,/,No scholarships are published yet. Check back soon.,ابھی کوئی اسکالرشپ شائع نہیں ہوئی۔ جلد دوبارہ دیکھیں۔
-ui:home.guideCover,/,Higher Education Guide,اعلیٰ تعلیم گائیڈ
-ui:home.guideTitle,/,Our free Higher Education Guide,ہماری مفت اعلیٰ تعلیم گائیڈ
-ui:home.guideTextShort,/,"Discover yourself, explore your options and find the right university.",خود کو جانیں، اپنے راستے دیکھیں اور صحیح یونیورسٹی تلاش کریں۔
-ui:home.guideTextLong,/,"Discover yourself, explore your options, find the right university and build your path, in English and Urdu.",خود کو جانیں، اپنے راستے دیکھیں، صحیح یونیورسٹی تلاش کریں اور اپنا راستہ بنائیں، انگریزی اور اردو میں۔
-ui:home.guideChapters.why,/,Why higher education matters,اعلیٰ تعلیم کیوں اہم ہے
-ui:home.guideChapters.discover,/,Discover yourself,خود کو جانیں
-ui:home.guideChapters.options,/,Exploring your options,اپنے راستے دیکھیں
-ui:home.guideChapters.university,/,Finding the right university,صحیح یونیورسٹی کی تلاش
-ui:home.guideChapters.path,/,Build your path,اپنا راستہ بنائیں
-ui:home.guideFree,/,"Free to download, in English and Urdu.",مفت ڈاؤن لوڈ، انگریزی اور اردو میں۔
 ui:home.whyTitle,/,Humraah means “companion”.,ہمراہ کا مطلب ہے ”ساتھی“۔
 ui:home.whyTextShort,/,"Many girls in Pakistan stop after FSc, not because they don’t want to continue, but because no one showed them how. We’re here to walk alongside you.",پاکستان میں بہت سی لڑکیاں FSc کے بعد پڑھائی چھوڑ دیتی ہیں، اس لیے نہیں کہ وہ آگے پڑھنا نہیں چاہتیں، بلکہ اس لیے کہ کسی نے انہیں راستہ نہیں دکھایا۔ ہم آپ کے ساتھ ساتھ چلنے کے لیے ہیں۔
 ui:home.whyTextLong,/,"Many girls in Pakistan stop after FSc, not because they don’t want to continue, but because no one showed them how. We’re here to walk alongside you, with the information, resources and support to pursue higher education and build your own path forward.",پاکستان میں بہت سی لڑکیاں FSc کے بعد پڑھائی چھوڑ دیتی ہیں، اس لیے نہیں کہ وہ آگے پڑھنا نہیں چاہتیں، بلکہ اس لیے کہ کسی نے انہیں راستہ نہیں دکھایا۔ ہم آپ کے ساتھ ساتھ چلنے کے لیے ہیں، معلومات، وسائل اور ساتھ کے ساتھ، تاکہ آپ اعلیٰ تعلیم حاصل کریں اور اپنا راستہ خود بنائیں۔
 ui:home.aboutLink,/,About Humraah,ہمراہ کے بارے میں
-ui:home.englishPdf,/,English PDF,انگریزی PDF
-ui:home.urduPdf,/,Urdu PDF,اردو PDF
 ui:explore.metaTitle,/explore,Explore fields of study,شعبے دیکھیں
 ui:explore.metaDescription,/explore,Browse popular fields of study in Pakistan and what you might enjoy in each.,پاکستان کے مقبول تعلیمی شعبے دیکھیں اور جانیں کہ ہر ایک میں آپ کو کیا اچھا لگ سکتا ہے۔
 ui:explore.title,/explore,What could you study?,آپ کیا پڑھ سکتی ہیں؟
@@ -531,36 +509,35 @@ ui:scholarship.deadline.open,/scholarships/[scholarship],Open,کھلی ہے
 ui:scholarship.deadline.closedOn,/scholarships/[scholarship],Closed on {date},{date} کو بند ہو گئی
 ui:scholarship.deadline.on,/scholarships/[scholarship],Deadline: {date},آخری تاریخ: {date}
 ui:scholarship.deadline.checkDates,/scholarships/[scholarship],Check the official website for this year’s dates.,اس سال کی تاریخوں کے لیے آفیشل ویب سائٹ دیکھیں۔
-ui:guide.title,/guide,Higher Education Guide,اعلیٰ تعلیم گائیڈ
-ui:guide.metaDescription,/guide,"A free guide in English and Urdu to help you take your first step: discover yourself, explore your options and find the right university.",انگریزی اور اردو میں ایک مفت گائیڈ، جو آپ کا پہلا قدم اٹھانے میں مدد دیتی ہے: خود کو جانیں، اپنے راستے دیکھیں اور صحیح یونیورسٹی تلاش کریں۔
-ui:guide.intro,/guide,"A free guide to help you take your first step: discover yourself, explore your options and find the right university.",ایک مفت گائیڈ، جو آپ کا پہلا قدم اٹھانے میں مدد دیتی ہے: خود کو جانیں، اپنے راستے دیکھیں اور صحیح یونیورسٹی تلاش کریں۔
-ui:guide.inside,/guide,What’s inside,اس میں کیا ہے
-ui:guide.chapters.note.title,/guide,A note from Humraah,ہمراہ کی طرف سے چند باتیں
-ui:guide.chapters.note.summary,/guide,"Why we made this guide, and who it’s for.",ہم نے یہ گائیڈ کیوں بنائی، اور یہ کس کے لیے ہے۔
-ui:guide.chapters.why.title,/guide,Why higher education matters,اعلیٰ تعلیم کیوں اہم ہے
-ui:guide.chapters.why.summary,/guide,What higher education is and how it can help you.,اعلیٰ تعلیم کیا ہے اور یہ آپ کی کیسے مدد کر سکتی ہے۔
-ui:guide.chapters.discover.title,/guide,Discover yourself,خود کو جانیں
-ui:guide.chapters.discover.summary,/guide,"What you enjoy, what you’re good at, and your top three.",آپ کو کیا اچھا لگتا ہے، آپ کس چیز میں اچھی ہیں، اور آپ کی تین پسندیدہ چیزیں۔
-ui:guide.chapters.options.title,/guide,Exploring your options,اپنے راستے دیکھیں
-ui:guide.chapters.options.summary,/guide,Ten popular fields and what you might enjoy in each.,دس مقبول شعبے اور ہر ایک میں آپ کو کیا اچھا لگ سکتا ہے۔
-ui:guide.chapters.university.title,/guide,Finding the right university,صحیح یونیورسٹی کی تلاش
-ui:guide.chapters.university.summary,/guide,How to research universities and pay for your studies.,یونیورسٹیوں کے بارے میں کیسے معلوم کریں اور پڑھائی کا خرچ کیسے اٹھائیں۔
-ui:guide.chapters.path.title,/guide,Build your path,اپنا راستہ بنائیں
-ui:guide.chapters.path.summary,/guide,"Your interest, your options and your next step.",آپ کی دلچسپی، آپ کے راستے اور آپ کا اگلا قدم۔
-ui:guide.signOff,/guide,"With love, Humraah",محبت کے ساتھ، ہمراہ
-ui:guide.languages.en,/guide,English,انگریزی
-ui:guide.languages.ur,/guide,Urdu,اردو
-ui:guide.pdf,/guide,PDF,PDF
-ui:guide.pdfSize,/guide,"PDF, {size}",PDF، {size}
-ui:guide.pdfSoon,/guide,PDF coming soon,PDF جلد آ رہی ہے
-ui:guide.download,/guide,Download,ڈاؤن لوڈ
-ui:guide.downloadLabel,/guide,Download the {language} guide (PDF),{language} گائیڈ ڈاؤن لوڈ کریں (PDF)
-ui:guide.downloadLabelSize,/guide,"Download the {language} guide (PDF, {size})",{language} گائیڈ ڈاؤن لوڈ کریں (PDF، {size})
-ui:guide.readOnline,/guide,Read online,آن لائن پڑھیں
-ui:guide.readOnlineNote,/guide,(the {language} guide opens in a new tab),({language} گائیڈ نئے ٹیب میں کھلے گی)
-ui:guide.comingSoon,/guide,Coming soon,جلد آ رہی ہے
+ui:guide.title,/guidance#guide,Higher Education Guide,اعلیٰ تعلیم گائیڈ
+ui:guide.intro,/guidance#guide,"A free guide to help you take your first step: discover yourself, explore your options and find the right university.",ایک مفت گائیڈ، جو آپ کا پہلا قدم اٹھانے میں مدد دیتی ہے: خود کو جانیں، اپنے راستے دیکھیں اور صحیح یونیورسٹی تلاش کریں۔
+ui:guide.inside,/guidance#guide,What’s inside,اس میں کیا ہے
+ui:guide.chapters.note.title,/guidance#guide,A note from Humraah,ہمراہ کی طرف سے چند باتیں
+ui:guide.chapters.note.summary,/guidance#guide,"Why we made this guide, and who it’s for.",ہم نے یہ گائیڈ کیوں بنائی، اور یہ کس کے لیے ہے۔
+ui:guide.chapters.why.title,/guidance#guide,Why higher education matters,اعلیٰ تعلیم کیوں اہم ہے
+ui:guide.chapters.why.summary,/guidance#guide,What higher education is and how it can help you.,اعلیٰ تعلیم کیا ہے اور یہ آپ کی کیسے مدد کر سکتی ہے۔
+ui:guide.chapters.discover.title,/guidance#guide,Discover yourself,خود کو جانیں
+ui:guide.chapters.discover.summary,/guidance#guide,"What you enjoy, what you’re good at, and your top three.",آپ کو کیا اچھا لگتا ہے، آپ کس چیز میں اچھی ہیں، اور آپ کی تین پسندیدہ چیزیں۔
+ui:guide.chapters.options.title,/guidance#guide,Exploring your options,اپنے راستے دیکھیں
+ui:guide.chapters.options.summary,/guidance#guide,Ten popular fields and what you might enjoy in each.,دس مقبول شعبے اور ہر ایک میں آپ کو کیا اچھا لگ سکتا ہے۔
+ui:guide.chapters.university.title,/guidance#guide,Finding the right university,صحیح یونیورسٹی کی تلاش
+ui:guide.chapters.university.summary,/guidance#guide,How to research universities and pay for your studies.,یونیورسٹیوں کے بارے میں کیسے معلوم کریں اور پڑھائی کا خرچ کیسے اٹھائیں۔
+ui:guide.chapters.path.title,/guidance#guide,Build your path,اپنا راستہ بنائیں
+ui:guide.chapters.path.summary,/guidance#guide,"Your interest, your options and your next step.",آپ کی دلچسپی، آپ کے راستے اور آپ کا اگلا قدم۔
+ui:guide.signOff,/guidance#guide,"With love, Humraah",محبت کے ساتھ، ہمراہ
+ui:guide.languages.en,/guidance#guide,English,انگریزی
+ui:guide.languages.ur,/guidance#guide,Urdu,اردو
+ui:guide.pdf,/guidance#guide,PDF,PDF
+ui:guide.pdfSize,/guidance#guide,"PDF, {size}",PDF، {size}
+ui:guide.pdfSoon,/guidance#guide,PDF coming soon,PDF جلد آ رہی ہے
+ui:guide.download,/guidance#guide,Download,ڈاؤن لوڈ
+ui:guide.downloadLabel,/guidance#guide,Download the {language} guide (PDF),{language} گائیڈ ڈاؤن لوڈ کریں (PDF)
+ui:guide.downloadLabelSize,/guidance#guide,"Download the {language} guide (PDF, {size})",{language} گائیڈ ڈاؤن لوڈ کریں (PDF، {size})
+ui:guide.readOnline,/guidance#guide,Read online,آن لائن پڑھیں
+ui:guide.readOnlineNote,/guidance#guide,(the {language} guide opens in a new tab),({language} گائیڈ نئے ٹیب میں کھلے گی)
+ui:guide.comingSoon,/guidance#guide,Coming soon,جلد آ رہی ہے
 ui:guidance.title,/guidance,Guidance,رہنمائی
-ui:guidance.intro,/guidance,"Simple, step-by-step help for every stage, from choosing a field to paying for university.",ہر مرحلے کے لیے آسان، قدم بہ قدم مدد، شعبہ چننے سے لے کر یونیورسٹی کی فیس تک۔
+ui:guidance.intro,/guidance,"Everything to help you plan your next step: our free guide, step-by-step articles and official resources.",آپ کا اگلا قدم طے کرنے کے لیے سب کچھ ایک جگہ: ہماری مفت گائیڈ، قدم بہ قدم مضامین اور آفیشل وسائل۔
 ui:guidance.notConnected,/guidance,The database isn't connected yet. Add the Supabase environment variables to see guidance.,ڈیٹا بیس ابھی منسلک نہیں ہے۔ رہنمائی دیکھنے کے لیے Supabase کے environment variables شامل کریں۔
 ui:guidance.noArticles,/guidance,No guidance is published yet. Check back soon.,ابھی کوئی رہنمائی شائع نہیں ہوئی۔ جلد دوبارہ دیکھیں۔
 ui:guidance.articleNotConnected,/guidance,The database isn't connected yet. Add the Supabase environment variables to see this article.,ڈیٹا بیس ابھی منسلک نہیں ہے۔ یہ مضمون دیکھنے کے لیے Supabase کے environment variables شامل کریں۔
@@ -573,19 +550,21 @@ ui:guidance.nextSteps.subject,/guidance,Pick one subject you’re curious about,
 ui:guidance.nextSteps.universities,/guidance,Find two universities that offer it,دو یونیورسٹیاں تلاش کریں جو یہ پڑھاتی ہوں
 ui:guidance.nextSteps.admissions,/guidance,Check their official admission pages,ان کے آفیشل داخلے کے صفحات دیکھیں
 ui:guidance.nextSteps.action,/guidance,Find a university,یونیورسٹی تلاش کریں
-ui:resources.metaTitle,/resources,Resources,وسائل
-ui:resources.metaDescription,/resources,"Official websites and tools we trust for university, scholarships and admission tests in Pakistan.",پاکستان میں یونیورسٹی، اسکالرشپس اور داخلہ ٹیسٹوں کے لیے آفیشل ویب سائٹس اور ٹولز جن پر ہمیں بھروسہ ہے۔
-ui:resources.title,/resources,Useful resources,مفید وسائل
-ui:resources.intro,/resources,Official websites and tools we trust. Each link opens the official source.,آفیشل ویب سائٹس اور ٹولز جن پر ہمیں بھروسہ ہے۔ ہر لنک آفیشل ذریعہ کھولتا ہے۔
-ui:resources.notConnected,/resources,The database isn't connected yet. Add the Supabase environment variables to see resources.,ڈیٹا بیس ابھی منسلک نہیں ہے۔ وسائل دیکھنے کے لیے Supabase کے environment variables شامل کریں۔
-ui:resources.noResources,/resources,No resources are published yet. The research team is adding official links. Check back soon.,ابھی کوئی وسائل شائع نہیں ہوئے۔ ریسرچ ٹیم آفیشل لنکس شامل کر رہی ہے۔ جلد دوبارہ دیکھیں۔
-ui:resources.groups.official,/resources,HEC and official resources,HEC اور آفیشل وسائل
-ui:resources.groups.scholarships,/resources,Scholarships,اسکالرشپس
-ui:resources.groups.tests,/resources,Admission tests,داخلہ ٹیسٹ
-ui:resources.groups.guidance,/resources,Career exploration,کیریئر کے بارے میں جانیں
-ui:resources.fromHumraah,/resources,From Humraah,ہمراہ کی طرف سے
-ui:resources.guideTitle,/resources,Higher Education Guide,اعلیٰ تعلیم گائیڈ
-ui:resources.guideText,/resources,Our free guide in English and Urdu.,ہماری مفت گائیڈ، انگریزی اور اردو میں۔
+ui:guidance.metaDescription,/guidance,"Step-by-step guidance, our free Higher Education Guide and official resources for university and scholarships in Pakistan.",پاکستان میں یونیورسٹی اور اسکالرشپس کے لیے قدم بہ قدم رہنمائی، ہماری مفت اعلیٰ تعلیم گائیڈ اور آفیشل وسائل۔
+ui:guidance.jumpTo,/guidance,Jump to a section,اس صفحے پر جائیں
+ui:guidance.jump.guide,/guidance,The Guide,گائیڈ
+ui:guidance.jump.articles,/guidance,Articles,مضامین
+ui:guidance.jump.resources,/guidance,Resources,وسائل
+ui:guidance.articlesTitle,/guidance,Guidance articles,رہنمائی کے مضامین
+ui:guidance.articlesIntro,/guidance,"Simple, step-by-step help for every stage, from choosing a field to paying for university.",ہر مرحلے کے لیے آسان، قدم بہ قدم مدد، شعبہ چننے سے لے کر یونیورسٹی کی فیس تک۔
+ui:resources.title,/guidance#resources,Useful resources,مفید وسائل
+ui:resources.intro,/guidance#resources,Official websites and tools we trust. Each link opens the official source.,آفیشل ویب سائٹس اور ٹولز جن پر ہمیں بھروسہ ہے۔ ہر لنک آفیشل ذریعہ کھولتا ہے۔
+ui:resources.notConnected,/guidance#resources,The database isn't connected yet. Add the Supabase environment variables to see resources.,ڈیٹا بیس ابھی منسلک نہیں ہے۔ وسائل دیکھنے کے لیے Supabase کے environment variables شامل کریں۔
+ui:resources.noResources,/guidance#resources,No resources are published yet. The research team is adding official links. Check back soon.,ابھی کوئی وسائل شائع نہیں ہوئے۔ ریسرچ ٹیم آفیشل لنکس شامل کر رہی ہے۔ جلد دوبارہ دیکھیں۔
+ui:resources.groups.official,/guidance#resources,HEC and official resources,HEC اور آفیشل وسائل
+ui:resources.groups.scholarships,/guidance#resources,Scholarships,اسکالرشپس
+ui:resources.groups.tests,/guidance#resources,Admission tests,داخلہ ٹیسٹ
+ui:resources.groups.guidance,/guidance#resources,Career exploration,کیریئر کے بارے میں جانیں
 ui:about.metaTitle,/about,About and contact,تعارف اور رابطہ
 ui:about.metaDescription,/about,"Humraah is a youth-led initiative giving girls in Pakistan the information, resources and support to pursue higher education.",ہمراہ نوجوانوں کی ایک کوشش ہے جو پاکستان کی لڑکیوں کو اعلیٰ تعلیم حاصل کرنے کے لیے معلومات، وسائل اور ساتھ دیتی ہے۔
 ui:about.tagline,/about,Har Raah Mein Humraah.,ہر راہ میں ہمراہ۔
@@ -621,11 +600,14 @@ ui:privacy.noticeTitle,/privacy,Contact Form Privacy Notice,رابطہ فارم 
 ui:menu.title,/menu,Menu,مینو
 ui:menu.close,/menu,Close the menu,مینو بند کریں
 ui:menu.privacy,/menu,Privacy and disclaimer,رازداری اور اعلانِ لاتعلقی
-ui:menu.descriptions.guidance,/menu,Step-by-step help for every stage,ہر مرحلے کے لیے قدم بہ قدم مدد
-ui:menu.descriptions.guideFull,/menu,Free in English and Urdu,مفت، انگریزی اور اردو میں
-ui:menu.descriptions.resources,/menu,Official websites and tools,آفیشل ویب سائٹس اور ٹولز
+ui:menu.descriptions.guidance,/menu,"The guide, articles and official resources",گائیڈ، مضامین اور آفیشل وسائل
 ui:menu.descriptions.aboutContact,/menu,Who we are and how to reach us,ہم کون ہیں اور ہم سے رابطہ کیسے کریں
 ui:menu.descriptions.whereToStart,/menu,A two-minute quiz,دو منٹ کا کوئز
+ui:menu.descriptions.home,/menu,Start here,یہاں سے شروع کریں
+ui:menu.descriptions.explore,/menu,Browse fields of study,پڑھائی کے شعبے دیکھیں
+ui:menu.descriptions.universities,/menu,"Programmes, fees and how to apply",پروگرام، فیس اور اپلائی کرنے کا طریقہ
+ui:menu.descriptions.scholarships,/menu,Merit and need-based support,میرٹ اور ضرورت پر مبنی مدد
+ui:menu.descriptions.search,/menu,Find a university by name or city,نام یا شہر سے یونیورسٹی تلاش کریں
 ui:notFound.script,page not found,This path doesn't lead anywhere yet.,یہ راستہ ابھی کہیں نہیں جاتا۔
 ui:notFound.title,page not found,We couldn't find that page,ہمیں یہ صفحہ نہیں ملا
 ui:notFound.text,page not found,"It may have moved, or the link may be wrong. Let's get you back on track.",ہو سکتا ہے یہ صفحہ کہیں اور چلا گیا ہو، یا لنک غلط ہو۔ چلیں، آپ کو واپس صحیح راستے پر لاتے ہیں۔
@@ -633,6 +615,21 @@ ui:notFound.home,page not found,Go to the home page,ہوم پیج پر جائی�
 ui:notFound.popular,page not found,Popular pages,مقبول صفحات
 ui:notFound.orTry,page not found,Or try,یا یہ دیکھیں
 ui:notFound.metaTitle,page not found,Page not found · Humraah,صفحہ نہیں ملا · ہمراہ
+ui:serverError.script,,Something went wrong on our side.,ہماری طرف سے کچھ گڑبڑ ہو گئی۔
+ui:serverError.title,,"Sorry, this page isn’t working",معذرت، یہ صفحہ ابھی نہیں چل رہا
+ui:serverError.text,,"It’s not you. Please try again in a moment, or go back to the home page.",اس میں آپ کا کوئی قصور نہیں۔ براہِ کرم تھوڑی دیر بعد دوبارہ کوشش کریں، یا ہوم پیج پر واپس جائیں۔
+ui:serverError.tryAgain,,Try again,دوبارہ کوشش کریں
+ui:serverError.home,,Go to the home page,ہوم پیج پر جائیں
+ui:notifications.label,,Upcoming deadlines,آنے والی آخری تاریخیں
+ui:notifications.labelCount,,"Upcoming deadlines, {count} in the next 30 days",آنے والی آخری تاریخیں، اگلے 30 دنوں میں {count}
+ui:notifications.title,,Upcoming deadlines,آنے والی آخری تاریخیں
+ui:notifications.loading,,Checking for deadlines…,آخری تاریخیں دیکھی جا رہی ہیں…
+ui:notifications.empty,,No upcoming deadlines yet. We'll list them here once they're confirmed.,ابھی کوئی آنے والی آخری تاریخ نہیں۔ تصدیق ہوتے ہی ہم انہیں یہاں دکھائیں گے۔
+ui:notifications.groups.scholarships,,Scholarships,اسکالرشپس
+ui:notifications.groups.admissions,,Admissions,داخلے
+ui:notifications.daysLeft,,"{count, plural, =0 {Closes today} one {# day left} other {# days left}}","{count, plural, =0 {آج بند ہو رہی ہے} one {# دن باقی} other {# دن باقی}}"
+ui:notifications.note,,Always check the official page for the final date.,حتمی تاریخ کے لیے ہمیشہ آفیشل صفحہ دیکھیں۔
+ui:notifications.close,,Close,بند کریں
 db:fields/business-management/name_ur,/explore/business-management,Business & Management,کاروبار اور مینجمنٹ
 db:fields/business-management/summary_ur,/explore/business-management,"Running organisations, managing money and people, and understanding how markets work.",اداروں کو چلانا، پیسے اور لوگوں کا انتظام کرنا، اور یہ سمجھنا کہ بازار کیسے کام کرتے ہیں۔
 db:fields/business-management/you_might_enjoy_ur,/explore/business-management,"organising, leading, working with people and solving business problems",انتظام کرنا، قیادت کرنا، لوگوں کے ساتھ کام کرنا اور کاروباری مسئلے حل کرنا
@@ -773,10 +770,10 @@ Climate","تعلیم
 صحت کے علوم
 STEM
 موسمیاتی تبدیلی"
-db:resources/https://www.hec.gov.pk/title_ur,/resources,Higher Education Commission (HEC),ہائر ایجوکیشن کمیشن (HEC)
-db:resources/https://www.hec.gov.pk/description_ur,/resources,"Pakistan's official body for universities, degree recognition and HEC scholarships.",پاکستان میں یونیورسٹیوں، ڈگریوں کی تصدیق اور HEC اسکالرشپس کا آفیشل ادارہ۔
-db:resources/https://www.hec.gov.pk/english/universities/pages/recognised.aspx/title_ur,/resources,HEC recognised universities and campuses,HEC سے تسلیم شدہ یونیورسٹیاں اور کیمپس
-db:resources/https://www.hec.gov.pk/english/universities/pages/recognised.aspx/description_ur,/resources,Check that a university or campus is officially recognised before you apply.,اپلائی کرنے سے پہلے دیکھ لیں کہ یونیورسٹی یا کیمپس آفیشل طور پر تسلیم شدہ ہے۔
+db:resources/https://www.hec.gov.pk/title_ur,/guidance#resources,Higher Education Commission (HEC),ہائر ایجوکیشن کمیشن (HEC)
+db:resources/https://www.hec.gov.pk/description_ur,/guidance#resources,"Pakistan's official body for universities, degree recognition and HEC scholarships.",پاکستان میں یونیورسٹیوں، ڈگریوں کی تصدیق اور HEC اسکالرشپس کا آفیشل ادارہ۔
+db:resources/https://www.hec.gov.pk/english/universities/pages/recognised.aspx/title_ur,/guidance#resources,HEC recognised universities and campuses,HEC سے تسلیم شدہ یونیورسٹیاں اور کیمپس
+db:resources/https://www.hec.gov.pk/english/universities/pages/recognised.aspx/description_ur,/guidance#resources,Check that a university or campus is officially recognised before you apply.,اپلائی کرنے سے پہلے دیکھ لیں کہ یونیورسٹی یا کیمپس آفیشل طور پر تسلیم شدہ ہے۔
 db:guidance_articles/how-to-research-a-university/title_ur,/guidance/how-to-research-a-university,How do I research a university?,یونیورسٹی کے بارے میں معلومات کیسے حاصل کریں؟
 db:guidance_articles/how-to-research-a-university/summary_ur,/guidance/how-to-research-a-university,"Five steps to check a university properly, using official sources.",آفیشل ذرائع کی مدد سے کسی یونیورسٹی کو اچھی طرح جانچنے کے پانچ قدم۔
 db:guidance_articles/how-to-research-a-university/body_markdown_ur,/guidance/how-to-research-a-university,"
