@@ -1,23 +1,18 @@
 /* eslint-disable @next/next/no-img-element -- small static brand SVGs */
 import { Award, BookOpen, Compass, Download, Landmark, type LucideIcon } from "lucide-react";
 import { LogoMark, LogoStacked } from "@/components/brand/Logo";
-import { ScholarshipCard } from "@/components/content/Cards";
 import { Container } from "@/components/layout/PageShell";
 import { ButtonLink } from "@/components/ui/Button";
 import { Chip, ChipList } from "@/components/ui/Chip";
-import { DottedPath, SectionHeader } from "@/components/ui/Blocks";
-import {
-  listFields,
-  listScholarshipCards,
-  type ScholarshipCard as ScholarshipCardData,
-} from "@/lib/data/public";
+import { DottedPath } from "@/components/ui/Blocks";
+import { listFields } from "@/lib/data/public";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 import { alternates } from "@/i18n/metadata";
 import { withShare } from "@/i18n/share";
 import { pageLocale, type LocaleParams } from "@/i18n/server";
-import { countWord, daysUntil } from "@/lib/format";
+import { countWord } from "@/lib/format";
 
 export const revalidate = 300;
 
@@ -26,23 +21,12 @@ export async function generateMetadata({ params }: { params: LocaleParams }): Pr
   return withShare({ alternates: alternates("/", (await params).locale) }, (await params).locale);
 }
 
-/** Up to three scholarships: the ones closing next, then any without a confirmed date. */
-function closingSoon(all: ScholarshipCardData[]) {
-  const upcoming = all
-    .filter((s) => s.deadline && daysUntil(s.deadline) >= 0)
-    .sort((a, b) => a.deadline!.localeCompare(b.deadline!));
-  const undated = all.filter((s) => !s.deadline);
-  return [...upcoming, ...undated].slice(0, 3);
-}
-
 export default async function HomePage({ params }: { params: LocaleParams }) {
   const locale = await pageLocale(params);
   const t = await getTranslations("home");
-  const [fields, scholarships] = await Promise.all([listFields(locale), listScholarshipCards(locale)]);
-  const connected = fields !== null && scholarships !== null;
+  const fields = await listFields(locale);
   const fieldCount = fields?.length ?? 0;
   const fieldsPhrase = t("fieldsPhrase", { count: fieldCount, word: countWord(fieldCount) });
-  const closing = scholarships ? closingSoon(scholarships) : [];
 
   const steps: {
     icon: LucideIcon;
@@ -173,40 +157,6 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
             );
           })}
         </ol>
-      </Container>
-
-      {/* Closing soon */}
-      <Container className="flex flex-col gap-3.5 pt-7 pb-2 lg:gap-6 lg:pt-6 lg:pb-14">
-        <SectionHeader
-          title={
-            <>
-              <span className="lg:hidden">{t("closingSoon")}</span>
-              <span className="hidden lg:inline">{t("closingSoonFull")}</span>
-            </>
-          }
-          href="/scholarships"
-          linkLabel={
-            <>
-              <span className="lg:hidden">{t("seeAll")}</span>
-              <span className="hidden lg:inline">{t("seeAllScholarships")}</span>
-            </>
-          }
-        />
-        {!connected ? (
-          <p className="rounded-2xl bg-tint-lavender p-5 text-body-m" role="status">
-            {t("notConnected")}
-          </p>
-        ) : closing.length === 0 ? (
-          <p className="rounded-2xl bg-blush p-5 text-body-m">{t("noScholarships")}</p>
-        ) : (
-          <ul className="grid gap-3.5 lg:grid-cols-3 lg:gap-6">
-            {closing.map((s, i) => (
-              <li key={s.id} className={`flex flex-col *:flex-1 ${i === 2 ? "hidden lg:flex" : ""}`}>
-                <ScholarshipCard scholarship={s} />
-              </li>
-            ))}
-          </ul>
-        )}
       </Container>
 
       {/* Guide */}
