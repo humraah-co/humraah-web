@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Award, CircleAlert, Compass, Globe, Landmark, Lightbulb, Mail, Search } from "lucide-react";
+import { Award, CircleAlert, Compass, Landmark, Lightbulb, Mail, Search } from "lucide-react";
 import { AddEntryMenu } from "@/components/admin/AddEntryMenu";
 import { ReviewTable } from "@/components/admin/ReviewTable";
 import { ActivityItem, PageHeader, Panel, StatCard } from "@/components/admin/Workspace";
@@ -26,6 +26,9 @@ function caption(counts: Counts) {
   if (!counts) return "Couldn’t load the numbers";
   return `${counts.published} published, ${plural(counts.draft, "draft")}`;
 }
+/** Two tables counted as one; unknown if either couldn’t be loaded. */
+const together = (a: Counts, b: Counts): Counts =>
+  a && b ? { published: a.published + b.published, draft: a.draft + b.draft } : null;
 const total = (counts: Counts) => (counts ? counts.published + counts.draft : null);
 
 /** Admin – Dashboard (Figma 13:1209). Counts come from the database. */
@@ -45,6 +48,7 @@ export default async function DashboardPage({
   const isAdmin = isAdminRole(member.role);
   const message = typeof notice === "string" ? notices[notice] : undefined;
   const { counts } = data;
+  const guidanceAndResources = together(counts.guidance_articles, counts.resources);
 
   return (
     <>
@@ -84,14 +88,6 @@ export default async function DashboardPage({
           caption={caption(counts.scholarships)}
         />
         <StatCard
-          icon={Globe}
-          tone="bg-blush"
-          label="Resources"
-          href="/admin/resources"
-          value={total(counts.resources)}
-          caption={caption(counts.resources)}
-        />
-        <StatCard
           icon={CircleAlert}
           tone="bg-tint-coral"
           label="Needs review"
@@ -109,10 +105,10 @@ export default async function DashboardPage({
         <StatCard
           icon={Lightbulb}
           tone="bg-tint-lavender"
-          label="Guidance articles"
+          label="Guidance and resources"
           href="/admin/guidance"
-          value={total(counts.guidance_articles)}
-          caption={caption(counts.guidance_articles)}
+          value={total(guidanceAndResources)}
+          caption={caption(guidanceAndResources)}
         />
         {isAdmin && (
           <StatCard
