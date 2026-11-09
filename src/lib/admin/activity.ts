@@ -18,6 +18,10 @@ const contentVerbs: Record<string, (label: string) => string> = {
   read: (l) => `marked ${l} as read`,
   unread: (l) => `marked ${l} as unread`,
   unarchived: (l) => `took ${l} out of the archive`,
+  // Guide PDFs (the label is "the English guide PDF").
+  uploaded: (l) => `uploaded ${l}`,
+  replaced: (l) => `replaced ${l}`,
+  removed: (l) => `removed ${l}`,
 };
 
 const teamVerbs: Record<string, (label: string) => string> = {
@@ -40,6 +44,7 @@ const nouns: Record<string, string> = {
   fields: "a field of study",
   guidance_articles: "a guidance article",
   contact_messages: "a contact message",
+  guide_files: "a guide PDF",
   team_members: "a team member",
 };
 
