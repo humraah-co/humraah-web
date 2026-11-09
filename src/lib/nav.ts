@@ -23,8 +23,6 @@ export const desktopNav: NavItem[] = [
   { href: "/universities", key: "universities" },
   { href: "/scholarships", key: "scholarships" },
   { href: "/guidance", key: "guidance" },
-  { href: "/guide", key: "guide" },
-  { href: "/resources", key: "resources" },
   { href: "/about", key: "about" },
 ];
 
@@ -37,16 +35,12 @@ export const footerExplore: NavItem[] = [
 
 export const footerHelp: NavItem[] = [
   { href: "/guidance", key: "guidance" },
-  { href: "/guide", key: "guideFull" },
-  { href: "/resources", key: "resources" },
   { href: "/about", key: "aboutContact" },
 ];
 
 /** Pages reached from the mobile Menu screen (Figma 30:2638) rather than the bottom bar; descriptions are in "menu". */
 export const menuNav: NavItem[] = [
   { href: "/guidance", key: "guidance" },
-  { href: "/guide", key: "guideFull" },
-  { href: "/resources", key: "resources" },
   { href: "/about", key: "aboutContact" },
   { href: "/quiz", key: "whereToStart" },
 ];
