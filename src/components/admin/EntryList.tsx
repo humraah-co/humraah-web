@@ -60,7 +60,7 @@ const copy: Record<EntryTable, { description: string; add: string }> = {
     add: "Add field of study",
   },
   resources: {
-    description: "The official links on the Resources page. Every link needs a source you checked.",
+    description: "The official links in the Resources part of the Guidance page. Every link needs a source you checked.",
     add: "Add resource",
   },
   guidance_articles: {
