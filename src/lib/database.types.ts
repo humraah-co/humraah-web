@@ -186,6 +186,17 @@ export type ContactMessage = {
   archived_by: string | null;
 };
 
+/** One Higher Education Guide PDF per language (20261028000001). Visitors can read everything but uploaded_by. */
+export type GuideFile = {
+  language: "en" | "ur";
+  /** "<language>/<uuid>.pdf" in the public "guides" bucket. */
+  storage_path: string;
+  file_name: string;
+  size_bytes: number;
+  uploaded_by: string | null;
+  updated_at: string;
+};
+
 export type Database = {
   public: {
     Tables: {
@@ -199,6 +210,7 @@ export type Database = {
       team_members: Table<TeamMember, "user_id" | "email">;
       activity_log: Table<ActivityLogEntry, "action" | "entity_type">;
       contact_messages: Table<ContactMessage, "name" | "email" | "message">;
+      guide_files: Table<GuideFile, "language" | "storage_path" | "file_name" | "size_bytes">;
     };
     Views: Record<string, never>;
     Functions: {
