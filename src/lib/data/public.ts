@@ -4,6 +4,7 @@ import { createPublicClient } from "@/lib/supabase/public";
 import type { Field, GuidanceArticle, Resource, Scholarship, University } from "@/lib/database.types";
 import type { Locale } from "@/i18n/config";
 import { asEnglish, localize, type WithEnglish } from "@/i18n/localize";
+import { toDeadlines, upcoming, type Deadline } from "@/lib/deadlines";
 
 /**
  * Public data access. Every query goes through the anon client, so row-level
@@ -387,3 +388,47 @@ export const listResources = unstable_cache(
   ["resources"],
   { revalidate: REVALIDATE, tags: ["resources"] },
 );
+
+// ---------------------------------------------------------------------------
+// Upcoming deadlines (the notifications bell)
+// ---------------------------------------------------------------------------
+
+/** The bell can be an hour behind: it only lists dates, and every save clears the tags. */
+const DEADLINES_REVALIDATE = 3600;
+
+const loadDeadlines = unstable_cache(
+  async (): Promise<Deadline[] | null> => {
+    const supabase = createPublicClient();
+    if (!supabase) return null;
+    const [schols, unis] = await Promise.all([
+      supabase
+        .from("scholarships")
+        .select("slug, name, deadline, last_verified_at")
+        .not("deadline", "is", null),
+      supabase
+        .from("universities")
+        .select("slug, name, admissions_window, last_verified_at")
+        .not("admissions_window", "is", null),
+    ]);
+    if (schols.error) fail("scholarship deadlines", schols.error.message);
+    if (unis.error) fail("admission deadlines", unis.error.message);
+    return toDeadlines(schols.data, unis.data);
+  },
+  ["upcoming-deadlines"],
+  { revalidate: DEADLINES_REVALIDATE, tags: ["scholarships", "universities"] },
+);
+
+/**
+ * Every published scholarship with a confirmed deadline date and every
+ * published university whose admissions line names a full closing date,
+ * soonest first and never in the past. Cached for an hour. Never throws:
+ * with no database, or when it fails, the list is empty and the bell shows
+ * its empty state (a failure isn't cached, so the next request tries again).
+ */
+export async function listUpcomingDeadlines(): Promise<Deadline[]> {
+  try {
+    return upcoming((await loadDeadlines()) ?? []);
+  } catch {
+    return [];
+  }
+}
