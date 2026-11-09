@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { BottomNav } from "@/components/layout/BottomNav";
 import { HideOnFocusedPages } from "@/components/layout/HideOnFocusedPages";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
@@ -92,7 +91,6 @@ export default async function LocaleLayout({
           <HideOnFocusedPages>
             <SiteFooter />
           </HideOnFocusedPages>
-          <BottomNav />
         </NextIntlClientProvider>
       </body>
     </html>
