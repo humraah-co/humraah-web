@@ -298,45 +298,46 @@ export function ResourceCard({
   const external = !!href && !href.startsWith("/");
   const body = (
     <>
-      <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-tint-lavender">
-        <Icon className="size-5" strokeWidth={1.75} aria-hidden="true" />
+      <span className="flex size-12 shrink-0 items-center justify-center rounded-pill bg-tint-lavender">
+        <Icon className="size-[22px]" strokeWidth={1.75} aria-hidden="true" />
       </span>
-      <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-        <span className="text-label-l" {...englishAttrs({ english }, "title")}>
+      <span className="flex min-w-0 flex-1 flex-col gap-1 self-stretch">
+        <span className="line-clamp-2 text-label-l" {...englishAttrs({ english }, "title")}>
           {title}
         </span>
         {description && (
-          <span className="text-body-s text-muted" {...englishAttrs({ english }, "description")}>
+          <span className="line-clamp-3 text-body-s text-muted" {...englishAttrs({ english }, "description")}>
             {description}
           </span>
         )}
-        <span className="text-caption break-words text-deep-rose">
+        <span className="mt-auto line-clamp-1 pt-1 text-caption break-words text-deep-rose">
           {href ? (source ?? (external ? <Ltr>{hostOf(href)}</Ltr> : t("humraah"))) : common("comingSoon")}
         </span>
       </span>
       {href &&
         (external ? (
-          <ExternalLink className="size-5 shrink-0 text-deep-rose" strokeWidth={1.75} aria-hidden="true" />
+          <ExternalLink
+            className="mt-3 size-5 shrink-0 text-deep-rose"
+            strokeWidth={1.75}
+            aria-hidden="true"
+          />
         ) : (
-          <ChevronRight className="size-5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
+          <ChevronRight className="mt-3 size-5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
         ))}
     </>
   );
-  const classes = "flex items-center gap-3 rounded-2xl border border-border-soft bg-card p-4";
+  const classes =
+    "group flex h-full w-full min-w-0 items-start gap-3.5 rounded-[20px] border border-border-soft bg-card p-4 transition-colors lg:p-5";
+  const interactive = "hover:border-border-strong focus-visible:border-border-strong";
   if (!href) return <div className={classes}>{body}</div>;
   if (!external)
     return (
-      <Link href={href} className={`${classes} transition-shadow hover:shadow-raised`}>
+      <Link href={href} className={`${classes} ${interactive}`}>
         {body}
       </Link>
     );
   return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`${classes} transition-shadow hover:shadow-raised`}
-    >
+    <a href={href} target="_blank" rel="noopener noreferrer" className={`${classes} ${interactive}`}>
       {body}
       <span className="sr-only">{common("opensInNewTab")}</span>
     </a>
