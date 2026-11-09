@@ -13,8 +13,27 @@ import type {
 import { daysUntil, formatShortDate, hostOf, initialsFor } from "@/lib/format";
 import { FieldIcon } from "./FieldIcon";
 
+/**
+ * Every grid card has the same anatomy, top to bottom: a row of tags, the
+ * title (two lines at most), a short description (three lines at most), then
+ * a bottom group pinned to the foot of the card: meta chips, a divider and
+ * the footer (deadline and verification). The card fills its grid cell, so
+ * cards in a row are equally tall and their footers line up. Hover and focus
+ * only change the border colour.
+ */
 const card =
-  "group flex flex-col rounded-[20px] border border-border-soft bg-card p-4 transition-shadow hover:shadow-raised focus-visible:shadow-raised";
+  "group flex h-full w-full min-w-0 flex-col gap-3 rounded-[20px] border border-border-soft bg-card p-4 transition-colors hover:border-border-strong focus-visible:border-border-strong lg:p-5";
+
+/** Two lines at most, and two lines of room so descriptions below start at the same height. */
+const cardTitle = "line-clamp-2 min-h-[2lh] text-label-l";
+const cardText = "line-clamp-3 text-body-s text-muted";
+
+/** The group pinned to the bottom of the card. */
+function CardBottom({ children }: { children: React.ReactNode }) {
+  return <span className="mt-auto flex flex-col gap-3">{children}</span>;
+}
+
+const cardArrow = "size-5 shrink-0 text-charcoal";
 
 // ---------------------------------------------------------------------------
 // Card/Field
@@ -24,38 +43,39 @@ const card =
 export function FieldCard({ field, reason }: { field: FieldSummary; reason?: string }) {
   const t = useTranslations("cards");
   return (
-    <Link href={`/explore/${field.slug}`} className={`${card} flex-row items-start gap-3.5`}>
-      <FieldIcon slug={field.slug} />
-      <span className="flex min-w-0 flex-1 flex-col gap-1">
-        <span className="text-label-l" {...englishAttrs(field, "name")}>
+    <Link href={`/explore/${field.slug}`} className={card}>
+      <span className="flex items-center gap-3.5">
+        <FieldIcon slug={field.slug} />
+        <span className={`${cardTitle} min-w-0 flex-1`} {...englishAttrs(field, "name")}>
           {field.name}
         </span>
-        {reason ? (
-          <span className="text-body-s text-muted">{reason}</span>
-        ) : (
-          field.you_might_enjoy && (
-            <span className="text-body-s text-muted">
-              {englishAttrs(field, "you_might_enjoy").lang ? (
-                <span lang="en" dir="ltr">
-                  {field.you_might_enjoy}
-                </span>
-              ) : (
-                t("youMightEnjoy", { interests: field.you_might_enjoy })
-              )}
-            </span>
-          )
-        )}
-        {field.example_programmes.length > 0 && (
-          <span className="text-label-s text-deep-sage" {...englishAttrs(field, "example_programmes")}>
+        <ChevronRight className={cardArrow} strokeWidth={1.75} aria-hidden="true" />
+      </span>
+      {reason ? (
+        <span className={cardText}>{reason}</span>
+      ) : (
+        field.you_might_enjoy && (
+          <span className={cardText}>
+            {englishAttrs(field, "you_might_enjoy").lang ? (
+              <span lang="en" dir="ltr">
+                {field.you_might_enjoy}
+              </span>
+            ) : (
+              t("youMightEnjoy", { interests: field.you_might_enjoy })
+            )}
+          </span>
+        )
+      )}
+      {field.example_programmes.length > 0 && (
+        <CardBottom>
+          <span
+            className="line-clamp-2 text-label-s text-deep-sage"
+            {...englishAttrs(field, "example_programmes")}
+          >
             {field.example_programmes.join(", ")}
           </span>
-        )}
-      </span>
-      <ChevronRight
-        className="size-5 shrink-0 text-charcoal transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5"
-        strokeWidth={1.75}
-        aria-hidden="true"
-      />
+        </CardBottom>
+      )}
     </Link>
   );
 }
