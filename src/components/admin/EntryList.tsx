@@ -35,8 +35,8 @@ export function readListParams(raw: Record<string, string | string[] | undefined
   };
 }
 
-function listHref(base: string, params: Partial<ListParams>) {
-  const query = new URLSearchParams();
+function listHref(base: string, params: Partial<ListParams>, keep: Record<string, string> = {}) {
+  const query = new URLSearchParams(keep);
   if (params.status && params.status !== "all") query.set("status", params.status);
   if (params.q) query.set("q", params.q);
   if (params.page && params.page > 1) query.set("page", String(params.page));
@@ -81,15 +81,29 @@ export function EntryList({
   names,
   params,
   notice,
+  heading,
+  listPath,
+  keep,
+  above,
 }: {
   table: EntryTable;
   rows: EntryRow[] | null;
   names: Map<string, string>;
   params: ListParams;
   notice?: string;
+  /** Replaces the page title and description, for a page that lists more than one kind of entry. */
+  heading?: { title: string; description: string };
+  /** Where this list lives, when that isn't the editor's address (the combined Guidance and resources page). */
+  listPath?: string;
+  /** Query values every link in the list keeps, e.g. which kind of entry is shown. */
+  keep?: Record<string, string>;
+  /** Shown between the page header and the status tabs, e.g. a switch between kinds of entry. */
+  above?: React.ReactNode;
 }) {
   const type = entryTypes[table];
   const base = type.adminPath;
+  const list = listPath ?? base;
+  const kept = keep ?? {};
 
   const matching = searchEntries(rows ?? [], params.q);
   const counts: Record<Tab, number> = {
@@ -105,8 +119,14 @@ export function EntryList({
 
   return (
     <>
-      <PageHeader title={type.label} description={copy[table].description}>
-        <NavForm action={base} role="search" className="lg:w-[320px]">
+      <PageHeader
+        title={heading?.title ?? type.label}
+        description={heading?.description ?? copy[table].description}
+      >
+        <NavForm action={list} role="search" className="lg:w-[320px]">
+          {Object.entries(kept).map(([name, value]) => (
+            <input key={name} type="hidden" name={name} value={value} />
+          ))}
           {params.status !== "all" && <input type="hidden" name="status" value={params.status} />}
           <label className="flex h-[52px] items-center gap-2.5 rounded-pill border border-border-strong bg-card px-[18px] has-[input:focus-visible]:outline-3 has-[input:focus-visible]:outline-offset-2 has-[input:focus-visible]:outline-deep-rose">
             <Search className="size-5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
@@ -128,11 +148,13 @@ export function EntryList({
 
       {notice && <FormNotice>{notice}</FormNotice>}
 
+      {above}
+
       <nav aria-label={`Filter ${type.label.toLowerCase()} by status`} className="flex flex-wrap gap-2">
         {tabs.map((tab) => (
           <OptionChip
             key={tab.key}
-            href={listHref(base, { status: tab.key, q: params.q })}
+            href={listHref(list, { status: tab.key, q: params.q }, kept)}
             selected={params.status === tab.key}
           >
             {tab.label}
@@ -191,7 +213,7 @@ export function EntryList({
               pageSize={PAGE_SIZE}
               total={shown.length}
               noun={type.label.toLowerCase()}
-              hrefFor={(p) => listHref(base, { ...params, page: p })}
+              hrefFor={(p) => listHref(list, { ...params, page: p }, kept)}
             />
           )}
         </div>
