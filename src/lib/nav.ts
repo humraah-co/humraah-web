@@ -1,7 +1,7 @@
 /** Site navigation, in the order used by the Figma headers and footers. */
 
-import { stripLocale } from "@/i18n/config";
-import { isAdminPath } from "@/lib/admin/paths";
+import { stripLocale } from "../i18n/config.ts";
+import { isAdminPath } from "./admin/paths.ts";
 
 /** A link in the site navigation; `key` names its label in the "nav" messages. */
 export type NavItem = { href: string; key: NavKey };
