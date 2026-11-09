@@ -13,17 +13,21 @@ export const MOVED_PAGES: Record<string, string> = {
   "/resources": "/guidance#resources",
 };
 
-/** Old admin address → new admin address. */
-export const MOVED_ADMIN_PAGES: Record<string, string> = {};
+/**
+ * Old admin addresses. Resources and Guidance articles are one admin page,
+ * "Guidance and resources", at /admin/guidance. The resource list is a tab
+ * of it; the resource editors moved under /admin/guidance/resources.
+ */
+export const MOVED_ADMIN_PAGES: { source: string; destination: string }[] = [
+  { source: "/admin/resources", destination: "/admin/guidance?type=resources" },
+  { source: "/admin/resources/:path*", destination: "/admin/guidance/resources/:path*" },
+];
 
 export function redirects(): Redirect[] {
   const pages = Object.entries(MOVED_PAGES).flatMap(([from, to]) => [
     { source: from, destination: to },
     { source: `/ur${from}`, destination: `/ur${to}` },
   ]);
-  const admin = Object.entries(MOVED_ADMIN_PAGES).flatMap(([from, to]) => [
-    { source: from, destination: to },
-    { source: `${from}/:path*`, destination: `${to}/:path*` },
-  ]);
+  const admin = MOVED_ADMIN_PAGES;
   return [...pages, ...admin].map((r) => ({ ...r, permanent: true as const }));
 }
