@@ -63,7 +63,7 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
       tint: "bg-blush",
       title: t("steps.guide.title"),
       text: t("steps.guide.text"),
-      href: "/guide",
+      href: "/guidance#guide",
       link: t("steps.guide.link"),
     },
   ];
