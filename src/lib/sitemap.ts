@@ -7,8 +7,6 @@ export const STATIC_PAGES = [
   "/scholarships",
   "/explore",
   "/guidance",
-  "/resources",
-  "/guide",
   "/quiz",
   "/about",
   "/privacy",
