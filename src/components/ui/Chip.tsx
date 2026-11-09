@@ -34,15 +34,36 @@ export function Chip({
     <span
       lang={lang}
       dir={dir}
-      className={`inline-flex items-center rounded-pill px-3 py-1.5 text-label-s whitespace-nowrap text-charcoal ${tones[tone]}`}
+      className={`inline-flex max-w-full items-center rounded-pill px-3 py-1.5 text-label-s whitespace-nowrap text-charcoal ${tones[tone]}`}
     >
-      {children}
+      <span className="truncate">{children}</span>
     </span>
   );
 }
 
-export function ChipList({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return <div className={`flex flex-wrap gap-1.5 ${className}`}>{children}</div>;
+/**
+ * A wrapping row of chips. `lines` keeps a long list to that many rows (the
+ * rest is on the detail page) so cards stay a similar height; `reserve` holds
+ * one row of space even when there are no chips, so a card without any still
+ * lines up with its neighbour.
+ */
+export function ChipList({
+  children,
+  className = "",
+  lines,
+  reserve = false,
+}: {
+  children?: React.ReactNode;
+  className?: string;
+  lines?: 1 | 2;
+  reserve?: boolean;
+}) {
+  const clamp = lines === 1 ? "max-h-7 overflow-hidden" : lines === 2 ? "max-h-[62px] overflow-hidden" : "";
+  return (
+    <div className={`flex flex-wrap gap-1.5 ${reserve ? "min-h-7" : ""} ${clamp} ${className}`}>
+      {children}
+    </div>
+  );
 }
 
 const badge =
