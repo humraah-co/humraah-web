@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { ScholarshipCard } from "@/components/content/Cards";
 import { Container } from "@/components/layout/PageShell";
-import { TwoColumns } from "@/components/layout/TwoColumns";
+import { CardGrid } from "@/components/layout/CardGrid";
 import { ScholarshipFilterGroups } from "@/components/scholarships/FilterGroups";
 import { ImportantCallout } from "@/components/ui/Blocks";
 import { ActiveFilterChip } from "@/components/ui/Chip";
@@ -197,7 +197,7 @@ export default async function ScholarshipsPage({
                   </p>
                 </div>
               ) : (
-                <TwoColumns
+                <CardGrid
                   items={results.map((s) => ({ key: s.id, node: <ScholarshipCard scholarship={s} /> }))}
                 />
               )}

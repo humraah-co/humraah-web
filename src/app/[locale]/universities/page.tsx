@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { UniversityCard } from "@/components/content/Cards";
 import { Container } from "@/components/layout/PageShell";
-import { TwoColumns } from "@/components/layout/TwoColumns";
+import { CardGrid } from "@/components/layout/CardGrid";
 import { ImportantCallout } from "@/components/ui/Blocks";
 import { buttonStyles } from "@/components/ui/Button";
 import { ActiveFilterChip } from "@/components/ui/Chip";
@@ -205,7 +205,7 @@ export default async function UniversitiesPage({
                   </p>
                 </div>
               ) : (
-                <TwoColumns
+                <CardGrid
                   items={visible.map((u) => ({
                     key: u.id,
                     node: <UniversityCard university={u} fieldId={fieldId} />,
