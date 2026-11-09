@@ -29,9 +29,9 @@ const choices = [
     tone: "bg-tint-coral",
   },
   {
-    href: "/admin/resources/new",
+    href: "/admin/guidance/resources/new",
     label: "Resource",
-    text: "An official link for the Resources page.",
+    text: "An official link for the Resources part of the Guidance page.",
     icon: Globe,
     tone: "bg-blush",
   },
