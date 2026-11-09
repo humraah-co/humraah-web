@@ -15,6 +15,7 @@ import {
 import { getTranslations } from "next-intl/server";
 import { LogoHorizontal } from "@/components/brand/Logo";
 import { LanguageSwitch } from "@/components/layout/LanguageSwitch";
+import { NotificationsBell } from "@/components/layout/NotificationsBell";
 import { HelpCallout } from "@/components/ui/Blocks";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { menuNav } from "@/lib/nav";
@@ -121,8 +122,9 @@ export default async function MenuPage({
         <LanguageSwitch variant="menu" />
       </div>
 
-      <div className="px-5 pt-4 pb-2">
+      <div className="flex flex-col gap-2.5 px-5 pt-4 pb-2">
         <ThemeToggle variant="row" />
+        <NotificationsBell variant="row" />
       </div>
 
       <div className="flex-1" />
