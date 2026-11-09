@@ -227,8 +227,8 @@ export function ScholarshipCard({ scholarship: s }: { scholarship: ScholarshipCa
   const deadline = deadlineLabel(s, useTranslations("deadline"), useLocale() as Locale);
   const needBased = isNeedBased(s);
   return (
-    <Link href={`/scholarships/${s.slug}`} className={`${card} gap-2.5`}>
-      <ChipList>
+    <Link href={`/scholarships/${s.slug}`} className={card}>
+      <ChipList lines={2} reserve>
         <Chip tone="lavender">{kinds(s.kind)}</Chip>
         {needBased && <Chip tone="sage">{t("needBased")}</Chip>}
         {s.audience_note && (
@@ -237,29 +237,32 @@ export function ScholarshipCard({ scholarship: s }: { scholarship: ScholarshipCa
           </Chip>
         )}
       </ChipList>
-      <span className="text-label-l" lang="en">
+      <span className={cardTitle} lang="en">
         {s.name}
       </span>
       {s.summary && (
-        <span className="text-body-s text-muted" {...englishAttrs(s, "summary")}>
+        <span className={cardText} {...englishAttrs(s, "summary")}>
           {s.summary}
         </span>
       )}
-      {s.covers.length > 0 && (
-        <span className="flex flex-wrap items-center gap-1.5">
-          <span className="text-label-s text-muted">{t("covers")}</span>
-          {s.covers.map((c) => (
-            <Chip key={c} tone="blush" {...englishAttrs(s, "covers")}>
-              {c}
-            </Chip>
-          ))}
-        </span>
-      )}
-      <span className="mt-auto h-px bg-border-soft" aria-hidden="true" />
-      <span className="flex flex-wrap items-center justify-between gap-2">
-        <DeadlineChip urgent={deadline.urgent}>{deadline.text}</DeadlineChip>
-        <VerificationBadge verifiedAt={s.last_verified_at} />
-      </span>
+      <CardBottom>
+        {s.covers.length > 0 && (
+          <span className="flex items-start gap-1.5">
+            <span className="py-1.5 text-label-s text-muted">{t("covers")}</span>
+            <ChipList lines={2} className="min-w-0 flex-1">
+              {s.covers.map((c) => (
+                <Chip key={c} tone="blush" {...englishAttrs(s, "covers")}>
+                  {c}
+                </Chip>
+              ))}
+            </ChipList>
+          </span>
+        )}
+        <CardFooter>
+          <DeadlineChip urgent={deadline.urgent}>{deadline.text}</DeadlineChip>
+          <VerificationBadge verifiedAt={s.last_verified_at} />
+        </CardFooter>
+      </CardBottom>
     </Link>
   );
 }
