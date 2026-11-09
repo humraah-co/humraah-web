@@ -7,6 +7,7 @@ import { isAdminPath } from "@/lib/admin/paths";
 export type NavItem = { href: string; key: NavKey };
 
 export type NavKey =
+  | "home"
   | "explore"
   | "universities"
   | "scholarships"
@@ -38,8 +39,12 @@ export const footerHelp: NavItem[] = [
   { href: "/about", key: "aboutContact" },
 ];
 
-/** Pages reached from the mobile Menu screen (Figma 30:2638) rather than the bottom bar; descriptions are in "menu". */
+/** Everything reached from the mobile Menu screen (Figma 30:2638); there is no bottom bar. Descriptions are in "menu". */
 export const menuNav: NavItem[] = [
+  { href: "/", key: "home" },
+  { href: "/explore", key: "explore" },
+  { href: "/universities", key: "universities" },
+  { href: "/scholarships", key: "scholarships" },
   { href: "/guidance", key: "guidance" },
   { href: "/about", key: "aboutContact" },
   { href: "/quiz", key: "whereToStart" },
