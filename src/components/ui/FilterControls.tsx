@@ -145,12 +145,12 @@ export function FieldSelect({
 export function FilterCheckbox({ label, checked, href }: { label: string; checked: boolean; href: string }) {
   const router = useRouter();
   return (
-    <label className="flex cursor-pointer items-start gap-3 text-body-m">
+    <label className="flex min-h-11 cursor-pointer items-center gap-3 text-body-m">
       <input
         type="checkbox"
         checked={checked}
         onChange={() => router.push(href, { scroll: false })}
-        className="mt-0.5 size-6 shrink-0 cursor-pointer appearance-none rounded-[7px] border-[1.5px] border-muted bg-card bg-center bg-no-repeat checked:border-deep-rose checked:bg-tint-coral checked:bg-[url('/brand/check.svg')] dark:checked:bg-[url('/brand/check-dark.svg')]"
+        className="size-6 shrink-0 cursor-pointer appearance-none rounded-[7px] border-[1.5px] border-muted bg-card bg-center bg-no-repeat checked:border-deep-rose checked:bg-tint-coral checked:bg-[url('/brand/check.svg')] dark:checked:bg-[url('/brand/check-dark.svg')]"
       />
       {label}
     </label>
