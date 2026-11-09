@@ -5,6 +5,8 @@ import type { Field, GuidanceArticle, Resource, Scholarship, University } from "
 import type { Locale } from "@/i18n/config";
 import { asEnglish, localize, type WithEnglish } from "@/i18n/localize";
 import { toDeadlines, upcoming, type Deadline } from "@/lib/deadlines";
+import { GUIDE_CACHE_TAG, guidePublicUrl, isGuideLanguage, type GuideLanguage } from "@/lib/guideFiles";
+import { getSupabaseEnv } from "@/lib/supabase/env";
 
 /**
  * Public data access. Every query goes through the anon client, so row-level
@@ -430,5 +432,57 @@ export async function listUpcomingDeadlines(): Promise<Deadline[]> {
     return upcoming((await loadDeadlines()) ?? []);
   } catch {
     return [];
+  }
+}
+
+// ---------------------------------------------------------------------------
+// The Higher Education Guide PDFs
+// ---------------------------------------------------------------------------
+
+/** The guide PDFs change rarely; an upload or removal clears the tag at once. */
+const GUIDES_REVALIDATE = 3600;
+
+/** A guide PDF as the Guidance page needs it. */
+export type PublicGuide = { url: string; fileName: string; sizeBytes: number };
+export type PublicGuides = Record<GuideLanguage, PublicGuide | null>;
+
+const noGuides = (): PublicGuides => ({ en: null, ur: null });
+
+const loadGuides = unstable_cache(
+  async (): Promise<PublicGuides> => {
+    const supabase = createPublicClient();
+    const env = getSupabaseEnv();
+    if (!supabase || !env) return noGuides();
+    const { data, error } = await supabase
+      .from("guide_files")
+      .select("language, storage_path, file_name, size_bytes");
+    if (error) fail("the guide PDFs", error.message);
+    const guides = noGuides();
+    for (const file of data) {
+      if (!isGuideLanguage(file.language)) continue;
+      guides[file.language] = {
+        url: guidePublicUrl(env.url, file.storage_path),
+        fileName: file.file_name,
+        sizeBytes: file.size_bytes,
+      };
+    }
+    return guides;
+  },
+  ["guide-files"],
+  { revalidate: GUIDES_REVALIDATE, tags: [GUIDE_CACHE_TAG] },
+);
+
+/**
+ * The live English and Urdu guide PDFs (null for a language with no file).
+ * Never throws: with no database, or when it fails (or the table isn't
+ * there yet), both are null and the page shows "Coming soon". A failure
+ * isn't cached, so the next request tries again.
+ */
+export async function getGuideFiles(): Promise<PublicGuides> {
+  try {
+    return await loadGuides();
+  } catch (error) {
+    console.error(error instanceof Error ? error.message : "Could not load the guide PDFs");
+    return noGuides();
   }
 }
