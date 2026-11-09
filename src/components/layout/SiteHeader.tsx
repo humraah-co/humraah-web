@@ -6,6 +6,7 @@ import { SearchButton } from "./HeaderActions";
 import { LanguageSwitch } from "./LanguageSwitch";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { MobileTopBar } from "./MobileTopBar";
+import { NotificationsBell } from "./NotificationsBell";
 
 /**
  * Mobile top bar or back bar (see MobileTopBar) below 1024 px and
@@ -29,6 +30,7 @@ export function SiteHeader() {
         <div className="flex items-center gap-2.5">
           <LanguageSwitch />
           <ThemeToggle />
+          <NotificationsBell />
           <SearchButton />
           <Link
             href="/quiz"
