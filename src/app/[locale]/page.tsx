@@ -1,12 +1,10 @@
 /* eslint-disable @next/next/no-img-element -- small static brand SVGs */
-import { Award, BookOpen, Compass, Download, Landmark, type LucideIcon } from "lucide-react";
+import { Award, BookOpen, Compass, Landmark, type LucideIcon } from "lucide-react";
 import { LogoMark, LogoStacked } from "@/components/brand/Logo";
 import { Container } from "@/components/layout/PageShell";
 import { ButtonLink } from "@/components/ui/Button";
-import { Chip, ChipList } from "@/components/ui/Chip";
 import { DottedPath } from "@/components/ui/Blocks";
 import { listFields } from "@/lib/data/public";
-import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 import { alternates } from "@/i18n/metadata";
@@ -159,48 +157,6 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
         </ol>
       </Container>
 
-      {/* Guide */}
-      <Container className="pt-6 pb-2 lg:pb-14">
-        <section
-          aria-labelledby="guide-heading"
-          className="flex flex-col gap-4 rounded-[28px] bg-tint-sage p-5 lg:flex-row lg:items-center lg:gap-10 lg:rounded-[32px] lg:p-10"
-        >
-          <div className="flex items-center gap-4 lg:contents">
-            <div className="flex h-[124px] w-[92px] shrink-0 flex-col items-center justify-center gap-2 rounded-[10px] border border-border-soft bg-cream p-2 lg:h-[224px] lg:w-[168px] lg:gap-3 lg:rounded-[14px] lg:p-4">
-              <LogoMark className="h-[37.774px] w-[40.8px] lg:h-[77.77px] lg:w-[84px]" />
-              <p className="w-[76px] text-center text-label-xs lg:w-[136px] lg:text-label-s">
-                {t("guideCover")}
-              </p>
-            </div>
-            <div className="flex min-w-0 flex-1 flex-col gap-1.5 lg:gap-3.5">
-              <h2
-                id="guide-heading"
-                className="text-h3 lg:text-[40px] lg:leading-[46px] lg:font-semibold lg:tracking-[-0.2px]"
-              >
-                {t("guideTitle")}
-              </h2>
-              <p className="text-body-s lg:text-body-l">
-                <span className="lg:hidden">{t("guideTextShort")}</span>
-                <span className="hidden lg:inline">{t("guideTextLong")}</span>
-              </p>
-              <ChipList className="hidden lg:flex lg:gap-2">
-                {(["why", "discover", "options", "university", "path"] as const).map((chapter) => (
-                  <Chip key={chapter}>{t(`guideChapters.${chapter}`)}</Chip>
-                ))}
-              </ChipList>
-              <div className="hidden gap-3 pt-1.5 lg:flex">
-                <GuideDownloads />
-              </div>
-            </div>
-          </div>
-          {/* Side by side; on the narrowest phones they stack rather than run off the screen. */}
-          <div className="flex flex-wrap gap-2.5 lg:hidden">
-            <GuideDownloads />
-          </div>
-          <p className="text-caption text-muted lg:hidden">{t("guideFree")}</p>
-        </section>
-      </Container>
-
       {/* Why Humraah */}
       <Container className="flex flex-col gap-3 py-9 lg:flex-row lg:gap-16 lg:pt-14 lg:pb-[72px]">
         <div className="flex flex-col gap-3 lg:w-[520px] lg:shrink-0 lg:gap-4">
@@ -223,30 +179,6 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
           </ButtonLink>
         </div>
       </Container>
-    </>
-  );
-}
-
-function GuideDownloads() {
-  const t = useTranslations("home");
-  return (
-    <>
-      <ButtonLink
-        href="/guide"
-        variant="secondary"
-        className="flex-1 px-3.5! whitespace-nowrap lg:flex-none lg:px-[22px]!"
-      >
-        <Download className="size-5" strokeWidth={1.75} aria-hidden="true" />
-        {t("englishPdf")}
-      </ButtonLink>
-      <ButtonLink
-        href="/guide"
-        variant="secondary"
-        className="flex-1 px-3.5! whitespace-nowrap lg:flex-none lg:px-[22px]!"
-      >
-        <Download className="size-5" strokeWidth={1.75} aria-hidden="true" />
-        {t("urduPdf")}
-      </ButtonLink>
     </>
   );
 }
