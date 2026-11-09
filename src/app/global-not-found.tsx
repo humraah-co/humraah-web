@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getTranslations } from "next-intl/server";
-import { BottomNav } from "@/components/layout/BottomNav";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { clientMessages } from "@/i18n/messages";
@@ -55,7 +54,6 @@ export default async function GlobalNotFound() {
             <LocaleNotFound />
           </main>
           <SiteFooter />
-          <BottomNav />
         </NextIntlClientProvider>
       </body>
     </html>
