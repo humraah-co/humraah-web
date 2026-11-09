@@ -12,9 +12,6 @@ export type NavKey =
   | "universities"
   | "scholarships"
   | "guidance"
-  | "guide"
-  | "guideFull"
-  | "resources"
   | "about"
   | "aboutContact"
   | "whereToStart";
