@@ -42,6 +42,7 @@ const values: { key: "knowledge" | "access" | "community" | "confidence"; icon: 
 export default async function AboutPage({ params }: { params: LocaleParams }) {
   await pageLocale(params);
   const t = await getTranslations("about");
+  const common = await getTranslations("common");
   return (
     <>
       {/* Hero: a centred blush panel on phones (30:2442), text beside the logo panel on desktop (33:3140). */}
@@ -106,7 +107,15 @@ export default async function AboutPage({ params }: { params: LocaleParams }) {
             </li>
             <li className="flex items-center gap-2.5">
               <Users className="size-5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
-              <span>{t.rich("linkedin", { name: () => <Ltr>{contact.linkedinLabel}</Ltr> })}</span>
+              <a
+                href={contact.linkedinUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={common("linkedinLabel")}
+                className="hover:text-deep-rose"
+              >
+                {t.rich("linkedin", { name: () => <Ltr>{contact.linkedinLabel}</Ltr> })}
+              </a>
             </li>
             <li className="flex items-center gap-2.5">
               <Mail className="size-5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
