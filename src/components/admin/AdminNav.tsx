@@ -6,7 +6,6 @@ import {
   Activity,
   Award,
   Compass,
-  Globe,
   Landmark,
   LayoutGrid,
   Lightbulb,
@@ -31,8 +30,7 @@ const items: { href: string; label: string; icon: LucideIcon; adminOnly?: boolea
   { href: "/admin/universities", label: "Universities", icon: Landmark },
   { href: "/admin/scholarships", label: "Scholarships", icon: Award },
   { href: "/admin/fields", label: "Fields of study", icon: Compass },
-  { href: "/admin/resources", label: "Resources", icon: Globe },
-  { href: "/admin/guidance", label: "Guidance articles", icon: Lightbulb },
+  { href: "/admin/guidance", label: "Guidance and resources", icon: Lightbulb },
   // Contact messages hold visitors' personal details: admins and the owner only.
   { href: "/admin/messages", label: "Messages", icon: Mail, adminOnly: true },
   { href: "/admin/team", label: "Team", icon: Users },
