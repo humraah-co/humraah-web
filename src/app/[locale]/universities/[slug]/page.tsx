@@ -382,7 +382,7 @@ export default async function UniversityPage({ params }: Props) {
       </Container>
 
       {u.website_url && (
-        <div className="sticky bottom-[83px] z-20 border-t border-border-soft bg-card px-5 pt-3 pb-4 shadow-bottom-bar lg:hidden">
+        <div className="sticky bottom-0 z-20 border-t border-border-soft bg-card px-5 pt-3 pb-[max(16px,env(safe-area-inset-bottom))] shadow-bottom-bar lg:hidden">
           <ButtonLink href={u.website_url} external className="w-full">
             {t("visitWebsite")}
           </ButtonLink>
