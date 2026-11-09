@@ -1,5 +1,17 @@
 import type { Metadata } from "next";
-import { ChevronRight, Compass, Heart, Lightbulb, X, type LucideIcon } from "lucide-react";
+import {
+  Award,
+  ChevronRight,
+  Compass,
+  Heart,
+  House,
+  Landmark,
+  Lightbulb,
+  ListChecks,
+  Search,
+  X,
+  type LucideIcon,
+} from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { LogoHorizontal } from "@/components/brand/Logo";
 import { LanguageSwitch } from "@/components/layout/LanguageSwitch";
@@ -18,9 +30,13 @@ export async function generateMetadata({ params }: { params: LocaleParams }): Pr
 }
 
 const icons: Record<string, LucideIcon> = {
+  "/": House,
+  "/explore": Compass,
+  "/universities": Landmark,
+  "/scholarships": Award,
   "/guidance": Lightbulb,
   "/about": Heart,
-  "/quiz": Compass,
+  "/quiz": ListChecks,
 };
 
 /**
@@ -79,6 +95,22 @@ export default async function MenuPage({
               </li>
             );
           })}
+          <li className="border-b border-border-soft">
+            <Link href="/universities" className="group flex items-center gap-3.5 py-4">
+              <span className="flex size-11 shrink-0 items-center justify-center rounded-pill bg-blush">
+                <Search className="size-[22px]" strokeWidth={1.75} aria-hidden="true" />
+              </span>
+              <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+                <span className="text-label-l">{nav("searchUniversities")}</span>
+                <span className="text-body-s text-muted">{t("descriptions.search")}</span>
+              </span>
+              <ChevronRight
+                className="size-5 shrink-0 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5"
+                strokeWidth={1.75}
+                aria-hidden="true"
+              />
+            </Link>
+          </li>
         </ul>
       </nav>
 
