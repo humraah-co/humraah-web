@@ -3,7 +3,7 @@ import { Search } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { FieldCard } from "@/components/content/Cards";
 import { Container } from "@/components/layout/PageShell";
-import { TwoColumns } from "@/components/layout/TwoColumns";
+import { CardGrid } from "@/components/layout/CardGrid";
 import { RememberCallout } from "@/components/ui/Blocks";
 import { buttonStyles } from "@/components/ui/Button";
 import { listFields, type FieldSummary } from "@/lib/data/public";
@@ -137,7 +137,8 @@ export default async function ExplorePage({
                 </Link>
               </p>
             )}
-            <TwoColumns
+            <CardGrid
+              wide
               items={shown!.map((field) => ({ key: field.id, node: <FieldCard field={field} /> }))}
             />
           </>
