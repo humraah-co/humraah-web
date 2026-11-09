@@ -53,11 +53,7 @@ export function ArticlesSection({ articles }: { articles: GuidanceSummary[] | nu
                     {common("readTime", { count: readMinutes(a.body_markdown) })}
                   </span>
                 </span>
-                <ChevronRight
-                  className="mt-2.5 size-5 shrink-0"
-                  strokeWidth={1.75}
-                  aria-hidden="true"
-                />
+                <ChevronRight className="mt-2.5 size-5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
               </Link>
             </li>
           ))}
