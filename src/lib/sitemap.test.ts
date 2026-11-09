@@ -70,3 +70,13 @@ test("robots.txt and noindex: everything else is kept out of search", () => {
   }
   assert.deepEqual(noindexHeaders("production"), []);
 });
+
+test("the merged Guidance page is listed in both languages; the old Guide and Resources addresses are not", () => {
+  const urls = buildSitemap(site, slugs, true).map((e) => e.url);
+  assert.ok(urls.includes(`${site}/guidance`));
+  assert.ok(urls.includes(`${site}/ur/guidance`));
+  assert.ok(urls.includes(`${site}/guidance/how-to-apply`));
+  for (const old of ["/guide", "/resources", "/ur/guide", "/ur/resources"]) {
+    assert.ok(!urls.includes(`${site}${old}`), old);
+  }
+});
