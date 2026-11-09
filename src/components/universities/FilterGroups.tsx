@@ -94,21 +94,23 @@ export function FilterGroups({
       )}
 
       <Group title={t("filterGoodToKnow")}>
-        <FilterCheckbox
-          label={t("womenOnly")}
-          checked={filters.women}
-          href={hrefWith(filters, { women: !filters.women })}
-        />
-        <FilterCheckbox
-          label={t("hostel")}
-          checked={filters.hostel}
-          href={hrefWith(filters, { hostel: !filters.hostel })}
-        />
-        <FilterCheckbox
-          label={t("aid")}
-          checked={filters.aid}
-          href={hrefWith(filters, { aid: !filters.aid })}
-        />
+        <div className="-mt-1 flex flex-col">
+          <FilterCheckbox
+            label={t("womenOnly")}
+            checked={filters.women}
+            href={hrefWith(filters, { women: !filters.women })}
+          />
+          <FilterCheckbox
+            label={t("hostel")}
+            checked={filters.hostel}
+            href={hrefWith(filters, { hostel: !filters.hostel })}
+          />
+          <FilterCheckbox
+            label={t("aid")}
+            checked={filters.aid}
+            href={hrefWith(filters, { aid: !filters.aid })}
+          />
+        </div>
       </Group>
     </>
   );

@@ -69,11 +69,13 @@ export function ScholarshipFilterGroups({
       )}
 
       <Group title={t("filterGoodToKnow")}>
-        <FilterCheckbox
-          label={t("forWomen")}
-          checked={filters.women}
-          href={scholarshipsHref(filters, { women: !filters.women })}
-        />
+        <div className="-mt-1 flex flex-col">
+          <FilterCheckbox
+            label={t("forWomen")}
+            checked={filters.women}
+            href={scholarshipsHref(filters, { women: !filters.women })}
+          />
+        </div>
       </Group>
     </>
   );
