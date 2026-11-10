@@ -7,6 +7,7 @@ import type { GuidanceSummary } from "@/lib/data/public";
 import { readMinutes } from "@/lib/format";
 import { Link } from "@/i18n/navigation";
 import { ArticleIcon } from "./ArticleIcon";
+import { cardStyles } from "@/components/ui/cardStyles";
 
 /**
  * The articles part of the Guidance page. `articles` is null when the
@@ -50,7 +51,7 @@ export function ArticlesSection({ articles }: { articles: GuidanceSummary[] | nu
                 node: (
                   <Link
                     href={`/guidance/${a.slug}`}
-                    className="group flex w-full items-start gap-3.5 rounded-[20px] border border-border-soft bg-card p-4 transition-colors hover:border-border-strong focus-visible:border-border-strong lg:p-5"
+                    className={`group flex h-full w-full min-w-0 items-start ${cardStyles.gap} ${cardStyles.shape} bg-card ${cardStyles.hover}`}
                   >
                     <ArticleIcon slug={a.slug} index={i} />
                     <span className="flex min-w-0 flex-1 flex-col gap-1 self-stretch">

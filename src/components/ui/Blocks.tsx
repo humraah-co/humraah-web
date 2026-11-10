@@ -5,6 +5,7 @@ import { Link } from "@/i18n/navigation";
 import { formatLongDate, isStale } from "@/lib/format";
 import { contact } from "@/lib/nav";
 import { ButtonLink } from "./Button";
+import { cardStyles } from "@/components/ui/cardStyles";
 
 /** Section header: H2 with an optional "See all" text link on the right. */
 export function SectionHeader({
@@ -86,7 +87,7 @@ export function HelpCallout({ className = "", card = false }: { className?: stri
       className={
         card
           ? // The same shape as an article card (radius, border, padding), filling its grid cell; calm lavender, no hover since it is not a link.
-            `h-full w-full rounded-[20px] border border-border-soft bg-tint-lavender p-4 lg:p-5 ${className}`
+            `h-full w-full ${cardStyles.shape} bg-tint-lavender ${className}`
           : `rounded-[18px] bg-tint-lavender p-4 ${className}`
       }
     >
