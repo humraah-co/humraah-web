@@ -1,7 +1,7 @@
 import { LogoHorizontal } from "@/components/brand/Logo";
 import { useTranslations } from "next-intl";
 import { DesktopNavLinks } from "./DesktopNavLinks";
-import { SearchButton } from "./HeaderActions";
+import { HeaderSearch } from "./HeaderSearch";
 import { LanguageSwitch } from "./LanguageSwitch";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { MobileTopBar } from "./MobileTopBar";
@@ -30,7 +30,7 @@ export function SiteHeader() {
           <LanguageSwitch />
           <ThemeToggle />
           <NotificationsBell />
-          <SearchButton />
+          <HeaderSearch />
         </div>
       </nav>
     </header>
