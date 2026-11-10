@@ -58,3 +58,11 @@ test("the top bar has no Where do I start button, but the home page still does",
   assert.ok(footerExplore.some((i) => i.href === "/quiz"));
   assert.ok(menuNav.some((i) => i.href === "/quiz"));
 });
+
+test("the home page hero has one call to action; Universities stays in the main navigation and menu", () => {
+  const home = readFileSync(new URL("../app/[locale]/page.tsx", import.meta.url), "utf8");
+  const hero = home.slice(home.indexOf("{/* Hero */}"), home.indexOf("{/* Path */}"));
+  assert.equal(hero.match(/<ButtonLink/g)?.length, 1);
+  assert.ok(!hero.includes("heroUniversities"));
+  assert.ok(hrefs(desktopNav).includes("/universities") && hrefs(menuNav).includes("/universities"));
+});

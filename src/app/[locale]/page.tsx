@@ -82,12 +82,9 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
             </div>
             <h1 className="text-display">{t("heroTitle")}</h1>
             <p className="text-body-l text-muted">{t("heroText")}</p>
-            <div className="flex flex-col gap-2.5 lg:flex-row lg:gap-3 lg:pt-2">
+            <div className="flex flex-col items-stretch lg:flex-row lg:items-center lg:pt-2">
               <ButtonLink href="/quiz" className="w-full lg:w-auto">
                 {t("heroStart")}
-              </ButtonLink>
-              <ButtonLink href="/universities" variant="secondary" className="w-full lg:w-auto">
-                {t("heroUniversities")}
               </ButtonLink>
             </div>
           </div>
