@@ -103,11 +103,11 @@
 @utility text-display {
   font-family: var(--font-serif);
   font-weight: 600;
-  font-size: 38px;
+  font-size: calc(38px * var(--ur-display-sm, 1));
   line-height: 42px;
   letter-spacing: -1px;
   @media (width >= 64rem) {
-    font-size: 60px;
+    font-size: calc(60px * var(--ur-display-lg, 1));
     line-height: 64px;
     letter-spacing: -1.5px;
   }
@@ -115,29 +115,29 @@
 @utility text-h1 {
   font-family: var(--font-serif);
   font-weight: 600;
-  font-size: 32px;
+  font-size: calc(32px * var(--ur-h1-sm, 1));
   line-height: 36px;
   letter-spacing: -0.5px;
   @media (width >= 64rem) {
-    font-size: 40px;
+    font-size: calc(40px * var(--ur-h1-lg, 1));
     line-height: 46px;
   }
 }
 @utility text-h2 {
   font-family: var(--font-serif);
   font-weight: 600;
-  font-size: 26px;
+  font-size: calc(26px * var(--ur-h2, 1));
   line-height: 31px;
   letter-spacing: -0.5px;
 }
 @utility text-h3 {
   font-family: var(--font-serif);
   font-weight: 700;
-  font-size: 21px;
+  font-size: calc(21px * var(--ur-h3, 1));
   line-height: 26px;
 }
 @utility text-body-l {
-  font-size: 17px;
+  font-size: calc(17px * var(--ur-body-l, 1));
   line-height: 27px;
 }
 @utility text-body-m {
@@ -176,7 +176,7 @@
 }
 @utility text-script {
   font-family: var(--font-script);
-  font-size: 22px;
+  font-size: calc(22px * var(--ur-script-sm, 1));
   line-height: 26px;
 }
 
@@ -233,17 +233,63 @@
  * name keeps the serif heading font; Latin letters in Urdu text fall through
  * to DM Sans (see --font-urdu).
  */
+/*
+ * The Urdu type scale, in one place. Each number is Urdu size / English size
+ * for that style (English pages leave them unset, so they stay at 1).
+ * Nastaliq is drawn larger than Latin at the same font size and needs about
+ * twice its size in line height, so unscaled Urdu made every heading and
+ * hero far taller than the English design. Sizes come down first; the line
+ * heights (below) are then only as tall as the marks need. Body text stays
+ * at 16 px or more on phones.
+ */
+:root:lang(ur) {
+  --ur-display-sm: 0.74; /* 38 -> 28 px */
+  --ur-display-lg: 0.62; /* 60 -> 37 px */
+  --ur-h1-sm: 0.8; /* 32 -> 26 px */
+  --ur-h1-lg: 0.7; /* 40 -> 28 px */
+  --ur-page-title-lg: 28px; /* lg:text-[40px] page and section titles */
+  --ur-hero-title-lg: 36px; /* lg:text-[48px] to [60px] detail and About headings */
+  --ur-h2: 0.88; /* 26 -> 23 px */
+  --ur-h3: 0.9; /* 21 -> 19 px */
+  --ur-script-sm: 0.75; /* 22 -> 16.5 px */
+  --ur-script-lg-size: 19px; /* script lines the pages set at 28 or 30 px from 1024 px (and the 30 px sign-offs) */
+  --ur-body-l: 0.95; /* 17 -> 16.2 px */
+  --ur-leading: 2;
+  --ur-leading-control: 1.8; /* one-line buttons and pills */
+  --ur-leading-heading: 2.1;
+}
+
 @layer utilities {
   :root:lang(ur) body :is([class*="text-"], [class*="leading-"], [class*="font-"]):not(:lang(en)) {
     font-family: var(--font-urdu);
     letter-spacing: 0;
-    line-height: 2.2;
+    line-height: var(--ur-leading);
   }
   /* Bold Nastaliq (headings) and the script lines reach further: up to about 2.45 times their size. */
   :root:lang(ur)
     body
     :is(.text-display, .text-h1, .text-h2, .text-h3, .text-script, .font-script):not(:lang(en)) {
-    line-height: 2.5;
+    line-height: var(--ur-leading-heading);
+  }
+
+  :root:lang(ur) body :is(a, button)[class*="text-"]:not(:lang(en)) {
+    line-height: var(--ur-leading-control);
+  }
+
+  /* Large sizes the pages set themselves from 1024 px (page titles, detail headings, script lines). */
+  @media (width >= 64rem) {
+    :root:lang(ur) body .lg\:text-\[40px\]:not(:lang(en)) {
+      font-size: var(--ur-page-title-lg);
+    }
+    :root:lang(ur) body :is(.lg\:text-\[48px\], .lg\:text-\[56px\], .lg\:text-\[60px\]):not(:lang(en)) {
+      font-size: var(--ur-hero-title-lg);
+    }
+    :root:lang(ur) body :is(.lg\:text-\[28px\], .lg\:text-\[30px\]):not(:lang(en)) {
+      font-size: var(--ur-script-lg-size);
+    }
+  }
+  :root:lang(ur) body .font-script.text-\[30px\]:not(:lang(en)) {
+    font-size: var(--ur-script-lg-size);
   }
 
   /* Arrows point the way you read: back is to the right in Urdu. */
