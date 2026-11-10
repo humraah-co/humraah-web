@@ -1,6 +1,5 @@
 import { LogoHorizontal } from "@/components/brand/Logo";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
 import { DesktopNavLinks } from "./DesktopNavLinks";
 import { SearchButton } from "./HeaderActions";
 import { LanguageSwitch } from "./LanguageSwitch";
@@ -32,12 +31,6 @@ export function SiteHeader() {
           <ThemeToggle />
           <NotificationsBell />
           <SearchButton />
-          <Link
-            href="/quiz"
-            className="rounded-pill bg-coral px-4 py-2.5 text-label-m whitespace-nowrap text-ink transition-colors hover:bg-coral-hover"
-          >
-            {t("whereToStart")}
-          </Link>
         </div>
       </nav>
     </header>

@@ -1,7 +1,7 @@
 // The site navigation after the Guide and Resources pages became part of
 // Guidance and the mobile bottom bar was removed. Run with: npm run test:unit
 import assert from "node:assert/strict";
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { test } from "node:test";
 import { desktopNav, footerExplore, footerHelp, isActive, menuNav } from "./nav.ts";
 
@@ -43,4 +43,18 @@ test("Guidance stays highlighted on an article page, in both languages", () => {
   assert.equal(isActive("/guidance/choosing-a-field", "/guidance"), true);
   assert.equal(isActive("/ur/guidance", "/guidance"), true);
   assert.equal(isActive("/guide", "/guidance"), false);
+});
+
+test("the top bar has no Where do I start button, but the home page still does", () => {
+  const read = (path: string) => readFileSync(new URL(path, import.meta.url), "utf8");
+  for (const file of ["../components/layout/SiteHeader.tsx", "../components/layout/MobileTopBar.tsx"]) {
+    const source = read(file);
+    assert.ok(!source.includes("whereToStart"), file);
+    assert.ok(!source.includes('"/quiz"'), file);
+  }
+  const home = read("../app/[locale]/page.tsx");
+  assert.ok(home.includes('href="/quiz"') && home.includes('t("heroStart")'));
+  // Footer and phone menu keep their own link to the quiz.
+  assert.ok(footerExplore.some((i) => i.href === "/quiz"));
+  assert.ok(menuNav.some((i) => i.href === "/quiz"));
 });
