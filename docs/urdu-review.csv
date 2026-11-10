@@ -17,7 +17,11 @@ ui:nav.whereToStart,every page (menus),Where do I start?,کہاں سے شروع 
 ui:nav.menu,every page (menus),Menu,مینو
 ui:nav.search,every page (menus),Search,تلاش کریں
 ui:nav.backTo,every page (menus),Back to {section},واپس: {section}
-ui:theme.darkMode,,Dark mode,ڈارک موڈ
+ui:theme.label,,Theme,تھیم
+ui:theme.current,,Theme: {theme}. Change theme,تھیم: {theme}۔ تھیم بدلیں
+ui:theme.light,,Light,لائٹ
+ui:theme.dark,,Dark,ڈارک
+ui:theme.system,,System,سسٹم
 ui:language.label,every page (language switch),Language,زبان
 ui:language.comingSoon,every page (language switch),Urdu version coming soon,اردو ورژن جلد آ رہا ہے
 ui:language.comingSoonShort,every page (language switch),(coming soon),(جلد آ رہا ہے)

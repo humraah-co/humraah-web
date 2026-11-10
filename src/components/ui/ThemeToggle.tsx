@@ -1,12 +1,29 @@
 "use client";
 
-import { Moon } from "lucide-react";
-import { useSyncExternalStore } from "react";
+import { Check, Monitor, Moon, Sun, type LucideIcon } from "lucide-react";
+import { useEffect, useId, useRef, useState, useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
-import { THEME_ATTRIBUTE, THEME_COLORS, THEME_STORAGE_KEY, type Theme } from "@/lib/theme/script";
+import {
+  DEFAULT_CHOICE,
+  parseChoice,
+  resolveTheme,
+  THEME_ATTRIBUTE,
+  THEME_CHOICES,
+  THEME_COLORS,
+  THEME_STORAGE_KEY,
+  type Theme,
+  type ThemeChoice,
+} from "@/lib/theme/script";
 
-function read(): Theme {
-  return document.documentElement.getAttribute(THEME_ATTRIBUTE) === "dark" ? "dark" : "light";
+const icons: Record<ThemeChoice, LucideIcon> = { light: Sun, dark: Moon, system: Monitor };
+
+/** The saved choice, read from storage (blocked storage means no saved choice, so Light). */
+function read(): ThemeChoice {
+  try {
+    return parseChoice(localStorage.getItem(THEME_STORAGE_KEY));
+  } catch {
+    return DEFAULT_CHOICE;
+  }
 }
 
 const listeners = new Set<() => void>();
@@ -16,13 +33,21 @@ function subscribe(onChange: () => void) {
   // Another tab changed the choice: follow it.
   const onStorage = (event: StorageEvent) => {
     if (event.key !== THEME_STORAGE_KEY) return;
-    apply(event.newValue === "dark" ? "dark" : "light");
+    apply(resolveTheme(event.newValue, computerPrefersDark()));
   };
   window.addEventListener("storage", onStorage);
   return () => {
     listeners.delete(onChange);
     window.removeEventListener("storage", onStorage);
   };
+}
+
+function computerPrefersDark() {
+  try {
+    return matchMedia("(prefers-color-scheme: dark)").matches;
+  } catch {
+    return false;
+  }
 }
 
 function apply(theme: Theme) {
@@ -41,69 +66,142 @@ function fade() {
   window.setTimeout(() => root.classList.remove("theme-fade"), 200);
 }
 
-function toggle(current: Theme) {
-  const next: Theme = current === "dark" ? "light" : "dark";
+function choose(choice: ThemeChoice) {
   fade();
-  apply(next);
   try {
-    localStorage.setItem(THEME_STORAGE_KEY, next);
+    localStorage.setItem(THEME_STORAGE_KEY, choice);
   } catch {
     // Storage blocked: the choice still applies to this page, it just isn't remembered.
   }
+  // The inline script in <head> keeps a System choice in step with the computer from here on.
+  apply(resolveTheme(choice, computerPrefersDark()));
+}
+
+function useChoice() {
+  // The server renders Light; the saved choice is read after hydration.
+  return useSyncExternalStore(subscribe, read, () => DEFAULT_CHOICE);
 }
 
 /**
- * Light/dark switch. `icon` is a 48 px round button for the header and the
- * workspace; `row` is the full-width line on the Menu screen. The label
- * stays "Dark mode" and aria-pressed says whether it is on, so a screen
- * reader hears "Dark mode, toggle button, pressed".
+ * Light, Dark or System.
+ * - `icon` (header, sign-in page): a round button showing the current
+ *   choice's icon; it opens a small panel of the three choices, each with
+ *   an icon, a name and a tick on the active one. Escape or a click outside
+ *   closes it.
+ * - `row` (the Menu screen, the workspace sidebar): the three choices side by
+ *   side, always visible.
+ * The active choice is shown by a tick or a filled button and is announced
+ * (aria-pressed), never by colour alone.
  */
 export function ThemeToggle({ variant = "icon" }: { variant?: "icon" | "row" }) {
-  const t = useTranslations("theme");
-  // The server renders light; the script may already have set dark, so the real value is read after hydration.
-  const theme = useSyncExternalStore(subscribe, read, () => "light" as Theme);
-  const pressed = theme === "dark";
-  const icon = (
-    <Moon className="size-5" strokeWidth={1.75} fill={pressed ? "currentColor" : "none"} aria-hidden="true" />
-  );
+  const choice = useChoice();
+  return variant === "row" ? <ThemeRow choice={choice} /> : <ThemeMenu choice={choice} />;
+}
 
-  if (variant === "row") {
-    return (
-      <button
-        type="button"
-        aria-pressed={pressed}
-        onClick={() => toggle(theme)}
-        className="flex min-h-12 w-full cursor-pointer items-center gap-3.5 rounded-pill border border-border-soft bg-card px-3 text-start text-label-l text-charcoal hover:bg-blush"
-      >
-        <span
-          className={`flex size-9 shrink-0 items-center justify-center rounded-pill ${pressed ? "bg-tint-coral text-deep-rose" : "bg-blush"}`}
-        >
-          {icon}
-        </span>
-        <span className="flex-1">{t("darkMode")}</span>
-        <span
-          aria-hidden="true"
-          className={`flex h-6 w-11 shrink-0 items-center rounded-pill border border-border-strong px-0.5 ${pressed ? "bg-tint-coral" : "bg-cream"}`}
-        >
-          <span
-            className={`size-4 rounded-pill transition-transform ${pressed ? "translate-x-5 bg-deep-rose rtl:-translate-x-5" : "bg-muted"}`}
-          />
-        </span>
-      </button>
-    );
-  }
+function ThemeRow({ choice }: { choice: ThemeChoice }) {
+  const t = useTranslations("theme");
+  const labelId = useId();
+  return (
+    <div role="group" aria-labelledby={labelId} className="flex flex-col gap-2">
+      <p id={labelId} className="text-label-s text-muted">
+        {t("label")}
+      </p>
+      <div className="flex gap-1.5 rounded-pill border border-border-soft bg-card p-1">
+        {THEME_CHOICES.map((value) => {
+          const Icon = icons[value];
+          const active = value === choice;
+          return (
+            <button
+              key={value}
+              type="button"
+              aria-pressed={active}
+              onClick={() => choose(value)}
+              className={`flex min-h-11 min-w-0 flex-1 cursor-pointer flex-col items-center justify-center gap-0.5 rounded-[18px] px-1 py-1.5 text-label-s text-charcoal transition-colors ${
+                active ? "bg-tint-coral" : "hover:bg-blush"
+              }`}
+            >
+              <Icon className="size-[18px]" strokeWidth={1.75} fill="none" aria-hidden="true" />
+              <span className="max-w-full truncate">{t(value)}</span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function ThemeMenu({ choice }: { choice: ThemeChoice }) {
+  const t = useTranslations("theme");
+  const [open, setOpen] = useState(false);
+  const root = useRef<HTMLSpanElement>(null);
+  const trigger = useRef<HTMLButtonElement>(null);
+  const panelId = useId();
+  const Current = icons[choice];
+
+  useEffect(() => {
+    if (!open) return;
+    const onPointerDown = (event: PointerEvent) => {
+      if (event.target instanceof Node && !root.current?.contains(event.target)) setOpen(false);
+    };
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => document.removeEventListener("pointerdown", onPointerDown);
+  }, [open]);
 
   return (
-    <button
-      type="button"
-      aria-label={t("darkMode")}
-      aria-pressed={pressed}
-      onClick={() => toggle(theme)}
-      className={`flex size-12 shrink-0 cursor-pointer items-center justify-center rounded-pill border text-charcoal transition-colors hover:bg-blush ${
-        pressed ? "border-deep-rose bg-tint-coral" : "border-border-soft bg-card"
-      }`}
+    <span
+      ref={root}
+      className="relative"
+      onKeyDown={(event) => {
+        if (event.key === "Escape" && open) {
+          event.stopPropagation();
+          setOpen(false);
+          trigger.current?.focus();
+        }
+      }}
     >
-      {icon}
-    </button>
+      <button
+        ref={trigger}
+        type="button"
+        aria-label={t("current", { theme: t(choice) })}
+        aria-expanded={open}
+        aria-controls={panelId}
+        onClick={() => setOpen((o) => !o)}
+        className="flex size-12 shrink-0 cursor-pointer items-center justify-center rounded-pill border border-border-soft bg-card text-charcoal transition-colors hover:bg-blush"
+      >
+        <Current className="size-5" strokeWidth={1.75} aria-hidden="true" />
+      </button>
+      {open && (
+        <div
+          id={panelId}
+          role="group"
+          aria-label={t("label")}
+          className="absolute end-0 top-full z-50 mt-2 flex w-44 flex-col gap-0.5 rounded-[18px] border border-border-soft bg-card p-1.5 shadow-raised"
+        >
+          {THEME_CHOICES.map((value) => {
+            const Icon = icons[value];
+            const active = value === choice;
+            return (
+              <button
+                key={value}
+                type="button"
+                aria-pressed={active}
+                onClick={() => {
+                  choose(value);
+                  setOpen(false);
+                  trigger.current?.focus();
+                }}
+                className={`flex min-h-11 w-full cursor-pointer items-center gap-2.5 rounded-xl px-3 text-start text-label-m text-charcoal transition-colors hover:bg-blush ${
+                  active ? "bg-tint-coral" : ""
+                }`}
+              >
+                <Icon className="size-5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
+                <span className="flex-1">{t(value)}</span>
+                {active && <Check className="size-4 shrink-0" strokeWidth={2} aria-hidden="true" />}
+              </button>
+            );
+          })}
+        </div>
+      )}
+    </span>
   );
 }

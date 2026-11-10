@@ -45,6 +45,11 @@
   --radius-pill: 999px;
 }
 
+/* Light is the default: native controls and scrollbars match it (the dark block below switches them). */
+:root {
+  color-scheme: light;
+}
+
 /*
  * Dark theme: the same token names with warm dark values, switched by
  * data-theme="dark" on <html> (set before first paint by the script in

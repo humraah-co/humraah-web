@@ -18,10 +18,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: THEME_COLORS.light },
-    { media: "(prefers-color-scheme: dark)", color: THEME_COLORS.dark },
-  ],
+  // Light is the default; the theme script updates this tag when the visitor's choice is Dark or System (dark).
+  themeColor: THEME_COLORS.light,
 };
 
 // Every /admin page is for one signed-in person: render it per request,

@@ -24,7 +24,11 @@
     "backTo": "واپس: {section}"
   },
   "theme": {
-    "darkMode": "ڈارک موڈ"
+    "label": "تھیم",
+    "current": "تھیم: {theme}۔ تھیم بدلیں",
+    "light": "لائٹ",
+    "dark": "ڈارک",
+    "system": "سسٹم"
   },
   "language": {
     "label": "زبان",

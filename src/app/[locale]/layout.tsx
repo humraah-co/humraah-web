@@ -44,10 +44,8 @@ export async function generateMetadata({
 }
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: THEME_COLORS.light },
-    { media: "(prefers-color-scheme: dark)", color: THEME_COLORS.dark },
-  ],
+  // Light is the default; the theme script updates this tag when the visitor's choice is Dark or System (dark).
+  themeColor: THEME_COLORS.light,
 };
 
 /** Every page is built for each language that's switched on (English, plus Urdu behind the flag). */
