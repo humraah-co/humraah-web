@@ -648,33 +648,6 @@
   "guide": {
     "title": "Higher Education Guide",
     "intro": "A free guide to help you take your first step: discover yourself, explore your options and find the right university.",
-    "inside": "What’s inside",
-    "chapters": {
-      "note": {
-        "title": "A note from Humraah",
-        "summary": "Why we made this guide, and who it’s for."
-      },
-      "why": {
-        "title": "Why higher education matters",
-        "summary": "What higher education is and how it can help you."
-      },
-      "discover": {
-        "title": "Discover yourself",
-        "summary": "What you enjoy, what you’re good at, and your top three."
-      },
-      "options": {
-        "title": "Exploring your options",
-        "summary": "Ten popular fields and what you might enjoy in each."
-      },
-      "university": {
-        "title": "Finding the right university",
-        "summary": "How to research universities and pay for your studies."
-      },
-      "path": {
-        "title": "Build your path",
-        "summary": "Your interest, your options and your next step."
-      }
-    },
     "signOff": "With love, Humraah",
     "languages": {
       "en": "English",
@@ -708,12 +681,6 @@
       "action": "Find a university"
     },
     "metaDescription": "Step-by-step guidance, our free Higher Education Guide and official resources for university and scholarships in Pakistan.",
-    "jumpTo": "Jump to a section",
-    "jump": {
-      "guide": "The Guide",
-      "articles": "Articles",
-      "resources": "Resources"
-    },
     "articlesTitle": "Guidance articles",
     "articlesIntro": "Simple, step-by-step help for every stage, from choosing a field to paying for university."
   },
