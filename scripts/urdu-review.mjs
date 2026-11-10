@@ -109,6 +109,7 @@ const pageOfNamespace = {
   layout: "every page",
   brand: "every page",
   nav: "every page (menus)",
+  theme: "header, /menu",
   language: "every page (language switch)",
   footer: "every page (footer)",
   common: "many pages",
