@@ -30,7 +30,6 @@ export function cleanQuery(raw: unknown): string {
   const value = Array.isArray(raw) ? raw[0] : raw;
   if (typeof value !== "string") return "";
   const spaced = value
-    // eslint-disable-next-line no-control-regex -- control characters are exactly what is removed
     .replace(/[\u0000-\u001f\u007f-\u009f]+/g, " ")
     .replace(/\s+/g, " ")
     .trim();
