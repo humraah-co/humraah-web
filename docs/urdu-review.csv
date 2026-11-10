@@ -511,19 +511,6 @@ ui:scholarship.deadline.on,/scholarships/[scholarship],Deadline: {date},آخری
 ui:scholarship.deadline.checkDates,/scholarships/[scholarship],Check the official website for this year’s dates.,اس سال کی تاریخوں کے لیے آفیشل ویب سائٹ دیکھیں۔
 ui:guide.title,/guidance#guide,Higher Education Guide,اعلیٰ تعلیم گائیڈ
 ui:guide.intro,/guidance#guide,"A free guide to help you take your first step: discover yourself, explore your options and find the right university.",ایک مفت گائیڈ، جو آپ کا پہلا قدم اٹھانے میں مدد دیتی ہے: خود کو جانیں، اپنے راستے دیکھیں اور صحیح یونیورسٹی تلاش کریں۔
-ui:guide.inside,/guidance#guide,What’s inside,اس میں کیا ہے
-ui:guide.chapters.note.title,/guidance#guide,A note from Humraah,ہمراہ کی طرف سے چند باتیں
-ui:guide.chapters.note.summary,/guidance#guide,"Why we made this guide, and who it’s for.",ہم نے یہ گائیڈ کیوں بنائی، اور یہ کس کے لیے ہے۔
-ui:guide.chapters.why.title,/guidance#guide,Why higher education matters,اعلیٰ تعلیم کیوں اہم ہے
-ui:guide.chapters.why.summary,/guidance#guide,What higher education is and how it can help you.,اعلیٰ تعلیم کیا ہے اور یہ آپ کی کیسے مدد کر سکتی ہے۔
-ui:guide.chapters.discover.title,/guidance#guide,Discover yourself,خود کو جانیں
-ui:guide.chapters.discover.summary,/guidance#guide,"What you enjoy, what you’re good at, and your top three.",آپ کو کیا اچھا لگتا ہے، آپ کس چیز میں اچھی ہیں، اور آپ کی تین پسندیدہ چیزیں۔
-ui:guide.chapters.options.title,/guidance#guide,Exploring your options,اپنے راستے دیکھیں
-ui:guide.chapters.options.summary,/guidance#guide,Ten popular fields and what you might enjoy in each.,دس مقبول شعبے اور ہر ایک میں آپ کو کیا اچھا لگ سکتا ہے۔
-ui:guide.chapters.university.title,/guidance#guide,Finding the right university,صحیح یونیورسٹی کی تلاش
-ui:guide.chapters.university.summary,/guidance#guide,How to research universities and pay for your studies.,یونیورسٹیوں کے بارے میں کیسے معلوم کریں اور پڑھائی کا خرچ کیسے اٹھائیں۔
-ui:guide.chapters.path.title,/guidance#guide,Build your path,اپنا راستہ بنائیں
-ui:guide.chapters.path.summary,/guidance#guide,"Your interest, your options and your next step.",آپ کی دلچسپی، آپ کے راستے اور آپ کا اگلا قدم۔
 ui:guide.signOff,/guidance#guide,"With love, Humraah",محبت کے ساتھ، ہمراہ
 ui:guide.languages.en,/guidance#guide,English,انگریزی
 ui:guide.languages.ur,/guidance#guide,Urdu,اردو
@@ -551,10 +538,6 @@ ui:guidance.nextSteps.universities,/guidance,Find two universities that offer it
 ui:guidance.nextSteps.admissions,/guidance,Check their official admission pages,ان کے آفیشل داخلے کے صفحات دیکھیں
 ui:guidance.nextSteps.action,/guidance,Find a university,یونیورسٹی تلاش کریں
 ui:guidance.metaDescription,/guidance,"Step-by-step guidance, our free Higher Education Guide and official resources for university and scholarships in Pakistan.",پاکستان میں یونیورسٹی اور اسکالرشپس کے لیے قدم بہ قدم رہنمائی، ہماری مفت اعلیٰ تعلیم گائیڈ اور آفیشل وسائل۔
-ui:guidance.jumpTo,/guidance,Jump to a section,اس صفحے پر جائیں
-ui:guidance.jump.guide,/guidance,The Guide,گائیڈ
-ui:guidance.jump.articles,/guidance,Articles,مضامین
-ui:guidance.jump.resources,/guidance,Resources,وسائل
 ui:guidance.articlesTitle,/guidance,Guidance articles,رہنمائی کے مضامین
 ui:guidance.articlesIntro,/guidance,"Simple, step-by-step help for every stage, from choosing a field to paying for university.",ہر مرحلے کے لیے آسان، قدم بہ قدم مدد، شعبہ چننے سے لے کر یونیورسٹی کی فیس تک۔
 ui:resources.title,/guidance#resources,Useful resources,مفید وسائل

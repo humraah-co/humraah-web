@@ -1,17 +1,17 @@
 import { Clock, Download } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { buttonStyles } from "@/components/ui/Button";
-import { guideChapters, guideLanguages } from "@/config/guide";
+import { guideLanguages } from "@/config/guide";
 import type { PublicGuide, PublicGuides } from "@/lib/data/public";
 import { formatFileSize, guideDownloadUrl, type GuideLanguage } from "@/lib/guideFiles";
 import { CardGrid } from "@/components/layout/CardGrid";
 import { cardStyles } from "@/components/ui/cardStyles";
 
 /**
- * The Higher Education Guide part of the Guidance page: the two PDF
- * downloads and the list of what's inside. Everything is written in the
- * page's language only; the "English" and "Urdu" names come from the
- * message files, never from a fixed Urdu label.
+ * The Higher Education Guide part of the Guidance page: the intro and the two
+ * PDF downloads. Everything is written in the page's language only; the
+ * "English" and "Urdu" names come from the message files, never from a fixed
+ * Urdu label.
  */
 export function GuideSection({ guides }: { guides: PublicGuides }) {
   const t = useTranslations("guide");
@@ -31,30 +31,7 @@ export function GuideSection({ guides }: { guides: PublicGuides }) {
         />
       </div>
 
-      <h3 className="mt-7 text-h3 lg:mt-10">{t("inside")}</h3>
-      <div className="mt-3 lg:mt-4">
-        <CardGrid
-          as="ol"
-          items={guideChapters.map((chapter, i) => ({
-            key: chapter,
-            node: (
-              <div
-                className={`flex h-full w-full min-w-0 items-start ${cardStyles.gap} ${cardStyles.shape} bg-card`}
-              >
-                <span className="flex size-8 shrink-0 items-center justify-center rounded-pill bg-coral text-label-s text-ink">
-                  {i + 1}
-                </span>
-                <span className="flex min-w-0 flex-col gap-0.5">
-                  <span className="text-label-l">{t(`chapters.${chapter}.title`)}</span>
-                  <span className="text-body-s text-muted">{t(`chapters.${chapter}.summary`)}</span>
-                </span>
-              </div>
-            ),
-          }))}
-        />
-      </div>
-
-      <p className="mt-5 font-script text-[30px] leading-[32px] text-deep-rose">{t("signOff")}</p>
+      <p className="mt-6 font-script text-[30px] leading-[32px] text-deep-rose">{t("signOff")}</p>
     </section>
   );
 }

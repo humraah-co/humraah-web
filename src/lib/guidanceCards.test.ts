@@ -2,7 +2,7 @@
 // columns, gaps and edges match across the Guide, Articles and Resources.
 // Run with: npm run test:unit
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { test } from "node:test";
 
 const read = (path: string) => readFileSync(new URL(path, import.meta.url), "utf8").replaceAll("\r\n", "\n");
@@ -44,5 +44,27 @@ test("What's inside, the PDF cards, articles, resources and the help note share 
       !/rounded-\[20px\] border border-border-soft/.test(source),
       `${file} has no private card shape`,
     );
+  }
+});
+
+test("What's inside and the jump buttons are gone, but the section anchors stay with a scroll offset", () => {
+  assert.equal(existsSync(new URL("../components/guidance/SectionLinks.tsx", import.meta.url)), false);
+  const page = read("../app/[locale]/guidance/page.tsx");
+  assert.ok(!page.includes("SectionLinks"));
+  assert.ok(!read("../config/guide.ts").includes("guideChapters"));
+  for (const { name, source } of sections) {
+    const id = name.toLowerCase();
+    assert.match(source, new RegExp(`<section id="${id}"[^>]*scroll-mt-24 lg:scroll-mt-28`), name);
+  }
+  // The Guide keeps its intro, its two PDF cards and the sign-off.
+  const guide = sections[0].source;
+  assert.ok(guide.includes('t("intro")') && guide.includes("DownloadCard") && guide.includes('t("signOff")'));
+  assert.ok(!guide.includes('t("inside")') && !guide.includes("chapters"));
+  for (const lang of ["en", "ur"]) {
+    const messages = JSON.parse(read(`../messages/${lang}.json`));
+    assert.equal(messages.guide.inside, undefined, lang);
+    assert.equal(messages.guide.chapters, undefined, lang);
+    assert.equal(messages.guidance.jump, undefined, lang);
+    assert.equal(messages.guidance.jumpTo, undefined, lang);
   }
 });

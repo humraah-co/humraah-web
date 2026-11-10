@@ -7,6 +7,3 @@
 
 /** The guide's languages, in the order the cards appear; names come from the "guide.languages" messages. */
 export { GUIDE_LANGUAGES as guideLanguages } from "@/lib/guideFiles";
-
-/** "What's inside", in the order of the printed guide. Titles and summaries are in "guide.chapters". */
-export const guideChapters = ["note", "why", "discover", "options", "university", "path"] as const;

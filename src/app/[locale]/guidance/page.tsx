@@ -3,7 +3,6 @@ import { getTranslations } from "next-intl/server";
 import { ArticlesSection } from "@/components/guidance/ArticlesSection";
 import { GuideSection } from "@/components/guidance/GuideSection";
 import { ResourcesSection } from "@/components/guidance/ResourcesSection";
-import { SectionLinks } from "@/components/guidance/SectionLinks";
 import { Container } from "@/components/layout/PageShell";
 import { getGuideFiles, listGuidanceArticles, listResources } from "@/lib/data/public";
 import { alternates } from "@/i18n/metadata";
@@ -40,7 +39,6 @@ export default async function GuidancePage({ params }: { params: LocaleParams })
     <Container className="pt-6 pb-10 lg:pt-12 lg:pb-16">
       <h1 className="text-h1 lg:text-[40px] lg:leading-[46px]">{t("title")}</h1>
       <p className="mt-3 text-body-m text-muted lg:mt-3.5 lg:max-w-[720px] lg:text-body-l">{t("intro")}</p>
-      <SectionLinks />
 
       <div className="mt-8 flex flex-col gap-12 lg:mt-12 lg:gap-16">
         <GuideSection guides={guides} />
