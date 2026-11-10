@@ -97,12 +97,12 @@ export default async function MenuPage({
             );
           })}
           <li className="border-b border-border-soft">
-            <Link href="/universities" className="group flex items-center gap-3.5 py-4">
+            <Link href="/search" className="group flex items-center gap-3.5 py-4">
               <span className="flex size-11 shrink-0 items-center justify-center rounded-pill bg-blush">
                 <Search className="size-[22px]" strokeWidth={1.75} aria-hidden="true" />
               </span>
               <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-                <span className="text-label-l">{nav("searchUniversities")}</span>
+                <span className="text-label-l">{nav("search")}</span>
                 <span className="text-body-s text-muted">{t("descriptions.search")}</span>
               </span>
               <ChevronRight

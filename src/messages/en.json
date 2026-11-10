@@ -20,6 +20,7 @@
     "aboutContact": "About and contact",
     "whereToStart": "Where do I start?",
     "menu": "Menu",
+    "search": "Search",
     "searchUniversities": "Search universities",
     "backTo": "Back to {section}"
   },
@@ -795,8 +796,20 @@
       "explore": "Browse fields of study",
       "universities": "Programmes, fees and how to apply",
       "scholarships": "Merit and need-based support",
-      "search": "Find a university by name or city"
+      "search": "Find universities, scholarships, fields and guidance"
     }
+  },
+  "search": {
+    "title": "Search",
+    "intro": "Search universities, scholarships, fields of study, guidance and resources.",
+    "label": "Search the site",
+    "placeholder": "Search universities, scholarships, fields…",
+    "close": "Close search",
+    "prompt": "Type a word or phrase to search.",
+    "count": "{count, plural, one {# result} other {# results}} for “{query}”",
+    "showing": "Showing {shown} of {total}",
+    "noResults": "No results for “{query}”",
+    "noResultsHint": "Try a shorter word or check the spelling, or browse:"
   },
   "notFound": {
     "script": "This path doesn't lead anywhere yet.",
