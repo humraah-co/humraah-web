@@ -4,6 +4,8 @@ import { buttonStyles } from "@/components/ui/Button";
 import { guideChapters, guideLanguages } from "@/config/guide";
 import type { PublicGuide, PublicGuides } from "@/lib/data/public";
 import { formatFileSize, guideDownloadUrl, type GuideLanguage } from "@/lib/guideFiles";
+import { CardGrid } from "@/components/layout/CardGrid";
+import { cardStyles } from "@/components/ui/cardStyles";
 
 /**
  * The Higher Education Guide part of the Guidance page: the two PDF
@@ -20,31 +22,37 @@ export function GuideSection({ guides }: { guides: PublicGuides }) {
       </h2>
       <p className="mt-2 text-body-m text-muted lg:mt-3 lg:max-w-[720px] lg:text-body-l">{t("intro")}</p>
 
-      <ul className="mt-5 grid gap-3 lg:mt-6 lg:grid-cols-2 lg:gap-6">
-        {guideLanguages.map((language) => (
-          <li key={language} className="flex">
-            <DownloadCard language={language} file={guides[language]} />
-          </li>
-        ))}
-      </ul>
+      <div className="mt-5 lg:mt-6">
+        <CardGrid
+          items={guideLanguages.map((language) => ({
+            key: language,
+            node: <DownloadCard language={language} file={guides[language]} />,
+          }))}
+        />
+      </div>
 
       <h3 className="mt-7 text-h3 lg:mt-10">{t("inside")}</h3>
-      <ol className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-        {guideChapters.map((chapter, i) => (
-          <li
-            key={chapter}
-            className="flex gap-3.5 rounded-[20px] border border-border-soft bg-card p-4 lg:flex-col lg:gap-3 lg:p-5"
-          >
-            <span className="flex size-8 shrink-0 items-center justify-center rounded-pill bg-coral text-label-s text-ink">
-              {i + 1}
-            </span>
-            <span className="flex min-w-0 flex-col gap-0.5 lg:gap-2">
-              <span className="text-label-l">{t(`chapters.${chapter}.title`)}</span>
-              <span className="text-body-s text-muted">{t(`chapters.${chapter}.summary`)}</span>
-            </span>
-          </li>
-        ))}
-      </ol>
+      <div className="mt-3 lg:mt-4">
+        <CardGrid
+          as="ol"
+          items={guideChapters.map((chapter, i) => ({
+            key: chapter,
+            node: (
+              <div
+                className={`flex h-full w-full min-w-0 items-start ${cardStyles.gap} ${cardStyles.shape} bg-card`}
+              >
+                <span className="flex size-8 shrink-0 items-center justify-center rounded-pill bg-coral text-label-s text-ink">
+                  {i + 1}
+                </span>
+                <span className="flex min-w-0 flex-col gap-0.5">
+                  <span className="text-label-l">{t(`chapters.${chapter}.title`)}</span>
+                  <span className="text-body-s text-muted">{t(`chapters.${chapter}.summary`)}</span>
+                </span>
+              </div>
+            ),
+          }))}
+        />
+      </div>
 
       <p className="mt-5 font-script text-[30px] leading-[32px] text-deep-rose">{t("signOff")}</p>
     </section>
@@ -57,7 +65,7 @@ function DownloadCard({ language: code, file }: { language: GuideLanguage; file:
   const language = t(`languages.${code}`);
   const size = file ? formatFileSize(file.sizeBytes) : null;
   return (
-    <div className="flex w-full flex-col gap-3 rounded-[20px] border border-border-soft bg-card p-4 lg:p-5">
+    <div className={`flex h-full w-full min-w-0 flex-col gap-3 ${cardStyles.shape} bg-card`}>
       <div className="min-w-0">
         <p className="text-label-l">{language}</p>
         <p className="text-caption text-muted">{file ? t("pdfSize", { size: size! }) : t("pdfSoon")}</p>
