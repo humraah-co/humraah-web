@@ -11,7 +11,7 @@ export function DesktopNavLinks() {
   const t = useTranslations("nav");
   return (
     // Labels never wrap; the gaps shrink a little on narrower screens instead.
-    <ul className="flex items-center gap-4 min-[1440px]:gap-7 xl:max-[1439px]:gap-5">
+    <ul className="flex items-center gap-5 min-[1440px]:gap-8 xl:max-[1439px]:gap-6">
       {desktopNav.map((item) => {
         const active = isActive(pathname, item.href);
         return (
