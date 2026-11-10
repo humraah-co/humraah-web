@@ -15,7 +15,7 @@ ui:nav.about,every page (menus),About,ہمارے بارے میں
 ui:nav.aboutContact,every page (menus),About and contact,تعارف اور رابطہ
 ui:nav.whereToStart,every page (menus),Where do I start?,کہاں سے شروع کروں؟
 ui:nav.menu,every page (menus),Menu,مینو
-ui:nav.searchUniversities,every page (menus),Search universities,یونیورسٹیاں تلاش کریں
+ui:nav.search,every page (menus),Search,تلاش کریں
 ui:nav.backTo,every page (menus),Back to {section},واپس: {section}
 ui:theme.darkMode,,Dark mode,ڈارک موڈ
 ui:language.label,every page (language switch),Language,زبان
@@ -40,6 +40,7 @@ ui:common.toBeConfirmed,many pages,To be confirmed.,ابھی طے نہیں۔
 ui:common.readTime,many pages,{count} min read,پڑھنے میں {count} منٹ
 ui:common.breadcrumb,many pages,Breadcrumb,آپ یہاں ہیں
 ui:common.availableInEnglish,many pages,Available in English,انگریزی میں دستیاب
+ui:common.linkedinLabel,many pages,Humraah on LinkedIn (opens in a new tab),لنکڈ اِن پر ہمراہ (نئے ٹیب میں کھلے گا)
 ui:badges.verified,many pages,Verified,تصدیق شدہ
 ui:badges.notYetVerified,many pages,Not yet verified,ابھی تصدیق نہیں ہوئی
 ui:badges.hecRecognised,many pages,HEC-recognised,HEC سے تسلیم شدہ
@@ -336,7 +337,6 @@ ui:home.heroScript,/,"For every girl who dreams, questions and hopes",ہر اس 
 ui:home.heroTitle,/,Your path to university starts here.,یونیورسٹی تک آپ کا راستہ یہاں سے شروع ہوتا ہے۔
 ui:home.heroText,/,"Find out what you could study, which universities offer it, what it costs and where to start, one step at a time.",جانیں کہ آپ کیا پڑھ سکتی ہیں، کون سی یونیورسٹیاں یہ پڑھاتی ہیں، خرچ کتنا ہے اور شروع کہاں سے کریں، ایک ایک قدم کر کے۔
 ui:home.heroStart,/,Where do I start?,کہاں سے شروع کروں؟
-ui:home.heroUniversities,/,Explore universities,یونیورسٹیاں دیکھیں
 ui:home.pathTitle,/,From “I don’t know” to “I’ve applied”,”مجھے نہیں پتا“ سے ”میں نے اپلائی کر دیا“ تک
 ui:home.step,/,Step {number},قدم {number}
 ui:home.steps.discover.title,/,Discover what you enjoy,جانیں آپ کو کیا اچھا لگتا ہے
@@ -607,7 +607,17 @@ ui:menu.descriptions.home,/menu,Start here,یہاں سے شروع کریں
 ui:menu.descriptions.explore,/menu,Browse fields of study,پڑھائی کے شعبے دیکھیں
 ui:menu.descriptions.universities,/menu,"Programmes, fees and how to apply",پروگرام، فیس اور اپلائی کرنے کا طریقہ
 ui:menu.descriptions.scholarships,/menu,Merit and need-based support,میرٹ اور ضرورت پر مبنی مدد
-ui:menu.descriptions.search,/menu,Find a university by name or city,نام یا شہر سے یونیورسٹی تلاش کریں
+ui:menu.descriptions.search,/menu,"Find universities, scholarships, fields and guidance",یونیورسٹیاں، اسکالرشپس، شعبے اور رہنمائی تلاش کریں
+ui:search.title,,Search,تلاش کریں
+ui:search.intro,,"Search universities, scholarships, fields of study, guidance and resources.",یونیورسٹیاں، اسکالرشپس، شعبے، رہنمائی اور وسائل تلاش کریں۔
+ui:search.label,,Search the site,سائٹ میں تلاش کریں
+ui:search.placeholder,,"Search universities, scholarships, fields…",یونیورسٹیاں، اسکالرشپس، شعبے تلاش کریں…
+ui:search.close,,Close search,تلاش بند کریں
+ui:search.prompt,,Type a word or phrase to search.,تلاش کے لیے کوئی لفظ یا جملہ لکھیں۔
+ui:search.count,,"{count, plural, one {# result} other {# results}} for “{query}”","“{query}” کے لیے {count, plural, one {# نتیجہ} other {# نتائج}}"
+ui:search.showing,,Showing {shown} of {total},{total} میں سے {shown} دکھائے جا رہے ہیں
+ui:search.noResults,,No results for “{query}”,“{query}” کے لیے کوئی نتیجہ نہیں ملا
+ui:search.noResultsHint,,"Try a shorter word or check the spelling, or browse:",چھوٹا لفظ آزمائیں یا ہجے دیکھ لیں، یا یہاں سے دیکھیں:
 ui:notFound.script,page not found,This path doesn't lead anywhere yet.,یہ راستہ ابھی کہیں نہیں جاتا۔
 ui:notFound.title,page not found,We couldn't find that page,ہمیں یہ صفحہ نہیں ملا
 ui:notFound.text,page not found,"It may have moved, or the link may be wrong. Let's get you back on track.",ہو سکتا ہے یہ صفحہ کہیں اور چلا گیا ہو، یا لنک غلط ہو۔ چلیں، آپ کو واپس صحیح راستے پر لاتے ہیں۔
