@@ -3,6 +3,7 @@ import { useTranslations } from "next-intl";
 import { ResourceCard } from "@/components/content/Cards";
 import type { ResourceLink } from "@/lib/data/public";
 import type { ResourceCategory } from "@/lib/database.types";
+import { CardGrid } from "@/components/layout/CardGrid";
 
 /** Groups in the Figma order (28:2422), each with its card icon. Titles are in "resources.groups". */
 const groups: { category: ResourceCategory; icon: LucideIcon }[] = [
@@ -37,9 +38,10 @@ export function ResourcesSection({ resources }: { resources: ResourceLink[] | nu
           shown.map((g) => (
             <div key={g.category} className="flex flex-col gap-2.5 lg:gap-3">
               <h3 className="text-label-l">{t(`groups.${g.category}`)}</h3>
-              <ul className="grid gap-3 md:grid-cols-2 lg:gap-6">
-                {byCategory.get(g.category)!.map((r) => (
-                  <li key={r.id} className="flex">
+              <CardGrid
+                items={byCategory.get(g.category)!.map((r) => ({
+                  key: r.id,
+                  node: (
                     <ResourceCard
                       title={r.title}
                       description={r.description}
@@ -47,9 +49,9 @@ export function ResourcesSection({ resources }: { resources: ResourceLink[] | nu
                       icon={g.icon}
                       english={r.english}
                     />
-                  </li>
-                ))}
-              </ul>
+                  ),
+                }))}
+              />
             </div>
           ))
         )}
