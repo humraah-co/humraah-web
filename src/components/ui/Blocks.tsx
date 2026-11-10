@@ -78,11 +78,18 @@ export function ImportantCallout({
 }
 
 /** Callout/Help: lavender panel pointing to Instagram and email. */
-export function HelpCallout({ className = "" }: { className?: string }) {
+export function HelpCallout({ className = "", card = false }: { className?: string; card?: boolean }) {
   const t = useTranslations("blocks");
   const link = "text-deep-rose underline underline-offset-2 hover:text-charcoal";
   return (
-    <aside className={`rounded-[18px] bg-tint-lavender p-4 ${className}`}>
+    <aside
+      className={
+        card
+          ? // The same shape as an article card (radius, border, padding), filling its grid cell; calm lavender, no hover since it is not a link.
+            `h-full w-full rounded-[20px] border border-border-soft bg-tint-lavender p-4 lg:p-5 ${className}`
+          : `rounded-[18px] bg-tint-lavender p-4 ${className}`
+      }
+    >
       <p className="flex items-center gap-2 text-label-m">
         <Heart className="size-5 shrink-0 text-deep-rose" strokeWidth={1.75} aria-hidden="true" />
         {t("helpTitle")}
