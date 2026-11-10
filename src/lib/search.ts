@@ -59,8 +59,9 @@ export type SearchResult = {
   external: boolean;
   /** True when the title itself holds the query, so these results list first. */
   titleMatch: boolean;
-  /** Fields shown in English on an Urdu page. */
-  english: string[];
+  /** The title, or the detail line, is shown in English on an Urdu page (no Urdu yet). */
+  titleEnglish: boolean;
+  detailEnglish: boolean;
 };
 
 export type SearchGroup = { kind: SearchKind; total: number; results: SearchResult[] };
@@ -119,7 +120,8 @@ export function searchContent(query: string, data: SearchData, limit = PER_TYPE_
         href: `/universities/${u.slug}`,
         external: false,
         titleMatch,
-        english: [],
+        titleEnglish: false,
+        detailEnglish: false,
       }),
     ),
     scholarships: collect(
@@ -136,7 +138,8 @@ export function searchContent(query: string, data: SearchData, limit = PER_TYPE_
         href: `/scholarships/${s.slug}`,
         external: false,
         titleMatch,
-        english: s.english,
+        titleEnglish: false,
+        detailEnglish: false,
       }),
     ),
     fields: collect(
@@ -153,7 +156,8 @@ export function searchContent(query: string, data: SearchData, limit = PER_TYPE_
         href: `/explore/${f.slug}`,
         external: false,
         titleMatch,
-        english: f.english,
+        titleEnglish: false,
+        detailEnglish: f.english.includes("summary"),
       }),
     ),
     guidance: collect(
@@ -167,7 +171,8 @@ export function searchContent(query: string, data: SearchData, limit = PER_TYPE_
         href: `/guidance/${a.slug}`,
         external: false,
         titleMatch,
-        english: a.english,
+        titleEnglish: a.english.includes("title"),
+        detailEnglish: a.english.includes("summary"),
       }),
     ),
     resources: collect(
@@ -181,7 +186,8 @@ export function searchContent(query: string, data: SearchData, limit = PER_TYPE_
         href: r.url,
         external: true,
         titleMatch,
-        english: r.english,
+        titleEnglish: r.english.includes("title"),
+        detailEnglish: r.english.includes("description"),
       }),
     ),
   };
