@@ -24,7 +24,11 @@
     "backTo": "Back to {section}"
   },
   "theme": {
-    "darkMode": "Dark mode"
+    "label": "Theme",
+    "current": "Theme: {theme}. Change theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
   },
   "language": {
     "label": "Language",
