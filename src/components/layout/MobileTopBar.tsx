@@ -8,7 +8,8 @@ import { ArrowLeft } from "lucide-react";
 import { LogoHorizontal } from "@/components/brand/Logo";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { ShareButton } from "@/components/ui/ShareButton";
-import { MenuButton, SearchButton } from "./HeaderActions";
+import { MenuButton } from "./HeaderActions";
+import { HeaderSearch } from "./HeaderSearch";
 import { LanguageSwitch } from "./LanguageSwitch";
 
 /** Sections whose detail pages (/section/slug) use "App bar/Back" on mobile; values are "nav" labels. */
@@ -47,8 +48,9 @@ export function MobileTopBar() {
   }
 
   return (
-    // gap-3 keeps at least 12 px between the logo and the language switch on the narrowest phones.
-    <div className="flex items-center justify-between gap-3 px-4 py-2.5 lg:hidden">
+    // gap-3 keeps at least 12 px between the logo and the language switch on the narrowest phones;
+    // relative, so the opened search box can cover the whole row.
+    <div className="relative flex items-center justify-between gap-3 px-4 py-2.5 lg:hidden">
       <LogoHorizontal fit="smallerOnPhones" />
       <div className="flex items-center gap-1 sm:gap-1.5">
         <LanguageSwitch />
@@ -56,7 +58,7 @@ export function MobileTopBar() {
         <span className="hidden sm:contents">
           <ThemeToggle />
         </span>
-        <SearchButton />
+        <HeaderSearch />
         <MenuButton from={stripLocale(pathname)} />
       </div>
     </div>
