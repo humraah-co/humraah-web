@@ -5,6 +5,7 @@ import { Link } from "@/i18n/navigation";
 import { Chip, ChipList, DeadlineChip, VerificationBadge } from "@/components/ui/Chip";
 import { englishAttrs } from "@/components/ui/InEnglish";
 import { Ltr } from "@/components/ui/Ltr";
+import { CardDescription } from "@/components/ui/CardDescription";
 import { cardStyles } from "@/components/ui/cardStyles";
 import type {
   FieldSummary,
@@ -16,7 +17,7 @@ import { FieldIcon } from "./FieldIcon";
 
 /**
  * Every grid card has the same anatomy, top to bottom: a row of tags, the
- * title (two lines at most), a short description (three lines at most), then
+ * title and description (two lines at most each), then
  * a bottom group pinned to the foot of the card: meta chips, a divider and
  * the footer (deadline and verification). The card fills its grid cell, so
  * cards in a row are equally tall and their footers line up. Hover and focus
@@ -24,9 +25,9 @@ import { FieldIcon } from "./FieldIcon";
  */
 const card = `group flex h-full w-full min-w-0 flex-col gap-3 ${cardStyles.shape} bg-card ${cardStyles.hover}`;
 
-/** Two lines at most, and two lines of room so descriptions below start at the same height. */
-const cardTitle = "line-clamp-2 min-h-[2lh] text-label-l";
-const cardText = "line-clamp-3 text-body-s text-muted";
+/** Two lines at most each; no reserved height, so a short title or description leaves no blank space. */
+const cardTitle = cardStyles.title;
+const cardText = cardStyles.description;
 
 /** A divider and a footer row, the last thing in the bottom group. */
 function CardFooter({ children }: { children: React.ReactNode }) {
@@ -301,16 +302,14 @@ export function ResourceCard({
       <span className="flex size-12 shrink-0 items-center justify-center rounded-pill bg-tint-lavender">
         <Icon className="size-[22px]" strokeWidth={1.75} aria-hidden="true" />
       </span>
-      <span className="flex min-w-0 flex-1 flex-col gap-1 self-stretch">
-        <span className="line-clamp-2 text-label-l" {...englishAttrs({ english }, "title")}>
+      <span className="flex min-w-0 flex-1 flex-col gap-1">
+        <span className={cardStyles.title} {...englishAttrs({ english }, "title")}>
           {title}
         </span>
         {description && (
-          <span className="line-clamp-3 text-body-s text-muted" {...englishAttrs({ english }, "description")}>
-            {description}
-          </span>
+          <CardDescription {...englishAttrs({ english }, "description")}>{description}</CardDescription>
         )}
-        <span className="mt-auto line-clamp-1 pt-1 text-caption break-words text-deep-rose">
+        <span className={`${cardStyles.meta} line-clamp-1 text-caption break-words text-deep-rose`}>
           {href ? (source ?? (external ? <Ltr>{hostOf(href)}</Ltr> : t("humraah"))) : common("comingSoon")}
         </span>
       </span>

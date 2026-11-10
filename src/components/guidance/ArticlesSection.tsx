@@ -7,6 +7,7 @@ import type { GuidanceSummary } from "@/lib/data/public";
 import { readMinutes } from "@/lib/format";
 import { Link } from "@/i18n/navigation";
 import { ArticleIcon } from "./ArticleIcon";
+import { CardDescription } from "@/components/ui/CardDescription";
 import { cardStyles } from "@/components/ui/cardStyles";
 
 /**
@@ -54,16 +55,14 @@ export function ArticlesSection({ articles }: { articles: GuidanceSummary[] | nu
                     className={`group flex h-full w-full min-w-0 items-start ${cardStyles.gap} ${cardStyles.shape} bg-card ${cardStyles.hover}`}
                   >
                     <ArticleIcon slug={a.slug} index={i} />
-                    <span className="flex min-w-0 flex-1 flex-col gap-1 self-stretch">
-                      <span className="line-clamp-2 text-label-l" {...englishAttrs(a, "title")}>
+                    <span className="flex min-w-0 flex-1 flex-col gap-1">
+                      <span className={cardStyles.title} {...englishAttrs(a, "title")}>
                         {a.title}
                       </span>
                       {a.summary && (
-                        <span className="line-clamp-3 text-body-s text-muted" {...englishAttrs(a, "summary")}>
-                          {a.summary}
-                        </span>
+                        <CardDescription {...englishAttrs(a, "summary")}>{a.summary}</CardDescription>
                       )}
-                      <span className="mt-auto flex items-center gap-1 pt-1 text-caption text-muted">
+                      <span className={`${cardStyles.meta} flex items-center gap-1 text-caption text-muted`}>
                         <Clock className="size-3.5" strokeWidth={1.75} aria-hidden="true" />
                         {common("readTime", { count: readMinutes(a.body_markdown) })}
                       </span>

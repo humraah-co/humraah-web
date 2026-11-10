@@ -26,9 +26,15 @@ test("every card fills its grid cell and pins its footer to the bottom", () => {
   assert.equal((cards.match(/<CardBottom>/g) ?? []).length >= 3, true);
 });
 
-test("titles clamp to two lines and descriptions to three", () => {
-  assert.match(cards, /line-clamp-2 min-h-\[2lh\] text-label-l/);
-  assert.match(cards, /line-clamp-3 text-body-s text-muted/);
+test("titles and descriptions both clamp to two lines, with no reserved height", () => {
+  const styles = read("components/ui/cardStyles.ts");
+  assert.match(styles, /title: "line-clamp-2 text-label-l"/);
+  assert.match(styles, /description: "line-clamp-2 text-body-s text-muted"/);
+  assert.doesNotMatch(styles + cards, /min-h-\[2lh\]/);
+  // Meta lines sit right under the description, never pushed to the foot (no mt-auto).
+  assert.match(styles, /meta: "mt-1"/);
+  const articles = read("components/guidance/ArticlesSection.tsx");
+  assert.doesNotMatch(articles, /mt-auto|self-stretch/);
 });
 
 test("tag and chip rows are limited to a fixed number of lines", () => {
