@@ -8,20 +8,23 @@ export function CardGrid({
   items,
   extra,
   wide = false,
+  as: List = "ul",
 }: {
   items: { key: string; node: React.ReactNode }[];
   extra?: React.ReactNode;
   /** Three columns from 1280 px, for pages with no side panel. */
   wide?: boolean;
+  /** "ol" for a numbered list. */
+  as?: "ul" | "ol";
 }) {
   return (
-    <ul className={`grid grid-cols-1 gap-3.5 md:grid-cols-2 lg:gap-6 ${wide ? "xl:grid-cols-3" : ""}`}>
+    <List className={`grid grid-cols-1 gap-3.5 md:grid-cols-2 lg:gap-6 ${wide ? "xl:grid-cols-3" : ""}`}>
       {items.map((item) => (
         <li key={item.key} className="flex min-w-0">
           {item.node}
         </li>
       ))}
       {extra && <li className="hidden lg:col-span-full lg:block">{extra}</li>}
-    </ul>
+    </List>
   );
 }

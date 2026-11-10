@@ -5,6 +5,7 @@ import { Link } from "@/i18n/navigation";
 import { Chip, ChipList, DeadlineChip, VerificationBadge } from "@/components/ui/Chip";
 import { englishAttrs } from "@/components/ui/InEnglish";
 import { Ltr } from "@/components/ui/Ltr";
+import { cardStyles } from "@/components/ui/cardStyles";
 import type {
   FieldSummary,
   ScholarshipCard as ScholarshipCardData,
@@ -21,8 +22,7 @@ import { FieldIcon } from "./FieldIcon";
  * cards in a row are equally tall and their footers line up. Hover and focus
  * only change the border colour.
  */
-const card =
-  "group flex h-full w-full min-w-0 flex-col gap-3 rounded-[20px] border border-border-soft bg-card p-4 transition-colors hover:border-border-strong focus-visible:border-border-strong lg:p-5";
+const card = `group flex h-full w-full min-w-0 flex-col gap-3 ${cardStyles.shape} bg-card ${cardStyles.hover}`;
 
 /** Two lines at most, and two lines of room so descriptions below start at the same height. */
 const cardTitle = "line-clamp-2 min-h-[2lh] text-label-l";
@@ -326,9 +326,8 @@ export function ResourceCard({
         ))}
     </>
   );
-  const classes =
-    "group flex h-full w-full min-w-0 items-start gap-3.5 rounded-[20px] border border-border-soft bg-card p-4 transition-colors lg:p-5";
-  const interactive = "hover:border-border-strong focus-visible:border-border-strong";
+  const classes = `group flex h-full w-full min-w-0 items-start ${cardStyles.gap} ${cardStyles.shape} bg-card transition-colors`;
+  const interactive = cardStyles.hover;
   if (!href) return <div className={classes}>{body}</div>;
   if (!external)
     return (
