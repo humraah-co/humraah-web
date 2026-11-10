@@ -20,7 +20,7 @@ test("the list pages use a real grid, not independent columns", () => {
 });
 
 test("every card fills its grid cell and pins its footer to the bottom", () => {
-  assert.match(cards, /const card =\s*"group flex h-full w-full min-w-0 flex-col/);
+  assert.match(cards, /const card = `group flex h-full w-full min-w-0 flex-col/);
   assert.match(cards, /mt-auto flex flex-col gap-3/);
   // The three grid cards and the resource card all use the shared pieces.
   assert.equal((cards.match(/<CardBottom>/g) ?? []).length >= 3, true);
@@ -37,6 +37,9 @@ test("tag and chip rows are limited to a fixed number of lines", () => {
 });
 
 test("hover only changes the border, with no movement or shadow", () => {
-  assert.match(cards, /hover:border-border-strong/);
+  // The shared card tokens carry the hover rule; the cards use them.
+  assert.match(read("components/ui/cardStyles.ts"), /hover:border-border-strong/);
+  assert.match(cards, /cardStyles.hover/);
+  assert.doesNotMatch(read("components/ui/cardStyles.ts"), /translate|shadow|animate-/);
   assert.doesNotMatch(cards, /translate|shadow-raised|animate-/);
 });
