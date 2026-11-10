@@ -536,6 +536,12 @@ const pages: { path: string; status?: number; contains?: Record<"en" | "ur", str
   { path: "/about" },
   { path: "/privacy" },
   { path: "/menu" },
+  { path: "/search" },
+  { path: "/search?q=engineering", contains: { en: "/explore/engineering", ur: "/explore/engineering" } },
+  {
+    path: "/search?q=zzzznothing",
+    contains: { en: "No results for", ur: ur.get("search.noResults")!.split("{query}")[1].trim() },
+  },
   { path: "/explore" },
   { path: "/explore?q=engineer" },
   { path: "/explore?q=zzz" },
