@@ -50,7 +50,7 @@
   color-scheme: light;
   /* The sticky site header: a 64 px row and a 1 px border on a phone, 80 px and 1 px from 1024 px. */
   --header-height: 65px;
-  /* Segmented controls (language, theme, Pakistan/International …): the corner of each option inside, and the gap round it. */
+  /* Segmented controls (language, theme, workspace choices …): the corner of each option inside, and the gap round it. */
   --segment-radius: 18px;
   --segment-pad: 4px;
 }
