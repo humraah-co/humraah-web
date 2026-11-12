@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Award, CircleAlert, Compass, Landmark, Lightbulb, Mail, Search } from "lucide-react";
 import { AddEntryMenu } from "@/components/admin/AddEntryMenu";
 import { ReviewTable } from "@/components/admin/ReviewTable";
-import { ActivityItem, PageHeader, Panel, StatCard } from "@/components/admin/Workspace";
+import { ActivityItem, PageHeader, Panel, panelInset, StatCard } from "@/components/admin/Workspace";
 import { buttonStyles } from "@/components/ui/Button";
 import { NavForm } from "@/components/ui/NavForm";
 import { FormNotice } from "@/components/ui/Field";
@@ -122,11 +122,12 @@ export default async function DashboardPage({
         )}
       </div>
 
-      <div className="flex flex-col gap-6 xl:flex-row xl:items-start">
+      {/* Side by side from 1280 px: one top edge, the same height (the taller one sets it), titles on one line and links on the bottom edge. Stacked below that. */}
+      <div className="flex flex-col gap-6 xl:flex-row xl:items-stretch">
         <Panel
           title="Needs review"
           className="min-w-0 flex-1"
-          action={
+          footer={
             <Link href="/admin/review" className={buttonStyles.text}>
               View all
             </Link>
@@ -135,10 +136,17 @@ export default async function DashboardPage({
           <ReviewTable items={data.review.slice(0, 5)} failed={data.reviewCount === null} />
         </Panel>
 
-        <section className="flex flex-col gap-[18px] rounded-[20px] border border-border-soft bg-card p-5 lg:p-6 xl:w-[340px] xl:shrink-0">
-          <h2 className="text-h3">Recent activity</h2>
+        <Panel
+          title="Recent activity"
+          className="xl:w-[340px] xl:shrink-0"
+          footer={
+            <Link href="/admin/activity" className={buttonStyles.text}>
+              Open activity log
+            </Link>
+          }
+        >
           {data.activity.length ? (
-            <ul className="flex flex-col gap-[18px]">
+            <ul className={`flex flex-col gap-[18px] pb-5 lg:pb-6 ${panelInset}`}>
               {data.activity.map((entry) => (
                 <ActivityItem
                   key={entry.id}
@@ -150,14 +158,11 @@ export default async function DashboardPage({
               ))}
             </ul>
           ) : (
-            <p className="text-body-s text-muted">
+            <p className={`pb-5 text-body-s text-muted lg:pb-6 ${panelInset}`}>
               Nothing yet. Changes to content and the team will show here.
             </p>
           )}
-          <Link href="/admin/activity" className={`${buttonStyles.text} self-start`}>
-            Open activity log
-          </Link>
-        </section>
+        </Panel>
       </div>
     </>
   );
