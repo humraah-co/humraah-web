@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ChevronDown, Search } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { UniversityCard } from "@/components/content/Cards";
@@ -10,6 +10,7 @@ import { buttonStyles } from "@/components/ui/Button";
 import { ActiveFilterChip } from "@/components/ui/Chip";
 import { FilterGroups } from "@/components/universities/FilterGroups";
 import { FilterSheet } from "@/components/ui/FilterControls";
+import { SearchBar } from "@/components/ui/SearchBar";
 import { listFields, listUniversityCards } from "@/lib/data/public";
 import {
   activeFilterCount,
@@ -21,7 +22,6 @@ import {
   toggled,
   type UniversityFilters,
 } from "@/lib/universityFilters";
-import { localizedPath } from "@/i18n/config";
 import { Link } from "@/i18n/navigation";
 import { alternates } from "@/i18n/metadata";
 import { withShare } from "@/i18n/share";
@@ -81,43 +81,12 @@ export default async function UniversitiesPage({
         <h1 className="text-h1 lg:text-[40px] lg:leading-[46px]">{t("title")}</h1>
         <p className="text-body-m text-muted lg:max-w-[720px] lg:text-body-l">{t("intro")}</p>
 
-        <form
-          role="search"
-          action={localizedPath("/universities", locale)}
-          className="flex items-center gap-3 lg:pt-2"
-        >
-          {filters.cities.map((city) => (
-            <input key={city} type="hidden" name="city" value={city} />
-          ))}
-          {filters.types.map((type) => (
-            <input key={type} type="hidden" name="type" value={type} />
-          ))}
-          {filters.field && <input type="hidden" name="field" value={filters.field} />}
-          {filters.women && <input type="hidden" name="women" value="1" />}
-          {filters.hostel && <input type="hidden" name="hostel" value="1" />}
-          {filters.aid && <input type="hidden" name="aid" value="1" />}
-          {filters.sort !== "az" && <input type="hidden" name="sort" value={filters.sort} />}
-          <label htmlFor="university-search" className="sr-only">
-            {t("search")}
-          </label>
-          <span className="flex h-[52px] min-w-0 flex-1 items-center gap-2.5 rounded-pill border border-border-strong bg-card px-[18px] lg:max-w-[560px]">
-            <Search className="size-5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
-            <input
-              id="university-search"
-              name="q"
-              type="search"
-              defaultValue={filters.q}
-              placeholder={t("search")}
-              autoComplete="off"
-              className="min-w-0 flex-1 bg-transparent text-body-m text-charcoal outline-none placeholder:text-muted"
-            />
-          </span>
-          <span className="hidden lg:block">
-            <button type="submit" className={buttonStyles.primary}>
-              {t("searchButton")}
-            </button>
-          </span>
-        </form>
+        <SearchBar
+          id="university-search"
+          label={t("search")}
+          query={filters.q}
+          href={hrefWith(filters, { q: "" })}
+        />
 
         {cards && (
           <div className="flex flex-wrap items-center gap-2 lg:hidden">

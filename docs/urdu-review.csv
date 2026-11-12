@@ -283,7 +283,6 @@ ui:universities.metaDescription,/universities,"Find universities in Pakistan, th
 ui:universities.title,/universities,Find a university,یونیورسٹی تلاش کریں
 ui:universities.intro,/universities,"Every university listed is recognised by HEC. Open one to see programmes, fees and how to apply.",یہاں دی گئی ہر یونیورسٹی HEC سے تسلیم شدہ ہے۔ کسی بھی یونیورسٹی کو کھول کر اس کے پروگرام، فیس اور اپلائی کرنے کا طریقہ دیکھیں۔
 ui:universities.search,/universities,"Search by name, city or subject",نام، شہر یا مضمون سے تلاش کریں
-ui:universities.searchButton,/universities,Search,تلاش کریں
 ui:universities.count,/universities,"{count, plural, one {# university} other {# universities}}","{count, plural, one {# یونیورسٹی} other {# یونیورسٹیاں}}"
 ui:universities.show,/universities,"Show {count, plural, one {# university} other {# universities}}","{count, plural, one {# یونیورسٹی دیکھیں} other {# یونیورسٹیاں دیکھیں}}"
 ui:universities.filters,/universities,Filters,فلٹرز

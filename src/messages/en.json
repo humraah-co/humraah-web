@@ -362,7 +362,6 @@
     "title": "Find a university",
     "intro": "Every university listed is recognised by HEC. Open one to see programmes, fees and how to apply.",
     "search": "Search by name, city or subject",
-    "searchButton": "Search",
     "count": "{count, plural, one {# university} other {# universities}}",
     "show": "Show {count, plural, one {# university} other {# universities}}",
     "filters": "Filters",
