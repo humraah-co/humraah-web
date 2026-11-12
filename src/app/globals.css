@@ -48,6 +48,13 @@
 /* Light is the default: native controls and scrollbars match it (the dark block below switches them). */
 :root {
   color-scheme: light;
+  /* The sticky site header: a 64 px row and a 1 px border on a phone, 80 px and 1 px from 1024 px. */
+  --header-height: 65px;
+}
+@media (min-width: 64rem) {
+  :root {
+    --header-height: 81px;
+  }
 }
 
 /*
@@ -102,6 +109,17 @@
       fill 150ms ease,
       stroke 150ms ease !important;
   }
+}
+
+/*
+ * At least the first screen below the sticky header (the home hero). svh is
+ * the screen with the phone browser's bars showing, so it doesn't jump as they
+ * slide; vh is the fallback for browsers without it. A minimum only: taller
+ * content still grows the block.
+ */
+@utility min-h-first-screen {
+  min-height: calc(100vh - var(--header-height));
+  min-height: calc(100svh - var(--header-height));
 }
 
 /* Figma text styles as utilities */
