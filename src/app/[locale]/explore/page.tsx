@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Search } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { FieldCard } from "@/components/content/Cards";
 import { Container } from "@/components/layout/PageShell";
 import { CardGrid } from "@/components/layout/CardGrid";
 import { RememberCallout } from "@/components/ui/Blocks";
 import { buttonStyles } from "@/components/ui/Button";
+import { SearchBar } from "@/components/ui/SearchBar";
 import { listFields, type FieldSummary } from "@/lib/data/public";
 import { countWord } from "@/lib/format";
 import { Link } from "@/i18n/navigation";
@@ -71,23 +71,7 @@ export default async function ExplorePage({
               ? t("intro", { count: fields.length, word: countWord(fields.length) })
               : t("introEmpty")}
           </p>
-          <form role="search" action="/explore" className="w-full lg:w-[560px]">
-            <label htmlFor="field-search" className="sr-only">
-              {t("search")}
-            </label>
-            <span className="flex h-[52px] items-center gap-2.5 rounded-pill border border-border-strong bg-card px-[18px]">
-              <Search className="size-5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
-              <input
-                id="field-search"
-                name="q"
-                type="search"
-                defaultValue={query}
-                placeholder={t("search")}
-                autoComplete="off"
-                className="min-w-0 flex-1 bg-transparent text-body-m text-charcoal outline-none placeholder:text-muted"
-              />
-            </span>
-          </form>
+          <SearchBar id="field-search" label={t("search")} query={query} href="/explore" />
         </div>
 
         <aside className="flex items-center gap-3 rounded-[20px] bg-lavender p-4 text-ink lg:gap-6 lg:rounded-3xl lg:p-6 xl:w-[420px] xl:shrink-0 xl:flex-col xl:items-start xl:gap-2.5">

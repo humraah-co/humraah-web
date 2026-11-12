@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ChevronDown, Search } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { ScholarshipCard } from "@/components/content/Cards";
@@ -9,6 +9,7 @@ import { ScholarshipFilterGroups } from "@/components/scholarships/FilterGroups"
 import { ImportantCallout } from "@/components/ui/Blocks";
 import { ActiveFilterChip } from "@/components/ui/Chip";
 import { FilterSheet } from "@/components/ui/FilterControls";
+import { SearchBar } from "@/components/ui/SearchBar";
 import { Segmented } from "@/components/ui/Segmented";
 import { listFields, listScholarshipCards } from "@/lib/data/public";
 import {
@@ -20,7 +21,6 @@ import {
   type ScholarshipFilters,
 } from "@/lib/scholarshipFilters";
 import { toggled } from "@/lib/universityFilters";
-import { localizedPath } from "@/i18n/config";
 import { Link } from "@/i18n/navigation";
 import { alternates } from "@/i18n/metadata";
 import { withShare } from "@/i18n/share";
@@ -73,30 +73,14 @@ export default async function ScholarshipsPage({
         <p className="text-body-m text-muted lg:max-w-[760px] lg:text-body-l">{t("intro")}</p>
 
         <div className="flex flex-col gap-3.5 lg:flex-row lg:items-center lg:gap-4 lg:pt-2">
-          <form role="search" action={localizedPath("/scholarships", locale)} className="lg:w-[560px]">
-            {filters.scope && <input type="hidden" name="scope" value={filters.scope} />}
-            {filters.types.map((type) => (
-              <input key={type} type="hidden" name="type" value={type} />
-            ))}
-            {filters.field && <input type="hidden" name="field" value={filters.field} />}
-            {filters.women && <input type="hidden" name="women" value="1" />}
-            {filters.sort !== "deadline" && <input type="hidden" name="sort" value={filters.sort} />}
-            <label htmlFor="scholarship-search" className="sr-only">
-              {t("search")}
-            </label>
-            <span className="flex h-[52px] items-center gap-2.5 rounded-pill border border-border-strong bg-card px-[18px]">
-              <Search className="size-5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
-              <input
-                id="scholarship-search"
-                name="q"
-                type="search"
-                defaultValue={filters.q}
-                placeholder={t("search")}
-                autoComplete="off"
-                className="min-w-0 flex-1 bg-transparent text-body-m text-charcoal outline-none placeholder:text-muted"
-              />
-            </span>
-          </form>
+          <div className="lg:min-w-0 lg:flex-1">
+            <SearchBar
+              id="scholarship-search"
+              label={t("search")}
+              query={filters.q}
+              href={scholarshipsHref(filters, { q: "" })}
+            />
+          </div>
           <Segmented
             label={t("scopeLabel")}
             className="lg:w-[420px]"
