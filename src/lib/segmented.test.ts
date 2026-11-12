@@ -11,7 +11,6 @@ const users = [
   "../components/ui/ThemeToggle.tsx",
   "../components/layout/LanguageSwitch.tsx",
   "../components/layout/NotificationsBell.tsx",
-  "../components/ui/Segmented.tsx",
   "../components/admin/EditorParts.tsx",
   "../components/admin/AdminNav.tsx",
 ];
@@ -43,9 +42,9 @@ test("every group has the shared padding and a 1 px border, and its options the 
     }
     assert.match(source, /\bsegment-option\b/, `${file} options use the shared corner`);
   }
-  // Theme row and theme panel, Menu language switch, deadlines row, Pakistan/International,
-  // workspace choices, and the workspace sidebar's account box.
-  assert.equal(groups, 7);
+  // Theme row and theme panel, Menu language switch, deadlines row, workspace choices,
+  // and the workspace sidebar's account box.
+  assert.equal(groups, 6);
 });
 
 test("the Menu language options fill the group's height, so the gap is even in Urdu too", () => {
