@@ -129,7 +129,7 @@ export function ScholarshipEditor({
             </FieldRow>
             <RadioSegments
               name="scope"
-              label="Where students study"
+              label="Who offers it"
               value={values.scope}
               onChange={set("scope")}
               options={scopeOptions}

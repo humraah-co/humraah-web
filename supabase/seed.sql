@@ -135,7 +135,7 @@ values
    'Financially deserving undergraduate students at participating public universities. 50% of scholarships are reserved for female students.',
    null, '{}', false, 'https://www.hec.gov.pk', 'published'),
   ('scotland-pakistan-scholarships', 'Scotland Pakistan Scholarships for Young Women & Girls', 'Scottish Government and British Council',
-   'pakistan', 'external',
+   'international', 'external',
    'For Pakistani women pursuing eligible undergraduate degrees at HEC-recognised universities.',
    'Pakistani women studying eligible undergraduate degrees at HEC-recognised universities.',
    'Depending on the award, support can include tuition fees, hostel costs and travel.',

@@ -96,9 +96,10 @@ export const scholarshipKindLabels: Record<ScholarshipKind, string> = {
   external: "External",
 };
 
+/** Who offers the scholarship (not where the student studies): a Scottish award for study in Pakistan is International. */
 export const scholarshipScopeLabels: Record<ScholarshipScope, string> = {
-  pakistan: "In Pakistan",
-  international: "International",
+  pakistan: "Pakistani provider",
+  international: "International provider",
 };
 
 export const provinces = [
