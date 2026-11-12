@@ -13,6 +13,7 @@ const users = [
   "../components/layout/NotificationsBell.tsx",
   "../components/ui/Segmented.tsx",
   "../components/admin/EditorParts.tsx",
+  "../components/admin/AdminNav.tsx",
 ];
 
 test("the option radius and the gap round it are set once, in globals.css", () => {
@@ -42,10 +43,22 @@ test("every group has the shared padding and a 1 px border, and its options the 
     }
     assert.match(source, /\bsegment-option\b/, `${file} options use the shared corner`);
   }
-  // Theme row and theme panel, Menu language switch, deadlines row, Pakistan/International, workspace choices.
-  assert.equal(groups, 6);
+  // Theme row and theme panel, Menu language switch, deadlines row, Pakistan/International,
+  // workspace choices, and the workspace sidebar's account box.
+  assert.equal(groups, 7);
 });
 
 test("the Menu language options fill the group's height, so the gap is even in Urdu too", () => {
   assert.match(read("../components/layout/LanguageSwitch.tsx"), /"flex items-stretch gap-1 segment-group/);
+});
+
+test("the workspace sidebar's theme and account boxes match: sidebar colour, soft border, shared corner", () => {
+  const nav = read("../components/admin/AdminNav.tsx");
+  const theme = read("../components/ui/ThemeToggle.tsx");
+  const box = /"[^"\n]*\bsegment-group\b[^"\n]*\bborder-border-soft\b[^"\n]*\bbg-card\b[^"\n]*"/;
+  assert.match(nav, /<aside className="[^"]*\bbg-card\b/);
+  const user = nav.slice(nav.indexOf("const user ="), nav.indexOf("const brand ="));
+  assert.match(user, box);
+  assert.match(theme.slice(theme.indexOf("function ThemeRow")), box);
+  assert.ok(!user.includes("bg-cream"), "no cream account box");
 });
