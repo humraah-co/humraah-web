@@ -178,25 +178,45 @@ export function Pager({
   );
 }
 
-/** A card holding a table or list, with an H3 title row (Figma "Needs review", "Recent activity"). */
+/**
+ * A card holding a table or list, with an H3 title row (Figma "Needs review",
+ * "Recent activity"). The title row has one fixed height, room for a text
+ * link, so panels side by side keep their titles on one line whether or not
+ * they have an action. A footer sits on the bottom edge, so panels stretched
+ * to the same height keep their links level too.
+ */
 export function Panel({
   title,
   action,
+  footer,
   children,
   className = "",
 }: {
   title: string;
   action?: React.ReactNode;
+  footer?: React.ReactNode;
   children: React.ReactNode;
   className?: string;
 }) {
   return (
-    <section className={`overflow-hidden rounded-[20px] border border-border-soft bg-card ${className}`}>
-      <div className="flex items-center gap-3 px-5 py-4 lg:px-6 lg:py-5">
+    <section
+      className={`flex flex-col overflow-hidden rounded-[20px] border border-border-soft bg-card ${className}`}
+    >
+      <div className={`flex items-center gap-3 ${panelInset} ${panelRow}`}>
         <h2 className="flex-1 text-h3">{title}</h2>
         {action}
       </div>
       {children}
+      {footer && (
+        <div className={`mt-auto flex items-center border-t border-border-soft ${panelInset} ${panelRow}`}>
+          {footer}
+        </div>
+      )}
     </section>
   );
 }
+
+/** A panel's side padding, for its own rows and for content that lines up with the title. */
+export const panelInset = "px-5 lg:px-6";
+/** Title and footer rows: room for a 40 px text link plus 16 px (20 px from 1024 px) above and below. */
+const panelRow = "min-h-[72px] py-4 lg:min-h-20 lg:py-5";

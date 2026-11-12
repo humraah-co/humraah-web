@@ -83,7 +83,7 @@ export function DashboardSkeleton() {
           </div>
         ))}
       </div>
-      <div className="flex flex-col gap-6 xl:flex-row xl:items-start">
+      <div className="flex flex-col gap-6 xl:flex-row xl:items-stretch">
         <div className="min-w-0 flex-1">
           <Rows count={5} columns={2} />
         </div>
