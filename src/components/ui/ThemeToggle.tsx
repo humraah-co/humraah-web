@@ -106,7 +106,7 @@ function ThemeRow({ choice }: { choice: ThemeChoice }) {
       <p id={labelId} className="text-label-s text-muted">
         {t("label")}
       </p>
-      <div className="flex gap-1.5 rounded-pill border border-border-soft bg-card p-1">
+      <div className="flex gap-1.5 segment-group border border-border-soft bg-card p-(--segment-pad)">
         {THEME_CHOICES.map((value) => {
           const Icon = icons[value];
           const active = value === choice;
@@ -116,7 +116,7 @@ function ThemeRow({ choice }: { choice: ThemeChoice }) {
               type="button"
               aria-pressed={active}
               onClick={() => choose(value)}
-              className={`flex min-h-11 min-w-0 flex-1 cursor-pointer flex-col items-center justify-center gap-0.5 rounded-[18px] px-1 py-1.5 text-label-s text-charcoal transition-colors ${
+              className={`flex min-h-11 min-w-0 flex-1 cursor-pointer flex-col items-center justify-center gap-0.5 segment-option px-1 py-1.5 text-label-s text-charcoal transition-colors ${
                 active ? "bg-tint-coral" : "hover:bg-blush"
               }`}
             >
@@ -175,7 +175,7 @@ function ThemeMenu({ choice }: { choice: ThemeChoice }) {
           id={panelId}
           role="group"
           aria-label={t("label")}
-          className="absolute end-0 top-full z-50 mt-2 flex w-44 flex-col gap-0.5 rounded-[18px] border border-border-soft bg-card p-1.5 shadow-raised"
+          className="absolute end-0 top-full z-50 mt-2 flex w-44 flex-col gap-0.5 segment-group border border-border-soft bg-card p-(--segment-pad) shadow-raised"
         >
           {THEME_CHOICES.map((value) => {
             const Icon = icons[value];
@@ -190,7 +190,7 @@ function ThemeMenu({ choice }: { choice: ThemeChoice }) {
                   setOpen(false);
                   trigger.current?.focus();
                 }}
-                className={`flex min-h-11 w-full cursor-pointer items-center gap-2.5 rounded-xl px-3 text-start text-label-m text-charcoal transition-colors hover:bg-blush ${
+                className={`flex min-h-11 w-full cursor-pointer items-center gap-2.5 segment-option px-3 text-start text-label-m text-charcoal transition-colors hover:bg-blush ${
                   active ? "bg-tint-coral" : ""
                 }`}
               >

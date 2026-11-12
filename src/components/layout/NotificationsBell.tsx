@@ -74,9 +74,9 @@ export function NotificationsBell({ variant = "icon" }: { variant?: "icon" | "ro
           aria-controls={panelId}
           aria-label={label}
           onClick={() => setOpen((v) => !v)}
-          className="flex min-h-12 w-full cursor-pointer items-center gap-3.5 rounded-pill border border-border-soft bg-card px-3 text-start text-label-l text-charcoal hover:bg-blush"
+          className="flex w-full cursor-pointer items-center gap-3.5 segment-group border border-border-soft bg-card p-(--segment-pad) pe-3 text-start text-label-l text-charcoal hover:bg-blush"
         >
-          <span className="relative flex size-9 shrink-0 items-center justify-center rounded-pill bg-blush">
+          <span className="relative flex size-9 shrink-0 items-center justify-center segment-option bg-blush">
             <Bell className="size-5" strokeWidth={1.75} aria-hidden="true" />
           </span>
           <span className="flex-1" aria-hidden="true">

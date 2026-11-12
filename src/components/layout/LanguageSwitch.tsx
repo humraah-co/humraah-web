@@ -47,13 +47,13 @@ export function LanguageSwitch({ variant = "pill" }: { variant?: "pill" | "menu"
   const menu = variant === "menu";
 
   const group = menu
-    ? "flex items-center gap-1 rounded-pill bg-blush p-1"
+    ? "flex items-stretch gap-1 segment-group border p-(--segment-pad) border-transparent bg-blush"
     : "flex h-11 shrink-0 items-center gap-2 rounded-pill border border-border-strong bg-card px-3.5 max-[360px]:px-3";
   // In the pill, the padding and negative margin give each link a wider tap area without moving anything.
   const segment = (current: boolean, urdu: boolean) =>
     [
       menu
-        ? "flex flex-1 items-center justify-center rounded-pill px-2"
+        ? "flex flex-1 items-center justify-center segment-option px-2"
         : "-mx-1 flex h-11 items-center px-1",
       urdu ? "font-urdu text-[13px] leading-[28px]" : menu ? "py-2.5 text-label-m" : "text-label-s",
       menu && urdu ? "py-0.5" : "",

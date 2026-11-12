@@ -15,14 +15,17 @@ export function Segmented({
   className?: string;
 }) {
   return (
-    <nav aria-label={label} className={`flex gap-1 rounded-pill bg-blush p-1 ${className}`}>
+    <nav
+      aria-label={label}
+      className={`flex gap-1 segment-group border border-transparent bg-blush p-(--segment-pad) ${className}`}
+    >
       {options.map((o) => (
         <Link
           key={o.key}
           href={o.href}
           scroll={false}
           aria-current={o.selected ? "true" : undefined}
-          className={`flex min-w-0 flex-auto items-center justify-center rounded-pill px-2 py-2.5 text-label-m whitespace-nowrap transition-colors ${
+          className={`flex min-w-0 flex-auto items-center justify-center segment-option px-2 py-2.5 text-label-m whitespace-nowrap transition-colors ${
             o.selected ? "bg-card text-charcoal" : "text-muted hover:text-charcoal"
           }`}
         >
