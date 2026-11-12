@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { OptionChip } from "@/components/ui/Chip";
 import { FieldSelect, FilterCheckbox } from "@/components/ui/FilterControls";
+import { Segmented } from "@/components/ui/Segmented";
 import type { FieldSummary } from "@/lib/data/public";
 import { toggled } from "@/lib/universityFilters";
 import {
@@ -19,10 +20,17 @@ function Group({ title, children }: { title: string; children: React.ReactNode }
   );
 }
 
+/** Where the scholarship is for: both, Pakistan or abroad (the "scope" in the address). */
+const scopeOptions = [
+  { key: "all", scope: null },
+  { key: "pakistan", scope: "pakistan" },
+  { key: "international", scope: "international" },
+] as const satisfies readonly { key: string; scope: ScholarshipFilters["scope"] }[];
+
 /**
- * Filter groups for the Scholarships page (Figma 32:1959): type of support,
- * field of study and "Good to know". Shown in the sidebar on desktop and
- * inside the sheet on phones.
+ * Filter groups for the Scholarships page (Figma 32:1959): where you'll
+ * study, type of support, field of study and "Good to know". Shown in the
+ * sidebar on desktop and inside the sheet on phones.
  */
 export function ScholarshipFilterGroups({
   filters,
@@ -37,6 +45,18 @@ export function ScholarshipFilterGroups({
   const t = useTranslations("scholarships");
   return (
     <>
+      <Group title={t("scopeLabel")}>
+        <Segmented
+          label={t("scopeLabel")}
+          options={scopeOptions.map((o) => ({
+            key: o.key,
+            label: t(`scope.${o.key}`),
+            href: scholarshipsHref(filters, { scope: o.scope }),
+            selected: filters.scope === o.scope,
+          }))}
+        />
+      </Group>
+
       <Group title={t("filterType")}>
         <div className="flex flex-wrap gap-2">
           {supportTypes
