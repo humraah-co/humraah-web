@@ -216,11 +216,11 @@ export function RadioSegments<T extends string>({
   return (
     <fieldset className="flex flex-col gap-1.5">
       <legend className="mb-1.5 text-label-m">{label}</legend>
-      <div className="flex gap-1 rounded-pill bg-blush p-1">
+      <div className="flex gap-1 segment-group border border-transparent bg-blush p-(--segment-pad)">
         {options.map((o) => (
           <label
             key={o.value}
-            className="flex min-w-0 flex-1 cursor-pointer items-center justify-center rounded-pill px-2 py-2.5 text-label-m text-muted has-checked:bg-card has-checked:text-charcoal has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-deep-rose"
+            className="flex min-w-0 flex-1 cursor-pointer items-center justify-center segment-option px-2 py-2.5 text-label-m text-muted has-checked:bg-card has-checked:text-charcoal has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-deep-rose"
           >
             <input
               type="radio"

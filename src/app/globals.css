@@ -50,6 +50,9 @@
   color-scheme: light;
   /* The sticky site header: a 64 px row and a 1 px border on a phone, 80 px and 1 px from 1024 px. */
   --header-height: 65px;
+  /* Segmented controls (language, theme, Pakistan/International …): the corner of each option inside, and the gap round it. */
+  --segment-radius: 18px;
+  --segment-pad: 4px;
 }
 @media (min-width: 64rem) {
   :root {
@@ -120,6 +123,19 @@
 @utility min-h-first-screen {
   min-height: calc(100vh - var(--header-height));
   min-height: calc(100svh - var(--header-height));
+}
+
+/*
+ * A segmented control's outline and its options share one centre for each
+ * corner, so the two edges run parallel with an even gap all the way round.
+ * The group: p-(--segment-pad) and a 1 px border (border-transparent where no
+ * line shows); its corner is the option's plus that padding plus the border.
+ */
+@utility segment-group {
+  border-radius: calc(var(--segment-radius) + var(--segment-pad) + 1px);
+}
+@utility segment-option {
+  border-radius: var(--segment-radius);
 }
 
 /* Figma text styles as utilities */
