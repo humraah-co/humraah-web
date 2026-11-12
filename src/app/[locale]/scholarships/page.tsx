@@ -10,7 +10,6 @@ import { ImportantCallout } from "@/components/ui/Blocks";
 import { ActiveFilterChip } from "@/components/ui/Chip";
 import { FilterSheet } from "@/components/ui/FilterControls";
 import { SearchBar } from "@/components/ui/SearchBar";
-import { Segmented } from "@/components/ui/Segmented";
 import { listFields, listScholarshipCards } from "@/lib/data/public";
 import {
   activeScholarshipFilterCount,
@@ -72,30 +71,12 @@ export default async function ScholarshipsPage({
         <h1 className="text-h1 lg:text-[40px] lg:leading-[46px]">{t("title")}</h1>
         <p className="text-body-m text-muted lg:max-w-[760px] lg:text-body-l">{t("intro")}</p>
 
-        <div className="flex flex-col gap-3.5 lg:flex-row lg:items-center lg:gap-4 lg:pt-2">
-          <div className="lg:min-w-0 lg:flex-1">
-            <SearchBar
-              id="scholarship-search"
-              label={t("search")}
-              query={filters.q}
-              href={scholarshipsHref(filters, { q: "" })}
-            />
-          </div>
-          <Segmented
-            label={t("scopeLabel")}
-            className="lg:w-[420px]"
-            options={[
-              { key: "all", scope: null },
-              { key: "pakistan", scope: "pakistan" as const },
-              { key: "international", scope: "international" as const },
-            ].map((o) => ({
-              key: o.key,
-              label: t(`scope.${o.key}`),
-              href: scholarshipsHref(filters, { scope: o.scope }),
-              selected: filters.scope === o.scope,
-            }))}
-          />
-        </div>
+        <SearchBar
+          id="scholarship-search"
+          label={t("search")}
+          query={filters.q}
+          href={scholarshipsHref(filters, { q: "" })}
+        />
 
         {cards && (
           <div className="flex flex-wrap items-center gap-2 lg:hidden">
@@ -202,6 +183,13 @@ function activeChips(
   t: Awaited<ReturnType<typeof getTranslations<"scholarships">>>,
 ) {
   const chips: { key: string; label: string; href: string }[] = [];
+  // Pakistan or International: the switch now sits inside the filters, so on a phone this chip is what shows it.
+  if (filters.scope)
+    chips.push({
+      key: "scope",
+      label: t(`scope.${filters.scope}`),
+      href: scholarshipsHref(filters, { scope: null }),
+    });
   for (const type of supportTypes) {
     if (filters.types.includes(type.value)) {
       chips.push({

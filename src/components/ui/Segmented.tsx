@@ -22,7 +22,7 @@ export function Segmented({
           href={o.href}
           scroll={false}
           aria-current={o.selected ? "true" : undefined}
-          className={`flex min-w-0 flex-1 items-center justify-center rounded-pill px-2 py-2.5 text-label-m whitespace-nowrap transition-colors ${
+          className={`flex min-w-0 flex-auto items-center justify-center rounded-pill px-2 py-2.5 text-label-m whitespace-nowrap transition-colors ${
             o.selected ? "bg-card text-charcoal" : "text-muted hover:text-charcoal"
           }`}
         >
