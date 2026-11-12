@@ -92,13 +92,14 @@ export function AdminNav({ me }: { me: Me }) {
   const user = (
     <div className="flex flex-col gap-2">
       <ThemeToggle variant="row" />
-      <div className="flex items-center gap-2.5 rounded-[14px] bg-cream p-3">
+      {/* The same box as the theme row above: the sidebar's own colour, the soft border and the shared corner. */}
+      <div className="flex items-stretch gap-1 segment-group border border-border-soft bg-card p-(--segment-pad)">
         {/* Opens "Your account": details, change password, sign out. */}
         <Link
           href={ACCOUNT_PATH}
           aria-label={`Your account (${me.name})`}
           aria-current={pathname === ACCOUNT_PATH ? "page" : undefined}
-          className="flex min-w-0 flex-1 items-center gap-2.5 rounded-xl hover:bg-blush"
+          className="flex min-w-0 flex-1 items-center gap-2.5 segment-option ps-1 pe-2 hover:bg-blush"
         >
           <Avatar name={me.name} toneKey={me.userId} tone="bg-tint-lavender" />
           <div className="flex min-w-0 flex-1 flex-col">
@@ -111,7 +112,7 @@ export function AdminNav({ me }: { me: Me }) {
             label="Sign out"
             pendingLabel="Signing out…"
             title="Sign out"
-            className="flex size-11 items-center justify-center rounded-pill hover:bg-blush"
+            className="flex size-11 items-center justify-center segment-option hover:bg-blush"
           >
             <LogOut className="size-5" strokeWidth={1.75} aria-hidden="true" />
           </SubmitButton>
