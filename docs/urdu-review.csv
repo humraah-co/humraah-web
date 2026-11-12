@@ -318,10 +318,9 @@ ui:scholarships.metaDescription,/scholarships,"Find scholarships and financial a
 ui:scholarships.title,/scholarships,Find a scholarship,اسکالرشپ تلاش کریں
 ui:scholarships.intro,/scholarships,"Don’t assume university is out of reach because of fees. Universities and organisations offer support for tuition, living costs, books and more.",یہ نہ سمجھیں کہ فیس کی وجہ سے یونیورسٹی آپ کی پہنچ سے باہر ہے۔ یونیورسٹیاں اور ادارے ٹیوشن، رہنے کے خرچ، کتابوں اور بہت کچھ کے لیے مدد دیتے ہیں۔
 ui:scholarships.search,/scholarships,Search scholarships,اسکالرشپس تلاش کریں
-ui:scholarships.scopeLabel,/scholarships,Where you'll study,آپ کہاں پڑھیں گی
-ui:scholarships.scope.all,/scholarships,All,سب
-ui:scholarships.scope.pakistan,/scholarships,Pakistan,پاکستان
-ui:scholarships.scope.international,/scholarships,International,بیرونِ ملک
+ui:scholarships.filterProvider,/scholarships,Who offers it,اسکالرشپ کون دیتا ہے
+ui:scholarships.providers.pakistan,/scholarships,Pakistani providers,پاکستانی ادارے
+ui:scholarships.providers.international,/scholarships,International providers,بین الاقوامی ادارے
 ui:scholarships.count,/scholarships,"{count, plural, one {# scholarship} other {# scholarships}}","{count, plural, one {# اسکالرشپ} other {# اسکالرشپس}}"
 ui:scholarships.show,/scholarships,"Show {count, plural, one {# scholarship} other {# scholarships}}","{count, plural, one {# اسکالرشپ دیکھیں} other {# اسکالرشپس دیکھیں}}"
 ui:scholarships.filters,/scholarships,Filters,فلٹرز
@@ -472,7 +471,7 @@ ui:scholarship.notConnected,/scholarships/[scholarship],The database isn't conne
 ui:scholarship.breadcrumb,/scholarships/[scholarship],Scholarships,اسکالرشپس
 ui:scholarship.needBased,/scholarships/[scholarship],Need-based,ضرورت کی بنیاد پر
 ui:scholarship.forWomen,/scholarships/[scholarship],For women,خواتین کے لیے
-ui:scholarship.studyAbroad,/scholarships/[scholarship],Study abroad,بیرونِ ملک تعلیم
+ui:scholarship.internationalProvider,/scholarships/[scholarship],International provider,بین الاقوامی ادارہ
 ui:scholarship.noSummary,/scholarships/[scholarship],A summary of this scholarship is to be confirmed.,اس اسکالرشپ کا خلاصہ ابھی طے نہیں۔
 ui:scholarship.offeredBy,/scholarships/[scholarship],Offered by {provider},دینے والا ادارہ: {provider}
 ui:scholarship.lastVerified,/scholarships/[scholarship],Last verified {date},آخری تصدیق {date}

@@ -25,10 +25,13 @@ export type SupportType = (typeof supportTypes)[number]["value"];
 
 const isSupportType = (v: string): v is SupportType => supportTypes.some((t) => t.value === v);
 
+/** Who offers a scholarship: a Pakistani or an international provider (the "scope" column). */
+export type ScholarshipProvider = ScholarshipScope;
+
 export type ScholarshipFilters = {
   q: string;
-  /** null shows both. */
-  scope: ScholarshipScope | null;
+  /** Who offers it, kept in ?scope= so older links still work. null shows both. */
+  scope: ScholarshipProvider | null;
   types: SupportType[];
   /** Field of study slug. */
   field: string | null;
@@ -61,9 +64,9 @@ export function scholarshipsHref(filters: ScholarshipFilters, patch: Partial<Sch
   return query ? `/scholarships?${query}` : "/scholarships";
 }
 
-/** How many filters are on (the search words and Pakistan/International don't count). */
+/** How many filters are on: who offers it, types, field and women (the search words don't count). */
 export function activeScholarshipFilterCount(f: ScholarshipFilters) {
-  return f.types.length + (f.field ? 1 : 0) + Number(f.women);
+  return (f.scope ? 1 : 0) + f.types.length + (f.field ? 1 : 0) + Number(f.women);
 }
 
 /** Women-only scholarships and those with places reserved for women. */
@@ -90,6 +93,7 @@ export function applyScholarshipFilters(
   const words = f.q.toLowerCase().split(/\s+/).filter(Boolean);
 
   const result = cards.filter((s) => {
+    // Who offers it, not where the student studies.
     if (f.scope && s.scope !== f.scope) return false;
     if (kinds.size > 0 && !kinds.has(s.kind)) return false;
     if (f.women && !isForWomen(s)) return false;

@@ -1,13 +1,13 @@
 import { useTranslations } from "next-intl";
 import { OptionChip } from "@/components/ui/Chip";
 import { FieldSelect, FilterCheckbox } from "@/components/ui/FilterControls";
-import { Segmented } from "@/components/ui/Segmented";
 import type { FieldSummary } from "@/lib/data/public";
 import { toggled } from "@/lib/universityFilters";
 import {
   scholarshipsHref,
   supportTypes,
   type ScholarshipFilters,
+  type ScholarshipProvider,
   type SupportType,
 } from "@/lib/scholarshipFilters";
 
@@ -20,17 +20,18 @@ function Group({ title, children }: { title: string; children: React.ReactNode }
   );
 }
 
-/** Where the scholarship is for: both, Pakistan or abroad (the "scope" in the address). */
-const scopeOptions = [
-  { key: "all", scope: null },
-  { key: "pakistan", scope: "pakistan" },
-  { key: "international", scope: "international" },
-] as const satisfies readonly { key: string; scope: ScholarshipFilters["scope"] }[];
+/**
+ * Who offers the scholarship: a Pakistani or an international provider (the
+ * "scope" column and ?scope= in the address). Not where the student studies:
+ * a Scottish scholarship for women at Pakistani universities is International.
+ */
+const providers = ["pakistan", "international"] as const satisfies readonly ScholarshipProvider[];
 
 /**
- * Filter groups for the Scholarships page (Figma 32:1959): where you'll
- * study, type of support, field of study and "Good to know". Shown in the
- * sidebar on desktop and inside the sheet on phones.
+ * Filter groups for the Scholarships page (Figma 32:1959): who offers it,
+ * type of support, field of study and "Good to know". Shown in the sidebar
+ * on desktop and inside the sheet on phones. Who offers it is one choice:
+ * picking the other chip switches, picking the chosen one clears it.
  */
 export function ScholarshipFilterGroups({
   filters,
@@ -45,16 +46,18 @@ export function ScholarshipFilterGroups({
   const t = useTranslations("scholarships");
   return (
     <>
-      <Group title={t("scopeLabel")}>
-        <Segmented
-          label={t("scopeLabel")}
-          options={scopeOptions.map((o) => ({
-            key: o.key,
-            label: t(`scope.${o.key}`),
-            href: scholarshipsHref(filters, { scope: o.scope }),
-            selected: filters.scope === o.scope,
-          }))}
-        />
+      <Group title={t("filterProvider")}>
+        <div className="flex flex-wrap gap-2">
+          {providers.map((provider) => (
+            <OptionChip
+              key={provider}
+              href={scholarshipsHref(filters, { scope: filters.scope === provider ? null : provider })}
+              selected={filters.scope === provider}
+            >
+              {t(`providers.${provider}`)}
+            </OptionChip>
+          ))}
+        </div>
       </Group>
 
       <Group title={t("filterType")}>
