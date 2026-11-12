@@ -14,8 +14,25 @@ test("the magnifier is a labelled button that reports whether the box is open", 
   assert.match(component, /aria-controls=\{panelId\}/);
 });
 
-test("the box has a label, closes on Escape and outside clicks, and moves focus in and back", () => {
-  assert.match(component, /<label htmlFor=/);
+test("the box is named by aria-label, has no placeholder, and keeps a visible focus ring", () => {
+  const box = component.slice(
+    component.indexOf("<input"),
+    component.indexOf("/>", component.indexOf("<input")),
+  );
+  assert.match(box, /aria-label=\{t\("searchLabel"\)\}/);
+  assert.ok(!box.includes("placeholder"), "no placeholder text");
+  assert.match(
+    component,
+    /focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-deep-rose/,
+  );
+});
+
+test("its strings come from nav, which the client receives, not from the server-only search messages", () => {
+  assert.ok(!component.includes('useTranslations("search")'));
+  assert.match(component, /aria-label=\{t\("searchClose"\)\}/);
+});
+
+test("the box closes on Escape and outside clicks, and moves focus in and back", () => {
   assert.match(component, /event\.key === "Escape"/);
   assert.match(component, /addEventListener\("pointerdown"/);
   assert.match(component, /input\.current\?\.focus\(\)/);

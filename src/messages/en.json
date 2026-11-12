@@ -21,6 +21,8 @@
     "whereToStart": "Where do I start?",
     "menu": "Menu",
     "search": "Search",
+    "searchLabel": "Search the site",
+    "searchClose": "Close search",
     "backTo": "Back to {section}"
   },
   "theme": {
@@ -773,7 +775,6 @@
     "intro": "Search universities, scholarships, fields of study, guidance and resources.",
     "label": "Search the site",
     "placeholder": "Search universities, scholarships, fields…",
-    "close": "Close search",
     "prompt": "Type a word or phrase to search.",
     "count": "{count, plural, one {# result} other {# results}} for “{query}”",
     "showing": "Showing {shown} of {total}",
