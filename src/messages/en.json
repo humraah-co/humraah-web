@@ -401,11 +401,10 @@
     "title": "Find a scholarship",
     "intro": "Don’t assume university is out of reach because of fees. Universities and organisations offer support for tuition, living costs, books and more.",
     "search": "Search scholarships",
-    "scopeLabel": "Where you'll study",
-    "scope": {
-      "all": "All",
-      "pakistan": "Pakistan",
-      "international": "International"
+    "filterProvider": "Who offers it",
+    "providers": {
+      "pakistan": "Pakistani providers",
+      "international": "International providers"
     },
     "count": "{count, plural, one {# scholarship} other {# scholarships}}",
     "show": "Show {count, plural, one {# scholarship} other {# scholarships}}",
@@ -593,7 +592,7 @@
     "breadcrumb": "Scholarships",
     "needBased": "Need-based",
     "forWomen": "For women",
-    "studyAbroad": "Study abroad",
+    "internationalProvider": "International provider",
     "noSummary": "A summary of this scholarship is to be confirmed.",
     "offeredBy": "Offered by {provider}",
     "lastVerified": "Last verified {date}",

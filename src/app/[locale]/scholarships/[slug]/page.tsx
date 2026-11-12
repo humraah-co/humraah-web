@@ -102,7 +102,7 @@ export default async function ScholarshipPage({ params }: Props) {
           ) : (
             isForWomen(s) && <Chip tone="coral">{t("forWomen")}</Chip>
           )}
-          {s.scope === "international" && <Chip>{t("studyAbroad")}</Chip>}
+          {s.scope === "international" && <Chip>{t("internationalProvider")}</Chip>}
         </ChipList>
         <h1 className="text-h1 lg:text-[48px] lg:leading-[52px] lg:tracking-[-0.7px]" lang="en">
           {s.name}

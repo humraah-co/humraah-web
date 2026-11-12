@@ -57,7 +57,7 @@ export default async function ScholarshipsPage({
   const filterCount = activeScholarshipFilterCount(filters);
   const fieldName = filters.field ? fieldList.find((f) => f.slug === filters.field)?.name : undefined;
   const countLabel = t("count", { count: results.length });
-  const clearHref = scholarshipsHref(filters, { types: [], field: null, women: false });
+  const clearHref = scholarshipsHref(filters, { scope: null, types: [], field: null, women: false });
   const typesOnOffer = supportTypes
     .filter((type) => cards?.some((s) => (type.kinds as readonly string[]).includes(s.kind)))
     .map((type) => type.value);
@@ -183,11 +183,11 @@ function activeChips(
   t: Awaited<ReturnType<typeof getTranslations<"scholarships">>>,
 ) {
   const chips: { key: string; label: string; href: string }[] = [];
-  // Pakistan or International: the switch now sits inside the filters, so on a phone this chip is what shows it.
+  // Who offers it: a filter like the others, removable here.
   if (filters.scope)
     chips.push({
       key: "scope",
-      label: t(`scope.${filters.scope}`),
+      label: t(`providers.${filters.scope}`),
       href: scholarshipsHref(filters, { scope: null }),
     });
   for (const type of supportTypes) {
