@@ -16,6 +16,8 @@ ui:nav.aboutContact,every page (menus),About and contact,تعارف اور را�
 ui:nav.whereToStart,every page (menus),Where do I start?,کہاں سے شروع کروں؟
 ui:nav.menu,every page (menus),Menu,مینو
 ui:nav.search,every page (menus),Search,تلاش کریں
+ui:nav.searchLabel,every page (menus),Search the site,سائٹ میں تلاش کریں
+ui:nav.searchClose,every page (menus),Close search,تلاش بند کریں
 ui:nav.backTo,every page (menus),Back to {section},واپس: {section}
 ui:theme.label,"header, /menu",Theme,تھیم
 ui:theme.current,"header, /menu",Theme: {theme}. Change theme,تھیم: {theme}۔ تھیم بدلیں
@@ -594,16 +596,15 @@ ui:menu.descriptions.explore,/menu,Browse fields of study,پڑھائی کے شع
 ui:menu.descriptions.universities,/menu,"Programmes, fees and how to apply",پروگرام، فیس اور اپلائی کرنے کا طریقہ
 ui:menu.descriptions.scholarships,/menu,Merit and need-based support,میرٹ اور ضرورت پر مبنی مدد
 ui:menu.descriptions.search,/menu,"Find universities, scholarships, fields and guidance",یونیورسٹیاں، اسکالرشپس، شعبے اور رہنمائی تلاش کریں
-ui:search.title,/search and the header search box,Search,تلاش کریں
-ui:search.intro,/search and the header search box,"Search universities, scholarships, fields of study, guidance and resources.",یونیورسٹیاں، اسکالرشپس، شعبے، رہنمائی اور وسائل تلاش کریں۔
-ui:search.label,/search and the header search box,Search the site,سائٹ میں تلاش کریں
-ui:search.placeholder,/search and the header search box,"Search universities, scholarships, fields…",یونیورسٹیاں، اسکالرشپس، شعبے تلاش کریں…
-ui:search.close,/search and the header search box,Close search,تلاش بند کریں
-ui:search.prompt,/search and the header search box,Type a word or phrase to search.,تلاش کے لیے کوئی لفظ یا جملہ لکھیں۔
-ui:search.count,/search and the header search box,"{count, plural, one {# result} other {# results}} for “{query}”","“{query}” کے لیے {count, plural, one {# نتیجہ} other {# نتائج}}"
-ui:search.showing,/search and the header search box,Showing {shown} of {total},{total} میں سے {shown} دکھائے جا رہے ہیں
-ui:search.noResults,/search and the header search box,No results for “{query}”,“{query}” کے لیے کوئی نتیجہ نہیں ملا
-ui:search.noResultsHint,/search and the header search box,"Try a shorter word or check the spelling, or browse:",چھوٹا لفظ آزمائیں یا ہجے دیکھ لیں، یا یہاں سے دیکھیں:
+ui:search.title,/search,Search,تلاش کریں
+ui:search.intro,/search,"Search universities, scholarships, fields of study, guidance and resources.",یونیورسٹیاں، اسکالرشپس، شعبے، رہنمائی اور وسائل تلاش کریں۔
+ui:search.label,/search,Search the site,سائٹ میں تلاش کریں
+ui:search.placeholder,/search,"Search universities, scholarships, fields…",یونیورسٹیاں، اسکالرشپس، شعبے تلاش کریں…
+ui:search.prompt,/search,Type a word or phrase to search.,تلاش کے لیے کوئی لفظ یا جملہ لکھیں۔
+ui:search.count,/search,"{count, plural, one {# result} other {# results}} for “{query}”","“{query}” کے لیے {count, plural, one {# نتیجہ} other {# نتائج}}"
+ui:search.showing,/search,Showing {shown} of {total},{total} میں سے {shown} دکھائے جا رہے ہیں
+ui:search.noResults,/search,No results for “{query}”,“{query}” کے لیے کوئی نتیجہ نہیں ملا
+ui:search.noResultsHint,/search,"Try a shorter word or check the spelling, or browse:",چھوٹا لفظ آزمائیں یا ہجے دیکھ لیں، یا یہاں سے دیکھیں:
 ui:notFound.script,page not found,This path doesn't lead anywhere yet.,یہ راستہ ابھی کہیں نہیں جاتا۔
 ui:notFound.title,page not found,We couldn't find that page,ہمیں یہ صفحہ نہیں ملا
 ui:notFound.text,page not found,"It may have moved, or the link may be wrong. Let's get you back on track.",ہو سکتا ہے یہ صفحہ کہیں اور چلا گیا ہو، یا لنک غلط ہو۔ چلیں، آپ کو واپس صحیح راستے پر لاتے ہیں۔

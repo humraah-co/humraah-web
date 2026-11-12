@@ -136,7 +136,7 @@ const pageOfNamespace = {
   about: "/about",
   privacy: "/privacy",
   menu: "/menu",
-  search: "/search and the header search box",
+  search: "/search",
   notFound: "page not found",
 };
 

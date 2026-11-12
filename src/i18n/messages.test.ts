@@ -2,8 +2,10 @@
 // placeholders ({name}) and tags (<email></email>) in every message.
 // Run with: npm run test:i18n
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
+import path from "node:path";
 import { test } from "node:test";
+import { fileURLToPath } from "node:url";
 
 const load = (lang: string) =>
   JSON.parse(readFileSync(new URL(`../messages/${lang}.json`, import.meta.url), "utf8")) as Record<
@@ -69,4 +71,29 @@ test("no Urdu message is left empty or in English", () => {
     .filter(([k, v]) => !sameInBoth.has(k) && !urduLetters.test(v))
     .map(([k]) => k);
   assert.deepEqual(untranslated, []);
+});
+
+// A client component only gets the namespaces the layout ships to it
+// (CLIENT_NAMESPACES in messages.ts). Reading any other namespace shows the
+// raw key ("search.placeholder") in the browser instead of the text.
+test("client components read only the namespaces the client receives", () => {
+  const src = fileURLToPath(new URL("..", import.meta.url));
+  const shipped = readFileSync(new URL("./messages.ts", import.meta.url), "utf8")
+    .match(/CLIENT_NAMESPACES = \[([\s\S]*?)\]/)![1]
+    .match(/"(\w+)"/g)!
+    .map((name) => name.slice(1, -1));
+  const files = readdirSync(src, { recursive: true, encoding: "utf8" }).filter((f) => f.endsWith(".tsx"));
+  let checked = 0;
+  for (const file of files) {
+    const source = readFileSync(path.join(src, file), "utf8");
+    if (!/^["']use client["']/m.test(source)) continue;
+    for (const [, namespace] of source.matchAll(/useTranslations\("(\w+)"\)/g)) {
+      checked++;
+      assert.ok(
+        shipped.includes(namespace),
+        `${file} reads "${namespace}", which the client does not receive`,
+      );
+    }
+  }
+  assert.ok(checked > 5, "found the client components");
 });
