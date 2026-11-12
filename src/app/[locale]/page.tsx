@@ -71,9 +71,10 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
   return (
     <>
       {/* Hero */}
-      <Container className="pt-4 pb-2 lg:pt-16 lg:pb-14">
-        <div className="flex flex-col gap-4 rounded-[32px] bg-blush px-5 py-6 lg:flex-row lg:items-center lg:gap-16 lg:rounded-none lg:bg-transparent lg:p-0">
-          <div className="flex flex-col gap-4 lg:flex-1 lg:gap-5">
+      {/* At least the first screen under the header, content centred, so the next heading starts below the fold. */}
+      <Container className="flex min-h-first-screen flex-col pt-4 pb-4 lg:py-10">
+        <div className="flex flex-1 flex-col justify-center gap-4 rounded-[32px] bg-blush px-5 py-6 lg:flex-row lg:items-center lg:gap-16 lg:rounded-none lg:bg-transparent lg:p-0">
+          <div className="flex flex-col gap-4 lg:flex-1 lg:gap-[clamp(20px,2.4svh,32px)]">
             <div className="flex items-center gap-3">
               <p className="flex-1 text-script text-charcoal lg:text-[30px] lg:leading-8 lg:text-deep-rose">
                 {t("heroScript")}
@@ -91,7 +92,7 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
 
           <div
             aria-hidden="true"
-            className="relative hidden h-[440px] w-[520px] shrink-0 items-center justify-center rounded-[40px] bg-blush lg:flex"
+            className="relative hidden h-[clamp(440px,50svh,540px)] w-[clamp(520px,min(55svh,46vw),600px)] shrink-0 items-center justify-center rounded-[40px] bg-blush lg:flex"
           >
             <LogoStacked />
             <img
@@ -99,7 +100,7 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
               alt=""
               width={80}
               height={120}
-              className="absolute start-[410px] top-[290px] block h-[120px] w-20"
+              className="absolute end-[30px] bottom-[30px] block h-[120px] w-20"
             />
             <img
               src="/brand/deco-arcs.svg"
